@@ -24,6 +24,8 @@ indexpage:
       url: https://www.netapp.com/support-and-training/documentation/
     - title: BeeGFS 문서
       url: https://doc.beegfs.io/
+    - title: TR-4915 - AI용 E-Series 및 BeeGFS를 통한 데이터 이동
+      url: https://www.netapp.com/pdf.html?item=/media/65882-tr-4915.pdf
   - title: 도구 지원
     links:
     - title: Ansible Galaxy의 NetApp E-Series 컬렉션
