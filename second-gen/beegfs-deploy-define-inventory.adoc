@@ -1,0 +1,561 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-define-inventory.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 일반 Ansible 인벤토리 구조를 정의한 후 BeeGFS 파일 시스템의 각 구성 요소에 대한 구성을 정의합니다. 
+---
+= BeeGFS 구성 요소에 대한 Ansible 인벤토리를 정의합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+일반 Ansible 인벤토리 구조를 정의한 후 BeeGFS 파일 시스템의 각 구성 요소에 대한 구성을 정의합니다.
+
+이러한 구축 지침은 관리, 메타데이터 및 스토리지 서비스를 포함한 기본 구성 요소로 구성된 파일 시스템, 메타데이터 및 스토리지 서비스를 포함하는 두 번째 구성 요소, 세 번째 스토리지 전용 구성 요소로 이루어진 파일 시스템을 구축하는 방법을 보여 줍니다.
+
+이 단계에서는 전체 BeeGFS 파일 시스템의 요구 사항을 충족하도록 NetApp BeeGFS 구성 요소를 구성하는 데 사용할 수 있는 모든 일반 구성 프로필을 보여 주기 위한 것입니다.
+
+
+NOTE: 이 섹션과 후속 섹션에서 필요에 따라 조정하여 구축할 BeeGFS 파일 시스템을 나타내는 인벤토리를 생성합니다. 특히, 스토리지 네트워크에 대해 각 블록 또는 파일 노드를 나타내는 Ansible 호스트 이름과 원하는 IP 주소 지정 스키마를 사용하여 BeeGFS 파일 노드 및 클라이언트의 수에 맞게 확장할 수 있도록 합니다.
+
+
+
+== 1단계: Ansible 인벤토리 파일을 만듭니다
+
+.단계
+. 새 'inventory.yml' 파일을 만든 다음, 필요에 따라 'eseries_storage_systems' 아래에 있는 호스트를 대체하여 구축의 블록 노드를 나타냅니다. 이름은 host_VAR/<filename>.yml에 사용되는 이름과 일치해야 합니다.
++
+....
+# BeeGFS HA (High Availability) cluster inventory.
+all:
+  children:
+    # Ansible group representing all block nodes:
+    eseries_storage_systems:
+      hosts:
+        ictad22a01:
+        ictad22a02:
+        ictad22a03:
+        ictad22a04:
+        ictad22a05:
+        ictad22a06:
+    # Ansible group representing all file nodes:
+    ha_cluster:
+      children:
+....
++
+다음 섹션에서는 클러스터에서 실행할 BeeGFS 서비스를 나타내는 "ha_cluster" 아래에 Ansible 그룹을 추가로 생성합니다.
+
+
+
+
+
+== 2단계: 관리, 메타데이터 및 스토리지 구성 요소에 대한 인벤토리를 구성합니다
+
+클러스터 또는 기본 구성 요소에서 첫 번째 구성 요소는 메타데이터 및 스토리지 서비스와 함께 BeeGFS 관리 서비스를 포함해야 합니다.
+
+.단계
+. inventory.yml에서 ha_cluster:Children 아래에 다음 매개 변수를 입력합니다.
++
+....
+      # ictad22h01/ictad22h02 HA Pair (mgmt/meta/storage building block):
+        mgmt:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+....
+. 'group_vars/mgmt.yml' 파일을 생성하고 다음을 포함합니다.
++
+....
+# mgmt - BeeGFS HA Management Resource Group
+# OPTIONAL: Override default BeeGFS management configuration:
+# beegfs_ha_beegfs_mgmtd_conf_resource_group_options:
+#  <beegfs-mgmt.conf:key>:<beegfs-mgmt.conf:value>
+floating_ips:
+  - i1b: 100.127.101.0/16
+  - i2b: 100.128.102.0/16
+beegfs_service: management
+beegfs_targets:
+  ictad22a01:
+    eseries_storage_pool_configuration:
+      - name: beegfs_m1_m2_m5_m6
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 1
+            owning_controller: A
+....
+. group_vars/ 아래에서 다음 템플릿을 사용하여 META_08을 통해 자원 그룹 META_01에 대한 파일을 만든 다음 아래 표를 참조하여 각 서비스에 대한 자리 표시자 값을 입력합니다.
++
+....
+# meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: <PORT>
+  connMetaPortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET> # Example: i1b:192.168.120.1/16
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: metadata
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 21.25 # SEE NOTE BELOW!
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 볼륨 크기는 전체 스토리지 풀(볼륨 그룹이라고도 함)의 백분율로 지정됩니다. SSD 오버 프로비저닝을 위해 각 풀에 여유 용량을 남겨 두는 것이 좋습니다(자세한 내용은 참조) https://www.netapp.com/pdf.html?item=/media/17009-tr4800pdf.pdf["NetApp EF600 어레이 소개"^])를 클릭합니다. 스토리지 풀 'begfs_m1_m2_m5_m6'도 관리 서비스를 위해 풀 용량의 1%를 할당합니다. 따라서 스토리지 풀의 메타데이터 볼륨에 대해 1.92TB 또는 3.84TB 드라이브를 사용할 때 Beegfs_M1_m2_M5_M6의 경우 이 값을 21.25로 설정하고, 7.65TB 드라이브의 경우 이 값을 22.25로 설정하고, 15.3TB 드라이브의 경우 이 값을 23.75로 설정합니다.
+
++
+|===
+| 파일 이름입니다 | 포트 | 유동 IP | NUMA 영역 | 블록 노드 | 스토리지 풀 | 소유 컨트롤러 
+
+
+| meta_01.yml | 8015 | i1b: 100.127.101.1 / 16 i2b: 100.128.102.1 / 16 | 0 | ictad22a01 | Beegfs_m1_m2_m5_m6 | A 
+
+
+| meta_02.yml | 8025 | i2b:100.128.102.2/16 i1b:100.127.101.2/16 | 0 | ictad22a01 | Beegfs_m1_m2_m5_m6 | B 
+
+
+| meta_03.yml | 8035 | i3b:100.127.101.3/16 i4b:100.128.102.3/16 | 1 | ictad22a02 | Beegfs_m3_M4_M7_M8 | A 
+
+
+| meta_04.yml | 8045 | i4b:100.128.102.4/16 i3b:100.127.101.4/16 | 1 | ictad22a02 | Beegfs_m3_M4_M7_M8 | B 
+
+
+| meta_05.yml | 8055 | i1b: 100.127.101.5 / 16 i2b: 100.128.102.5 / 16 | 0 | ictad22a01 | Beegfs_m1_m2_m5_m6 | A 
+
+
+| meta_06.yml | 8065 | i2b:100.128.102.6/16 i1b:100.127.101.6/16 | 0 | ictad22a01 | Beegfs_m1_m2_m5_m6 | B 
+
+
+| meta_07.yml | 8075 | i3b:100.127.101.7 / 16 i4b:100.128.102.7 / 16 | 1 | ictad22a02 | Beegfs_m3_M4_M7_M8 | A 
+
+
+| META_08.월 | 8085 | i4b:100.128.102.8/16 i3b:100.127.101.8/16 | 1 | ictad22a02 | Beegfs_m3_M4_M7_M8 | B 
+|===
+. group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_08'을 통해 리소스 그룹 tor_01에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.
++
+....
+# stor_0X - BeeGFS HA Storage Resource Groupbeegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!             owning_controller: <OWNING CONTROLLER>
+          - size: 21.50            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 올바른 크기는 을 참조하십시오 link:beegfs-deploy-recommended-volume-percentages.html["권장되는 스토리지 풀 오버 프로비저닝 비율"].
+
++
+|===
+| 파일 이름입니다 | 포트 | 유동 IP | NUMA 영역 | 블록 노드 | 스토리지 풀 | 소유 컨트롤러 
+
+
+| STOR_01.대칭 | 8013 | i1b: 100.127.103.1 / 16 i2b: 100.128.104.1 / 16 | 0 | ictad22a01 | Beegfs_s1_s2 | A 
+
+
+| STOR_02.월 | 8023 | i2b:100.128.104.2 / 16 i1b:100.127.103.2 / 16 | 0 | ictad22a01 | Beegfs_s1_s2 | B 
+
+
+| STOR_03.월 | 8033 | i3b:100.127.103.3 / 16 i4b:100.128.104.3 / 16 | 1 | ictad22a02 | Beegfs_S3_S4 | A 
+
+
+| STOR_04.yml | 8043 | i4b:100.128.104.4/16 i3b:100.127.103.4/16 | 1 | ictad22a02 | Beegfs_S3_S4 | B 
+
+
+| STOR_05.월 | 8053 | i1b: 100.127.103.5 / 16 i2b: 100.128.104.5 / 16 | 0 | ictad22a01 | Beegfs_S5_S6 | A 
+
+
+| STOR_06.대칭 | 8063 | i2b:100.128.104.6/16 i1b:100.127.103.6/16 | 0 | ictad22a01 | Beegfs_S5_S6 | B 
+
+
+| STOR_07.월 | 8073 | i3b:100.127.103.7 / 16 i4b:100.128.104.7 / 16 | 1 | ictad22a02 | Beegfs_S7_s8 | A 
+
+
+| STOR_08.월 | 8083 | i4b:100.128.104.8 / 16 i3b:100.127.103.8/16 | 1 | ictad22a02 | Beegfs_S7_s8 | B 
+|===
+
+
+
+
+== 3단계: 메타데이터 + 스토리지 구성 요소에 대한 인벤토리를 구성합니다
+
+다음 단계에서는 BeeGFS 메타데이터 + 스토리지 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다.
+
+.단계
+. 'inventory.yml'에서 기존 설정 아래에 다음 파라미터를 입력합니다.
++
+....
+        meta_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+....
+. group_vars/ 아래에서 다음 템플릿을 사용하여 META_16을 통해 자원 그룹 META_09 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.
++
+....
+# meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: <PORT>
+  connMetaPortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: metadata
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb: 128
+        volumes:
+          - size: 21.5 # SEE NOTE BELOW!
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 올바른 크기는 을 참조하십시오 link:beegfs-deploy-recommended-volume-percentages.html["권장되는 스토리지 풀 오버 프로비저닝 비율"].
+
++
+|===
+| 파일 이름입니다 | 포트 | 유동 IP | NUMA 영역 | 블록 노드 | 스토리지 풀 | 소유 컨트롤러 
+
+
+| META_09.대칭 | 8015 | i1b: 100.127.101.9 / 16 i2b: 100.128.102.9 / 16 | 0 | ictad22a03 | Beegfs_m9_M10_M13_M14 | A 
+
+
+| META_10.월 | 8025 | i2b:100.128.102.10/16 i1b:100.127.101.10/16 | 0 | ictad22a03 | Beegfs_m9_M10_M13_M14 | B 
+
+
+| meta_11.yml | 8035 | i3b:100.127.101.11 / 16 i4b:100.128.102.11 / 16 | 1 | ictad22a04 | Beegfs_M11_M12_M15_M16 | A 
+
+
+| META_12.월 | 8045 | i4b:100.128.102.12/16 i3b:100.127.101.12/16 | 1 | ictad22a04 | Beegfs_M11_M12_M15_M16 | B 
+
+
+| META_13.월 | 8055 | i1b:100.127.101.13/16 i2b:100.128.102.13/16 | 0 | ictad22a03 | Beegfs_m9_M10_M13_M14 | A 
+
+
+| meta_14.yml | 8065 | i2b:100.128.102.14 / 16 i1b:100.127.101.14 / 16 | 0 | ictad22a03 | Beegfs_m9_M10_M13_M14 | B 
+
+
+| META_15.월 | 8075 | i3b:100.127.101.15/16 i4b:100.128.102.15/16 | 1 | ictad22a04 | Beegfs_M11_M12_M15_M16 | A 
+
+
+| meta_16.yml | 8085 | i4b:100.128.102.16/16 i3b:100.127.101.16/16 | 1 | ictad22a04 | Beegfs_M11_M12_M15_M16 | B 
+|===
+. group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_16'을 통해 리소스 그룹 tor_09에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.
++
+....
+# stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: <OWNING CONTROLLER>
+          - size: 21.50            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 올바른 크기는 을 참조하십시오 link:beegfs-deploy-recommended-volume-percentages.html["권장되는 스토리지 풀 오버 프로비저닝 비율"]...
+
++
+|===
+| 파일 이름입니다 | 포트 | 유동 IP | NUMA 영역 | 블록 노드 | 스토리지 풀 | 소유 컨트롤러 
+
+
+| STOR_09.대칭 | 8013 | i1b: 100.127.103.9 / 16 i2b: 100.128.104.9 / 16 | 0 | ictad22a03 | Beegfs_S9_S10 | A 
+
+
+| STOR_10.월 | 8023 | i2b:100.128.104.10/16 i1b:100.127.103.10/16 | 0 | ictad22a03 | Beegfs_S9_S10 | B 
+
+
+| STOR_11.월 | 8033 | i3b:100.127.103.11 / 16 i4b:100.128.104.11 / 16 | 1 | ictad22a04 | Beegfs_s11_s12 | A 
+
+
+| STOR_12.월 | 8043 | i4b:100.128.104.12/16 i3b:100.127.103.12/16 | 1 | ictad22a04 | Beegfs_s11_s12 | B 
+
+
+| STOR_13.월 | 8053 | i1b: 100.127.103.13 / 16 i2b: 100.128.104.13 / 16 | 0 | ictad22a03 | Beegfs_S13_s14 | A 
+
+
+| STOR_14.월 | 8063 | i2b:100.128.104.14 / 16 i1b:100.127.103.14 / 16 | 0 | ictad22a03 | Beegfs_S13_s14 | B 
+
+
+| STOR_15.월 | 8073 | i3b:100.127.103.15 / 16 i4b:100.128.104.15 / 16 | 1 | ictad22a04 | Beegfs_s15_S16 | A 
+
+
+| STOR_16.월 | 8083 | i4b:100.128.104.16/16 i3b:100.127.103.16/16 | 1 | ictad22a04 | Beegfs_s15_S16 | B 
+|===
+
+
+
+
+== 4단계: 스토리지 전용 구성 요소에 대한 인벤토리를 구성합니다
+
+다음 단계에서는 BeeGFS 스토리지 전용 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다. 메타데이터 + 스토리지에 대한 구성을 설정하는 것과 스토리지 전용 구성 블록에 대한 구성을 설정하는 것의 주된 차이점은 모든 메타데이터 리소스 그룹이 생략되고 각 스토리지 풀에 대해 "criteria_drive_count"를 10에서 12로 변경하는 것입니다.
+
+.단계
+. 'inventory.yml'에서 기존 설정 아래에 다음 파라미터를 입력합니다.
++
+....
+      # ictad22h05/ictad22h06 HA Pair (storage only building block):
+        stor_17:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_18:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_19:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_20:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_21:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_22:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_23:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_24:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+....
+. group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_24'를 통해 리소스 그룹 tor_17에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.
++
+....
+# stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 12
+        common_volume_configuration:
+          segment_size_kb: 512
+        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: <OWNING CONTROLLER>
+          - size: 21.50
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 올바른 크기는 을 참조하십시오 link:beegfs-deploy-recommended-volume-percentages.html["권장되는 스토리지 풀 오버 프로비저닝 비율"].
+
++
+|===
+| 파일 이름입니다 | 포트 | 유동 IP | NUMA 영역 | 블록 노드 | 스토리지 풀 | 소유 컨트롤러 
+
+
+| STOR_17.월 | 8013 | i1b: 100.127.103.17 / 16 i2b: 100.128.104.17 / 16 | 0 | ictad22a05 | Beegfs_S17_s18 | A 
+
+
+| STOR_18.월 | 8023 | i2b:100.128.104.18 / 16 i1b:100.127.103.18 / 16 | 0 | ictad22a05 | Beegfs_S17_s18 | B 
+
+
+| STOR_19.대칭 | 8033 | i3b:100.127.103.19 / 16 i4b:100.128.104.19 / 16 | 1 | ictad22a06 | Beegfs_S19_S20 | A 
+
+
+| STOR_20.월 | 8043 | i4b:100.128.104.20 / 16 i3b:100.127.103.20 / 16 | 1 | ictad22a06 | Beegfs_S19_S20 | B 
+
+
+| STOR_21.대칭 | 8053 | i1b: 100.127.103.21 / 16 i2b: 100.128.104.21 / 16 | 0 | ictad22a05 | Beegfs_s21_S22 | A 
+
+
+| STOR_22.월 | 8063 | i2b:100.128.104.22/16 i1b:100.127.103.22/16 | 0 | ictad22a05 | Beegfs_s21_S22 | B 
+
+
+| STOR_23.월 | 8073 | i3b:100.127.103.23 / 16 i4b:100.128.104.23 / 16 | 1 | ictad22a06 | Beegfs_S23_S24 | A 
+
+
+| STOR_24.월 | 8083 | i4b:100.128.104.24 / 16 i3b:100.127.103.24 / 16 | 1 | ictad22a06 | Beegfs_S23_S24 | B 
+|===
+

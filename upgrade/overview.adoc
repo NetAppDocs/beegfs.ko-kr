@@ -1,0 +1,14 @@
+---
+permalink: upgrade/overview.html 
+sidebar: sidebar 
+keywords: upgrade, overview 
+summary: 업그레이드 개요 
+---
+= 업그레이드 개요
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lorem ipsum dolor sit amet, detur adipiscing elit, SED do eiusmod tempor incidiudunt ut labore et dolore magna dia.

@@ -1,0 +1,36 @@
+---
+indexpage:
+  lead: NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture)로, BeeGFS 병렬 파일 시스템을
+    NetApp EF600 스토리지 시스템과 결합합니다. 이 솔루션은 가장 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인
+    인프라입니다.
+  tiles:
+  - title: 시작하십시오
+    links:
+    - title: 솔루션 개요
+      url: "/beegfs-solution-overview.html"
+    - title: 아키텍처 개요
+      url: "/beegfs-architecture-overview.html"
+    - title: 블로그 - BeeGFS 및 E-Series에 대해 알아보십시오
+      url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
+    - title: 블로그 - 초보자를 위한 BeeGFS
+      url: https://www.netapp.com/blog/beegfs-for-beginners/
+    - title: 블로그 - BeeGFS의 HA
+      url: https://www.netapp.com/blog/high-availability-beegfs/
+    - title: 비디오 - NetApp 기반의 BeeGFS로 AI 워크로드 가속화
+      url: https://www.netapp.tv/details/28905?mcid=04158305605030681010298851103052321172
+  - title: 추가 문서
+    links:
+    - title: NetApp 제품 설명서
+      url: https://www.netapp.com/support-and-training/documentation/
+    - title: BeeGFS 문서
+      url: https://doc.beegfs.io/
+  - title: 도구 지원
+    links:
+    - title: Ansible Galaxy의 NetApp E-Series 컬렉션
+      url: https://galaxy.ansible.com/netapp_eseries
+    - title: NetApp 상호 운용성 매트릭스
+      url: http://mysupport.netapp.com/matrix/
+    - title: NetApp 기술 자료
+      url: https://kb.netapp.com/
+    - title: Active IQ(로그인 필요)
+      url: https://activeiq.netapp.com/?source=aiqnsspage

@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: beegfs-solution-overview.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하여 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라를 제공합니다. 
+---
+= 솔루션 개요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하여 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라를 제공합니다.
+
+이 설계에서는 최신 엔터프라이즈 서버 및 스토리지 하드웨어와 네트워크 속도를 통해 제공되는 성능 밀도와 듀얼 AMD EPYC 7003 “Milan” 프로세서를 갖춘 파일 노드 및 200GB(HDR) InfiniBand를 사용하는 직접 연결 PCIe 4.0을 지원하는 NVMe/IB 프로토콜을 사용하는 엔드 투 엔드 NVMe 및 NVMeOF를 제공하는 블록 노드 필요.
+
+
+
+== NVA 프로그램
+
+NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture) 프로그램에 포함되어 있으며, 특정 워크로드 및 사용 사례에 대한 참조 구성 및 사이징 지침을 고객에게 제공합니다. NVA 솔루션은 구축 위험을 최소화하고 시장 출시 기간을 단축할 수 있도록 철저한 테스트와 설계를 거쳤습니다.
+
+
+
+== 사용 사례
+
+NetApp 기반 BeeGFS 솔루션에는 다음 사용 사례가 적용됩니다.
+
+* 머신 러닝(ML), 딥 러닝(DL), 대규모 자연어 처리(NLP), 자연어 이해(NLU)를 비롯한 인공 지능(AI) 자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/beefs-for-ai-fact-vs-fiction/["AI용 BeeGFS: 팩션과 픽션 비교"^].
+* MPI(메시지 전달 인터페이스) 및 기타 분산 컴퓨팅 기술에 의해 가속되는 응용 프로그램을 포함한 고성능 컴퓨팅(HPC). 자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/beegfs-for-ai-ml-dl/["BeeGFS가 HPC를 넘어서는 이유"^].
+* 애플리케이션 워크로드의 특징:
++
+** 1GB 이상의 파일을 읽거나 쓰는 중입니다
+** 여러 클라이언트(10s, 100s 및 1000)에서 동일한 파일을 읽거나 쓰는 경우
+
+
+* 테라바이트급 또는 페타바이트급의 데이터 세트
+* 크기가 큰 파일과 작은 파일을 혼합하여 사용할 수 있도록 최적화되는 단일 스토리지 네임스페이스가 필요한 환경
+
+
+
+
+== 이점
+
+NetApp에서 BeeGFS를 사용할 때의 주요 이점은 다음과 같습니다.
+
+* 검증된 하드웨어 설계를 통해 하드웨어 및 소프트웨어 구성요소를 완벽하게 통합하여 예측 가능한 성능과 안정성을 보장합니다.
+* Ansible을 사용한 구축 및 관리로 단순성과 일관성 확보
+* E-Series Performance Analyzer 및 BeeGFS 플러그인을 사용하여 제공되는 모니터링 및 관찰 가능성 자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/monitoring-netapp-eseries/["NetApp E-Series 솔루션을 모니터링하는 프레임워크 소개"^].
+* 데이터 내구성과 가용성을 제공하는 공유 디스크 아키텍처를 갖춘 고가용성
+* 컨테이너 및 Kubernetes를 사용하여 최신 워크로드 관리 및 오케스트레이션 지원 자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/kubernetes-meet-beegfs/["Kubernetes에서 BeeGFS를 만나 보십시오. 미래 지향형 투자 이야기입니다"^].
+
+
+
+
+== HA 아키텍처
+
+NetApp 기반의 BeeGFS는 NetApp 하드웨어로 완벽하게 통합된 솔루션을 생성하여 공유 디스크 HA(고가용성) 아키텍처를 지원하여 BeeGFS 엔터프라이즈 에디션의 기능을 확장합니다.
+
+
+NOTE: BeeGFS 커뮤니티 에디션은 무료로 사용할 수 있지만, 이 엔터프라이즈 에디션은 NetApp과 같은 파트너로부터 프로페셔널 지원 구독 계약을 구매해야 합니다. Enterprise Edition에서는 복원력, 할당량 적용 및 스토리지 풀을 비롯한 몇 가지 추가 기능을 사용할 수 있습니다.
+
+다음 그림에서는 공유 안 함 및 공유 디스크 HA 아키텍처를 비교하여 보여 줍니다.
+
+image:../media/beegfs-design-image1.png[""]
+
+자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/high-availability-beegfs/["NetApp에서 지원하는 BeeGFS에 대한 고가용성 발표"^].
+
+
+
+== Ansible
+
+NetApp 기반 BeeGFS는 GitHub 및 Ansible Galaxy(BeeGFS 컬렉션)에서 호스팅되는 Ansible 자동화를 통해 제공 및 구축됩니다 https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible 갤럭시"^] 및 https://github.com/netappeseries/beegfs/["NetApp의 E-Series GitHub를 참조하십시오"^])를 클릭합니다. Ansible은 BeeGFS 구성 요소를 조립하는 데 사용되는 하드웨어에서 주로 테스트되지만, 지원되는 Linux 배포를 사용하여 거의 모든 x86 기반 서버에서 실행되도록 구성할 수 있습니다.
+
+자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/deploying-beegfs-eseries/["E-Series 스토리지를 통해 BeeGFS 구축"^].

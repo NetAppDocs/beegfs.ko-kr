@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-recommended-volume-percentages.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개를 따르는 경우 다음 권장 비율을 참조하십시오. 
+---
+= 권장되는 스토리지 풀 오버 프로비저닝 비율
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개를 따르는 경우 다음 표를 참조하십시오.
+
+이 표에는 각 BeeGFS 메타데이터 또는 스토리지 타겟에 대한 "eseries_storage_pool_configuration"의 볼륨 크기로 사용할 권장 비율이 나와 있습니다.
+
+|===
+| 드라이브 크기 | 크기 
+
+
+| 1.92TB | 18 
+
+
+| 3.84TB | 21.5 
+
+
+| 7.68TB | 22.5 
+
+
+| 15.3TB | 24 
+|===
+
+NOTE: 위의 지침은 관리 서비스가 포함된 스토리지 풀에 적용되지 않으며, 관리 데이터에 대해 스토리지 풀의 1%를 할당하기 위해 위의 크기를 .25%까지 줄여야 합니다.
+
+이러한 값이 어떻게 결정되었는지 확인하려면 을 참조하십시오 https://www.netapp.com/media/17009-tr4800.pdf["TR-4800: 부록 A: SSD 내구성 및 오버 프로비저닝 이해"^].

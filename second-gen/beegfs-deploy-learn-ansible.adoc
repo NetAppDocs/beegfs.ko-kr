@@ -1,0 +1,103 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-learn-ansible.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 구축을 시작하기 전에, Ansible을 사용하여 2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 솔루션에서 BeeGFS를 구성 및 구축하는 방법을 이해해야 합니다. 
+---
+= Ansible 인벤토리에 대해 알아보십시오
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+구축을 시작하기 전에, Ansible을 사용하여 2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 솔루션에서 BeeGFS를 구성 및 구축하는 방법을 이해해야 합니다.
+
+Ansible 인벤토리는 파일 및 블록 노드의 구성을 정의하며 구축할 BeeGFS 파일 시스템을 나타냅니다. 인벤토리는 원하는 BeeGFS 파일 시스템을 설명하는 호스트, 그룹 및 변수를 포함합니다. 샘플 재고는 에서 다운로드할 수 있습니다 https://github.com/netappeseries/beegfs/tree/master/getting_started/["NetApp E-Series BeeGFS GitHub를 참조하십시오"^].
+
+
+
+== Ansible 모듈 및 역할
+
+Ansible 인벤토리에서 설명한 구성을 적용하려면 NetApp E-Series Ansible 컬렉션에서 제공하는 다양한 Ansible 모듈 및 역할, 특히 BeeGFS HA 7.2 역할(에서 제공)을 사용하십시오 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_2["NetApp E-Series BeeGFS GitHub를 참조하십시오"^])를 구축하는 것이 좋습니다.
+
+NetApp E-Series Ansible 컬렉션에서 각 역할은 NetApp 솔루션 기반의 BeeGFS를 완벽하게 구축하는 데 있습니다. 이 역할은 NetApp E-Series SANtricity, 호스트 및 BeeGFS 컬렉션을 사용하여 HA(High Availability)를 통해 BeeGFS 파일 시스템을 구성할 수 있습니다. 그런 다음 스토리지를 프로비저닝하고 매핑하고 클러스터 스토리지를 사용할 준비가 되었는지 확인할 수 있습니다.
+
+역할에 맞는 심층적인 문서가 제공되지만, 구축 절차에서는 제2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 검증 아키텍처를 구축하는 데 역할을 사용하는 방법에 대해 설명합니다.
+
+
+NOTE: Ansible에 대한 사전 경험이 사전 필수 요소가 될 수 있도록 구축 단계에서 자세한 정보를 제공하려고 하지만, Ansible 및 관련 용어에 친숙해야 합니다.
+
+
+
+== BeeGFS HA 클러스터의 인벤토리 레이아웃
+
+Ansible 인벤토리 구조를 사용하여 BeeGFS HA 클러스터를 정의합니다.
+
+이전 Ansible 경험을 가진 사람이라면 누구나 BeeGFS HA 역할이 각 호스트에 적용되는 변수(또는 팩트)를 검색하는 맞춤형 방법을 구현한다는 점을 알고 있어야 합니다. 이는 여러 서버에서 실행될 수 있는 리소스를 설명하는 Ansible 인벤토리를 작성하는 작업을 단순화하기 위해 필요합니다.
+
+Ansible 재고는 일반적으로 'host_vars'와 'group_vars'에 있는 파일과 특정 그룹(또는 다른 그룹에 잠재적으로 그룹)에 호스트를 할당하는 재고 .yml 파일로 구성됩니다.
+
+
+NOTE: 본 하위 섹션의 내용을 포함하는 파일을 만들지 마십시오. 이 내용은 예제로만 제공됩니다.
+
+이 구성은 구성 프로필을 기반으로 사전 결정됩니다. 하지만 다음과 같이 Ansible 인벤토리로 모든 내용을 레이아웃하는 방법을 전반적으로 이해해야 합니다.
+
+....
+# BeeGFS HA (High Availability) cluster inventory.
+all:
+  children:
+    # Ansible group representing all block nodes:
+    eseries_storage_systems:
+      hosts:
+        ictad22a01:
+        ictad22a02:
+        ictad22a03:
+        ictad22a04:
+        ictad22a05:
+        ictad22a06:
+    # Ansible group representing all file nodes:
+    ha_cluster:
+      children:
+        meta_01:  # Group representing a metadata service with ID 01.
+          hosts:
+            file_node_01:  # This service is preferred on the first file node.
+            file_node_02:  # And can failover to the second file node.
+        meta_02:  # Group representing a metadata service with ID 02.
+          hosts:
+            file_node_02:  # This service is preferred on the second file node.
+            file_node_01: # And can failover to the first file node.
+....
+각 서비스에 대해 해당 구성을 설명하는 group_vars 아래에 추가 파일이 생성됩니다.
+
+....
+# meta_01 - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: 8015
+  connMetaPortUDP: 8015
+  tuneBindToNumaZone: 0
+floating_ips:
+  - i1b: <IP>/<SUBNET_MASK>
+  - i4b: <IP>/<SUBNET_MASK>
+# Type of BeeGFS service the HA resource group will manage.
+beegfs_service: metadata # Choices: management, metadata, storage.
+# What block node should be used to create a volume for this service:
+beegfs_targets:
+  ictad22a01:
+    eseries_storage_pool_configuration:
+      - name: beegfs_m1_m2_m5_m6
+        raid_level: raid1
+        criteria_drive_count: 4
+        owning_controller: A
+        common_volume_configuration:
+          segment_size_kb: 128
+        volumes:
+          - size: 21.25
+....
+이 레이아웃을 통해 각 리소스에 대한 BeeGFS 서비스, 네트워크 및 스토리지 구성을 단일 위치에서 정의할 수 있습니다. BeeGFS 역할은 이러한 인벤토리 구조를 기반으로 각 파일 및 블록 노드에 필요한 구성을 집계합니다. 자세한 내용은 다음 블로그 게시물을 참조하십시오. https://www.netapp.com/blog/accelerate-deployment-of-ha-for-beegfs-with-ansible/["NetApp은 Ansible을 사용하여 BeeGFS에 대한 HA 구축을 가속화합니다"^].
+
+
+NOTE: 각 서비스의 BeeGFS 숫자 및 문자열 노드 ID는 그룹 이름을 기준으로 자동으로 구성됩니다. 따라서 그룹 이름이 고유해야 하는 일반적인 Ansible 요구 사항 외에도 BeeGFS 서비스를 나타내는 그룹은 해당 그룹이 나타내는 BeeGFS 서비스 유형에 고유한 번호로 끝나야 합니다. 예를 들어, meta_01 및 stor_01은 허용되지만 metadata_01 및 meta_01은 허용되지 않습니다.

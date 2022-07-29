@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="014e0772632604acc6760e28c820cb22" category="summary">문제 해결 개요</block>
+  <block id="818c6e601a24f72750da0f6c9b8ebe28" category="paragraph">Lorem ipsum dolor sit amet, detur adipiscing elit, SED do eiusmod tempor incidiudunt ut labore et dolore magna dia.</block>
+  <block id="e95081b0e85f690a9bdcb41ea940c186" category="summary">NetApp 기반의 BeeGFS 솔루션을 구축하려면 해당 환경이 기술 요구사항을 충족하는지 확인하십시오.</block>
+  <block id="de65efa2c0698ededf4229cafcca2d08" category="doc">기술 요구사항</block>
+  <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">하드웨어 요구 사항</block>
+  <block id="d53750273c9ab2292caf240393c86d48" category="paragraph">다음 표에는 NetApp 기반 BeeGFS 솔루션의 단일 2세대 구성 요소 설계를 구현하는 데 필요한 하드웨어 구성요소가 나와 있습니다.</block>
+  <block id="27d858ba39131558c9ade0aa37a22659" category="admonition">이 솔루션을 구체적으로 구축하는 데 사용되는 하드웨어 구성요소는 고객 요구사항에 따라 다를 수 있습니다.</block>
+  <block id="e93f994f01c537c4e2f7d8528c3eb5e9" category="cell">카운트</block>
+  <block id="16cc6ce48a597aebb8ab5132cb3523dc" category="cell">하드웨어 구성 요소</block>
+  <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">요구 사항</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
+  <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2</block>
+  <block id="6c6f9283374bfbf220de6327277c1815" category="paragraph">BeeGFS 파일 노드.</block>
+  <block id="2864e4eb2e0cb17f0531cd785e63c7da" category="paragraph">각 파일 노드는 예상 성능을 달성하기 위해 다음 구성을 충족하거나 초과해야 합니다.</block>
+  <block id="31d64135897b5391e512521bf41f9777" category="paragraph">프로세서: *</block>
+  <block id="b95b123279b2f800990f9c2191373708" category="list-text">2x AMD EPYC 7343 16C 3.2GHz.</block>
+  <block id="4616efc57076900a6225244dcfc89027" category="list-text">2개의 NUMA 존으로 구성됩니다.</block>
+  <block id="13519812c056b113bbb6f853259e7691" category="paragraph">* 메모리: *</block>
+  <block id="2c271e30e1c41fa7fc170637cbe07507" category="list-text">256GB</block>
+  <block id="4b0f34cee48d8b67ee838abeca68c9a6" category="list-text">16x 16GB TruDDR4 3200MHz(2Rx8 1.2V) RDIMM-A(더 적은 수의 큰 DIMM에 비해 더 작은 DIMM 선호).</block>
+  <block id="3449cc07bd9fb49ca5e13dd993a70e88" category="list-text">메모리 대역폭을 최대화하도록 채워집니다.</block>
+  <block id="9f5ef4bd76579737bfe585f29a5951e8" category="paragraph">* PCIe 확장: PCE Gen4 x16 슬롯 4개: *</block>
+  <block id="f00f227030eb163a017a1730e0ddefb6" category="list-text">NUMA 존당 2개의 슬롯</block>
+  <block id="d12719622b3ae7d145ba3994f18ac93f" category="list-text">각 슬롯은 Mellanox MCX653106A-HDAT 어댑터에 충분한 전력/냉각을 제공해야 합니다.</block>
+  <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">* 기타: *</block>
+  <block id="61591a2035ff0c79f159e510d399af20" category="list-text">OS용 RAID 1에 구성된 2개의 1TB 7.2K SATA 드라이브(또는 이에 상응하는 드라이브)</block>
+  <block id="47c626e648f05fcfc94552cad7e0f210" category="list-text">대역 내 OS 관리용 10GbE OCP 3.0 어댑터(또는 동급)</block>
+  <block id="30a4226a3d02d27336f749ae5dcd893b" category="list-text">Out-of-Band Server Management용 Redfish API가 포함된 1GbE BMC</block>
+  <block id="173ee7b6334b65c38509a87b47bd79da" category="list-text">이중 핫 스왑 전원 공급 장치 및 성능 팬</block>
+  <block id="84edc2766d3f7158f313edb5aed216f7" category="list-text">스토리지 InfiniBand 스위치에 연결하는 데 필요한 경우 Mellanox 광 InfiniBand 케이블을 지원해야 합니다.</block>
+  <block id="2d6de8e1dccd3e2e9834a5a60d4566de" category="paragraph">* Lenovo SR665: *</block>
+  <block id="d89c6895636b2b8a24392a0f977e2684" category="list-text">사용자 지정 NetApp 모델에는 이중 포트 Mellanox ConnectX-6 어댑터를 지원하는 데 필요한 XClarity 컨트롤러 펌웨어의 필수 버전이 포함되어 있습니다. 주문 정보는 NetApp에 문의하십시오.</block>
+  <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8</block>
+  <block id="df57d52bbf8cf40e07c14985e453c567" category="cell">Mellanox ConnectX-6 HCA(파일 노드용)</block>
+  <block id="ebf2a6ec614aa7ef6c7da2be9e2c23a7" category="list-text">MCX653106A-HDAT 호스트 채널 어댑터(HDR IB 200GB, 이중 포트 QSFP 56, PCIe4.0 x16)</block>
+  <block id="151b6979304b49e9f2fa40146bc63177" category="cell">1m의 HDR InfiniBand 케이블(파일/블록 노드 직접 연결용)</block>
+  <block id="334ee84af8f0aba772fc0297b7d99d85" category="list-text">MCP1650-H001E30(1m Mellanox Passive Copper 케이블, IB HDR, 최대 200Gbps, QSFP 56, 30AWG).</block>
+  <block id="1d09a937487a970ae4b132b9d1bbd92e" category="paragraph">필요한 경우 파일 노드와 블록 노드 간의 더 긴 거리를 고려하여 길이를 조정할 수 있습니다.</block>
+  <block id="3c947c9bfa7d34adb44f61243d2bdaf0" category="cell">HDR InfiniBand 케이블(파일 노드/스토리지 스위치 연결용)</block>
+  <block id="826f9c9f2a5a5dd3ddf276fdf6370236" category="paragraph">파일 노드를 스토리지 리프 스위치에 연결하려면 적절한 길이의 InfiniBand HDR 케이블(QSFP 56 트랜시버)이 필요합니다. 가능한 옵션은 다음과 같습니다.</block>
+  <block id="43f0edb9f1ba2bdb6e116f1a9ebc5efa" category="list-text">MCP1650-H002E26(2m Mellanox Passive Copper 케이블, IB HDR, 최대 200GB/s, QSFP 56, 30AWG).</block>
+  <block id="e2c1cd9a1de33e9b1dfe101cbbeac58b" category="list-text">MFS1S00-H003E(3m Mellanox 활성 파이버 케이블, IB HDR, 최대 200GB/s, QSFP 56).</block>
+  <block id="5fbc0fc6a38b0dbbeffcd2c2d4dcac9d" category="cell">E-Series 블록 노드</block>
+  <block id="604f81d1187ffc116528d5f0ab32fb11" category="paragraph">EF600 컨트롤러 2개는 다음과 같이 구성됩니다.</block>
+  <block id="577a9a467c2913dcad30956ec32e78e6" category="list-text">메모리: 256GB(컨트롤러당 128GB)</block>
+  <block id="7e4c29cb3d75f6a12c915cb4eaaf3a1e" category="list-text">어댑터: 2포트 200GB/HDR(NVMe/IB)</block>
+  <block id="d0fbc950f348eb754ea8bad25fabc0a7" category="list-text">드라이브: 원하는 용량과 일치하도록 구성됨</block>
+  <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">소프트웨어 요구 사항</block>
+  <block id="440907229edb210984831982728c0047" category="paragraph">예측 가능한 성능 및 안정성을 위해 NetApp 기반 BeeGFS 솔루션의 릴리즈는 솔루션 구축에 필요한 소프트웨어 구성 요소의 특정 버전을 사용하여 테스트됩니다.</block>
+  <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">소프트웨어 배포 요구 사항</block>
+  <block id="699b33acca98ab1d3eb0d684f59f1c98" category="paragraph">다음 표에는 Ansible 기반 BeeGFS 구축의 일부로 자동 구축되는 소프트웨어 요구사항이 나와 있습니다.</block>
+  <block id="719d067b229178f03bcfa1da4ac4dede" category="cell">소프트웨어</block>
+  <block id="34b6cd75171affba6957e308dcbd92be" category="cell">버전</block>
+  <block id="eb57eb77389d7d4e71c5790c9c6ec1a7" category="cell">BeeGFS</block>
+  <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6</block>
+  <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">Corosync 를 참조하십시오</block>
+  <block id="5d2d6ad0b2b4cf8622bcf4cddca922d1" category="cell">3.1.5-1</block>
+  <block id="d95adee972ae170512bd3bdbce557054" category="cell">심장박동기</block>
+  <block id="300cc3f7d5595a3ab5ad8f666e682b51" category="cell">2.1.0-8</block>
+  <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSM을 참조하십시오</block>
+  <block id="571ffe54d5507ffba520fd66014b973a" category="paragraph">OpenSM-5.9.0(mlnx_OFED 5.4-1.0.3.0부터)</block>
+  <block id="fc9d1b1033b1fe0ed02e41584f187a0d" category="admonition">가상화를 활성화하기 위해 직접 연결에만 필요합니다.</block>
+  <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible 제어 노드 요구사항</block>
+  <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible 설명서</block>
+  <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>.</block>
+  <block id="158a122309f0454b31e4853755a5962a" category="paragraph">다음 표에 나와 있는 소프트웨어 요구사항은 아래 나열된 NetApp BeeGFS Ansible 컬렉션 버전과 관련이 있습니다.</block>
+  <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
+  <block id="c34646f8692ab9a9dce46b8b8b249892" category="cell">2.11 PIP를 통해 설치된 경우: Ansible-4.7.0 및 Ansible-Core&lt;2.12,&gt;=2.11.6</block>
+  <block id="a7f5f35426b927411fc9231b56382173" category="cell">파이썬</block>
+  <block id="47588d4b158a37889ddf44eeb8e88b0f" category="cell">3.9</block>
+  <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">추가 Python 패키지</block>
+  <block id="77d3bd829df9097aa38d64335f6aad7f" category="cell">암호화 - 35.0.0, netaddr-0.8.0</block>
+  <block id="6f82e755e888096a221d29f2d5410b52" category="cell">BeeGFS Ansible 컬렉션</block>
+  <block id="272f0a04b740763e0a29316bc4af89a4" category="cell">3.0.0</block>
+  <block id="5510cedb08df4208db0688e41cea716f" category="section-title">파일 노드 요구 사항</block>
+  <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">RedHat Enterprise Linux</block>
+  <block id="c902ad984234c1eef95b7912574d9aeb" category="paragraph">RedHat 8.4 서버의 물리적 및 고가용성(2 소켓).</block>
+  <block id="1f8b1bc6c0a349e88a3353e347489a9a" category="admonition">파일 노드에는 유효한 RedHat Enterprise Linux Server 서브스크립션과 Red Hat Enterprise Linux 고가용성 애드온이 필요합니다.</block>
+  <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux 커널</block>
+  <block id="d4b0f66130f05055ad49d7919514984a" category="cell">4.18.0-305.25.1.el8_4.x86_64</block>
+  <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand/RDMA 드라이버</block>
+  <block id="3882d32c66e7e768145ecd8f104b0c08" category="cell">받은 편지함</block>
+  <block id="0f8b40e8389c6b79812629492fb9facd" category="cell">ConnectX-6 HCA 펌웨어</block>
+  <block id="4ebe5da399ec2e4a8aa42aee4a85eef5" category="cell">FW: 20.31.1014</block>
+  <block id="1669d53b71fac20015fb08bdb7e0f816" category="cell">PXE: 3.6.0403</block>
+  <block id="56f186085ad1743522ca2a29632d91eb" category="cell">UEFI: 14.24.0013</block>
+  <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600 블록 노드 요구사항</block>
+  <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">SANtricity OS를 참조하십시오</block>
+  <block id="aa64d564cff905bb777c7f6cceb9c9d3" category="cell">11.70.2</block>
+  <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
+  <block id="2bd1a0272130dcc2055e0f904d00fe3c" category="cell">N6000-872834-D06.DLP</block>
+  <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">드라이브 펌웨어</block>
+  <block id="df4607ba320342072b2dc12271b08d2f" category="cell">사용 중인 드라이브 모델에 대한 최신 버전입니다.</block>
+  <block id="024464eb7b3fd909a9746dff88c6b9c9" category="section-title">추가 요구 사항</block>
+  <block id="61440af9eaf0ce02a7d08f34876b087d" category="paragraph">다음 표에 나열된 장비가 검증에 사용되었지만 필요에 따라 적절한 대안을 사용할 수 있습니다. 일반적으로 예기치 않은 문제를 방지하려면 최신 소프트웨어 버전을 실행하는 것이 좋습니다.</block>
+  <block id="81a57f3c03234ff1f2a69dde51a4eb30" category="cell">설치된 소프트웨어</block>
+  <block id="3ba6b98074aa537a4599a5717fc1667c" category="list-text">2x Mellanox MQM8700 200GB InfiniBand 스위치</block>
+  <block id="5506d82b19c7fb79ef3ae9c724240c8e" category="list-text">펌웨어 3.9.2110</block>
+  <block id="d80c6d0ee3d3645d6e79f023da5f811d" category="paragraph">* 1x Ansible 제어 노드(가상화): *</block>
+  <block id="b5d77813b4d6bf45ad5812887dddc3b6" category="list-text">프로세서: 인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz</block>
+  <block id="ed7e62a0a7749f5ecdeacff73f47cd74" category="list-text">메모리: 8GB</block>
+  <block id="9b127271fc710f9ccddb6752d4706302" category="list-text">로컬 스토리지: 24GB</block>
+  <block id="0da4148b13259a822cbef39b72084c99" category="list-text">CentOS Linux 8.4.2105</block>
+  <block id="4c082b998d02b58acba9fe2b7c4fa784" category="list-text">커널 4.18.0-305.3.1.el8.x86_64</block>
+  <block id="e213de1dde80716b46e639e6e4211241" category="paragraph">설치된 Ansible 및 Python 버전이 위 표의 버전과 일치합니다.</block>
+  <block id="bc5f18e7f65533d407f6b5c4ee36f1a8" category="paragraph">* 10x BeeGFS 클라이언트(CPU 노드): *</block>
+  <block id="ba4ebea566ef71314e819a2849f2df50" category="list-text">프로세서: 1x AMD EPYC 7302 16코어 CPU, 3.0GHz</block>
+  <block id="e21bd6758a43c483b7d0071867188cf3" category="list-text">메모리: 128GB</block>
+  <block id="6045a9bd677549ebf210bae5890c8473" category="list-text">네트워크: 2x Mellanox MCX653106A-HDAT(어댑터당 하나의 포트 연결).</block>
+  <block id="73611f9a837b7a25dad3a9c5d1a98658" category="list-text">Ubuntu 20.04</block>
+  <block id="5c102f668db12e3182739e89576e526b" category="list-text">커널: 5.4.0-100 - 일반</block>
+  <block id="11c40f47f4b43c52533122c701bc0c0c" category="list-text">InfiniBand 드라이버: Mellanox OFED 5.4-1.0.3.0</block>
+  <block id="03fa34a7812c6af1b694c2914333785b" category="paragraph">* 1x BeeGFS 클라이언트(GPU 노드): *</block>
+  <block id="6299da9dcf5c047e5fda43f47d185352" category="list-text">프로세서: 2.25GHz에서 AMD EPYC 7742 64코어 CPU 2개</block>
+  <block id="9278571d707ba27f73c7811c10c50142" category="list-text">메모리: 1TB</block>
+  <block id="d4974e31435247f5311454d41461425a" category="paragraph">이 시스템은 NVIDIAs HGX A100 플랫폼을 기반으로 하며 4개의 A100 GPU를 포함합니다.</block>
+  <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하여 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라를 제공합니다.</block>
+  <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">솔루션 개요</block>
+  <block id="038a39033a8ecd147024e4510f646b8c" category="paragraph">이 설계에서는 최신 엔터프라이즈 서버 및 스토리지 하드웨어와 네트워크 속도를 통해 제공되는 성능 밀도와 듀얼 AMD EPYC 7003 “Milan” 프로세서를 갖춘 파일 노드 및 200GB(HDR) InfiniBand를 사용하는 직접 연결 PCIe 4.0을 지원하는 NVMe/IB 프로토콜을 사용하는 엔드 투 엔드 NVMe 및 NVMeOF를 제공하는 블록 노드 필요.</block>
+  <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVA 프로그램</block>
+  <block id="f109ec830b8ab112f8e89da398d4ca0f" category="paragraph">NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture) 프로그램에 포함되어 있으며, 특정 워크로드 및 사용 사례에 대한 참조 구성 및 사이징 지침을 고객에게 제공합니다. NVA 솔루션은 구축 위험을 최소화하고 시장 출시 기간을 단축할 수 있도록 철저한 테스트와 설계를 거쳤습니다.</block>
+  <block id="2a3b399798aa16ecfbc1425cc560bfad" category="section-title">사용 사례</block>
+  <block id="9a250aa43ea6738ca4cd441c42e26b4e" category="paragraph">NetApp 기반 BeeGFS 솔루션에는 다음 사용 사례가 적용됩니다.</block>
+  <block id="f743e786ba2a29eb033d8f7e1e2101d3" category="inline-link">AI용 BeeGFS: 팩션과 픽션 비교</block>
+  <block id="b761cb5be0f07b26af56bda6c19cf90a" category="list-text">머신 러닝(ML), 딥 러닝(DL), 대규모 자연어 처리(NLP), 자연어 이해(NLU)를 비롯한 인공 지능(AI) 자세한 내용은 을 참조하십시오<block ref="e0ec3865f791595484686c9b79436d0e" category="inline-link-rx"></block>.</block>
+  <block id="3476c4aa4908c2b49f576f13d95d657a" category="inline-link">BeeGFS가 HPC를 넘어서는 이유</block>
+  <block id="4becc7ac7e53ca421f06307e37478c8a" category="list-text">MPI(메시지 전달 인터페이스) 및 기타 분산 컴퓨팅 기술에 의해 가속되는 응용 프로그램을 포함한 고성능 컴퓨팅(HPC). 자세한 내용은 을 참조하십시오<block ref="3f795d4ce44ed51872cb7704a4553f2a" category="inline-link-rx"></block>.</block>
+  <block id="89b4dd8e856627d44ffe8d3d0066cd98" category="list-text">애플리케이션 워크로드의 특징:</block>
+  <block id="c9ccfce7935790c9fd0d9ccf98da5177" category="list-text">1GB 이상의 파일을 읽거나 쓰는 중입니다</block>
+  <block id="680e47afa4860ce2ac4a078a0d466121" category="list-text">여러 클라이언트(10s, 100s 및 1000)에서 동일한 파일을 읽거나 쓰는 경우</block>
+  <block id="56e0e65d3207ad1f0f7efb003935c936" category="list-text">테라바이트급 또는 페타바이트급의 데이터 세트</block>
+  <block id="f36d694578bdc30f9cfa5faeb163df61" category="list-text">크기가 큰 파일과 작은 파일을 혼합하여 사용할 수 있도록 최적화되는 단일 스토리지 네임스페이스가 필요한 환경</block>
+  <block id="e654f7a86a4458b9cd662267e0f29b52" category="section-title">이점</block>
+  <block id="abc4f101e3891d158ab6ad80a3568c46" category="paragraph">NetApp에서 BeeGFS를 사용할 때의 주요 이점은 다음과 같습니다.</block>
+  <block id="f1161b5399c6f13433f0d7ef82e26dfc" category="list-text">검증된 하드웨어 설계를 통해 하드웨어 및 소프트웨어 구성요소를 완벽하게 통합하여 예측 가능한 성능과 안정성을 보장합니다.</block>
+  <block id="d678167c236b5d1af08b550c5038cccb" category="list-text">Ansible을 사용한 구축 및 관리로 단순성과 일관성 확보</block>
+  <block id="82a72442e588bfcf2e472da1d9834f2a" category="inline-link">NetApp E-Series 솔루션을 모니터링하는 프레임워크 소개</block>
+  <block id="e30389e6b0882b87124e5401375e84e3" category="list-text">E-Series Performance Analyzer 및 BeeGFS 플러그인을 사용하여 제공되는 모니터링 및 관찰 가능성 자세한 내용은 을 참조하십시오<block ref="5fd4bf3409228b006228517662906ac3" category="inline-link-rx"></block>.</block>
+  <block id="fc20f26327fc88da82154f6c09f6991d" category="list-text">데이터 내구성과 가용성을 제공하는 공유 디스크 아키텍처를 갖춘 고가용성</block>
+  <block id="d47615808883de28c6943d206bf0d2cb" category="inline-link">Kubernetes에서 BeeGFS를 만나 보십시오. 미래 지향형 투자 이야기입니다</block>
+  <block id="7f62321e8e75c63a1fe94a4d41435dac" category="list-text">컨테이너 및 Kubernetes를 사용하여 최신 워크로드 관리 및 오케스트레이션 지원 자세한 내용은 을 참조하십시오<block ref="3ba4b256f7ab4762b0c431fc1809aa9b" category="inline-link-rx"></block>.</block>
+  <block id="cf03dce6d27c37ae2bf803a5ad8ddb93" category="section-title">HA 아키텍처</block>
+  <block id="5c306284db745339f153886fd666ba5f" category="paragraph">NetApp 기반의 BeeGFS는 NetApp 하드웨어로 완벽하게 통합된 솔루션을 생성하여 공유 디스크 HA(고가용성) 아키텍처를 지원하여 BeeGFS 엔터프라이즈 에디션의 기능을 확장합니다.</block>
+  <block id="5481b5a39e7ecc68d8956711964cffcb" category="admonition">BeeGFS 커뮤니티 에디션은 무료로 사용할 수 있지만, 이 엔터프라이즈 에디션은 NetApp과 같은 파트너로부터 프로페셔널 지원 구독 계약을 구매해야 합니다. Enterprise Edition에서는 복원력, 할당량 적용 및 스토리지 풀을 비롯한 몇 가지 추가 기능을 사용할 수 있습니다.</block>
+  <block id="d1d1e6e3c28393c984fbb987be60324d" category="paragraph">다음 그림에서는 공유 안 함 및 공유 디스크 HA 아키텍처를 비교하여 보여 줍니다.</block>
+  <block id="2840bfa899c06356961cfdc8e84723c3" category="paragraph"><block ref="2840bfa899c06356961cfdc8e84723c3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="52feb691d73302501483cced28704021" category="inline-link">NetApp에서 지원하는 BeeGFS에 대한 고가용성 발표</block>
+  <block id="0bd36571bea371893d99d201b7835845" category="paragraph">자세한 내용은 을 참조하십시오<block ref="eb50143d83b72cd897fd47297781957c" category="inline-link-rx"></block>.</block>
+  <block id="733ba000742537e7a4435573aca51393" category="inline-link">Ansible 갤럭시</block>
+  <block id="6ec27f578410cadd1a5e4b274d75cdb2" category="inline-link">NetApp의 E-Series GitHub를 참조하십시오</block>
+  <block id="d643841fe27d769d39ef1865b69cb48b" category="paragraph">NetApp 기반 BeeGFS는 GitHub 및 Ansible Galaxy(BeeGFS 컬렉션)에서 호스팅되는 Ansible 자동화를 통해 제공 및 구축됩니다<block ref="6e6b4aec10f34b8873e2101fed073d9a" category="inline-link-rx"></block> 및<block ref="6e9ef2e0fff4844f9560394ab05a51e9" category="inline-link-rx"></block>)를 클릭합니다. Ansible은 BeeGFS 구성 요소를 조립하는 데 사용되는 하드웨어에서 주로 테스트되지만, 지원되는 Linux 배포를 사용하여 거의 모든 x86 기반 서버에서 실행되도록 구성할 수 있습니다.</block>
+  <block id="dcd417571f5073f074067e7d0d445a2e" category="inline-link">E-Series 스토리지를 통해 BeeGFS 구축</block>
+  <block id="cb8de1e2639bc0378b3714cf6ba35837" category="paragraph">자세한 내용은 을 참조하십시오<block ref="8af04fa161ecb5f3ec4feab8d52e96c8" category="inline-link-rx"></block>.</block>
+  <block id="e69ebf3ec790efafa5cfc7b6502ccfe4" category="summary">BeeGFS on NetApp 솔루션에는 검증된 워크로드를 지원하는 데 필요한 특정 장비, 케이블링, 구성을 결정하는 데 사용되는 아키텍처 설계 고려사항이 포함되어 있습니다.</block>
+  <block id="ebd8431a0b14e9588377860f5d21d80b" category="doc">아키텍처 개요</block>
+  <block id="dc3f25ceea15d952c20a612e806039b4" category="section-title">빌딩 블록 아키텍처</block>
+  <block id="f968e1fab577166d28baa278b7fbec71" category="paragraph">스토리지 요구 사항에 따라 BeeGFS 파일 시스템을 다양한 방식으로 구축 및 확장할 수 있습니다. 예를 들어, 주로 작은 파일을 많이 사용하는 사용 사례에서는 메타데이터 성능과 용량이 더 큰 반면, 큰 파일이 적은 사용 사례에서는 실제 파일 콘텐츠에 대해 더 많은 스토리지 용량과 성능을 선호할 수 있습니다. 이러한 여러 가지 고려 사항은 병렬 파일 시스템 구축의 여러 가지 차원을 영향을 주므로 파일 시스템을 설계하고 구축하는 작업이 더 복잡해집니다.</block>
+  <block id="a0f56902d72268743383af795844da43" category="paragraph">이러한 문제를 해결하기 위해 NetApp은 이러한 각 차원을 확장하는 데 사용되는 표준 구성 요소 아키텍처를 설계했습니다. 일반적으로 BeeGFS 빌딩 블록은 다음 세 가지 구성 프로파일 중 하나로 구축됩니다.</block>
+  <block id="cbebd598c304febe3d9ce528a39f79ca" category="list-text">BeeGFS 관리, 메타데이터 및 스토리지 서비스를 포함한 단일 기본 구성 요소입니다</block>
+  <block id="f606793c59d48b54b2b3a18a70dd823d" category="list-text">BeeGFS 메타데이터 및 스토리지 구성 요소입니다</block>
+  <block id="5d36a489380874ed227d193957d972de" category="list-text">BeeGFS 스토리지 전용 구성 요소입니다</block>
+  <block id="3679eaa30562d3f5040cb64c625a3455" category="paragraph">이 세 가지 옵션 간의 하드웨어 변경 사항은 BeeGFS 메타데이터에 더 작은 드라이브를 사용하는 것입니다. 그렇지 않으면 모든 구성 변경 사항이 소프트웨어를 통해 적용됩니다. 또한 Ansible을 구축 엔진으로 사용하면 특정 구성 요소에 대해 원하는 프로필을 설정하여 구성 작업을 간단하게 수행할 수 있습니다.</block>
+  <block id="0623572375a27997b16aa8f259513278" category="paragraph">자세한 내용은 을 참조하십시오 <block ref="27bdb301347b8d7fa8a057384825ba6a" category="inline-xref-macro-rx"></block>.</block>
+  <block id="e3b101a8b62b6541bfde340117b3f92b" category="section-title">파일 시스템 서비스</block>
+  <block id="26e699f65c8724efd549a1445c4b9eb3" category="paragraph">BeeGFS 파일 시스템에는 다음과 같은 주요 서비스가 포함됩니다.</block>
+  <block id="a9effde6a4743049a20cd75e19532999" category="list-text">관리 서비스.* 다른 모든 서비스를 등록하고 모니터링합니다.</block>
+  <block id="edd29dd37a407bf6bdd3dcefe97db0d5" category="list-text">* 스토리지 서비스. * 데이터 청크 파일이라고 하는 분산 사용자 파일 콘텐츠를 저장합니다.</block>
+  <block id="dc134a7a2e4d2cbe6789c47709b38b35" category="list-text">* 메타데이터 서비스. * 파일 시스템 레이아웃, 디렉토리, 파일 특성 등을 추적합니다.</block>
+  <block id="bfd4d1f28f912adef70ff502946f2d7a" category="list-text">* 클라이언트 서비스. * 파일 시스템을 마운트하여 저장된 데이터에 액세스합니다.</block>
+  <block id="94ab5c559c66cc4fc4b2e1c1ed4b00a3" category="paragraph">다음 그림에서는 NetApp E-Series 시스템에 사용된 BeeGFS 솔루션 구성 요소 및 관계를 보여 줍니다.</block>
+  <block id="bfcf7994ec645acbf0e62ec0cc0d8135" category="paragraph"><block ref="bfcf7994ec645acbf0e62ec0cc0d8135" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9ac96964e53d6a8061e16551c85e7b05" category="paragraph">BeeGFS는 병렬 파일 시스템으로서 여러 서버 노드에서 파일을 스트라이핑하여 읽기/쓰기 성능과 확장성을 극대화합니다. 서버 노드는 함께 작동하여 일반적으로 _clients_라고 하는 다른 서버 노드에서 동시에 마운트하고 액세스할 수 있는 단일 파일 시스템을 제공합니다. 이러한 클라이언트는 NTFS, XFS 또는 ext4와 같은 로컬 파일 시스템과 유사하게 분산 파일 시스템을 보고 사용할 수 있습니다.</block>
+  <block id="2cd4f3c05097f81722656ab8de9b6a25" category="paragraph">지원되는 다양한 Linux 배포판에서 4개의 기본 서비스를 실행하고 InfiniBand(IB), OPA(Omni-Path), RoCE(RDMA over Converged Ethernet)를 비롯한 TCP/IP 또는 RDMA 지원 네트워크를 통해 통신합니다. BeeGFS 서버 서비스(관리, 스토리지 및 메타데이터)는 사용자 공간 데몬이며, 클라이언트는 네이티브 커널 모듈(패치리스)입니다. 모든 구성요소를 재부팅하지 않고 설치 또는 업데이트할 수 있으며 동일한 노드에서 서비스 조합을 실행할 수 있습니다.</block>
+  <block id="006d93ef4f9eec646f24191298096ff5" category="section-title">검증된 노드</block>
+  <block id="c96c4db6ed51cc2193de3faf12adec4b" category="paragraph">NetApp 기반 BeeGFS 솔루션에는 NetApp EF600 스토리지 시스템(블록 노드) 및 Lenovo ThinkSystem SR665 서버(파일 노드)의 검증된 노드가 포함됩니다.</block>
+  <block id="27413f72a901dfdce9c9f5b55bb8de24" category="section-title">블록 노드: EF600 스토리지 시스템</block>
+  <block id="c9423adc70506c44748bf2f624d7f901" category="paragraph">NetApp EF600 All-Flash 어레이는 일관된 거의 실시간에 가까운 데이터 액세스를 제공하는 동시에 모든 워크로드를 동시에 지원합니다. AI 및 HPC 애플리케이션에 데이터를 지속적으로 신속하게 제공하기 위해 EF600 스토리지 시스템은 하나의 엔클로저에 최대 2백만 개의 캐시된 읽기 IOPS, 100마이크로초 미만의 응답 시간, 42GBps 순차적 읽기 대역폭을 제공합니다.</block>
+  <block id="651e200415759284120b2ec1a66b1a96" category="section-title">파일 노드: Lenovo ThinkSystem SR665 서버</block>
+  <block id="6b9e4d337aab66ffe52d7442d4de33cd" category="paragraph">SR665는 PCIe 4.0을 지원하는 2소켓 2U 서버입니다. 이 솔루션의 요구사항을 충족하도록 구성하면 직접 연결된 E-Series 노드에서 제공하는 처리량 및 IOP와 잘 어울리도록 구성에서 BeeGFS 파일 서비스를 실행할 수 있는 충분한 성능을 제공합니다.</block>
+  <block id="18bc6212071e7cb1cca90788a40a9301" category="inline-link">Lenovo 웹 사이트</block>
+  <block id="81024062a06a8ee37394167df6e2e925" category="paragraph">Lenovo SR665에 대한 자세한 내용은 를 참조하십시오<block ref="2cce034b75e116efa73dc639a17202fa" category="inline-link-rx"></block>.</block>
+  <block id="4b2aed7f56892904807d2a0dba262f91" category="section-title">검증된 하드웨어 설계</block>
+  <block id="9e33e1f9796877cc85735e8b785ca26f" category="paragraph">다음 그림에 나와 있는 솔루션의 구성 요소는 BeeGFS 파일 계층에 2개의 듀얼 소켓 PCIe 4.0 지원 서버를 사용하고 블록 계층으로 2개의 EF600 스토리지 시스템을 사용합니다.</block>
+  <block id="9aff371c3d72ae246b764db116d45c50" category="paragraph"><block ref="9aff371c3d72ae246b764db116d45c50" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5c48dcdddb94107a7a67762c9d1dbe6f" category="admonition">각 구성 요소에 BeeGFS 파일 노드가 2개 포함되어 있으므로 페일오버 클러스터에 쿼럼을 설정하려면 최소 2개의 구성 요소가 필요합니다. 2노드 클러스터를 구성할 수 있지만 이 구성에는 페일오버가 발생하지 않도록 할 수 있는 제한이 있습니다. 2노드 클러스터가 필요한 경우 세 번째 장치를 Tiebreaker로 통합할 수 있습니다(단, 이 설계에서는 다루지 않음).</block>
+  <block id="6a07b0ff8ee12bcea9aba90004bdf2e9" category="paragraph">각 구성 요소는 파일 및 블록 계층에 대한 장애 도메인을 분리하는 2계층 하드웨어 설계를 통해 고가용성을 제공합니다. 각 계층은 독립적으로 페일오버될 수 있으므로 복원력을 높이고 계단식 고장 위험을 줄일 수 있습니다. HDR InfiniBand를 NVMeOF와 함께 사용하면 전체 이중화 및 충분한 링크 초과 할당으로 파일 노드와 블록 노드 간에 높은 처리량과 최소 지연 시간을 제공하여 시스템이 부분적으로 성능 저하 상태일 때도 분리되는 설계를 병목 현상이 발생하지 않습니다.</block>
+  <block id="3c08ab3aeeb113b43a410e04cd194da5" category="paragraph">BeeGFS on NetApp 솔루션은 구축 환경의 모든 구성 요소에서 실행됩니다. 구축된 첫 번째 구성 요소는 BeeGFS 관리, 메타데이터 및 스토리지 서비스(기본 구성 요소라고도 함)를 실행해야 합니다. 이후의 모든 구성 요소는 소프트웨어를 통해 BeeGFS 메타데이터 및 스토리지 서비스를 실행하거나 스토리지 서비스만 실행하도록 구성됩니다. 각 구성 요소에 서로 다른 구성 프로필을 사용할 수 있으므로 동일한 기본 하드웨어 플랫폼 및 구성 요소 설계를 사용하여 파일 시스템 메타데이터 또는 스토리지 용량과 성능을 확장할 수 있습니다.</block>
+  <block id="8c75634d2e6f2b333be16514a845f21a" category="paragraph">최대 5개의 빌딩 블록이 독립 실행형 Linux HA 클러스터에 결합되어 클러스터 리소스 관리자(페이스 메이커)당 적절한 리소스 수를 확보하고 클러스터 구성원을 동기화 상태로 유지하는 데 필요한 메시징 오버헤드를 줄입니다(Corosync). 충분한 구성원이 쿼럼을 설정할 수 있도록 클러스터당 최소 2개의 빌딩 블록을 사용하는 것이 좋습니다. 이러한 독립 실행형 BeeGFS HA 클러스터 중 하나 이상이 결합되어 클라이언트가 단일 스토리지 네임스페이스로 액세스할 수 있는 BeeGFS 파일 시스템(다음 그림에 표시)을 생성합니다.</block>
+  <block id="68f8e190e5b0a73975772032f02e616d" category="paragraph"><block ref="68f8e190e5b0a73975772032f02e616d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2656fcaf8e3676a2cbef703871ecdf24" category="paragraph">궁극적으로 랙당 구성 요소의 수는 해당 사이트의 전력 및 냉각 요구 사항에 따라 달라지지만, 이 솔루션은 스토리지/데이터 네트워크에 사용되는 2개의 1U InfiniBand 스위치를 위한 공간을 제공하면서 단일 42U 랙에 최대 5개의 구성 요소를 구축할 수 있도록 설계되었습니다. 각 구성 요소마다 8개의 IB 포트(이중화를 위해 스위치당 4개)가 필요하므로, 5개의 구성 요소는 40포트 HDR InfiniBand 스위치(예: NVIDIA QM8700)에 포트의 절반을 남겨 FAT 트리 또는 이와 유사한 비차단 토폴로지를 구현할 수 있습니다. 이렇게 구성하면 네트워킹 병목 현상 없이 스토리지 또는 컴퓨팅/GPU 랙 수를 확장할 수 있습니다. 필요에 따라 스토리지 패브릭 공급업체의 권장 사항에서 초과 할당된 스토리지 패브릭을 사용할 수 있습니다.</block>
+  <block id="70fe669a3a23094d7db9486a417dbef3" category="paragraph">다음 이미지는 80노드 FAT 트리 토폴로지를 보여줍니다.</block>
+  <block id="2fcf68f5d15d3841e3d288e4c8a6107c" category="paragraph"><block ref="2fcf68f5d15d3841e3d288e4c8a6107c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d6a8fb7565b3c37b0228984862a3977c" category="paragraph">Ansible을 NetApp 기반의 BeeGFS 구축을 위한 배포 엔진으로 사용하여 관리자는 최신 인프라를 코드 사례로 사용하여 전체 환경을 유지할 수 있습니다. 이렇게 하면 복잡한 시스템이 될 수 있는 일이 크게 단순화되어 관리자가 한 곳에서 구성을 정의 및 조정한 다음, 환경 확장규모에 관계없이 일관되게 적용할 수 있습니다. BeeGFS 컬렉션은 에서 구할 수 있습니다<block ref="6e6b4aec10f34b8873e2101fed073d9a" category="inline-link-rx"></block> 및<block ref="6e9ef2e0fff4844f9560394ab05a51e9" category="inline-link-rx"></block>.</block>
+  <block id="c8a0fcd1a15bb039926f56fd15ce82e9" category="summary">NetApp 솔루션의 BeeGFS에 적용되는 용어 및 개념</block>
+  <block id="5d146c3fd3b69782d69f66b386b88a4c" category="doc">용어 및 개념</block>
+  <block id="5710fc980ad3cc07a2d53a30f8e42802" category="paragraph">다음 용어와 개념은 NetApp 기반 BeeGFS 솔루션에 적용됩니다.</block>
+  <block id="cf5f3091e30dee6597885d8c0e0c357f" category="cell">기간</block>
+  <block id="b5a7adde1af5c87d7fd797b6245c2a39" category="cell">설명</block>
+  <block id="0a40e3c91a3a55c9a37428c6d194d0e5" category="paragraph">AI</block>
+  <block id="10a99475af71a950df10ae4fb41e6b27" category="paragraph">인공 지능.</block>
+  <block id="206b11a774f63418bae21625e6f6d2fb" category="paragraph">Ansible 인벤토리</block>
+  <block id="4278d92c9bdf11d430a86f440cffbb06" category="paragraph">원하는 BeeGFS HA 클러스터를 설명하는 데 사용되는 YAML 파일이 포함된 디렉토리 구조.</block>
+  <block id="396262ee936f3d3e26ff0e60bea6cae0" category="paragraph">BMC</block>
+  <block id="20e7cb5fddc6ef60deff83e38954fc9c" category="paragraph">베이스보드 관리 컨트롤러. 서비스 프로세서라고도 합니다.</block>
+  <block id="399cda935f5cb9e0b94eaf42309257fb" category="paragraph">블록 노드</block>
+  <block id="56977f2bee9d2716e5224e95ceb72839" category="paragraph">기술을 자세히 소개합니다.</block>
+  <block id="fac04ca68a48af91f0290001604a2463" category="paragraph">클라이언트</block>
+  <block id="bee5e0147cd9d283376a2d2533650ca7" category="paragraph">서버 노드:</block>
+  <block id="f5ce9f5cb682a1f863d5a8c51ac28683" category="paragraph">DL</block>
+  <block id="3a113e532fcdd400cdf83ef62ac9d9de" category="paragraph">딥 러닝.</block>
+  <block id="c404903bef63acba3e3abe370e09474f" category="paragraph">파일 노드</block>
+  <block id="2118e5d99e7b7d309a8f82e52f89ab22" category="paragraph">BeeGFS 파일 서버</block>
+  <block id="594c16ca0695f6665d7cf4971707adf6" category="paragraph">HA</block>
+  <block id="b5c55115b0714618209ee9459023bad1" category="paragraph">고가용성.</block>
+  <block id="a25baf723f95fbcbceae8399b638f108" category="paragraph">HIC</block>
+  <block id="2d5307a091565cb524b7c0a2c48a1588" category="paragraph">호스트 인터페이스 카드.</block>
+  <block id="2f569257101cf136a49d983584bfc44f" category="paragraph">HPC</block>
+  <block id="9a3968cd0518e869657fa99f060cd8f2" category="paragraph">고성능 컴퓨팅.</block>
+  <block id="06a52007ec390481940877b63a4b7c61" category="paragraph">HPC 스타일의 워크로드</block>
+  <block id="221d47451f4f42c2e516a414798b6e1e" category="paragraph">HPC 스타일 워크로드는 일반적으로 여러 컴퓨팅 노드 또는 GPU에서 동일한 데이터 세트에 병렬로 액세스하여 분산된 컴퓨팅 또는 교육 작업을 진행하는 것이 특징입니다. 이러한 데이터 세트는 단일 파일에 대한 동시 액세스를 방지하는 기존 하드웨어 병목 현상을 제거하기 위해 여러 물리적 스토리지 노드에 스트라이핑되어야 하는 대용량 파일로 구성되는 경우가 많습니다.</block>
+  <block id="d01fd9b01e9dde8bd3dc247afbfb7218" category="paragraph">ML</block>
+  <block id="65abbc2190f8ea8522de3b7df3397302" category="paragraph">머신 러닝.</block>
+  <block id="85587c49afa2ea2adacd4bbcdb57d064" category="paragraph">NLP</block>
+  <block id="1e8218217ed7a37de1bd5f394a253db8" category="paragraph">자연어 처리.</block>
+  <block id="04808383df00e6501c912f8fae661f73" category="paragraph">NLU</block>
+  <block id="f0f701867a5e02fa406b05e22df7ae03" category="paragraph">자연어 이해.</block>
+  <block id="af33781ae5dd2f5ffb194a90989038a8" category="paragraph">NVA</block>
+  <block id="4119dd754c8118aa6a1bb36f194a2f52" category="paragraph">NVA(NetApp Verified Architecture) 프로그램은 특정 워크로드 및 사용 사례에 대한 참조 구성 및 사이징 지침을 제공합니다. 이러한 솔루션은 철저한 테스트를 거쳤으며, 구축 위험을 최소화하고 출시 기간을 단축할 수 있도록 설계되었습니다.</block>
+  <block id="51bfd24e79e0939d84e9230980db5f18" category="summary">BeeGFS on NetApp 솔루션은 현재 세대 간 설계의 2세대입니다.</block>
+  <block id="fa0de4179a84e742d2d88028d16bf137" category="doc">디자인 세대</block>
+  <block id="51c16b7415d506b9bbcedd7241c7c1c0" category="paragraph">1세대 및 2세대 모두에는 BeeGFS 파일 시스템과 NVMe EF600 스토리지 시스템을 통합한 기본 아키텍처가 포함되어 있습니다. 그러나 2세대 제품에는 다음과 같은 추가적인 이점이 포함되어 있습니다.</block>
+  <block id="20667306535e51f69f34371b95abfd0b" category="list-text">2U 랙 공간만 추가하여 성능과 용량을 두 배로 향상</block>
+  <block id="edcc56d654a1a9362699f309c738a185" category="list-text">공유 디스크, 2계층 하드웨어 설계를 기반으로 한 고가용성(HA</block>
+  <block id="14b187f2e331b627a7a2be108645bcfa" category="list-text">NVIDIA DGX A100 SuperPOD의 외부 검증</block>
+  <block id="189fdda096d5b994e140eac128f464e1" category="section-title">2세대 설계</block>
+  <block id="cf323deb1f1b75ff42840ee50d9ac94f" category="paragraph">NetApp 기반의 2세대 BeeGFS는 HPC(고성능 컴퓨팅) 및 HPC 스타일 머신 러닝(ML), 딥 러닝(DL), 유사한 인공 지능(AI) 기술 등 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. BeeGFS on NetApp 솔루션은 공유 디스크 HA(고가용성) 아키텍처를 통합하여 워크로드 및 사용 사례에 맞게 확장 가능한 스토리지를 찾듯이 다운타임 또는 데이터 손실을 허용할 수 없는 기업 및 기타 조직의 데이터 내구성 및 가용성 요구사항을 충족합니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 NVIDIA DGX SuperPOD의 스토리지 옵션으로 외부 인증도 받았습니다.</block>
+  <block id="145c927b5996411105e8a05381bfab75" category="section-title">최초의 세대별 설계</block>
+  <block id="41ae1cb2edd9d144116e252e5f5c4e54" category="paragraph">NetApp 기반의 1세대 BeeGFS는 NetApp EF600 NVMe 스토리지 시스템, BeeGFS 병렬 파일 시스템, NVIDIA DGX ™ A100 시스템 및 NVIDIA ® Mellanox ® Quantum ™ QM8700 200Gbps IB 스위치를 사용하는 머신 러닝(ML) 및 인공 지능(AI) 워크로드용으로 설계되었습니다. 또한, 이 설계에서는 스토리지 및 컴퓨팅 클러스터 인터커넥트 패브릭을 위한 200Gbps InfiniBand(IB)를 사용하여 고성능 워크로드를 위한 완벽한 IB 기반 아키텍처를 제공합니다.</block>
+  <block id="8c2de6dc6972aa428c25b73867ee0c6c" category="inline-link-macro">NVIDIA DGX A100 Systems 및 BeeGFS를 지원하는 NetApp EF-Series AI</block>
+  <block id="cb0e1ee82028e21bcb25d1cedee42a90" category="paragraph">1세대 제품에 대한 자세한 내용은 를 참조하십시오 <block ref="7c75f12548abfaad3f9a226ecdfc54d3" category="inline-link-macro-rx"></block>.</block>
+  <block id="648f6c52aa693f2de99c600333c97b66" category="summary">이 사이트에는 NetApp 솔루션의 BeeGFS용 NVA(NetApp Verified Architecture)에 대한 정보가 포함되어 있습니다.</block>
+  <block id="745f22cbd412f2eab6c6bf95417e8b09" category="doc">이 사이트에 포함된 내용</block>
+  <block id="6e86c5fc1c43e7a07f5837a535b5e721" category="paragraph">이 사이트에서는 NetApp 기반 BeeGFS용 NVA(NetApp Verified Architecture)의 2세대 관련 정보를 제공합니다.</block>
+  <block id="c3c2c202fc482927fedd6635ee958a46" category="paragraph">이 사이트의 정보는 다음과 같습니다.</block>
+  <block id="fb7e8abee0ed4186f8c4b871d0ea6ac3" category="inline-link-macro">설계 개요</block>
+  <block id="669bf329256f5b0b2230171919bbeb26" category="list-text">아키텍처 설계 고려 사항 아키텍처를 지원하는 데 필요한 특정 장비, 케이블 연결 및 구성을 결정하는 데 사용됩니다. 자세한 내용은 을 참조하십시오 <block ref="8a079cef168d8fb38e2a71896a9c949a" category="inline-link-macro-rx"></block>.</block>
+  <block id="42f8643eb52a942747937327c72c8361" category="inline-link-macro">구축 개요</block>
+  <block id="3714b9e12645295206bbb65334c84955" category="list-text">블록 스토리지 시스템(블록 노드)에 연결된 검증된 BeeGFS 파일 서버(파일 노드)를 사용한 구축 지침 자세한 내용은 을 참조하십시오 <block ref="a0c3e44fdc4233e262adc49376e31e83" category="inline-link-macro-rx"></block>.</block>
+  <block id="cd781fa1b22842d6ce65495c1f1e7f32" category="paragraph">이 사이트에는 1세대 솔루션의 설계 및 배포 정보가 포함되어 있지 않습니다. 이전 세대에 대한 전체 내용은 을 참조하십시오 <block ref="7c75f12548abfaad3f9a226ecdfc54d3" category="inline-link-macro-rx"></block>.</block>
+  <block id="fefc21957cc1bbb1f6a7704d95ad5e0d" category="summary">2세대 NetApp BeeGFS 빌딩 블록 설계를 사용하여 NetApp에서 검증된 파일 및 블록 노드에 BeeGFS를 구축할 수 있습니다.</block>
+  <block id="ef200d7e9d983785df6b4e01fa65bf59" category="section-title">Ansible 컬렉션 및 역할</block>
+  <block id="31f2ceaa03965649e2e37df5634511e7" category="paragraph">Ansible을 사용하여 NetApp 솔루션에 BeeGFS를 구축할 수 있습니다. 이는 애플리케이션 구축을 자동화하는 데 사용되는 일반적인 IT 자동화 엔진입니다. Ansible은 구축할 BeeGFS 파일 시스템을 모델링하는 인벤토리로 통칭되는 일련의 파일을 사용합니다.</block>
+  <block id="87d27d52f7fc81e8a134f2e3d2a57ecf" category="inline-link">NetApp E-Series BeeGFS 컬렉션</block>
+  <block id="f4bf5484498b52d77cb39955020e5321" category="paragraph">Ansible을 사용하면 NetApp과 같은 기업에서 Ansible Galaxy의 컬렉션을 사용하여 기본 제공 기능을 확장할 수 있습니다(참조)<block ref="8dd9c2247c6151110981020f59a5fca3" category="inline-link-rx"></block>)를 클릭합니다. 컬렉션에는 E-Series 볼륨 만들기와 같이 특정 기능 또는 작업을 수행하는 모듈과 여러 모듈 및 기타 역할을 호출할 수 있는 역할이 포함되어 있습니다. 이 자동화된 방식을 통해 BeeGFS 파일 시스템 및 기본 HA 클러스터를 구축하는 데 필요한 시간을 줄일 수 있습니다. 또한, 기존 파일 시스템을 확장하기 위해 구성 요소를 간단하게 추가할 수 있습니다.</block>
+  <block id="4aa1cf90ffa01d3b63825bad839d9e29" category="inline-link-macro">Ansible 인벤토리에 대해 알아보십시오</block>
+  <block id="1325754275d5677e560f21035bc1ac47" category="paragraph">자세한 내용은 을 참조하십시오 <block ref="dd39ef1fcc2e17fe1fe509b7ac2d5dea" category="inline-link-macro-rx"></block>.</block>
+  <block id="5b3ae76175242b9c0c63ba5668657f49" category="admonition">NetApp 솔루션에 BeeGFS를 구축하는 데 다양한 단계가 포함되므로 NetApp에서는 수동으로 솔루션 구축을 지원하지 않습니다.</block>
+  <block id="6201cef3e5bb8f42f2aa1876b8c1f544" category="section-title">BeeGFS 구성 요소에 대한 구성 프로필입니다</block>
+  <block id="3c411e2f06cd1b5275d2be84bb18a641" category="paragraph">배포 절차는 다음과 같은 구성 프로파일을 다룹니다.</block>
+  <block id="3c1ad21a1c1a2804f8ace80b84822bfe" category="list-text">관리, 메타데이터 및 스토리지 서비스를 포함하는 하나의 기본 구성 요소입니다.</block>
+  <block id="416ad52da618754efb3680e957b1a048" category="list-text">메타데이터와 스토리지 서비스가 포함된 두 번째 구성 요소입니다.</block>
+  <block id="11047a79bd1eab4d52ba658a48a430e8" category="list-text">스토리지 서비스만 포함하는 세 번째 구성 요소입니다.</block>
+  <block id="886066871646e69724c15beede051aa6" category="paragraph">이러한 프로필을 통해 NetApp BeeGFS 구성 요소에 대한 권장 구성 프로필 전체 범위를 볼 수 있습니다. 각 구축에 필요한 메타데이터 및 스토리지 구성 요소 수 또는 스토리지 서비스 전용 구성 요소는 용량 및 성능 요구사항에 따라 절차에 따라 달라질 수 있습니다.</block>
+  <block id="20cf8ff34f34ae23669e586d1092a0f9" category="section-title">배포 단계 개요</block>
+  <block id="9d863a0564ad86180bde2b2a6c27a6ed" category="paragraph">배포에는 다음과 같은 고급 작업이 포함됩니다.</block>
+  <block id="fd2f8c173ade715231c21c932686e38b" category="list-title">하드웨어 구축</block>
+  <block id="f08d36149d715ffbb8eca9f7159e0d27" category="list-text">각 구성 요소를 물리적으로 조립합니다.</block>
+  <block id="abd55e01ead6dac45d997ad9c82c8019" category="inline-link-macro">하드웨어 구축</block>
+  <block id="65353eb96f13d02029086d1790108e3c" category="list-text">랙 및 케이블 하드웨어. 자세한 절차는 를 참조하십시오 <block ref="19367e6e5e194f2806703eb905741326" category="inline-link-macro-rx"></block>.</block>
+  <block id="b9205e876aa43217d9358621cf2c6187" category="list-title">소프트웨어 구축</block>
+  <block id="359f84c66084d8c8c9d4cb7ca3945bcd" category="inline-link-macro">파일 및 블록 노드 설정</block>
+  <block id="f8367dab28e2315251df9dcf227916b5" category="list-text"><block ref="4cfaa56cb8da11f04e7ee8ae6dd86bcc" category="inline-link-macro-rx"></block>.</block>
+  <block id="ee63db10faeceba4efb3b03145e0ec26" category="list-text">파일 노드에서 BMC IP를 구성합니다</block>
+  <block id="aa51221099b00aa6e09e3cb6b1b03f47" category="list-text">지원되는 운영 체제를 설치하고 파일 노드에서 관리 네트워킹을 구성합니다</block>
+  <block id="a75b117cd8d7af9205b2185d8afb8537" category="list-text">블록 노드에서 관리 IP를 구성합니다</block>
+  <block id="14f10d91a4d4d076d9f025fdb6134949" category="inline-link-macro">Ansible 제어 노드를 설정합니다</block>
+  <block id="b81f7e6126c9f5040f05685e56e57af1" category="list-text"><block ref="6848fc9a1ed48359bab6d9326922d03c" category="inline-link-macro-rx"></block>.</block>
+  <block id="51d961299f8aa9bb882574aae2a219eb" category="inline-link-macro">성능을 위해 시스템 설정을 조정합니다</block>
+  <block id="9312585e52fd3b0a0898c7f73fdfd8cc" category="list-text"><block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>.</block>
+  <block id="2903652ee31835883feeb469228b4406" category="inline-link-macro">Ansible 인벤토리를 작성합니다</block>
+  <block id="914b8eb4568f7c438e1d415af01c2787" category="list-text"><block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>.</block>
+  <block id="c8f38adfaba8270e793616e0556571c7" category="inline-link-macro">BeeGFS 구성 요소에 대한 Ansible 인벤토리를 정의합니다</block>
+  <block id="2640957ad14de18b2d308da5e116b4a0" category="list-text"><block ref="56ee4018bb6227ffe39900ebf12f2472" category="inline-link-macro-rx"></block>.</block>
+  <block id="d21cb96c35176f0f0ea13876f354d072" category="inline-link-macro">Ansible을 사용하여 BeeGFS 구축</block>
+  <block id="a8169193bd5718bbe78111b3a1f874d7" category="list-text"><block ref="dffbd1bc941e2f4395de7cba04c6653b" category="inline-link-macro-rx"></block>.</block>
+  <block id="096a6674c1f4ef681d88a6eb229299b7" category="inline-link-macro">BeeGFS 클라이언트를 구성합니다</block>
+  <block id="f159952d71e33cd0a1ffbb2bcc4ce2ad" category="list-text"><block ref="75197807ccb18c9f99e8f2a2a3443aea" category="inline-link-macro-rx"></block>.</block>
+  <block id="d6dd015562e1d088d87d28007ecfa541" category="admonition">배포 절차에는 텍스트를 파일로 복사해야 하는 몇 가지 예제가 포함되어 있습니다. 특정 배포에 대해 수정하거나 수정할 수 있는 모든 사항에 대해 "#" 또는 "//" 문자로 표시된 인라인 코멘트에 세심한 주의를 기울이십시오. 예를 들어, ``begfs_ha_ntp_server_pool:# 이것은 설명의 예입니다! "pool 0.pool.ntp.org iburst maxsources 3" - "pool 1.pool.ntp.org iburst maxsources 3"</block>
+  <block id="d8ca15234a274a841f06a1d429141054" category="summary">각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성하고 각 컨트롤러의 관리 포트를 구성합니다.</block>
+  <block id="1cfd8029b1372ddacb436890446b43fd" category="doc">파일 노드 및 블록 노드 설정</block>
+  <block id="d900235d99f416c3bfda0461cbb71f26" category="paragraph">대부분의 소프트웨어 구성 작업은 NetApp에서 제공하는 Ansible 컬렉션을 사용하여 자동화되지만, 각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성하고 각 컨트롤러의 관리 포트를 구성해야 합니다.</block>
+  <block id="02f510b4f0f01c83fb0898c7c21472f3" category="section-title">파일 노드 설정</block>
+  <block id="58ee770c560ec650edbb0731c6882d53" category="list-text">각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성합니다.</block>
+  <block id="75ae096871a25daf3dcd5da902c66ecf" category="inline-link">Lenovo ThinkSystem 설명서</block>
+  <block id="501998f9bebe4eeda8377a94578e9255" category="paragraph">검증된 Lenovo SR665 파일 노드의 네트워킹을 구성하는 방법은 를 참조하십시오<block ref="3a3ba9924e08a04d2eb4947b4cdb2550" category="inline-link-rx"></block>.</block>
+  <block id="0c112c89dd8c3ce2b92d5e4844ea4641" category="admonition">서비스 프로세서라고도 하는 베이스보드 관리 컨트롤러(BMC)는 다양한 서버 플랫폼에 내장되어 운영 체제가 설치되어 있지 않거나 액세스할 수 없는 경우에도 원격 액세스를 제공할 수 있는 대역외 관리 기능의 일반 이름입니다. 공급업체는 일반적으로 고유한 브랜딩으로 이 기능을 마케팅합니다. 예를 들어, Lenovo SR665에서 BMC는 _Lenovo XClarity Controller(XCC)_라고 합니다.</block>
+  <block id="290a84841d7341364c4abf862a74583f" category="list-text">최대 성능을 위해 시스템 설정을 구성합니다.</block>
+  <block id="04c7f6322804081c61ca0d88cef85904" category="paragraph">UEFI 설정(이전의 BIOS)을 사용하거나 많은 BMC에서 제공하는 Redfish API를 사용하여 시스템 설정을 구성합니다. 시스템 설정은 파일 노드로 사용되는 서버 모델에 따라 달라집니다.</block>
+  <block id="354f37da23eacae1fc163775964a0a2e" category="paragraph">검증된 Lenovo SR665 파일 노드에 대한 시스템 설정을 구성하는 방법은 을 참조하십시오 <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>.</block>
+  <block id="7e57b24d8418675e1eb9185b3a783ef7" category="list-text">Red Hat 8.4를 설치하고 Ansible 제어 노드의 SSH 연결을 포함하여 운영 체제를 관리하는 데 사용되는 호스트 이름과 네트워크 포트를 구성합니다.</block>
+  <block id="63b34e32fcac1724c46edd575672332b" category="paragraph">지금은 InfiniBand 포트에 IP를 구성하지 마십시오.</block>
+  <block id="e9074e57167186919a163cd099187dd0" category="admonition">엄밀히 요구되지는 않지만, 이후의 섹션에서는 호스트 이름이 순차적으로 번호가 매겨진 것으로 간주하고(예: h1-hn) 홀수 호스트와 짝수 번호의 호스트에서 완료해야 하는 작업을 참조합니다.</block>
+  <block id="0123fb5bcbcd68deb7c43ec913e70705" category="inline-link">RHEL 시스템을 등록하고 가입하는 방법</block>
+  <block id="29f7e22c9a0b8d15ea802eee7a5e07cf" category="inline-link">업데이트 제한 방법</block>
+  <block id="da5ddad82ac3e5b8ada040f6f5d0b4b1" category="list-text">RedHat 서브스크립션 관리자를 사용하여 공식 Red Hat 리포지토리에서 필수 패키지 설치를 허용하고 지원되는 Red Hat 버전('Ssubscription-manager release-set=8.4')으로 업데이트를 제한하려면 시스템을 등록하고 가입합니다. 자세한 내용은 을 참조하십시오<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 및 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>.</block>
+  <block id="577885e812bad7e4780317a271722339" category="list-text">고가용성을 위해 필요한 패키지가 포함된 Red Hat 리포지토리를 활성화합니다.</block>
+  <block id="3c438be737391744e2fed6f73c418638" category="inline-link-macro">기술 요구 사항</block>
+  <block id="f12bdbd9e0ff4f2d314f49b8ae9d6e79" category="list-text">모든 ConnectX-6 HCA 펌웨어를 에서 권장하는 버전으로 업데이트합니다 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>.</block>
+  <block id="de2787072a70ede6b3c4b90ff28fe789" category="inline-link">mlxup - 업데이트 및 쿼리 유틸리티</block>
+  <block id="99ed7995ed20393c8d6d7d2ecdad4b12" category="paragraph">이 업데이트는 권장 펌웨어를 번들로 제공하는 mlxup 도구 버전을 다운로드하여 실행하면 됩니다. 이 도구는 에서 다운로드할 수 있습니다<block ref="83a01ab1999878f97a01b97d35857307" category="inline-link-rx"></block>.</block>
+  <block id="febfb51b621938c49980eee52ab6a373" category="section-title">블록 노드 설정</block>
+  <block id="1dab115fdeed11b46ad9a32f690cfc8a" category="paragraph">각 컨트롤러의 관리 포트를 구성하여 EF600 블록 노드를 설정합니다.</block>
+  <block id="0631592349fc286da7627270b9c9b359" category="list-text">각 EF600 컨트롤러의 관리 포트를 구성합니다.</block>
+  <block id="3f7c08d9f511dbd36a44bc681e25e3bf" category="inline-link">E-Series 문서 센터 를 참조하십시오</block>
+  <block id="83398f0ded44dc933df951171f29b604" category="paragraph">포트 구성에 대한 지침은 로 이동하십시오<block ref="4719a190e5f3bfbda84ab0e6295af1ef" category="inline-link-rx"></block>.</block>
+  <block id="a1cdd0715dd7993c1664eea6d7f39810" category="list-text">필요에 따라 각 시스템의 스토리지 어레이 이름을 설정합니다.</block>
+  <block id="6c8f452018d59ce25e69f9d3f8851b32" category="paragraph">이름을 설정하면 이후 섹션에서 각 시스템을 쉽게 참조할 수 있습니다. 어레이 이름 설정에 대한 지침은 로 이동하십시오<block ref="4719a190e5f3bfbda84ab0e6295af1ef" category="inline-link-rx"></block>.</block>
+  <block id="561abcc4bd5f30a9d5ee1e4c64d9a10d" category="admonition">엄밀히 요구되지는 않지만, 후속 주제는 스토리지 배열 이름이 순차적으로 번호가 매겨진 것으로 간주하고(예: C1-CN) 홀수 대 짝수 번호의 시스템에서 완료해야 하는 단계를 참조합니다.</block>
+  <block id="1b6582c92d5f0e47bd102f2e16686662" category="summary">구축을 시작하기 전에, Ansible을 사용하여 2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 솔루션에서 BeeGFS를 구성 및 구축하는 방법을 이해해야 합니다.</block>
+  <block id="91177a5a4b0c27f810e6deb9395eef4a" category="inline-link">NetApp E-Series BeeGFS GitHub를 참조하십시오</block>
+  <block id="489a8841f96385c3fca8ff239dc24250" category="paragraph">Ansible 인벤토리는 파일 및 블록 노드의 구성을 정의하며 구축할 BeeGFS 파일 시스템을 나타냅니다. 인벤토리는 원하는 BeeGFS 파일 시스템을 설명하는 호스트, 그룹 및 변수를 포함합니다. 샘플 재고는 에서 다운로드할 수 있습니다<block ref="5f5a4f2bb780d1d47d6a1c5865c757e8" category="inline-link-rx"></block>.</block>
+  <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansible 모듈 및 역할</block>
+  <block id="2c237568ac6f7bc2fd09645044287519" category="paragraph">Ansible 인벤토리에서 설명한 구성을 적용하려면 NetApp E-Series Ansible 컬렉션에서 제공하는 다양한 Ansible 모듈 및 역할, 특히 BeeGFS HA 7.2 역할(에서 제공)을 사용하십시오<block ref="aa2af16a93b1d617ca7c38eef1d0c556" category="inline-link-rx"></block>)를 구축하는 것이 좋습니다.</block>
+  <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp E-Series Ansible 컬렉션에서 각 역할은 NetApp 솔루션 기반의 BeeGFS를 완벽하게 구축하는 데 있습니다. 이 역할은 NetApp E-Series SANtricity, 호스트 및 BeeGFS 컬렉션을 사용하여 HA(High Availability)를 통해 BeeGFS 파일 시스템을 구성할 수 있습니다. 그런 다음 스토리지를 프로비저닝하고 매핑하고 클러스터 스토리지를 사용할 준비가 되었는지 확인할 수 있습니다.</block>
+  <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">역할에 맞는 심층적인 문서가 제공되지만, 구축 절차에서는 제2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 검증 아키텍처를 구축하는 데 역할을 사용하는 방법에 대해 설명합니다.</block>
+  <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">Ansible에 대한 사전 경험이 사전 필수 요소가 될 수 있도록 구축 단계에서 자세한 정보를 제공하려고 하지만, Ansible 및 관련 용어에 친숙해야 합니다.</block>
+  <block id="e9b6dfb59ebbe3c2a8e47b9bec2ada24" category="section-title">BeeGFS HA 클러스터의 인벤토리 레이아웃</block>
+  <block id="5585bfe6d81b9366f1160e16fcf3464f" category="paragraph">Ansible 인벤토리 구조를 사용하여 BeeGFS HA 클러스터를 정의합니다.</block>
+  <block id="ea969b9d9b8b0a66432c22ea23412c18" category="paragraph">이전 Ansible 경험을 가진 사람이라면 누구나 BeeGFS HA 역할이 각 호스트에 적용되는 변수(또는 팩트)를 검색하는 맞춤형 방법을 구현한다는 점을 알고 있어야 합니다. 이는 여러 서버에서 실행될 수 있는 리소스를 설명하는 Ansible 인벤토리를 작성하는 작업을 단순화하기 위해 필요합니다.</block>
+  <block id="fcf695220ea603b6d461ed9aaa63c323" category="paragraph">Ansible 재고는 일반적으로 'host_vars'와 'group_vars'에 있는 파일과 특정 그룹(또는 다른 그룹에 잠재적으로 그룹)에 호스트를 할당하는 재고 .yml 파일로 구성됩니다.</block>
+  <block id="927527f499c87b83ee052f9a293c0293" category="admonition">본 하위 섹션의 내용을 포함하는 파일을 만들지 마십시오. 이 내용은 예제로만 제공됩니다.</block>
+  <block id="a7a48a32496dcd14ea6f94f7d89ab599" category="paragraph">이 구성은 구성 프로필을 기반으로 사전 결정됩니다. 하지만 다음과 같이 Ansible 인벤토리로 모든 내용을 레이아웃하는 방법을 전반적으로 이해해야 합니다.</block>
+  <block id="9d92e1d6c46a5db6f99457758b8c71dc" category="paragraph">각 서비스에 대해 해당 구성을 설명하는 group_vars 아래에 추가 파일이 생성됩니다.</block>
+  <block id="7c98bb1c0d887b40b12614cc2cce909e" category="inline-link">NetApp은 Ansible을 사용하여 BeeGFS에 대한 HA 구축을 가속화합니다</block>
+  <block id="2c3ce0f08dbef62630d61052bdd46f20" category="paragraph">이 레이아웃을 통해 각 리소스에 대한 BeeGFS 서비스, 네트워크 및 스토리지 구성을 단일 위치에서 정의할 수 있습니다. BeeGFS 역할은 이러한 인벤토리 구조를 기반으로 각 파일 및 블록 노드에 필요한 구성을 집계합니다. 자세한 내용은 다음 블로그 게시물을 참조하십시오.<block ref="500a149f08c7164c80066a24197a4f46" category="inline-link-rx"></block>.</block>
+  <block id="bab8955d49a06dc041f1cf99ae3c65aa" category="admonition">각 서비스의 BeeGFS 숫자 및 문자열 노드 ID는 그룹 이름을 기준으로 자동으로 구성됩니다. 따라서 그룹 이름이 고유해야 하는 일반적인 Ansible 요구 사항 외에도 BeeGFS 서비스를 나타내는 그룹은 해당 그룹이 나타내는 BeeGFS 서비스 유형에 고유한 번호로 끝나야 합니다. 예를 들어, meta_01 및 stor_01은 허용되지만 metadata_01 및 meta_01은 허용되지 않습니다.</block>
+  <block id="1d62eb925570a160f6a58cd18984f578" category="summary">BeeGFS 솔루션에는 검증 테스트를 기반으로 한 성능 및 용량 사이징에 대한 권장 사항이 포함되어 있습니다.</block>
+  <block id="137e4d3e0bc5586af6fc7ca9441511e1" category="doc">사이징 지침</block>
+  <block id="6166a42aac4e50811124dbb35631ea78" category="paragraph">빌딩 블록 아키텍처의 목표는 특정 BeeGFS 시스템의 요구 사항을 충족하기 위해 여러 빌딩 블록을 추가하여 간편하게 사이징할 수 있는 솔루션을 구축하는 것입니다. 아래 지침에 따라 환경 요구 사항을 충족하는 데 필요한 BeeGFS 빌딩 블록의 양과 유형을 예측할 수 있습니다.</block>
+  <block id="a752ca5f8ca9bd168c12fc180ff734e3" category="paragraph">이러한 추정치는 최상의 성능을 제공하는 것으로, 가상 벤치마킹 애플리케이션은 실제 애플리케이션이 사용할 수 없는 방식으로 기본 파일 시스템의 사용을 최적화하기 위해 작성 및 사용됩니다.</block>
+  <block id="800f4a301937e5493aaaddfe77e10dd5" category="section-title">성능 사이징</block>
+  <block id="6875300666b544ca98e406bd6ca73da1" category="paragraph">다음 표에는 권장되는 성능 사이징이 나와 있습니다.</block>
+  <block id="83d4567aaaf81ff58ab394c3ad02accc" category="cell">구성 프로파일</block>
+  <block id="58a15ea9e5c981b498a5c119456b9dd9" category="cell">1MiB 읽기</block>
+  <block id="968dfca19c742301bc400a7c883b1594" category="cell">1MiB의 쓰기입니다</block>
+  <block id="8cf5b688a1a209b630cab18001501c76" category="cell">메타데이터 + 스토리지</block>
+  <block id="5d44d1f7b753dee2968cad82eef2f1dd" category="cell">62GiBps</block>
+  <block id="a5a649e4dec54d9f61f1cfc632dab412" category="cell">21GiBps</block>
+  <block id="dfab8e8b566f2d091e7ecb4b4d65060b" category="cell">스토리지만 해당</block>
+  <block id="1d955116a3bafb864bcf6755485fce7e" category="cell">64GiBps</block>
+  <block id="419cfc02b324dc7d8faefa90ed608fb0" category="inline-link">시스템 요구 사항</block>
+  <block id="e618e38f89f153e374a90674c51efb8f" category="paragraph">메타데이터 용량 사이징 예상치는 "경험 규칙"을 기반으로 하며, 이 경우 500GB의 용량으로 BeeGFS에서 약 1억 5천만 개의 파일을 저장할 수 있습니다. (자세한 내용은 BeeGFS 설명서를 참조하십시오<block ref="d422b619831c270410797364c04b1fb2" category="inline-link-rx"></block>참조)</block>
+  <block id="903cd75262aca9ec0b3a831bccc18869" category="paragraph">액세스 제어 목록, 디렉터리별 디렉토리 및 파일 수와 같은 기능을 사용하면 메타데이터 공간이 얼마나 빨리 소비되는지를 알 수 있습니다. 스토리지 용량 추정치는 RAID 6 및 XFS 오버헤드와 함께 사용 가능한 드라이브 용량을 고려합니다.</block>
+  <block id="9490db12574d3954607c7e9d91d28809" category="section-title">메타데이터 + 스토리지 구성 요소에 대한 용량 사이징</block>
+  <block id="015d2cd8138605f0cec20c9dffe04a93" category="paragraph">다음 표에는 메타데이터와 스토리지 구성 요소에 권장되는 용량 사이징이 나와 있습니다.</block>
+  <block id="b897bc1ea15940ab83faf02e07b143bf" category="cell">드라이브 크기(2+2 RAID 1) 메타데이터 볼륨 그룹</block>
+  <block id="fa4beb4be6de6614b0cd1460e8d33b1f" category="cell">메타데이터 용량(파일 수)</block>
+  <block id="070e4137f478af27755d228dba080d41" category="cell">드라이브 크기(8 + 2 RAID 6) 스토리지 볼륨 그룹</block>
+  <block id="785d80cc95b60fc3365e05e3ae013331" category="cell">스토리지 용량(파일 콘텐츠)</block>
+  <block id="be3ca1ec15ca4657e5ca3ec84a561090" category="cell">1.92TB</block>
+  <block id="b3d001728e8adb3f05f589ac92f74f0a" category="cell">1,797,120,000</block>
+  <block id="fefd735cb2121d34d8f975c4cca195db" category="cell">47.91TB</block>
+  <block id="71839d6e6fb59e239ad941d08b5e2519" category="cell">3.84TB</block>
+  <block id="e9e99d07bbdcffb429da9dbfd9096692" category="cell">3,594,240,000입니다</block>
+  <block id="82ace9685542f458c6ee0c7ed4223ebc" category="cell">95.84TB</block>
+  <block id="a98c228c0d8903ba6926546f64321cc4" category="cell">7.68TB</block>
+  <block id="92c5dedeb0266d552efd70d90ed2a193" category="cell">7,557,120,000</block>
+  <block id="0a9502953839027f49cab071512da640" category="cell">201.51TB</block>
+  <block id="1f04a7c587f50d269f44d43229c966ac" category="cell">15.3TB</block>
+  <block id="e7f4882484562f3729ee8d601f2dded3" category="cell">16,156,800,000</block>
+  <block id="4a4a2289f7f73e11c0d1524c657e4909" category="cell">430.84TB</block>
+  <block id="a966f153f6f429bbd39c3ac2390ef970" category="admonition">메타데이터 및 스토리지 구성 요소의 크기를 조정할 때 더 작은 드라이브를 메타데이터 볼륨 그룹에 사용하는 것과 스토리지 볼륨 그룹을 사용하는 것을 통해 비용을 절감할 수 있습니다.</block>
+  <block id="f9fb1e607e840d5610c34a9f15da540e" category="section-title">스토리지 전용 구성 요소에 대한 용량 사이징</block>
+  <block id="cd9db38cfde636fa7c304f8e67d8708d" category="paragraph">다음 표에는 스토리지 전용 구성 요소에 대한 경험 많은 용량 사이징이 나와 있습니다.</block>
+  <block id="4f7d0f08c61d0cc981b973ba853e2c6f" category="cell">59.89TB</block>
+  <block id="22f3cf273453d70fdc724d513005c81d" category="cell">119.80TB</block>
+  <block id="e4c2850d67996ecfe5e0b56e9637a470" category="cell">251.89TB</block>
+  <block id="f7c8918f0c24047e89e5842785e7b8ef" category="cell">538.55TB</block>
+  <block id="3cf8b9e44b7a1eb7154f2b777094e670" category="admonition">글로벌 파일 잠금이 활성화되지 않은 경우 기본(첫 번째) 구성 요소에서 관리 서비스를 포함할 때 발생하는 성능 및 용량 오버헤드가 최소화됩니다.</block>
+  <block id="5b361b4897c4847c08b3d13bf3b66b8d" category="summary">컴퓨팅 또는 GPU 노드와 같이 BeeGFS 파일 시스템에 액세스해야 하는 모든 호스트에 BeeGFS 클라이언트를 설치하고 구성합니다. 이 작업에서는 Ansible 및 BeeGFS 컬렉션을 사용할 수 있습니다.</block>
+  <block id="c855016387ccd14e80b0628a2da5609b" category="paragraph">컴퓨팅 또는 GPU 노드와 같이 BeeGFS 파일 시스템에 액세스해야 하는 모든 호스트에 BeeGFS 클라이언트를 설치하고 구성해야 합니다. 이 작업에서는 Ansible 및 BeeGFS 컬렉션을 사용할 수 있습니다.</block>
+  <block id="f3a29486bed19a90f2da6d007818b427" category="list-title">단계</block>
+  <block id="f4bf34ee26e45437b7b34ee3858d3f39" category="list-text">필요한 경우, Ansible 제어 노드에서 BeeGFS 클라이언트로 구성하려는 각 호스트에 대해 암호 없는 SSH를 설정합니다.</block>
+  <block id="c9793ac6c6a163b585094181979efe25" category="paragraph">'ssh-copy-id &lt;user&gt;@&lt;HOSTNAME_OR_IP&gt;'를 참조하십시오</block>
+  <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">'host_vars/'에서 다음 내용으로 이름이 '&lt;HOSTNAME&gt;.yml'인 각 BeeGFS 클라이언트에 대한 파일을 만들어 사용자 환경에 맞는 올바른 정보로 자리 표시자 텍스트를 채웁니다.</block>
+  <block id="eb92eeb67c4903777d624fd51e30acfa" category="admonition">현재 각 클라이언트에서 두 개의 InfiniBand 인터페이스를 구성해야 하며, 각 인터페이스는 두 스토리지 IPoIB 서브넷에 하나씩 있어야 합니다. 여기에 나열된 각 BeeGFS 서비스에 대해 서브넷 및 권장 범위의 예를 사용하는 경우 클라이언트는 "100.127.1" 범위에서 하나의 인터페이스를 구성해야 합니다. 100.127.99.255까지, 100.128.1로. 0에서 100.128까지. 99.255".</block>
+  <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">새 파일 'client_inventory.yml'를 만든 다음 맨 위에 다음 매개 변수를 입력합니다.</block>
+  <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">Ansible Vault로 콘텐츠 암호화</block>
+  <block id="d424a4948912165baf5c9641ad4de044" category="admonition">암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(의 Ansible 설명서 참조)<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>) 또는 플레이북이 실행될 때 '--Ask-when-pass' 옵션을 사용합니다.</block>
+  <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">'client_inventory.yml' 파일에서 Beegfs_clients' 그룹 아래에 BeeGFS 클라이언트로 구성해야 하는 모든 호스트를 나열한 다음 BeeGFS 클라이언트 커널 모듈을 구축하는 데 필요한 추가 구성을 지정합니다.</block>
+  <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMA 지원</block>
+  <block id="675bf44585d9e9ed71a38bde5f37fb5f" category="admonition">Mellanox OFED 드라이버를 사용하는 경우, "begfs_client_OFED_include_path"가 Linux 설치를 위한 올바른 "헤더 포함 경로"를 가리키는지 확인하십시오. 자세한 내용은 의 BeeGFS 설명서를 참조하십시오<block ref="ad551773fffeead9219b565416da2397" category="inline-link-rx"></block>.</block>
+  <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">client_inventory.yml 파일에 미리 정의된 VAR의 하단에 마운트할 BeeGFS 파일 시스템을 나열합니다.</block>
+  <block id="0ebb92016a1cd310802bb6e22bcd491c" category="admonition">Beegfs_client_config는 테스트된 설정을 나타냅니다. 모든 옵션에 대한 종합적인 개요는 netapp_eseries.beegfs` 컬렉션의 "begfs_client" 역할에 포함된 설명서를 참조하십시오. 여기에는 여러 개의 BeeGFS 파일 시스템을 마운트하거나 동일한 BeeGFS 파일 시스템을 여러 번 마운트하는 방법에 대한 세부 정보가 포함됩니다.</block>
+  <block id="853c95fff114a0396695a5a34c4f78f1" category="list-text">새 'client_Playbook.yml' 파일을 만든 후 다음 매개 변수를 입력합니다.</block>
+  <block id="8ae73b3fcef5fc8f1a73e62c987915e6" category="admonition">필요한 IB/RDMA 드라이버와 IP를 해당 IPoIB 인터페이스에 이미 설치한 경우 'NetApp_eseries.host' 수집 및 'IPoIB' 역할을 가져오지 마십시오.</block>
+  <block id="598ee1856218e19bf329d8bece215061" category="list-text">클라이언트를 설치 및 구축하고 BeeGFS를 마운트하려면 다음 명령을 실행합니다.</block>
+  <block id="999070faf3729384137acf10348ed589" category="list-text">BeeGFS 파일 시스템을 운영 환경에 배치하기 전에 모든 클라이언트에 로그인하고 "begfs-fsck--checkfs"를 실행하여 모든 노드에 연결할 수 있고 보고된 문제가 없는지 확인하는 것이 좋습니다.</block>
+  <block id="883ccbea6264c3d9c8ea56267b290a0a" category="summary">NetApp 기반 BeeGFS에 대한 소프트웨어 구성에는 BeeGFS 네트워크 구성 요소, EF600 블록 노드, BeeGFS 파일 노드, 리소스 그룹, BeeGFS 서비스가 포함됩니다.</block>
+  <block id="e366b0b441e75fcafac2db7ff979a799" category="doc">소프트웨어 구성</block>
+  <block id="dea1b03288253149cb4c55f3c4f10e3e" category="section-title">BeeGFS 네트워크 구성</block>
+  <block id="391f99769ce2b9374f0421ace7ce5ac5" category="paragraph">BeeGFS 네트워크 구성은 다음과 같은 구성 요소로 이루어집니다.</block>
+  <block id="f05f92f283e258444df8e73ac9508c74" category="list-text">* 부동 IP * 부동 IP는 동일한 네트워크의 모든 서버로 동적으로 라우팅될 수 있는 일종의 가상 IP 주소입니다. 여러 서버가 동일한 부동 IP 주소를 소유할 수 있지만, 특정 시간에 한 서버에서만 활성화될 수 있습니다.</block>
+  <block id="76a7e91177d008d5a202ef507a9049d7" category="paragraph">각 BeeGFS 서버 서비스에는 BeeGFS 서버 서비스의 실행 위치에 따라 파일 노드 간에 이동할 수 있는 고유한 IP 주소가 있습니다. 이러한 부동 IP 구성을 통해 각 서비스가 다른 파일 노드로 독립적으로 페일오버할 수 있습니다. 클라이언트는 특정 BeeGFS 서비스의 IP 주소를 알고 있으면 됩니다. 이 경우 현재 해당 서비스를 실행 중인 파일 노드를 알 필요가 없습니다.</block>
+  <block id="527f436644c629cc1f2330d74c5c29b4" category="list-text">* BeeGFS 서버 다중 홈 구성 * 솔루션의 밀도를 높이기 위해 각 파일 노드에는 동일한 IP 서브넷에 구성된 IP를 가진 여러 스토리지 인터페이스가 있습니다.</block>
+  <block id="5a19238d05fdcdb09e439e41a0a94349" category="paragraph">기본적으로 하나의 인터페이스에 대한 요청은 동일한 서브넷에 있는 경우 다른 인터페이스에서 응답할 수 있기 때문에 Linux 네트워킹 스택에서 이 구성이 예상대로 작동하는지 확인하기 위해 추가 구성이 필요합니다. 다른 단점 외에도 이 기본 동작으로 인해 RDMA 연결을 적절하게 설정하거나 유지할 수 없습니다.</block>
+  <block id="e7a28f6c997a9c0eba41eb574b5f829c" category="paragraph">Ansible 기반 배포에서는 부동 IP가 시작 및 중지되는 시기와 함께 RP(역방향 경로) 및 ARP(주소 해상도 프로토콜) 동작 조임을 처리하고, 다중 홈 네트워크 구성이 제대로 작동하도록 해당 IP 경로 및 규칙을 동적으로 생성합니다.</block>
+  <block id="99e50b7bb7e3ca73eb910eaf99c6f100" category="list-text">* BeeGFS 클라이언트 다중 레일 구성 * _Multi-RAIL_은 애플리케이션이 여러 개의 독립적인 네트워크 "레일"을 사용하여 성능을 향상시키는 기능을 의미합니다.</block>
+  <block id="24cb2caf398043c3ad552915f0ec2b22" category="paragraph">BeeGFS는 RDMA 연결을 위해 RDMA를 사용할 수 있지만, BeeGFS는 IPoIB를 사용하여 RDMA 연결 검색 및 설정을 간소화합니다. BeeGFS 클라이언트가 여러 InfiniBand 인터페이스를 사용할 수 있도록 하려면 각 클라이언트를 다른 서브넷에 있는 IP 주소로 구성한 다음 각 서브넷에 있는 BeeGFS 서버 서비스의 절반에 대해 기본 인터페이스를 구성할 수 있습니다.</block>
+  <block id="89b4732ecad8d523a7b684af09ad56ee" category="paragraph">다음 다이어그램에서는 밝은 녹색으로 강조 표시된 인터페이스가 하나의 IP 서브넷(예: 100.127.0.0/16)에 있고 어두운 녹색 인터페이스는 다른 서브넷(예: 100.128.0.0/16)에 있습니다.</block>
+  <block id="12ec3f7db1a39d49d76e159a6fc9be24" category="paragraph">다음 그림에서는 여러 BeeGFS 클라이언트 인터페이스에서 트래픽의 균형을 조정하는 방법을 보여 줍니다.</block>
+  <block id="8336bf936a644f2a0962fc710a65d3db" category="paragraph"><block ref="8336bf936a644f2a0962fc710a65d3db" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="02eef1a6d9aefa452755edb315057e27" category="paragraph">BeeGFS의 각 파일은 일반적으로 여러 스토리지 서비스에 걸쳐 스트라이핑되기 때문에 다중 레일 구성을 통해 클라이언트는 단일 InfiniBand 포트보다 더 많은 처리량을 달성할 수 있습니다. 예를 들어, 다음 코드 샘플은 클라이언트가 두 인터페이스 간에 트래픽의 균형을 조정할 수 있도록 하는 일반적인 파일 스트라이핑 구성을 보여 줍니다.</block>
+  <block id="7a11ff2c7aa2ff0eccecba650f1db9f5" category="paragraph">두 개의 IPoIB 서브넷을 사용하는 것은 논리적인 구분입니다. 필요한 경우 단일 물리적 InfiniBand 서브넷(스토리지 네트워크)을 사용할 수 있습니다.</block>
+  <block id="315faf76d806cf96ff685ed2e65a9d16" category="inline-link">BeeGFS RDMA 지원</block>
+  <block id="96002ab5a7c353b76ef0cc2e390f7131" category="admonition">단일 IPoIB 서브넷에서 여러 IB 인터페이스를 사용할 수 있도록 BeeGFS 7.3.0에 멀티 레일 지원이 추가되었습니다. BeeGFS 7.3.0을 GA 전에 NetApp 기반 BeeGFS 솔루션의 설계가 개발되었으며, BeeGFS 클라이언트에서 두 개의 IB 인터페이스를 사용하는 두 개의 IP 서브넷을 보여 줍니다. 다중 IP 서브넷 접근 방식의 한 가지 장점은 BeeGFS 클라이언트 노드에서 멀티호밍을 구성할 필요가 없기 때문입니다(자세한 내용은 참조)<block ref="bb2f67f854c27129a1f13b908e56ca65" category="inline-link-rx"></block>)를 클릭합니다.</block>
+  <block id="b28b500a27afaa858536ee53a4c02d91" category="section-title">EF600 블록 노드 구성</block>
+  <block id="6e88eb560b5c117f0226888b924af1c5" category="paragraph">블록 노드는 동일한 드라이브 세트에 대한 공유 액세스를 가진 2개의 액티브/액티브 RAID 컨트롤러로 구성됩니다. 일반적으로 각 컨트롤러는 시스템에 구성된 볼륨의 절반을 소유하지만 필요에 따라 다른 컨트롤러를 인수할 수 있습니다.</block>
+  <block id="674757e2095af366602187ca856f8ec4" category="paragraph">파일 노드의 다중 경로 소프트웨어는 각 볼륨에 대한 최적화된 활성 경로를 결정하고 케이블, 어댑터 또는 컨트롤러에 장애가 발생할 경우 대체 경로로 자동으로 이동합니다.</block>
+  <block id="458cd7cdbda7e7a38853eae8ce0e9662" category="paragraph">다음 다이어그램은 EF600 블록 노드의 컨트롤러 레이아웃을 보여 줍니다.</block>
+  <block id="896dfe770f6add65f01e361850b05b91" category="paragraph"><block ref="896dfe770f6add65f01e361850b05b91" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b4adca73c8e2d619dedc4eb6a42bc966" category="paragraph">공유 디스크 HA 솔루션을 지원하기 위해 볼륨은 두 파일 노드에 매핑되므로 필요에 따라 서로 테이크오버할 수 있습니다. 다음 다이어그램은 BeeGFS 서비스 및 기본 볼륨 소유권이 최대 성능을 위해 구성되는 방법의 예를 보여 줍니다. 각 BeeGFS 서비스 왼쪽에 있는 인터페이스는 클라이언트 및 기타 서비스가 연락하는 데 사용하는 기본 인터페이스를 나타냅니다.</block>
+  <block id="3a7342602381a86e862da535061f4da7" category="paragraph"><block ref="3a7342602381a86e862da535061f4da7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d1bff1512ad9e19d6469659f6a916a7e" category="paragraph">앞의 예에서 클라이언트 및 서버 서비스는 인터페이스 i1b를 사용하여 스토리지 서비스 1과 통신하는 것을 선호합니다. 스토리지 서비스 1은 인터페이스 i1a를 기본 경로로 사용하여 첫 번째 블록 노드의 컨트롤러 A에 있는 해당 볼륨(storage_tgt_101, 102)과 통신합니다. 이 구성은 InfiniBand 어댑터에서 사용할 수 있는 양방향 PCIe 대역폭을 완벽하게 사용하고 PCIe 4.0에서 사용할 수 있는 것보다 듀얼 포트 HDR InfiniBand 어댑터에서 더 나은 성능을 제공합니다.</block>
+  <block id="f4fa0385d373373f4ab191231ead5909" category="section-title">BeeGFS 파일 노드 구성</block>
+  <block id="5e2d5eb9f991b81a298fb57212c715fe" category="paragraph">BeeGFS 파일 노드는 HA(High-Availability) 클러스터로 구성되어 여러 파일 노드 간에 BeeGFS 서비스의 페일오버를 지원합니다.</block>
+  <block id="f409d0a0c329860646597bbcc45fcc4b" category="inline-link">고가용성 애드온을 위한 Red Hat 교육</block>
+  <block id="48a9bfc91c9cb5a8f6f7fc37080d3b95" category="paragraph">HA 클러스터 설계는 널리 사용되는 두 가지 Linux HA 프로젝트, 즉 클러스터 멤버십을 위한 Corosync 및 클러스터 리소스 관리를 위한 Pacemaker를 기반으로 합니다. 자세한 내용은 을 참조하십시오<block ref="a896e9cb42c24f9ab5c574f54ad83b08" category="inline-link-rx"></block>.</block>
+  <block id="79b70ba13b6d273b53c66d816a15830d" category="paragraph">NetApp은 클러스터가 지능적으로 BeeGFS 리소스를 시작하고 모니터링할 수 있도록 여러 OCF(Open Cluster Framework) 리소스 에이전트를 저술하고 확장했습니다.</block>
+  <block id="ff07f4dbc22a6f0ecb4a11bfb6136d40" category="section-title">BeeGFS HA 클러스터</block>
+  <block id="7a189557128751d94f2d8bca38ccf462" category="paragraph">일반적으로, HA를 사용하거나 사용하지 않고 BeeGFS 서비스를 시작할 때 다음과 같은 몇 가지 리소스를 사용해야 합니다.</block>
+  <block id="3f1f71800ded6b59769a66de67dd7d86" category="list-text">서비스에 연결할 수 있는 IP 주소이며 일반적으로 Network Manager에서 구성합니다.</block>
+  <block id="03eb5c90128e244e904f61d22569b4af" category="list-text">BeeGFS에서 데이터를 저장하기 위한 타겟으로 사용되는 기본 파일 시스템입니다.</block>
+  <block id="510de0f837e4aacf9e6eb3c08926bcff" category="paragraph">일반적으로 이러한 항목은 '/etc/fstab'에 정의되어 있으며 systemd에 의해 마운트됩니다.</block>
+  <block id="49990dbe44b62019deed5be9f5c437a3" category="list-text">다른 리소스가 준비되면 BeeGFS 프로세스를 시작하는 시스템 서비스입니다.</block>
+  <block id="4f26c3922778ca3d5247b1281f6843af" category="paragraph">추가 소프트웨어가 없으면 이러한 리소스는 단일 파일 노드에서만 시작됩니다. 따라서 파일 노드가 오프라인이 되면 BeeGFS 파일 시스템의 일부를 액세스할 수 없습니다.</block>
+  <block id="c60a1b018b03670c1a1a93baf9da5d45" category="paragraph">여러 노드에서 각 BeeGFS 서비스를 시작할 수 있으므로, Pacemaker는 각 서비스와 종속 리소스가 한 번에 하나의 노드에서만 실행되도록 해야 합니다. 예를 들어, 두 노드가 동일한 BeeGFS 서비스를 시작하려고 하면 둘 다 기본 타겟의 동일한 파일에 쓰려고 하면 데이터 손상이 발생할 위험이 있습니다. 이러한 시나리오를 피하기 위해, 페이스 메이커의 Corosync를 사용하여 전체 클러스터의 상태를 모든 노드에 걸쳐 안정적으로 유지하고 쿼럼을 설정합니다.</block>
+  <block id="a96d4ad8c651d8ff21de193227e20f4d" category="paragraph">클러스터에서 장애가 발생하면 심장박동기가 반응하여 다른 노드에서 BeeGFS 리소스를 다시 시작합니다. 일부 시나리오에서는 심박조율기가 장애가 발생한 원래 노드와 통신하지 못하여 리소스가 중지되었는지 확인할 수 없습니다. 다른 곳에서 BeeGFS 리소스를 다시 시작하기 전에 노드가 다운되었는지 확인하려면 심장박동기가 장애가 있는 노드를 분리합니다. 즉, 전원을 제거하는 것이 좋습니다.</block>
+  <block id="ad22605bb834d1c650f3b2f1e5c76401" category="paragraph">심박조율기가 PDU(Power Distribution Unit)를 사용하여 노드를 펜싱하거나 서버 BMC(Baseboard Management Controller)를 Redfish와 같은 API와 함께 사용하여 오픈 소스 펜싱 에이전트를 많이 사용할 수 있습니다.</block>
+  <block id="05273fb3cfbaf5190eee8cfc0c3e0597" category="paragraph">BeeGFS가 HA 클러스터에서 실행 중인 경우 모든 BeeGFS 서비스 및 기본 리소스는 리소스 그룹의 페이스 메이커를 통해 관리됩니다. 각 BeeGFS 서비스 및 해당 서비스가 의존하는 리소스가 리소스 그룹으로 구성되어 리소스가 올바른 순서로 시작 및 중지되어 동일한 노드에 배치됩니다.</block>
+  <block id="de25b213ff1f6f931a4d9c0f59bbed69" category="paragraph">각 BeeGFS 리소스 그룹에 대해 심장박동기는 특정 노드에서 BeeGFS 서비스에 더 이상 액세스할 수 없을 때 장애 조건을 감지하고 페일오버를 지능적으로 트리거하는 사용자 지정 BeeGFS 모니터링 리소스를 실행합니다.</block>
+  <block id="e33abb1ba19f563eaa662796e8b3021b" category="paragraph">다음 그림에서는 심장박동기 제어 BeeGFS 서비스 및 종속성을 보여 줍니다.</block>
+  <block id="bedf97f40f223046eb65b7acad7c0a92" category="paragraph"><block ref="bedf97f40f223046eb65b7acad7c0a92" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5346cef6f7de3aac02ebdfc1ae9b6f27" category="inline-link">멀티 모드에 대한 BeeGFS 문서</block>
+  <block id="c4ae8913dc1f6c9fed7961516b16defd" category="admonition">동일한 유형의 여러 BeeGFS 서비스를 동일한 노드에서 시작할 수 있도록 다중 모드 구성 방법을 사용하여 BeeGFS 서비스를 시작하도록 페이스 메이커를 구성합니다. 자세한 내용은 를 참조하십시오<block ref="bc179f675bb7a303402ecb902ab09448" category="inline-link-rx"></block>.</block>
+  <block id="553c30108a127bc2c66537e58970be9e" category="paragraph">BeeGFS 서비스는 여러 노드에서 시작할 수 있어야 하므로 각 서비스의 구성 파일('/etc/beegfs'에 있음)은 해당 서비스의 BeeGFS 타겟으로 사용되는 E-Series 볼륨 중 하나에 저장됩니다. 따라서 특정 BeeGFS 서비스에 대한 데이터와 함께 서비스를 실행해야 하는 모든 노드에서 해당 구성을 액세스할 수 있습니다.</block>
+  <block id="39f54b8b12af6ae0edd74b4db43d9959" category="summary">NetApp의 BeeGFS에 대한 하드웨어 구성에는 파일 노드 및 네트워크 케이블 연결이 포함됩니다.</block>
+  <block id="a80f40a4cf172e4461c613d2afc0bade" category="doc">하드웨어 구성</block>
+  <block id="a6f76304e97d4b2df31a130d24073f88" category="section-title">파일 노드 구성</block>
+  <block id="8e9473694bc8ee293e1f6c4f730ab4ed" category="paragraph">파일 노드에는 동일한 수의 PCIe 슬롯 및 메모리에 대한 로컬 액세스를 포함하는 별도의 NUMA 존으로 구성된 2개의 CPU 소켓이 있습니다.</block>
+  <block id="81fb4a697d99bad44c068f68db513e26" category="paragraph">InfiniBand 어댑터는 적절한 PCI 라이저 또는 슬롯에 설치되어야 사용 가능한 PCIe 레인 및 메모리 채널에 걸쳐 작업 부하가 분산됩니다. 개별 BeeGFS 서비스에 대한 작업을 특정 NUMA 노드에 완전히 격리하여 워크로드의 균형을 조정합니다. 목표는 두 개의 독립적인 단일 소켓 서버처럼 각 파일 노드에서 유사한 성능을 얻는 것입니다.</block>
+  <block id="26dc1928abfabc3027cfa2e4f0b2f57f" category="paragraph">다음 그림에서는 파일 노드 NUMA 구성을 보여 줍니다.</block>
+  <block id="84d47488591b2b0cb81b407a80494c91" category="paragraph"><block ref="84d47488591b2b0cb81b407a80494c91" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cc560c8656cb52d0c2376a0dbb2ac436" category="paragraph">BeeGFS 프로세스는 사용된 인터페이스가 동일한 존에 있도록 특정 NUMA 존에 고정됩니다. 이렇게 구성하면 소켓 간 연결을 통한 원격 액세스가 필요하지 않습니다. 소켓 간 연결은 QPI 또는 GMI2 링크라고도 합니다. 최신 프로세서 아키텍처에서도 HDR InfiniBand와 같은 고속 네트워킹을 사용할 때 병목 현상이 발생할 수 있습니다.</block>
+  <block id="037505dd545df2577c95982dd52a9497" category="section-title">네트워크 케이블 연결 구성</block>
+  <block id="2efc6e5efcfc3424383b80badbc6f2f8" category="paragraph">구성 요소 내에서 각 파일 노드는 총 4개의 중복 InfiniBand 연결을 사용하여 2개의 블록 노드에 연결됩니다. 또한 각 파일 노드에는 InfiniBand 스토리지 네트워크에 대한 4개의 이중화된 접속이 있습니다.</block>
+  <block id="c2b0d4abc479963299ef11f7007b04d9" category="paragraph">다음 그림에서 주목하십시오.</block>
+  <block id="ccebd32ee2768501ecf2042e521d090c" category="list-text">녹색으로 표시된 모든 파일 노드 포트는 스토리지 패브릭에 접속하는 데 사용되며, 다른 모든 파일 노드 포트는 블록 노드에 직접 연결됩니다.</block>
+  <block id="01be869a64586dc6df5d40be148742a7" category="list-text">특정 NUMA 존에 있는 2개의 InfiniBand 포트는 동일한 블록 노드의 A 및 B 컨트롤러에 연결됩니다.</block>
+  <block id="92d102b77ed7526653d6ed77bc5f9297" category="list-text">NUMA 노드 0의 포트는 항상 첫 번째 블록 노드에 연결됩니다.</block>
+  <block id="41d34f3f75f0a6f23825fec8c1f6b167" category="list-text">NUMA 노드 1의 포트는 두 번째 블록 노드에 연결됩니다.</block>
+  <block id="058a7d9db61c859b343066aa0c6cd3c7" category="paragraph"><block ref="058a7d9db61c859b343066aa0c6cd3c7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="109d8b81996cf829eba8acc62259eaee" category="admonition">이중화 스위치가 있는 스토리지 네트워크의 경우 녹색으로 표시된 포트가 한 스위치에 연결되고 어두운 녹색으로 표시된 포트는 다른 스위치에 연결해야 합니다.</block>
+  <block id="1109e0767ef0b323f02f85cdaa9a589d" category="paragraph">그림에 표시된 케이블 연결 구성을 통해 각 BeeGFS 서비스는 다음을 수행할 수 있습니다.</block>
+  <block id="12e9ec8c0cb3aa87bfb400a73712d79b" category="list-text">BeeGFS 서비스를 실행 중인 파일 노드에 관계없이 동일한 NUMA 존에서 실행합니다.</block>
+  <block id="488f6220ee8bab2e1e3621f7f99b598c" category="list-text">장애 발생 위치에 관계없이 프런트엔드 스토리지 네트워크와 백엔드 블록 노드에 대한 보조 최적 경로 제공</block>
+  <block id="e2ae85c4e917fafc3b545710dcc3fdf1" category="list-text">블록 노드의 파일 노드 또는 컨트롤러에 유지 관리가 필요한 경우 성능 영향을 최소화합니다.</block>
+  <block id="76af1dbb7a81b9258eeb702dd63164e2" category="paragraph">PCIe 양방향 대역폭을 최대한 활용하려면 각 InfiniBand 어댑터의 포트 하나를 스토리지 패브릭에 연결하고 다른 포트는 블록 노드에 연결해야 합니다. HDR InfiniBand 포트의 이론적인 최대 속도는 25GBps입니다(신호 및 기타 오버헤드는 고려하지 않음). PCIe 4.0 x16 슬롯의 최대 단일 방향 대역폭은 32GBps이며 이론적으로 50GBps 대역폭을 처리할 수 있는 이중 포트 InfiniBand 어댑터가 통합된 파일 노드를 구현할 때 잠재적인 병목 현상이 발생합니다.</block>
+  <block id="33f3e0c9879fd051eb380c62267a24cf" category="paragraph">다음 그림은 전체 PCIe 양방향 대역폭을 활용하는 데 사용되는 케이블링 설계를 보여줍니다.</block>
+  <block id="5a81a38e29a457f16f6a1a9146cb73de" category="paragraph"><block ref="5a81a38e29a457f16f6a1a9146cb73de" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1a72dacfce92d062255a929bbb18fc8d" category="paragraph">각 BeeGFS 서비스에 대해 동일한 어댑터를 사용하여 클라이언트 트래픽에 사용되는 기본 포트를 해당 서비스 볼륨의 기본 소유자인 블록 노드 컨트롤러의 경로와 연결합니다. 자세한 내용은 을 참조하십시오 <block ref="1ce6299bc86692b3e97783bdba904848" category="inline-link-macro-rx"></block>.</block>
+  <block id="0dfb05d4ea761122194fbafcd7f3a5eb" category="summary">BeeGFS on NetApp 솔루션의 2세대 설계는 3가지 구성 요소 구성 프로필을 사용하여 검증되었습니다.</block>
+  <block id="57448c4b7cf64af279b612502ae49c08" category="doc">설계 검증</block>
+  <block id="dd444e75087c1912fb6b2f9435eec0ba" category="paragraph">구성 프로파일에는 다음이 포함됩니다.</block>
+  <block id="ba33770125b7249843843e3524e48e5e" category="list-text">BeeGFS 관리, 메타데이터 및 스토리지 서비스를 포함한 단일 기본 구성 요소입니다.</block>
+  <block id="dc0ae690014a6e4ed1d17d728fce2e3a" category="list-text">BeeGFS 메타데이터와 스토리지 구성 요소</block>
+  <block id="f789cf74ad54c463cf1827c970b695c0" category="list-text">BeeGFS 스토리지 전용 구성 요소입니다.</block>
+  <block id="c7dfb273d9605bd7640f597b869aef23" category="paragraph">빌딩 블록은 2개의 Mellanox Quantum InfiniBand(MQM8700) 스위치에 연결되었습니다. 10개의 BeeGFS 클라이언트도 InfiniBand 스위치에 연결되었으며 통합 벤치마크 유틸리티를 실행하는 데 사용되었습니다.</block>
+  <block id="f27d4d7620b1158ad830c498a6faf1c5" category="paragraph">다음 그림에서는 NetApp 솔루션의 BeeGFS 검증을 위해 사용되는 BeeGFS 구성을 보여 줍니다.</block>
+  <block id="c76715003b58d0566ea40579fbf2b849" category="paragraph"><block ref="c76715003b58d0566ea40579fbf2b849" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dfa0c76fc554fa6837cfe216381eb3df" category="section-title">BeeGFS 파일 스트라이핑</block>
+  <block id="73bf7a09a102bdf9e2984ff15f2e62cc" category="paragraph">병렬 파일 시스템의 이점은 여러 스토리지 대상 간에 개별 파일을 스트라이핑하는 기능입니다. 이 기능은 동일하거나 다른 기본 스토리지 시스템의 볼륨을 나타낼 수 있습니다.</block>
+  <block id="f781a67c7f55c5a3d6d505e3569ff3c3" category="inline-link">스트라이핑</block>
+  <block id="0102b96fad09ea07b9b6c943ac48e706" category="inline-link">스트라이핑 API</block>
+  <block id="be4c29766b20870006df2b27be87994e" category="paragraph">BeeGFS에서는 디렉토리 및 파일별로 스트라이핑을 구성하여 각 파일에 사용되는 타겟 수를 제어하고 각 파일 스트라이프에 사용되는 청크 크기(또는 블록 크기)를 제어할 수 있습니다. 따라서 서비스를 재구성하거나 다시 시작할 필요 없이 파일 시스템에서 다양한 유형의 워크로드와 I/O 프로필을 지원할 수 있습니다. "begfs -ctl" 명령줄 도구 또는 스트라이핑 API를 사용하는 응용 프로그램을 사용하여 스트라이프 설정을 적용할 수 있습니다. 자세한 내용은 의 BeeGFS 설명서를 참조하십시오<block ref="d307c57bb94d8613bf23053de378d367" category="inline-link-rx"></block> 및<block ref="d53017212bcf8a78d44d2efbf061a88a" category="inline-link-rx"></block>.</block>
+  <block id="706c7a765e77b694cee17941887ccaaf" category="paragraph">최상의 성능을 얻기 위해 테스트 중에 스트라이프 패턴을 조정하고 각 테스트에 사용된 매개 변수를 기록하였습니다.</block>
+  <block id="a40727fe75676638a1b87009fafed260" category="section-title">IOR 대역폭 테스트: 여러 클라이언트</block>
+  <block id="a4c77786e4208d299fbf0c491eb99106" category="inline-link">HPC GitHub를 참조하십시오</block>
+  <block id="8b2e6032c8801b379e2fd75991ebb452" category="paragraph">IOR 대역폭 테스트는 OpenMPI를 사용하여 합성 I/O 생성기 툴 IOR(에서 제공)의 병렬 작업을 실행했습니다<block ref="323e2ec03a214c41088a20e514e0a41e" category="inline-link-rx"></block>) 10개 클라이언트 노드 전체에서 하나 이상의 BeeGFS 구성 요소로 이동합니다. 달리 명시되지 않은 한:</block>
+  <block id="219cae8db1869355f9c480a2fe2c5d6d" category="list-text">모든 테스트는 1MiB 전송 크기의 직접 I/O를 사용했습니다.</block>
+  <block id="de2223ae9c343f387e4a3549abf2a4fc" category="list-text">BeeGFS 파일 스트라이핑은 1MB 청크 크기 및 파일당 하나의 타겟으로 설정되었습니다.</block>
+  <block id="8aa2f9ce00cbab54a4479ba40f638773" category="paragraph">다음 매개 변수는 IOR에 사용되었습니다. 세그먼트 수는 구성 요소 1개의 경우 애그리게이트 파일 크기를 5TiB로, 3개의 구성 요소는 40TiB로 유지하도록 조정되었습니다.</block>
+  <block id="a404b853baec85523834a070479317ea" category="paragraph">다음 그림에서는 단일 BeeGFS 기반(관리, 메타데이터 및 스토리지) 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.</block>
+  <block id="f93ba433079ca784ff0a18a8928d24db" category="paragraph"><block ref="f93ba433079ca784ff0a18a8928d24db" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="578da280bb783045852047cd081f65fd" category="paragraph">다음 그림에서는 단일 BeeGFS 메타데이터 + 스토리지 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.</block>
+  <block id="db43f39b8c5d5c4ef9f8938eb09db411" category="paragraph"><block ref="db43f39b8c5d5c4ef9f8938eb09db411" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="720f0ab0184643d51a1197789875c393" category="paragraph">다음 그림에서는 단일 BeeGFS 스토리지 전용 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.</block>
+  <block id="13e0e7c553ecdbe3ea238e89713a4a47" category="paragraph"><block ref="13e0e7c553ecdbe3ea238e89713a4a47" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e3b081c19738d20e5f52be67ac8d0361" category="paragraph">다음 그림에서는 세 개의 BeeGFS 구성 요소가 포함된 IOR 테스트 결과를 보여 줍니다.</block>
+  <block id="04344e81ce55b155d052b799f4737621" category="paragraph"><block ref="04344e81ce55b155d052b799f4737621" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9abc8771b8098ae505a1ff386b580ef3" category="paragraph">예상한 대로 기본 구성 요소과 후속 메타데이터 + 스토리지 구성 요소 간의 성능 차이는 무시할 수 있습니다. 메타데이터 + 스토리지 구성 요소 및 스토리지 전용 구성 요소를 비교하면 스토리지 대상으로 사용되는 추가 드라이브로 인해 읽기 성능이 약간 향상됩니다. 그러나 쓰기 성능에는 큰 차이가 없습니다. 더 높은 성능을 얻기 위해 여러 구성 요소를 함께 추가하여 성능을 선형 방식으로 확장할 수 있습니다.</block>
+  <block id="7465e2f5afc6bc7ebff6ea05e19d52d3" category="section-title">IOR 대역폭 테스트: 단일 클라이언트</block>
+  <block id="4cb463d8f88ac93de9fecb82d125d05c" category="paragraph">IOR 대역폭 테스트는 OpenMPI를 사용하여 단일 고성능 GPU 서버를 사용하여 여러 IOR 프로세스를 실행하여 단일 클라이언트에서 얻을 수 있는 성능을 탐색했습니다.</block>
+  <block id="6a2583bcd41d0a03702444d541162685" category="paragraph">이 테스트는 클라이언트가 Linux 커널 페이지 캐시('tuneFileCacheType=NATIVE')를 사용하도록 구성된 경우 BeeGFS의 다시 읽기 동작 및 성능을 기본 '버퍼링' 설정과 비교합니다.</block>
+  <block id="0123881fd1c799161bf0cc847d402a42" category="paragraph">네이티브 캐싱 모드는 클라이언트의 Linux 커널 페이지 캐시를 사용하므로 네트워크를 통해 다시 전송되는 것이 아니라 로컬 메모리에서 다시 읽기 작업을 수행할 수 있습니다.</block>
+  <block id="2748a8672e1df7ff75dc04c3e0086a44" category="paragraph">다음 다이어그램은 BeeGFS 빌딩 블록 3개와 단일 클라이언트를 사용한 IOR 테스트 결과를 보여 줍니다.</block>
+  <block id="d07c2b895ad73e3adadd62d9b20eb243" category="paragraph"><block ref="d07c2b895ad73e3adadd62d9b20eb243" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2e301b61d3683cc584633009bafffa70" category="admonition">이러한 테스트를 위한 BeeGFS 스트라이핑은 파일당 타겟 8개가 포함된 1MB 청크 크기로 설정되었습니다.</block>
+  <block id="8c5eae70f19670232111d1823b5edb56" category="paragraph">기본 버퍼링 모드에서 쓰기 및 초기 읽기 성능이 향상되지만, 동일한 데이터를 여러 번 다시 읽는 워크로드의 경우 네이티브 캐싱 모드에서 성능이 크게 향상됩니다. 이렇게 향상된 다시 읽기 성능은 여러 번의 Epoch에서 동일한 데이터 세트를 여러 번 다시 읽는 딥 러닝과 같은 워크로드에 중요합니다.</block>
+  <block id="e9f3e979fd823256ea73296f49e954da" category="section-title">메타데이터 성능 테스트</block>
+  <block id="e3195dd21dbd9ee2c6c42f0c8a6c7128" category="paragraph">Metadata 성능 테스트는 IOR의 일부로 포함된 MDTest 도구를 사용하여 BeeGFS의 메타데이터 성능을 측정했습니다. 이 테스트에서는 OpenMPI를 사용하여 10개의 클라이언트 노드 모두에서 병렬 작업을 실행했습니다.</block>
+  <block id="44ece23db4ca31ae5b81205ad387af00" category="paragraph">다음 매개 변수는 총 프로세스 수가 2배속 단계에서 10개에서 320으로 조정되고 파일 크기가 4K인 벤치마크 테스트를 실행하는 데 사용되었습니다.</block>
+  <block id="b872c01a040702b121dc5f52261e99e0" category="paragraph">메타데이터 성능은 먼저 메타데이터 + 스토리지 구성 요소 하나를 측정한 후 추가 구성 요소를 추가하여 성능이 얼마나 향상되는지를 보여 줍니다.</block>
+  <block id="c6c65b36c5c466822447bc4c94abd80c" category="paragraph">다음 다이어그램은 하나의 BeeGFS 메타데이터 + 스토리지 구성 요소가 포함된 MDTest 결과를 보여 줍니다.</block>
+  <block id="a5ab5340467c6b4a3a4a7920c54ae8f3" category="paragraph"><block ref="a5ab5340467c6b4a3a4a7920c54ae8f3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5d4514dbb64a843f08caa7fe8140c121" category="paragraph">다음 다이어그램은 BeeGFS 메타데이터 + 스토리지 구성 요소 두 개가 포함된 MDTest 결과를 보여 줍니다.</block>
+  <block id="aec56a0b02b345d6f601383808523dc6" category="paragraph"><block ref="aec56a0b02b345d6f601383808523dc6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6bcc55d27d7ea16e6df55e7ec18fd377" category="section-title">기능 검증</block>
+  <block id="b15005270887e63f3c777c3722631021" category="paragraph">이 아키텍처의 검증 과정에서 NetApp은 다음을 비롯한 여러 기능 테스트를 수행했습니다.</block>
+  <block id="008151af32cff92eed6431ca4cf43500" category="list-text">스위치 포트를 비활성화하여 단일 클라이언트 InfiniBand 포트에 장애 발생</block>
+  <block id="73b83d70be21d004da6e079b00bb5948" category="list-text">스위치 포트를 비활성화하여 단일 서버 InfiniBand 포트에 장애 발생</block>
+  <block id="f7b8ad51ce1aad4a6e15c6583fcbdd55" category="list-text">BMC를 사용하여 즉시 서버 전원을 끕니다.</block>
+  <block id="6148d6995d77c1b8b1bfd4c6f299162b" category="list-text">노드를 대기 노드에 배치하고 다른 노드에 대한 서비스 장애 조치를 원활히 합니다.</block>
+  <block id="1cc77e3527f4ac004c8a5cdb5cac049e" category="list-text">노드를 다시 온라인 상태로 전환하고 원래 노드에 서비스를 페일백합니다.</block>
+  <block id="908463015e2671e9d90b06353dabae03" category="list-text">PDU를 사용하여 InfiniBand 스위치 중 하나의 전원을 끕니다. BeeGFS 클라이언트에 설정된 'sysSessionChecksEnabled:false' 매개 변수를 사용하여 스트레스 테스트가 진행되는 동안 모든 테스트가 수행되었습니다. I/O에 대한 오류나 운영 중단이 관찰되지 않았습니다.</block>
+  <block id="c49182dc0c7a70b9cd2e10853d9ec6c7" category="inline-link">변경 로그</block>
+  <block id="788a9659515e495b379621cac9040872" category="admonition">알려진 문제가 있습니다( 참조)<block ref="9892b1a82a523d642c4ee2c76b765b8b" category="inline-link-rx"></block>) 기본 인터페이스('connInterfacesFile'에 정의된 대로) 손실 또는 BeeGFS 서버 장애로 인해 BeeGFS 클라이언트/서버 RDMA 연결이 예기치 않게 중단되거나 활성 클라이언트 I/O가 최대 10분 동안 중단되어 다시 시작할 수 있습니다. 이 문제는 계획된 유지 관리를 위해 BeeGFS 노드가 정상적으로 대기 상태가 되거나 TCP가 사용 중인 경우 발생하지 않습니다.</block>
+  <block id="ef29a84d0e122a31e14cc52355c22e38" category="section-title">NVIDIA DGX A100 SuperPOD 검증</block>
+  <block id="58fa2cee68a993e221880ffe97da71f2" category="paragraph">NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다.</block>
+  <block id="7c6326491c77a63417df94790ba07083" category="inline-link">NetApp을 포함한 NVIDIA DGX SuperPOD</block>
+  <block id="a052609b770f866df8a166dd868a3fd3" category="paragraph">자세한 내용은 을 참조하십시오<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block>.</block>
+  <block id="2bf773d42bef6909b232e854a16b3ec1" category="summary">5개의 빌딩 블록 이상으로 확장할 수 있도록 심장박동기 및 Corosync를 구성합니다.</block>
+  <block id="22892d2f5bfdfba001a02572258cca62" category="doc">5가지 구성 요소 이상으로 확장</block>
+  <block id="cfd24c157d6cd9f200eb8c3cf68ee7ed" category="paragraph">5개의 빌딩 블록(10개의 파일 노드) 이상으로 확장하기 위해 페이스 메이커 및 Corosync를 구성할 수 있습니다. 그러나 더 큰 클러스터에는 결점이 있으며, 결국 심장박동기 및 Corosync로 인해 최대 32개의 노드가 필요합니다.</block>
+  <block id="9e59383f4d4ca677923852ae81323178" category="paragraph">NetApp은 최대 10개 노드까지 BeeGFS HA 클러스터를 테스트했습니다. 따라서 개별 클러스터를 이 제한을 초과하여 확장하는 것은 권장되거나 지원되지 않습니다. 하지만 BeeGFS 파일 시스템은 여전히 10개 노드 이상으로 확장되어야 하며 NetApp은 BeeGFS on NetApp 솔루션에서 이 점을 고려했습니다.</block>
+  <block id="72799e21cef92db3ad98f7c0a923e398" category="paragraph">각 파일 시스템에서 구성 요소의 하위 집합이 포함된 여러 HA 클러스터를 구축함으로써 기본 HA 클러스터링 메커니즘에 대한 권장 제한 또는 하드 제한과는 별개로 전체 BeeGFS 파일 시스템을 확장할 수 있습니다. 이 시나리오에서는 다음을 수행합니다.</block>
+  <block id="5c3bc488def3e9ba17589e3a75fdd5c0" category="list-text">추가 HA 클러스터를 나타내는 새 Ansible 인벤토리를 생성한 다음 다른 관리 서비스 구성 생략합니다. 대신 각 추가 클러스터 ha_cluster.yml의 "begfs_ha_mgmtd_floating_ip" 변수를 첫 번째 BeeGFS 관리 서비스의 IP에 지정합니다.</block>
+  <block id="321f3f6b80bc5f9c02e358e120fa74b0" category="list-text">동일한 파일 시스템에 HA 클러스터를 추가할 때는 다음 사항을 확인하십시오.</block>
+  <block id="32e66ce3c599bce3fc21c5a5943b6f4d" category="list-text">BeeGFS 노드 ID는 고유합니다.</block>
+  <block id="50b9a2f3bd2dc22b582e6e66d12bf0ff" category="list-text">group_vars의 각 서비스에 해당하는 파일 이름은 모든 클러스터에서 고유합니다.</block>
+  <block id="6219a68f7552d8328f7fc5df8510ffc3" category="list-text">BeeGFS 클라이언트 및 서버 IP 주소는 모든 클러스터에서 고유합니다.</block>
+  <block id="16d3c50a6b84c7701cadfdf721b74007" category="list-text">추가 클러스터를 구축 또는 업데이트하기 전에 BeeGFS 관리 서비스가 포함된 첫 번째 HA 클러스터가 실행되고 있습니다.</block>
+  <block id="6f94cb93f82c2013e179dc630a5dd715" category="list-text">각 HA 클러스터에 대한 인벤토리를 각각 자체 디렉토리 트리에서 유지 관리합니다.</block>
+  <block id="079e1a9e099799d390c677577618ecce" category="paragraph">하나의 디렉토리 트리에서 여러 클러스터의 인벤토리 파일을 혼합하려고 하면 BeeGFS HA 역할이 특정 클러스터에 적용된 구성을 집계하는 방식에 문제가 발생할 수 있습니다.</block>
+  <block id="f4250b17c613a290cad4edf8e2bab3fd" category="admonition">새 HA 클러스터를 생성하기 전에 각 HA 클러스터를 5개의 구성 요소로 확장할 필요가 없습니다. 대부분의 경우 클러스터당 더 적은 수의 구성 요소를 사용하는 것이 더 쉽게 관리할 수 있습니다. 한 가지 접근 방식은 각 단일 랙의 구성 요소를 HA 클러스터로 구성하는 것입니다.</block>
+  <block id="d1da0cd6852302b521f35aeee065f5ea" category="summary">NetApp 솔루션에 BeeGFS를 구축할 때는 모범 사례 지침을 따르십시오.</block>
+  <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">모범 사례를 검토합니다</block>
+  <block id="d780de93793370946b2449b88a29b5ea" category="section-title">표준 규약</block>
+  <block id="2028bcc5ed7fdc8ba437b0150866ff2c" category="paragraph">Ansible 인벤토리 파일을 물리적으로 조립하고 생성할 때는 다음 표준 규칙을 따르십시오(자세한 내용은 을 참조하십시오 <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>)를 클릭합니다.</block>
+  <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">파일 노드 호스트 이름은 랙 상단에 더 적은 숫자가 있고 하단에 더 높은 숫자가 있는 순서대로 번호가 지정됩니다(H01-HN).</block>
+  <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">예를 들어, 이름 지정 규칙 '[location][row][rack]hN'은 'ictad22h01'과 같습니다.</block>
+  <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">각 블록 노드는 각각 고유한 호스트 이름을 가진 두 개의 스토리지 컨트롤러로 구성됩니다.</block>
+  <block id="1d6d5c920cb7d130fd45d8ced35ebec2" category="paragraph">스토리지 어레이 이름은 Ansible 인벤토리의 일부로 전체 블록 스토리지 시스템을 나타내는 데 사용됩니다. 스토리지 배열 이름은 순서대로 번호(A01-AN)로 지정되어야 하며, 개별 컨트롤러의 호스트 이름은 해당 명명 규칙에서 파생됩니다.</block>
+  <block id="213b6742fe86c9b7a08c68d5206d723a" category="paragraph">예를 들어, "ictad22a01"이라는 블록 노드는 일반적으로 "ictad22a01-a"와 "ictad22a01-b"와 같이 각 컨트롤러에 대해 구성된 호스트 이름을 가질 수 있지만, Ansible 재고에서는 "ictad22a01"이라고 합니다.</block>
+  <block id="a902add826ee667d7f067acb8b49432f" category="list-text">동일한 빌딩 블록 내의 파일 및 블록 노드는 동일한 번호 지정 체계를 공유하며, 랙의 서로 인접해 있으며 두 파일 노드 모두 위에 있고 두 블록 노드 바로 아래에 있습니다.</block>
+  <block id="2761f73c104511b8aaeef2eb6c84f3d3" category="paragraph">예를 들어 첫 번째 빌딩 블록에서 파일 노드 H01 및 H02는 모두 블록 노드 A01 및 A02에 직접 연결됩니다. 위에서 아래로 호스트 이름은 H01, H02, A01 및 A02입니다.</block>
+  <block id="33324ee77729f51ada2c5446c9c21488" category="list-text">빌딩 블록은 호스트 이름을 기준으로 순차적으로 설치되므로 번호가 낮은 호스트 이름은 랙 상단에, 번호가 높은 호스트 이름은 하단에 표시됩니다.</block>
+  <block id="afdf73d1fa37280d63c602fa6be27740" category="paragraph">이는 랙 스위치 상단으로 연결되는 케이블의 길이를 최소화하고 문제 해결을 단순화하기 위한 표준 배포 방법을 정의하는 것입니다. 랙 안정성 문제로 인해 이것이 허용되지 않는 데이터 센터의 경우, 맨 아래부터 랙을 채우는 역작업이 허용됩니다.</block>
+  <block id="b4c0fb3649e4f85d78611d90d2d2d308" category="section-title">InfiniBand 스토리지 네트워크 구성</block>
+  <block id="815b2630d684df2f4894bd753d3a1fcb" category="paragraph">각 파일 노드의 InfiniBand 포트 중 절반은 블록 노드에 직접 연결하는 데 사용됩니다. 나머지 절반은 InfiniBand 스위치에 연결되며 BeeGFS 클라이언트-서버 연결에 사용됩니다. BeeGFS 클라이언트 및 서버에 사용되는 IPoIB 서브넷의 크기를 결정할 때 예상되는 컴퓨팅/GPU 클러스터 및 BeeGFS 파일 시스템 확장을 고려해야 합니다. 권장 IP 범위를 벗어나야 하는 경우, 단일 빌딩 블록의 각 직접 접속은 고유한 서브넷을 가지며 클라이언트-서버 접속에 사용되는 서브넷과 중복되지 않는다는 점에 유의하십시오.</block>
+  <block id="a4f2d907e6fd183bbbc4d275c08b7a9a" category="section-title">직접 연결</block>
+  <block id="07a0544547e3cceec6f669bd25c6a605" category="paragraph">각 빌딩 블록 내의 파일 및 블록 노드는 항상 직접 연결에 다음 표의 IP를 사용합니다.</block>
+  <block id="d9938c4beed355ac7387d03d8f191c9e" category="admonition">이 주소 지정 체계는 다음 규칙을 따릅니다. 세 번째 옥텟은 항상 홀수이거나 짝수이며, 이는 파일 노드가 홀수인지 아니면 짝수인지에 따라 다릅니다.</block>
+  <block id="b55e37e80a68661366be8c4377b13489" category="cell">파일 노드</block>
+  <block id="90c8d508b315842cddaf605e8e068d6f" category="cell">IB 포트</block>
+  <block id="75ba8d70e3692ba200f0e0df37b4d2ae" category="cell">IP 주소입니다</block>
+  <block id="d7f9ab96aecba4fb98ecf8831eb0a462" category="cell">블록 노드</block>
+  <block id="b9549a36d11b47e2d2f9389f6363ff8e" category="cell">물리적 IP</block>
+  <block id="0d01a155a448abaa8ab4b0bdd3ea5e54" category="cell">가상 IP</block>
+  <block id="e9813c434db44aa063e37598de3ed515" category="cell">홀수(h1)</block>
+  <block id="9d928738606162dca1d244ffcbdf0036" category="cell">i1a</block>
+  <block id="8f337c973339dd7093883bd28ddb6588" category="cell">192.168.1.10</block>
+  <block id="495cb471115cc2dbd5c60736f989aa8c" category="cell">홀수(C1)</block>
+  <block id="e36314e624d2b2ca257e1f1ecb381f93" category="cell">2A</block>
+  <block id="d984a05fa268b7cc6ac052a38960aeb2" category="cell">192.168.1.100</block>
+  <block id="80f8cac1e092ca14301921951cf77f91" category="cell">192.168.1.101</block>
+  <block id="c7a617044afee64ec7d511879e8b194c" category="cell">i2a</block>
+  <block id="d731a116ccfe40ce4a5adb1bf565d785" category="cell">192.168.3.10</block>
+  <block id="a9aeb028763672267b98adb1e61f06ca" category="cell">192.168.3.100</block>
+  <block id="868e778e153cfafee02c89678e31e3e4" category="cell">192.168.3.101</block>
+  <block id="b723decd732b31d828ae939f8f8c81fb" category="cell">i3a</block>
+  <block id="28013a9391888f81944ead3ec1401cb0" category="cell">192.168.5.10</block>
+  <block id="cfb1a9d899157fd3919c08dceff7fe61" category="cell">짝수(C2)</block>
+  <block id="8945c747c6a4da714083579891b2495a" category="cell">192.168.5.100</block>
+  <block id="538f8a364ff4308c16dbf7a80a554b5f" category="cell">192.168.5.101</block>
+  <block id="d4d9efce9a26c8551723c677f65e1284" category="cell">i4a</block>
+  <block id="7e7269d72492d715bbd00efdcdec7e0a" category="cell">192.168.7.10</block>
+  <block id="1fbf861a0f4d9494682cfff33756b7aa" category="cell">192.168.7.100</block>
+  <block id="7a1a4e2ee2757f302d47c7e3cdc8fcc3" category="cell">192.168.7.101</block>
+  <block id="1442135832b351ed9b2f3b91f2393ec7" category="cell">짝수(H2)</block>
+  <block id="0522334c503ae8e87d77104f7b27ba17" category="cell">192.168.2.10</block>
+  <block id="f8bc2fbe2c937ea5b5e8839cbea69491" category="cell">2B</block>
+  <block id="28de33b5199547c2f026595b7175a940" category="cell">192.168.2.100</block>
+  <block id="d006845bf7fd39e054131ca6f76c2c47" category="cell">192.168.2.101</block>
+  <block id="3a1cc00317003b20386d92ca13328e3d" category="cell">192.168.4.10</block>
+  <block id="ccce62893693ca1e63992fa77159dce3" category="cell">192.168.4.100</block>
+  <block id="eab39d2ba2b7a903ccf8cef112e1d506" category="cell">192.168.4.101</block>
+  <block id="02def76181eddeab3ec0492be002417d" category="cell">192.168.6.10</block>
+  <block id="d4b42e0f0d80e9c910e062f49b48b5f5" category="cell">192.168.6.100</block>
+  <block id="f23edf799227dfd20d80544836aad8e9" category="cell">192.168.6.101</block>
+  <block id="5e0ca78bea1b6ed4af93b1b1c5d7c573" category="cell">192.168.8.10</block>
+  <block id="3581177979a7b934a2accd3f5f999444" category="cell">192.168.8.100</block>
+  <block id="49213c8f0e8758438d7a69e2789a8b7d" category="cell">192.168.8.101</block>
+  <block id="39927fda75baba1d602f4ac8906cb4ef" category="section-title">BeeGFS 클라이언트-서버 IPoIB 주소 지정 체계(서브넷 2개)</block>
+  <block id="db65743173e4ff7d9ed62df6220dc4a4" category="paragraph">BeeGFS 클라이언트가 두 개의 InfiniBand 포트를 사용할 수 있도록 하려면 각 서브넷에서 기본 IP로 구성된 BeeGFS 서버 서비스의 절반을 사용하여 IPoIB 서브넷 두 개가 필요합니다. 이를 통해 클라이언트가 두 개의 InfiniBand 포트를 사용하여 파일 시스템에 대한 이중화 및 처리량을 극대화할 수 있습니다.</block>
+  <block id="5e98efce8292b94590f3ca502c1d8697" category="paragraph">각 파일 노드에서 여러 BeeGFS 서버 서비스(관리, 메타데이터 또는 스토리지)를 실행합니다. 각 서비스가 다른 파일 노드로 독립적으로 페일오버할 수 있도록 각 서비스마다 고유한 IP 주소가 구성되며 이 주소는 두 노드 간에 자유롭게 움직일 수 있습니다(LIF라고도 함).</block>
+  <block id="4db8c0036deb36a38e4df4660af9ed06" category="paragraph">필수 사항은 아니지만 이 구축 환경에서 이러한 연결에 다음 IPoIB 서브넷 범위가 사용 중인 것으로 가정하며 다음 규칙을 적용하는 표준 주소 지정 체계를 정의합니다.</block>
+  <block id="8d41eefa8441a4ca177fe0f2676a9512" category="list-text">두 번째 옥텟은 파일 노드 InfiniBand 포트가 홀수인지 또는 짝수인지에 따라 항상 홀수이거나 짝수 입니다.</block>
+  <block id="6482f8ef9c5ff1d8a971601fcad837d6" category="list-text">BeeGFS 클러스터 IP는 항상 xxx입니다. 127.100.yyy 또는 xxx.128.100.yyy.</block>
+  <block id="3aed58e1cc4af0e5cda8b7e10e2fd863" category="admonition">대역 내 OS 관리에 사용되는 인터페이스 외에도 클러스터 심장 박동 및 동기화를 위한 Corosync에서 추가 인터페이스를 사용할 수 있습니다. 따라서 단일 인터페이스가 손실되어도 전체 클러스터가 다운되지 않습니다.</block>
+  <block id="d95a2f19c705379e32f8030de274d07e" category="list-text">BeeGFS Management 서비스는 항상 xxx.yyy.101.0 또는 xxx.yyy.102.0 중 입니다.</block>
+  <block id="29cd1587ba2833db9af29eac16f0d72b" category="list-text">BeeGFS 메타데이터 서비스는 항상 xxx.yyy.101.zzz 또는 xxx.yyy.102.zzz입니다.</block>
+  <block id="60c1357dfcd221c354054e43ac815018" category="list-text">BeeGFS 스토리지 서비스는 항상 xxx.yyy.103.zzz 또는 xxx.yyy.103.zzz로 제공됩니다.</block>
+  <block id="be092b10130fe0c97dd9358f0c131935" category="list-text">100.xxx.1.1 ~ 100.xxx.99.255 범위의 주소는 고객용으로 예약되어 있습니다.</block>
+  <block id="3ac8c958d4c77187295fd53646229e9e" category="paragraph">다음 표에는 서브넷 A:100.127.0.0/16의 범위가 나와 있습니다.</block>
+  <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">목적</block>
+  <block id="8433249cf732856c8ef7700f591da923" category="cell">InfiniBand 포트입니다</block>
+  <block id="5c43713485260d7759e7710e65d5b181" category="cell">IP 주소 또는 범위입니다</block>
+  <block id="32e90ecbd165097494e967a23490ee41" category="cell">BeeGFS 클러스터 IP입니다</block>
+  <block id="16bfa5161249dae15f8c441a34126387" category="cell">i1b</block>
+  <block id="fcb936b16dcf3c23dec73fa21c9c16f1" category="cell">100.127.100.1-100.127.100.255</block>
+  <block id="ae709a18a45df821c97f171d87abda05" category="cell">BeeGFS 관리</block>
+  <block id="ca46d9d01d96136b3bd1dea0bce8b99f" category="cell">100.127.101.0</block>
+  <block id="c7725fe17ccf0fe6dfa72467bca22d07" category="cell">BeeGFS 메타데이터</block>
+  <block id="2aaea2be17c5c489bc5ec00da30f01e0" category="cell">i1b 또는 i3b</block>
+  <block id="5474dd17966e980dee3133c4fdddcf29" category="cell">100.127.101.1 - 100.127.101.255</block>
+  <block id="d01488abddf6343d229f4a687a740a9d" category="cell">BeeGFS 스토리지</block>
+  <block id="43c64dcbdc9c36edb0a78b932e87b96c" category="cell">100.127.103.1 - 100.127.103.255</block>
+  <block id="7b0215ed75674e2bc6f9d23b5db3a59a" category="cell">BeeGFS 클라이언트</block>
+  <block id="12ad67de237d3ee3ee2ca3ed39a93826" category="cell">(클라이언트에 따라 다름)</block>
+  <block id="88bd43ac89ad7875c3db7323b9879d13" category="cell">100.127.1.1 - 100.127.99.255</block>
+  <block id="00ee8ecc0f95892eb58786ee6e94e4e7" category="paragraph">다음 표에는 서브넷 B:100.128.0.0/16의 범위가 나와 있습니다.</block>
+  <block id="42e7db8b69b0d0451fe5e7e94d271956" category="cell">i4b</block>
+  <block id="672e53647fb3fbb550b46ac1eaaad363" category="cell">100.128.100.1-100.128.100.255</block>
+  <block id="50641838fba9970d18ab721f2d775331" category="cell">i2b</block>
+  <block id="6240652cf0cb3a0056e31569edba6f3e" category="cell">100.128.102.0</block>
+  <block id="6bbae520cb1416f9508d58010c4df4a0" category="cell">i2b 또는 i4b</block>
+  <block id="3ac8689fd677355ec3c1098b78d717dd" category="cell">100.128.102.1-100.128.102.255</block>
+  <block id="61b0ff8b431abb2cad4481cab938c338" category="cell">100.128.104.1 - 100.128.104.255</block>
+  <block id="83dc7e1fb9aa3660d2fc0ccb6e72bd1a" category="cell">100.128.1.1-100.128.99.255</block>
+  <block id="cd42d4848d52f3ad668601f29b839282" category="admonition">위 범위에 있는 모든 IP가 이 NetApp 검증 아키텍처에 사용되는 것은 아닙니다. 또한 IP 주소를 사전 할당하여 일관된 IP 주소 지정 체계를 사용하여 파일 시스템을 쉽게 확장할 수 있는 방법을 보여 줍니다. 이 스키마에서는 BeeGFS 파일 노드 및 서비스 ID가 잘 알려진 IP 범위의 네 번째 옥텟과 일치합니다. 필요한 경우 파일 시스템을 255개 노드 또는 서비스 이상으로 확장할 수 있습니다.</block>
+  <block id="ce0a47ccdc84e9c90b9185aea530a07b" category="summary">BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하는 NetApp 솔루션 기반 BeeGFS를 지원하려면 특정 장비, 케이블링, 구성이 필요합니다.</block>
+  <block id="7cac973d2abc65a232606799a99be23c" category="paragraph">자세한 내용:</block>
+  <block id="6ee419ed5a936cfed45771da0b746c94" category="list-text"><block ref="6ee419ed5a936cfed45771da0b746c94" category="inline-link-macro-rx"></block></block>
+  <block id="1ce6299bc86692b3e97783bdba904848" category="list-text"><block ref="1ce6299bc86692b3e97783bdba904848" category="inline-link-macro-rx"></block></block>
+  <block id="2c39c30b16a5c14e4b3bd73361f541c5" category="list-text"><block ref="2c39c30b16a5c14e4b3bd73361f541c5" category="inline-link-macro-rx"></block></block>
+  <block id="b7f5b93ad68dd5ab95107b85145443e8" category="list-text"><block ref="b7f5b93ad68dd5ab95107b85145443e8" category="inline-link-macro-rx"></block></block>
+  <block id="9db3ca538820d0cfb7b44ef80f16ca98" category="inline-link-macro">성능 튜닝</block>
+  <block id="a51906ad0f905e303cf3b09d82ec1db0" category="list-text"><block ref="a51906ad0f905e303cf3b09d82ec1db0" category="inline-link-macro-rx"></block></block>
+  <block id="730b718214a170296ed598158264e021" category="summary">BeeGFS 솔루션에는 검증 테스트를 기반으로 한 성능 조정을 위한 권장 사항이 포함되어 있습니다.</block>
+  <block id="a49e13cf9bc8e242e7b828e3c9016699" category="paragraph">BeeGFS가 즉시 사용 가능한 우수한 성능을 제공하기는 하지만, NetApp은 성능을 극대화하기 위해 일련의 권장 튜닝 매개 변수를 개발했습니다. 이 매개 변수는 기본 E-Series 블록 노드의 기능과 공유 디스크 HA 아키텍처에서 BeeGFS를 실행하는 데 필요한 특수 요구사항을 모두 고려합니다.</block>
+  <block id="6900084f28039c00033899865271a4b5" category="section-title">파일 노드의 성능 튜닝</block>
+  <block id="7ed4e287a78a4cc348d1e60d143ceda8" category="paragraph">구성할 수 있는 조정 매개변수는 다음과 같습니다.</block>
+  <block id="d8eb1bf5eeddb34869fa0aee2c5c3be0" category="list-text">* 파일 노드의 UEFI/BIOS에서 시스템 설정. * 성능을 극대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다. 시스템 설정(UEFI/BIOS) 또는 베이스보드 관리 컨트롤러(BMC)에서 제공하는 Redfish API를 사용하여 파일 노드를 설정할 때 시스템 설정을 구성합니다.</block>
+  <block id="bb2fcb1abe8d0829558e398d9acb4589" category="inline-link-macro">성능을 위해 파일 노드 시스템 설정을 조정합니다</block>
+  <block id="adecdfd501fe0c9f7674b95abecb661b" category="paragraph">시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 사용 중인 서버 모델에 따라 설정을 수동으로 구성해야 합니다. 검증된 Lenovo SR665 파일 노드에 대한 시스템 설정을 구성하는 방법은 을 참조하십시오 <block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block>.</block>
+  <block id="6721128d9ea380f9965cc220f28619e1" category="list-text">* 필수 구성 매개 변수에 대한 기본 설정 * 필수 구성 매개 변수는 BeeGFS 서비스의 구성 방법과 E-Series 볼륨(블록 장치)의 포맷 및 마운트에 영향을 미칩니다. 이러한 필수 구성 매개 변수는 다음과 같습니다.</block>
+  <block id="93de4dab2e303d649f94f0880095e6ef" category="list-text">BeeGFS 서비스 구성 매개 변수입니다</block>
+  <block id="c5b3473e89672cc155d0436c6e60bd52" category="inline-link">BeeGFS 서비스 구성 매개 변수입니다</block>
+  <block id="bf8b3766586fac2207dd5c620d7b308d" category="paragraph">필요에 따라 구성 매개 변수의 기본 설정을 재정의할 수 있습니다. 특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 를 참조하십시오<block ref="d22612d773394e50d7efa2e9719d459e" category="inline-link-rx"></block>.</block>
+  <block id="334a50f926a902a241ecfae54f3cce32" category="list-text">볼륨 포맷팅 및 마운팅 매개 변수는 권장 기본값으로 설정되며 고급 사용 사례에만 조정해야 합니다. 기본값은 다음을 수행합니다.</block>
+  <block id="4b9b870ed7f3db8f28c2ddcf4d3bd986" category="list-text">기본 볼륨의 RAID 구성 및 세그먼트 크기와 함께 타겟 유형(예: 관리, 메타데이터 또는 스토리지)을 기준으로 초기 볼륨 포맷을 최적화합니다.</block>
+  <block id="9f641b3b08e18d35b2219dee293e2038" category="list-text">심박동조율기가 각 볼륨을 마운트하는 방법을 조정하여 변경 사항이 즉시 E-시리즈 블록 노드로 플러시되도록 합니다. 이렇게 하면 활성 쓰기가 진행 중일 때 파일 노드가 실패할 때 데이터 손실을 방지할 수 있습니다.</block>
+  <block id="72247689b02927b1ceac4fb69e6c9954" category="inline-link">볼륨 포맷 및 마운팅 구성 매개 변수</block>
+  <block id="71ba07d5377dd195ceff5f6dbddc08dc" category="paragraph">특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 를 참조하십시오<block ref="2996b969524b278e7da0cf1bb77d8754" category="inline-link-rx"></block>.</block>
+  <block id="728ecec149994e53980e0103b04d3e1b" category="list-text">* 파일 노드에 설치된 Linux OS의 시스템 설정. * 의 4단계에서 Ansible 인벤토리를 작성할 때 기본 Linux OS 시스템 설정을 재정의할 수 있습니다 <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>.</block>
+  <block id="c5d80eb8c0726de2a9804385295dc0e3" category="paragraph">기본 설정을 사용하여 NetApp 기반 BeeGFS 솔루션을 검증했지만 특정 워크로드 또는 사용 사례에 맞게 수정할 수 있습니다. 변경할 수 있는 Linux OS 시스템 설정의 예는 다음과 같습니다.</block>
+  <block id="b56281fe1e5f14da49b6d1d4c6ad0cd9" category="list-text">E-Series 블록 장치의 I/O 큐</block>
+  <block id="43a8170c4aebbb467c4d4b59d77a7662" category="paragraph">BeeGFS 타겟으로 사용되는 E-Series 블록 디바이스에서 I/O 큐를 구성하여 다음을 수행할 수 있습니다.</block>
+  <block id="ce0213a2bd6755f2eacf9574b2b56dda" category="list-text">장치 유형(NVMe, HDD 등)에 따라 스케줄링 알고리즘을 조정합니다.</block>
+  <block id="c78d3d0bdafa5fc5623e3d56a9cc33ce" category="list-text">미결 요청 수를 늘립니다.</block>
+  <block id="b785a1945e736aa8340d2e4bde128b82" category="list-text">요청 크기를 조정합니다.</block>
+  <block id="a9a2c451a0c5c7939a07afe7cd297216" category="list-text">미리 읽기 동작 최적화</block>
+  <block id="f39721f45b17814f0740b3c066ca0b66" category="list-text">가상 메모리 설정.</block>
+  <block id="552afad9cf059c34e2ed8d24ff34fc12" category="paragraph">최적의 스트리밍 성능을 위해 가상 메모리 설정을 조정할 수 있습니다.</block>
+  <block id="aa8e8d4d1817c4e08c70cd3c1b4c89b9" category="list-text">CPU 설정</block>
+  <block id="423dd652f980ba19cb7fb7f577576270" category="paragraph">최대 성능을 위해 CPU 주파수 조절기 및 기타 CPU 구성을 조정할 수 있습니다.</block>
+  <block id="eb2cf8d186779ea110100038f3ec2e90" category="list-text">읽기 요청 크기입니다.</block>
+  <block id="17dd6d5b67055565e29c50f8150ce378" category="paragraph">Mellanox HCA의 최대 읽기 요청 크기를 늘릴 수 있습니다.</block>
+  <block id="ba4dcc8d5b46a4c30176506ef828aea4" category="section-title">블록 노드의 성능 튜닝</block>
+  <block id="4f59030dbd3da04d4b74738f5149fffb" category="paragraph">특정 BeeGFS 빌딩 블록에 적용되는 구성 프로필을 기준으로 블록 노드에 구성된 볼륨 그룹이 약간 변경됩니다. 예를 들어, 24-드라이브 EF600 블록 노드는 다음과 같습니다.</block>
+  <block id="841fc343eee01328e222ebada200ca5d" category="list-text">BeeGFS 관리, 메타데이터 및 스토리지 서비스를 비롯한 단일 기본 구성 요소:</block>
+  <block id="bbea55f4794f89e45fe7c40eaf8ca3ee" category="list-text">BeeGFS 관리 및 메타데이터 서비스를 위한 1 x 2 + 2 RAID 10 볼륨 그룹</block>
+  <block id="92f2b7b47db52c081f552bd884a78ae7" category="list-text">BeeGFS 스토리지 서비스용 2x 8+2 RAID 6 볼륨 그룹</block>
+  <block id="4f4960028dfd13311a5679d2450101d1" category="list-text">BeeGFS 메타데이터 + 스토리지 구성 요소:</block>
+  <block id="fdd7b1bdaea27f32d5925fd1a957fce4" category="list-text">BeeGFS 메타데이터 서비스용 2 + 2 RAID 10 볼륨 그룹 1개</block>
+  <block id="196fdf9280847a2a4a9ddd0b8520bdfb" category="list-text">BeeGFS 스토리지 전용 구성 요소:</block>
+  <block id="632ac8eccac17a8789dd33202130e509" category="list-text">BeeGFS 스토리지 서비스용 10+2 RAID 6 볼륨 그룹 2개</block>
+  <block id="014e85e7f3bbdad1ad6f193e82d21755" category="inline-link-macro">배포 지침</block>
+  <block id="39b751cb17d740944bc5071eba1abda2" category="admonition">BeeGFS는 스토리지 대비 관리 및 메타데이터를 위해 스토리지 공간이 훨씬 적게 요구되므로 RAID 10 볼륨 그룹에 더 작은 드라이브를 사용하는 옵션이 있습니다. 작은 드라이브는 가장 바깥쪽 드라이브 슬롯에 장착해야 합니다. 자세한 내용은 를 참조하십시오 <block ref="92eed053ec15880d36275e60ab80275b" category="inline-link-macro-rx"></block>.</block>
+  <block id="1708794637b71b8aadfa80d503ccc505" category="paragraph">이러한 모든 설정은 Ansible 기반 배포를 통해 구성되며, 다음은 성능/동작을 최적화하기 위해 일반적으로 권장되는 몇 가지 다른 설정과 함께 제공됩니다.</block>
+  <block id="b02fbba0a56e144e15b688980d01275a" category="list-text">글로벌 캐시 블록 크기를 32KiB로 조정하고 요구 기반 캐시 플러시를 80%로 조정합니다.</block>
+  <block id="c70b65aef502812d5a0e8a4b173334d9" category="list-text">자동 로드 밸런싱 비활성화(컨트롤러 볼륨 할당이 의도한 대로 유지되는지 확인)</block>
+  <block id="94966bf9df1a2fb2442d06d53723f28e" category="list-text">읽기 캐싱 설정 및 미리 읽기 캐싱 해제</block>
+  <block id="65f3cbabf1e92d0ce2d27d87d85a3c5a" category="list-text">미러링으로 쓰기 캐시를 설정하고 배터리 백업이 필요하므로 블록 노드 컨트롤러의 장애가 발생해도 캐시가 유지됩니다.</block>
+  <block id="dfb95cf8b58d92dcb47401bae0964c5d" category="list-text">드라이브가 볼륨 그룹에 할당되는 순서를 지정하여 사용 가능한 드라이브 채널 간에 I/O의 균형을 조정합니다.</block>
+  <block id="2260cb128d87141c6a0a2c06c043def7" category="summary">일반 Ansible 인벤토리 구조를 정의한 후 BeeGFS 파일 시스템의 각 구성 요소에 대한 구성을 정의합니다.</block>
+  <block id="b8bb1668a8a0007267670827d99f76b5" category="paragraph">이러한 구축 지침은 관리, 메타데이터 및 스토리지 서비스를 포함한 기본 구성 요소로 구성된 파일 시스템, 메타데이터 및 스토리지 서비스를 포함하는 두 번째 구성 요소, 세 번째 스토리지 전용 구성 요소로 이루어진 파일 시스템을 구축하는 방법을 보여 줍니다.</block>
+  <block id="bc4ca1def58917532e653ebf4c3c5f15" category="paragraph">이 단계에서는 전체 BeeGFS 파일 시스템의 요구 사항을 충족하도록 NetApp BeeGFS 구성 요소를 구성하는 데 사용할 수 있는 모든 일반 구성 프로필을 보여 주기 위한 것입니다.</block>
+  <block id="053cdc4e7aa5884fba5be0b7e80bcb5c" category="admonition">이 섹션과 후속 섹션에서 필요에 따라 조정하여 구축할 BeeGFS 파일 시스템을 나타내는 인벤토리를 생성합니다. 특히, 스토리지 네트워크에 대해 각 블록 또는 파일 노드를 나타내는 Ansible 호스트 이름과 원하는 IP 주소 지정 스키마를 사용하여 BeeGFS 파일 노드 및 클라이언트의 수에 맞게 확장할 수 있도록 합니다.</block>
+  <block id="e00187948ca315221e5e284a4312f83f" category="section-title">1단계: Ansible 인벤토리 파일을 만듭니다</block>
+  <block id="cbdf4dddad7bf23198edcbf2c8721659" category="list-text">새 'inventory.yml' 파일을 만든 다음, 필요에 따라 'eseries_storage_systems' 아래에 있는 호스트를 대체하여 구축의 블록 노드를 나타냅니다. 이름은 host_VAR/&lt;filename&gt;.yml에 사용되는 이름과 일치해야 합니다.</block>
+  <block id="742c9db30f264a7d33e72383a817b4f5" category="paragraph">다음 섹션에서는 클러스터에서 실행할 BeeGFS 서비스를 나타내는 "ha_cluster" 아래에 Ansible 그룹을 추가로 생성합니다.</block>
+  <block id="066251bf9494493f76299f6f40a80df6" category="section-title">2단계: 관리, 메타데이터 및 스토리지 구성 요소에 대한 인벤토리를 구성합니다</block>
+  <block id="5320d481bd8442fec42afcaded2a8d49" category="paragraph">클러스터 또는 기본 구성 요소에서 첫 번째 구성 요소는 메타데이터 및 스토리지 서비스와 함께 BeeGFS 관리 서비스를 포함해야 합니다.</block>
+  <block id="a54299a446e0a2e17f57383db8e31dc6" category="list-text">inventory.yml에서 ha_cluster:Children 아래에 다음 매개 변수를 입력합니다.</block>
+  <block id="fd84d0d4501e2eca409dc18043cf1492" category="list-text">'group_vars/mgmt.yml' 파일을 생성하고 다음을 포함합니다.</block>
+  <block id="bcc9cdaf60435f4d091a1bfdac879201" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 META_08을 통해 자원 그룹 META_01에 대한 파일을 만든 다음 아래 표를 참조하여 각 서비스에 대한 자리 표시자 값을 입력합니다.</block>
+  <block id="3df790a0a0a3be54d9cbac91d4bc35e1" category="inline-link">NetApp EF600 어레이 소개</block>
+  <block id="4ada98602970473e524def1d48723bd6" category="admonition">볼륨 크기는 전체 스토리지 풀(볼륨 그룹이라고도 함)의 백분율로 지정됩니다. SSD 오버 프로비저닝을 위해 각 풀에 여유 용량을 남겨 두는 것이 좋습니다(자세한 내용은 참조)<block ref="dfc1025f9a756c10e6b0cbe0f4bc500a" category="inline-link-rx"></block>)를 클릭합니다. 스토리지 풀 'begfs_m1_m2_m5_m6'도 관리 서비스를 위해 풀 용량의 1%를 할당합니다. 따라서 스토리지 풀의 메타데이터 볼륨에 대해 1.92TB 또는 3.84TB 드라이브를 사용할 때 Beegfs_M1_m2_M5_M6의 경우 이 값을 21.25로 설정하고, 7.65TB 드라이브의 경우 이 값을 22.25로 설정하고, 15.3TB 드라이브의 경우 이 값을 23.75로 설정합니다.</block>
+  <block id="34082694d21dbdcfc31e6e32d9fb2b9f" category="cell">파일 이름입니다</block>
+  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">포트</block>
+  <block id="b1cddc6c78e92a26b8976dc97327d412" category="cell">유동 IP</block>
+  <block id="72159601fc6c3d952cc9825d610ddd68" category="cell">NUMA 영역</block>
+  <block id="40cf615dcacf5ec5faf6a3cdf1ff5a6e" category="cell">스토리지 풀</block>
+  <block id="cdd25d91a2d0aca59a80f91cfe9af9de" category="cell">소유 컨트롤러</block>
+  <block id="f4d0c8022be4f31d06814c33705037ff" category="cell">meta_01.yml</block>
+  <block id="1f7aa6705d5b742085538c627f6f9c2b" category="cell">8015</block>
+  <block id="01098d2436a5e4cf506036d6aca3c6b9" category="cell">i1b: 100.127.101.1 / 16 i2b: 100.128.102.1 / 16</block>
+  <block id="cfcd208495d565ef66e7dff9f98764da" category="cell">0</block>
+  <block id="ca9fd584227ff345bca2ef90d5c56e63" category="cell">ictad22a01</block>
+  <block id="7ef878b8d47cf2658a8b7e4c1b8f133d" category="cell">Beegfs_m1_m2_m5_m6</block>
+  <block id="7fc56270e7a70fa81a5935b72eacbe29" category="cell">A</block>
+  <block id="60b1afbaab870bf5621ed87ae12559fe" category="cell">meta_02.yml</block>
+  <block id="62d2b7ba91f34c0ac08aa11c359a8d2c" category="cell">8025</block>
+  <block id="e04871f7c2f611e8ad3e026ef33ce958" category="cell">i2b:100.128.102.2/16 i1b:100.127.101.2/16</block>
+  <block id="9d5ed678fe57bcca610140957afab571" category="cell">B</block>
+  <block id="3ce592406a461bfadfa5ab1f08c5c506" category="cell">meta_03.yml</block>
+  <block id="a2b8a85a29b2d64ad6f47275bf1360c6" category="cell">8035</block>
+  <block id="e04d4c629001763b33c4ff8b9896d667" category="cell">i3b:100.127.101.3/16 i4b:100.128.102.3/16</block>
+  <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1</block>
+  <block id="e2113f2adde9ccc87fb733b80de62a05" category="cell">ictad22a02</block>
+  <block id="c229ea898f8c27aeb40c65332e30db3f" category="cell">Beegfs_m3_M4_M7_M8</block>
+  <block id="7f6482de225123824ca5b23c1cf79f05" category="cell">meta_04.yml</block>
+  <block id="704cddc91e28d1a5517518b2f12bc321" category="cell">8045</block>
+  <block id="0d343c87415ff2c30cb55d5962ced8e2" category="cell">i4b:100.128.102.4/16 i3b:100.127.101.4/16</block>
+  <block id="833a23c43dc9c206a593873d80d04903" category="cell">meta_05.yml</block>
+  <block id="444b0d9a802792791bb9a2da568b463d" category="cell">8055</block>
+  <block id="685d00be66f443c6c339b81cc66fa4a3" category="cell">i1b: 100.127.101.5 / 16 i2b: 100.128.102.5 / 16</block>
+  <block id="38774c8cd9de3fd76c7df6b0746f2f2b" category="cell">meta_06.yml</block>
+  <block id="320e4df890a1a620573db8170f39a093" category="cell">8065</block>
+  <block id="f084a55203c0946ef5605449dede3354" category="cell">i2b:100.128.102.6/16 i1b:100.127.101.6/16</block>
+  <block id="5a681b3e1f7ad2d965284e36f4f6b7d3" category="cell">meta_07.yml</block>
+  <block id="ede529dfcbb2907e9760eea0875cdd12" category="cell">8075</block>
+  <block id="59a587289a0c0568b62bb3b0beb25710" category="cell">i3b:100.127.101.7 / 16 i4b:100.128.102.7 / 16</block>
+  <block id="a9cc3f3ebc7a8daedf369af06faba518" category="cell">META_08.월</block>
+  <block id="5011bf6d8a37692913fce3a15a51f070" category="cell">8085</block>
+  <block id="183b03ffff0f1c540c2bcc4fa7645e8f" category="cell">i4b:100.128.102.8/16 i3b:100.127.101.8/16</block>
+  <block id="89f0938aa83de82ca99f8b06297ed69c" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_08'을 통해 리소스 그룹 tor_01에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
+  <block id="9b62ac6b206ab6cafe8dafa0990559c7" category="inline-link-macro">권장되는 스토리지 풀 오버 프로비저닝 비율</block>
+  <block id="ab2ec57b0e9afdc73bcc69a962ee35c4" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>.</block>
+  <block id="b627976db3394ccf24342632cef6f4f1" category="cell">STOR_01.대칭</block>
+  <block id="40f4da34bbe180214c23b9e55da4f772" category="cell">8013</block>
+  <block id="2fcc40eb936b77784739bed3cda30225" category="cell">i1b: 100.127.103.1 / 16 i2b: 100.128.104.1 / 16</block>
+  <block id="5ef33d06ff783e8453c10b95db8c1253" category="cell">Beegfs_s1_s2</block>
+  <block id="70963f6e36ca66556bef5f6ae74ad0ad" category="cell">STOR_02.월</block>
+  <block id="1ecdec353419f6d7e30857d00d0312d1" category="cell">8023</block>
+  <block id="bf4e53a6c43ad511c5f730de94f1c989" category="cell">i2b:100.128.104.2 / 16 i1b:100.127.103.2 / 16</block>
+  <block id="a4253b13d64a7017467d335c0c147ed3" category="cell">STOR_03.월</block>
+  <block id="fc5b3186f1cf0daece964f78259b7ba0" category="cell">8033</block>
+  <block id="d2f781a145f7598ae80a6ed6a34a297d" category="cell">i3b:100.127.103.3 / 16 i4b:100.128.104.3 / 16</block>
+  <block id="a3cc9ef3e643fd2d2e1b6c2672b1c361" category="cell">Beegfs_S3_S4</block>
+  <block id="d471f1c4be4f658b822b7cfcfc808efa" category="cell">STOR_04.yml</block>
+  <block id="5bd529d5b07b647a8863cf71e98d651a" category="cell">8043</block>
+  <block id="87b35387416f5837e6e2523744e368f9" category="cell">i4b:100.128.104.4/16 i3b:100.127.103.4/16</block>
+  <block id="6a0625f228a1c5802a3d0ca970c7ebac" category="cell">STOR_05.월</block>
+  <block id="dfccdb8b1cc7e4dab6d33db0fef12b88" category="cell">8053</block>
+  <block id="457859c18e2dfb216c95ea335da7fdc9" category="cell">i1b: 100.127.103.5 / 16 i2b: 100.128.104.5 / 16</block>
+  <block id="2ac54a6d92aca96fef8d0eac5b813f34" category="cell">Beegfs_S5_S6</block>
+  <block id="09da1a861f10d113069c5e1da9d2decd" category="cell">STOR_06.대칭</block>
+  <block id="8d1f1aac0dd8a76b49e8bbdda0c7c98c" category="cell">8063</block>
+  <block id="1bd035750c97cc091a94b72035e34013" category="cell">i2b:100.128.104.6/16 i1b:100.127.103.6/16</block>
+  <block id="cf124e58023b3726106af9c8718a48ed" category="cell">STOR_07.월</block>
+  <block id="ffa9b486ad206c638c657b7ed335635c" category="cell">8073</block>
+  <block id="d319c022fb006d05c63de544a768c7b5" category="cell">i3b:100.127.103.7 / 16 i4b:100.128.104.7 / 16</block>
+  <block id="3e96e523215f928a3915e79e1451e2e7" category="cell">Beegfs_S7_s8</block>
+  <block id="0e4b036746af52a755e4b546698b2b61" category="cell">STOR_08.월</block>
+  <block id="20ef119e812e178ecb44efa448b57ebc" category="cell">8083</block>
+  <block id="abf8898bf8b809341f1a690241343288" category="cell">i4b:100.128.104.8 / 16 i3b:100.127.103.8/16</block>
+  <block id="80e0c052ed9f2bde54c56adb04f880f1" category="section-title">3단계: 메타데이터 + 스토리지 구성 요소에 대한 인벤토리를 구성합니다</block>
+  <block id="9e701ac8f2dd669a0e51464b4d8e3331" category="paragraph">다음 단계에서는 BeeGFS 메타데이터 + 스토리지 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다.</block>
+  <block id="ff1cbf3210fb9b21912445c6ea8cb9f6" category="list-text">'inventory.yml'에서 기존 설정 아래에 다음 파라미터를 입력합니다.</block>
+  <block id="628d1b90e1a21bbcec24af78377f8297" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 META_16을 통해 자원 그룹 META_09 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
+  <block id="bc5e8003da73758b95c46194672943bb" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>.</block>
+  <block id="9c6de3c786b8c9c409de2fd8070e5072" category="cell">META_09.대칭</block>
+  <block id="4bcb81674e1186a66143fec42901c209" category="cell">i1b: 100.127.101.9 / 16 i2b: 100.128.102.9 / 16</block>
+  <block id="a54f967fcc27024d3780cfad23300dd8" category="cell">ictad22a03</block>
+  <block id="2ea9f3181dbee99d651a0d6c53be4a36" category="cell">Beegfs_m9_M10_M13_M14</block>
+  <block id="f370a281056494e99bcade5ddef17b26" category="cell">META_10.월</block>
+  <block id="89d68a1b94d4d1c926944117a136dad1" category="cell">i2b:100.128.102.10/16 i1b:100.127.101.10/16</block>
+  <block id="27f563eed2131061540c21a6239b43d8" category="cell">meta_11.yml</block>
+  <block id="6239aa390b35659bc861841760941247" category="cell">i3b:100.127.101.11 / 16 i4b:100.128.102.11 / 16</block>
+  <block id="af2f976032e920d54c9455a8e1fd675d" category="cell">ictad22a04</block>
+  <block id="7c335ef1ce51db644c52518580d45d49" category="cell">Beegfs_M11_M12_M15_M16</block>
+  <block id="a2a3007e91ab84d40e9453997468f1ad" category="cell">META_12.월</block>
+  <block id="a65f2e74154cdd3870324bbed77b4bd5" category="cell">i4b:100.128.102.12/16 i3b:100.127.101.12/16</block>
+  <block id="14c79c2a227a377885225e0f4dcf53b0" category="cell">META_13.월</block>
+  <block id="b6b9f36adb7974a0f6d17412ec3fee68" category="cell">i1b:100.127.101.13/16 i2b:100.128.102.13/16</block>
+  <block id="07e72a8a343c421129dc3a92902de565" category="cell">meta_14.yml</block>
+  <block id="c44a959db7ffec72c54df85a2b00175b" category="cell">i2b:100.128.102.14 / 16 i1b:100.127.101.14 / 16</block>
+  <block id="d4d36ef3d915a0d2eaac8c62f1d8eff6" category="cell">META_15.월</block>
+  <block id="44b67b40baecc652e6f08e274b29865b" category="cell">i3b:100.127.101.15/16 i4b:100.128.102.15/16</block>
+  <block id="b465a4b4c591a6f2e44fedac80e726d0" category="cell">meta_16.yml</block>
+  <block id="23344e5747f1b08172f5d05aa88919e5" category="cell">i4b:100.128.102.16/16 i3b:100.127.101.16/16</block>
+  <block id="91e38d134a7ca4a23006b0cf023d9011" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_16'을 통해 리소스 그룹 tor_09에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
+  <block id="ca61951791cd6f4d50294a908b9eee76" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>...</block>
+  <block id="71c1385fcc844d118e8b2688b0cfd2d6" category="cell">STOR_09.대칭</block>
+  <block id="b183ecb3a449e6250fd1771086e68253" category="cell">i1b: 100.127.103.9 / 16 i2b: 100.128.104.9 / 16</block>
+  <block id="9282f3f43896f146dcbcc2d03d530b59" category="cell">Beegfs_S9_S10</block>
+  <block id="8f72ae1bf7ca7b8218a4bf9e719f5e7d" category="cell">STOR_10.월</block>
+  <block id="b8569c1d93725d20f1a50fb74f3947df" category="cell">i2b:100.128.104.10/16 i1b:100.127.103.10/16</block>
+  <block id="e5a3d4f42adb756f3b3c2e3ed045e4a8" category="cell">STOR_11.월</block>
+  <block id="53b0db6fe7b8e62a2dcc9bf455bcf174" category="cell">i3b:100.127.103.11 / 16 i4b:100.128.104.11 / 16</block>
+  <block id="6e4cec4b32bddd9c9a3574aacee223b6" category="cell">Beegfs_s11_s12</block>
+  <block id="05fd4833433a12b38d11d8045aebddff" category="cell">STOR_12.월</block>
+  <block id="9df04e8249070b73fc9be81b8f249664" category="cell">i4b:100.128.104.12/16 i3b:100.127.103.12/16</block>
+  <block id="437037bccd34f3db0b238843b50fe65a" category="cell">STOR_13.월</block>
+  <block id="527c5e3cde165799cdd8148db81d6473" category="cell">i1b: 100.127.103.13 / 16 i2b: 100.128.104.13 / 16</block>
+  <block id="7db433542754f496e2d707f51bf00c05" category="cell">Beegfs_S13_s14</block>
+  <block id="b3c4ed6c5b5c833713923f9e9bdfb9b9" category="cell">STOR_14.월</block>
+  <block id="80cd11504622edd89d4abbc32c1245aa" category="cell">i2b:100.128.104.14 / 16 i1b:100.127.103.14 / 16</block>
+  <block id="4871ef58b7b91db78d33bb4d95e4bf27" category="cell">STOR_15.월</block>
+  <block id="040551498fc870111512145ed93337fc" category="cell">i3b:100.127.103.15 / 16 i4b:100.128.104.15 / 16</block>
+  <block id="b1a9c1cb2640dd5bc9fb4e80dda30200" category="cell">Beegfs_s15_S16</block>
+  <block id="b02a9cdb541eba39e680a1da9c6299c7" category="cell">STOR_16.월</block>
+  <block id="4799f858e623362408f753fa051a2699" category="cell">i4b:100.128.104.16/16 i3b:100.127.103.16/16</block>
+  <block id="dea1f079dcd8c8280e07dcd96ea8c075" category="section-title">4단계: 스토리지 전용 구성 요소에 대한 인벤토리를 구성합니다</block>
+  <block id="711be1acedea341e1f5455f007cdb22b" category="paragraph">다음 단계에서는 BeeGFS 스토리지 전용 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다. 메타데이터 + 스토리지에 대한 구성을 설정하는 것과 스토리지 전용 구성 블록에 대한 구성을 설정하는 것의 주된 차이점은 모든 메타데이터 리소스 그룹이 생략되고 각 스토리지 풀에 대해 "criteria_drive_count"를 10에서 12로 변경하는 것입니다.</block>
+  <block id="5b6fe069463b7f5581a1864de036e765" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_24'를 통해 리소스 그룹 tor_17에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
+  <block id="80f4c22d8a78e5d96cdf5bef28444426" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>.</block>
+  <block id="f9838993bed3d0e550ae346ed2e4355e" category="cell">STOR_17.월</block>
+  <block id="de15a372e63adf3e9d172fcfe67bffbc" category="cell">i1b: 100.127.103.17 / 16 i2b: 100.128.104.17 / 16</block>
+  <block id="5e71a5c8d7eefee3fe82fe28b69d3c1e" category="cell">ictad22a05</block>
+  <block id="8cf4aacf94a115dfc0190ee6782190d3" category="cell">Beegfs_S17_s18</block>
+  <block id="7876b49b042d07da9a565db780a9b186" category="cell">STOR_18.월</block>
+  <block id="e14872a3791e3d785c59a5fb1892c4cf" category="cell">i2b:100.128.104.18 / 16 i1b:100.127.103.18 / 16</block>
+  <block id="291847ab33dfc1d81beed13f4d7a0519" category="cell">STOR_19.대칭</block>
+  <block id="29d24f7d913acaf024704d56a3b47f4d" category="cell">i3b:100.127.103.19 / 16 i4b:100.128.104.19 / 16</block>
+  <block id="114a9ab19efb0876a3622e54afc5bdbb" category="cell">ictad22a06</block>
+  <block id="6a972920f626e0b0b8d505315beaf38b" category="cell">Beegfs_S19_S20</block>
+  <block id="943a4f354a2af18dac1fe2a6e14fe880" category="cell">STOR_20.월</block>
+  <block id="e441e411ebace2ff01e6e612efceb07a" category="cell">i4b:100.128.104.20 / 16 i3b:100.127.103.20 / 16</block>
+  <block id="a5aadbbde2e0b66fc661a126f5a1ce1e" category="cell">STOR_21.대칭</block>
+  <block id="4a7361f8632968e437b2bae55a7d6a5e" category="cell">i1b: 100.127.103.21 / 16 i2b: 100.128.104.21 / 16</block>
+  <block id="9c82263beb960ece0e5b6ac0604bb4d9" category="cell">Beegfs_s21_S22</block>
+  <block id="4879e56fe4d161ba3e4df67f961c483a" category="cell">STOR_22.월</block>
+  <block id="8768cf88da2b645b99d30056c6b1f6e7" category="cell">i2b:100.128.104.22/16 i1b:100.127.103.22/16</block>
+  <block id="316b3c9a6656c51b87a725bf1f678a52" category="cell">STOR_23.월</block>
+  <block id="5eda737d72e69dcbdd869d84cc7c0e48" category="cell">i3b:100.127.103.23 / 16 i4b:100.128.104.23 / 16</block>
+  <block id="2404c81b13915ef9d59e0ac6328f4c10" category="cell">Beegfs_S23_S24</block>
+  <block id="47662afeeaa16771e7d516dd96ade0b7" category="cell">STOR_24.월</block>
+  <block id="a9088dda4778ef90eb3b6f87b070cd25" category="cell">i4b:100.128.104.24 / 16 i3b:100.127.103.24 / 16</block>
+  <block id="66136a118d01240429805a157ae4b538" category="summary">2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개를 따르는 경우 다음 권장 비율을 참조하십시오.</block>
+  <block id="13d38edc52fe6e049aae05e6fce1573a" category="paragraph">2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개를 따르는 경우 다음 표를 참조하십시오.</block>
+  <block id="2d115a94acc324947afb0abf7c47d665" category="paragraph">이 표에는 각 BeeGFS 메타데이터 또는 스토리지 타겟에 대한 "eseries_storage_pool_configuration"의 볼륨 크기로 사용할 권장 비율이 나와 있습니다.</block>
+  <block id="ec8691da9bf60fda22f12e08033d054b" category="cell">드라이브 크기</block>
+  <block id="6f6cb72d544962fa333e2e34ce64f719" category="cell">크기</block>
+  <block id="6f4922f45568161a8cdf4ad2299f6d23" category="cell">18</block>
+  <block id="d81fdeb5a429e85d04118048e4b3485d" category="cell">21.5</block>
+  <block id="6303058eb2f22355195922bb9eeac265" category="cell">22.5</block>
+  <block id="1ff1de774005f8da13f42943881c655f" category="cell">24</block>
+  <block id="b6f404dc4372a8369386a51240b69703" category="admonition">위의 지침은 관리 서비스가 포함된 스토리지 풀에 적용되지 않으며, 관리 데이터에 대해 스토리지 풀의 1%를 할당하기 위해 위의 크기를 .25%까지 줄여야 합니다.</block>
+  <block id="cede28c203641f70169adaabc10df9b6" category="inline-link">TR-4800: 부록 A: SSD 내구성 및 오버 프로비저닝 이해</block>
+  <block id="dab022c0b8356780eb602bc87effd71f" category="paragraph">이러한 값이 어떻게 결정되었는지 확인하려면 을 참조하십시오<block ref="fa826cd698d934925bfe1b514e70b591" category="inline-link-rx"></block>.</block>
+  <block id="bea1a33800109358727c67f41cd01d07" category="summary">구성 배포 및 관리에는 Ansible이 실행해야 하는 작업이 포함된 하나 이상의 플레이북을 실행해야 전체 시스템을 원하는 상태로 되돌릴 수 있습니다.</block>
+  <block id="40184afe39cc9f2361b3b73e0695976d" category="doc">BeeGFS 구축</block>
+  <block id="a5cd3ed116608dac017f14c046ea56bf" category="inline-link">역할</block>
+  <block id="d0dbcd7fcc2b33ea218a58e2364a462a" category="paragraph">모든 작업이 단일 Playbook에 포함될 수 있지만 복잡한 시스템의 경우 이를 관리하기가 매우 복잡해집니다. Ansible을 사용하면 재사용 가능한 플레이북 및 관련 콘텐츠(예: 기본 변수, 작업, 처리기)를 패키지하는 방법으로 역할을 만들고 배포할 수 있습니다. 자세한 내용은 용 Ansible 설명서를 참조하십시오<block ref="68a1974ca8634592518191ca9775617f" category="inline-link-rx"></block>.</block>
+  <block id="63d74efd13802381ddc8b8a65a3a5000" category="paragraph">역할은 종종 관련 역할 및 모듈이 포함된 Ansible 컬렉션의 일부로 배포됩니다. 따라서, 이러한 플레이북은 다양한 NetApp E-Series Ansible 컬렉션에서 주로 다양한 역할을 하지만</block>
+  <block id="3fb2d69a2432fdcecc09bb3418ad3ace" category="admonition">2노드 클러스터를 사용하여 쿼럼을 설정할 때 문제를 완화하기 위해 별도의 쿼럼 장치를 Tiebreaker로 구성하지 않는 한 현재 BeeGFS를 구축하려면 최소 2개의 구성 요소(4개의 파일 노드)가 필요합니다.</block>
+  <block id="2ab028f46312dfd58cd64798fc7cbf9e" category="list-text">새로운 '플레이북.yml' 파일을 생성하고 다음을 포함합니다.</block>
+  <block id="26a3e9e044d0e5b372c4803d6bdeefbd" category="admonition">이 플레이북에서는 파일 노드에 Python 3이 설치되어 있는지 확인하는 몇 가지 "pre_tasks"를 실행하고 제공되는 Ansible 태그가 지원되는지 확인합니다.</block>
+  <block id="7cf59981bd844e32610404655f205256" category="list-text">BeeGFS를 배포할 준비가 되면 재고 및 플레이북 파일과 함께 'Ansible-Playbook' 명령을 사용하십시오.</block>
+  <block id="f73890e8771abfa1abdc045ab1b722ef" category="paragraph">구축 과정에서 모든 "pre_tasks"를 실행한 다음 실제 BeeGFS 구축을 진행하기 전에 사용자 확인을 묻는 메시지가 표시됩니다.</block>
+  <block id="efd5cfa405ebe66e35820b347b961b90" category="paragraph">다음 명령을 실행하여 필요에 따라 포크 수를 조정합니다(아래 참고 참조).</block>
+  <block id="e1f7c8e8d5a879b01dcf2e832140f992" category="inline-link">Ansible 성능 조정</block>
+  <block id="2485710fb8c15237f98f63beae48b455" category="inline-link">플레이북 실행 제어</block>
+  <block id="44e3c962bed95de75adc370adf17965e" category="admonition">특히 대규모 배포의 경우 Ansible에서 병렬로 구성하는 호스트의 수를 늘리려면 '포크' 매개 변수를 사용하여 기본 포크 수(5)를 재정의하는 것이 좋습니다. (자세한 내용은 을 참조하십시오 <block ref="1ad83cdd7d1451f25e3de1b6b6ab91b1" category="inline-link-rx"></block> 및<block ref="2f92d47aead0a3ef15304d32faf6a032" category="inline-link-rx"></block>참조) 최대 값 설정은 Ansible 컨트롤 노드에서 사용할 수 있는 처리 능력에 따라 달라집니다. 위의 20개 예는 CPU 4개(인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz)가 장착된 가상 Ansible 컨트롤 노드에서 실행되었습니다.</block>
+  <block id="e5e4c2e4c004bc7dbd4a04d4b0971e53" category="paragraph">Ansible 제어 노드와 BeeGFS 파일 및 블록 노드 간의 구축 및 네트워크 성능 크기에 따라 구축 시간이 달라질 수 있습니다.</block>
+  <block id="c38012b2187d10d4a33d168693918570" category="summary">각 구성 요소는 HDR(200GB) InfiniBand를 사용하여 2개의 NetApp 블록 노드에 직접 연결된 검증된 x86 파일 노드 2개로 구성됩니다.</block>
+  <block id="0893812920a9268362b89a618b2f05c4" category="paragraph">각 구성 요소는 HDR(200GB) InfiniBand 케이블을 사용하여 두 블록 노드에 직접 연결된 검증된 x86 파일 노드 2개로 구성됩니다.</block>
+  <block id="cf173c7219b93e53cad26c1f5975c527" category="admonition">각 구성 요소에 BeeGFS 파일 노드가 2개 포함되어 있으므로 페일오버 클러스터에 쿼럼을 설정하려면 최소 2개의 구성 요소가 필요합니다. 2노드 클러스터를 구성할 수 있지만 일부 시나리오에서는 성공적인 페일오버가 발생하지 않도록 이 구성에 제한이 있습니다. 2노드 클러스터가 필요한 경우 이 구축 절차에 포함되지 않지만 3차 디바이스를 Tiebreaker로 통합할 수도 있습니다.</block>
+  <block id="0cc464de9a37ad072fa7529593389b2a" category="paragraph">별도로 언급하지 않는 한, 다음 단계는 BeeGFS 메타데이터 및 스토리지 서비스 또는 스토리지 서비스만 실행하는 데 사용되는지 여부와 관계없이 클러스터의 각 구성 요소에 대해 동일합니다.</block>
+  <block id="ee6202c3dca3dfe457b79b5ff39c7765" category="list-text">InfiniBand 모드에서 PCIe 4.0 ConnectX-6 이중 포트 호스트 채널 어댑터(HCA) 4개로 각 BeeGFS 파일 노드를 구성하고 PCIe 슬롯 2, 3, 5 및 6에 설치합니다.</block>
+  <block id="9df6f3b087eea6552beb54d44653501a" category="list-text">이중 포트 200GB 호스트 인터페이스 카드(HIC)로 각 BeeGFS 블록 노드를 구성하고 두 스토리지 컨트롤러 각각에 HIC를 설치합니다.</block>
+  <block id="31562d2b8d25ec86381df6ff0157e4b7" category="paragraph">두 개의 BeeGFS 파일 노드가 BeeGFS 블록 노드 위에 있도록 구성 요소를 랙에 설치하십시오. 다음 그림은 BeeGFS 빌딩 블록에 대한 올바른 하드웨어 구성을 보여 줍니다(후면).</block>
+  <block id="7a549152f69a4c5a4d90a9ad467016da" category="paragraph"><block ref="7a549152f69a4c5a4d90a9ad467016da" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9e5081bbd0a64102ab8844f96776d6ea" category="admonition">운영 활용 사례에 대한 전원 공급 장치 구성은 일반적으로 중복 PSU를 사용해야 합니다.</block>
+  <block id="cf31d049daa8cd238cb4238371f2e5d0" category="list-text">필요한 경우 각 BeeGFS 블록 노드에 드라이브를 설치합니다.</block>
+  <block id="eb86aba8f900c8f076cdcddafcf7271f" category="list-text">빌딩 블록을 사용하여 BeeGFS 메타데이터 및 스토리지 서비스를 실행하고 작은 드라이브를 메타데이터 볼륨에 사용하는 경우 아래 그림과 같이 가장 바깥쪽 드라이브 슬롯에 채워졌는지 확인합니다.</block>
+  <block id="c448ee45144a8930f2211d0a4edb7b91" category="list-text">모든 구성 요소 구성에서 드라이브 엔클로저가 완전히 채워지지 않은 경우 최적의 성능을 위해 슬롯 0–11 및 12–23에 동일한 수의 드라이브가 채워졌는지 확인하십시오.</block>
+  <block id="4885044112b3b6c6858ae6802eb99831" category="paragraph"><block ref="4885044112b3b6c6858ae6802eb99831" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="472ae30ca7767b7347c25c071e0e4b13" category="list-text">파일 및 블록 노드에 케이블을 연결하려면 1m InfiniBand HDR 200GB 직접 연결 구리 케이블을 사용하여 아래 그림에 표시된 토폴로지와 일치시킵니다.</block>
+  <block id="835b8f1e6b31f0d45576eed50cfe4027" category="paragraph"><block ref="835b8f1e6b31f0d45576eed50cfe4027" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7fd5b7ef2a561c49e1b59a838397af45" category="admonition">여러 빌딩 블록의 노드는 직접 연결되지 않습니다. 각 구성 요소는 독립형 장치로 취급해야 하며 구성 요소 간의 모든 통신은 네트워크 스위치를 통해 이루어집니다.</block>
+  <block id="ca7450c6e9a714419bebd35c8d11414a" category="list-text">2m(또는 적절한 길이) InfiniBand HDR 200GB 직접 연결 구리 케이블을 사용하여 각 파일 노드의 나머지 InfiniBand 포트를 스토리지 네트워크에 사용할 InfiniBand 스위치에 케이블로 연결합니다.</block>
+  <block id="678e3f5ded0c872017877baf55a34219" category="paragraph">사용 중인 중복 InfiniBand 스위치가 있는 경우 다음 그림에서 녹색으로 강조 표시된 포트를 서로 다른 스위치에 케이블로 연결합니다.</block>
+  <block id="7a8dd1c52597fd7244751f757c26132e" category="paragraph"><block ref="7a8dd1c52597fd7244751f757c26132e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="57f799feabdc3b75aa704ff51e74f4c1" category="list-text">필요한 경우 동일한 케이블 연결 지침에 따라 추가 구성 요소를 조립합니다.</block>
+  <block id="6a2ae129e5b77fd39f068e6cdee42d2a" category="admonition">단일 랙에 구축할 수 있는 총 구성 요소 수는 각 사이트의 사용 가능한 전력 및 냉각에 따라 다릅니다.</block>
+  <block id="b11764419626b2eff6352f3d8e6022e3" category="summary">Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 사용할 수 있는 모든 파일 및 블록 노드의 관리 포트에 대한 네트워크 액세스를 갖춘 가상 머신 또는 물리적 머신을 식별합니다.</block>
+  <block id="bfcf60c321d0d2cb85402c7a22d208b9" category="paragraph">Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 사용할 수 있는 모든 파일 및 블록 노드의 관리 포트에 대한 네트워크 액세스를 갖춘 가상 머신 또는 물리적 머신을 식별해야 합니다.</block>
+  <block id="c98e4789c5801c863a516b10b7663838" category="paragraph">다음 단계는 CentOS 8.4에서 테스트되었습니다. 선호하는 Linux 배포판에 대한 단계는 를 참조하십시오<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>.</block>
+  <block id="9987c24bf4e936399e49e8ef8615083d" category="list-text">Python 3.9를 설치하고 올바른 버전의 PIP가 설치되어 있는지 확인합니다.</block>
+  <block id="bc55433e1f3f1b08c02a0254a0f864c1" category="list-text">심볼 링크를 생성하여 'python3' 또는 'python'이 호출될 때마다 Python 3.9 바이너리가 사용되도록 합니다.</block>
+  <block id="e7a81038c18b15bf5d97b77fb110af03" category="list-text">NetApp BeeGFS 컬렉션에 필요한 Python 패키지를 설치합니다.</block>
+  <block id="7f883f5609524995f000fc99b8f5691a" category="admonition">지원되는 Ansible 버전과 필요한 모든 Python 패키지를 설치하려면 BeeGFS 컬렉션의 Readme 파일을 참조하십시오. 지원되는 버전은 에도 나와 있습니다 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>.</block>
+  <block id="a36d9a848f44be3e2b8d092a5861995a" category="list-text">올바른 버전의 Ansible 및 Python이 설치되어 있는지 확인하십시오.</block>
+  <block id="4ac0a4015ebef3209a5f3acb61110dd9" category="list-text">Git 또는 BitBucket과 같은 소스 제어 시스템에 BeeGFS 구축을 설명하는 데 사용되는 Ansible 인벤토리를 저장한 다음 Git를 설치하여 이러한 시스템과 상호 작용합니다.</block>
+  <block id="f2f38616eaf6d21846071c00e89109b4" category="list-text">암호 없는 SSH를 설정합니다. 이는 Ansible에서 Ansible 제어 노드의 원격 BeeGFS 파일 노드에 액세스할 수 있는 가장 쉬운 방법입니다.</block>
+  <block id="3087af73e5990976755e4c56b6e7c754" category="list-text">필요한 경우 Ansible 컨트롤 노드에서 ssh-keygen을 사용하여 공개 키 쌍을 생성합니다</block>
+  <block id="c5d36867af8fc130f7a6b6bd87d51d23" category="list-text">ssh-copy-id &lt;ip_or_hostname&gt;'을 사용하여 각 파일 노드에 대해 암호 없는 SSH를 설정합니다</block>
+  <block id="c4e4fc85a76d5e87beac70d1fa166882" category="paragraph">블록 노드에 암호 없는 SSH를 * 설정하지 마십시오. 이 작업은 지원되거나 필요하지 않습니다.</block>
+  <block id="03f38aac08b6c6c3e6e3afc965fedbcc" category="list-text">Ansible Galaxy를 사용하여 에 나열된 BeeGFS 컬렉션 버전을 설치합니다 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>.</block>
+  <block id="b113449496b52721b53dc04e5120a57b" category="paragraph">이 설치에는 NetApp SANtricity 소프트웨어 및 호스트 컬렉션과 같은 추가 Ansible 종속성이 포함됩니다.</block>
+  <block id="a8bb1258f035db2e1b989badd7504202" category="summary">파일 및 블록 노드의 구성을 정의하려면 구축할 BeeGFS 파일 시스템을 나타내는 Ansible 인벤토리를 생성합니다.</block>
+  <block id="811a6b46c73b2ff846d806c69f166392" category="paragraph">파일 및 블록 노드의 구성을 정의하려면 구축할 BeeGFS 파일 시스템을 나타내는 Ansible 인벤토리를 생성합니다. 인벤토리는 원하는 BeeGFS 파일 시스템을 설명하는 호스트, 그룹 및 변수를 포함합니다.</block>
+  <block id="f710d81b04cfd57ef65bc4cca28bc3d4" category="section-title">1단계: 모든 빌딩 블록에 대한 설정을 정의합니다</block>
+  <block id="08ecdaa3e32e095bd8f7ecec87a6ffe1" category="paragraph">개별적으로 적용할 수 있는 구성 프로파일에 관계없이 모든 구성 요소에 적용되는 구성을 정의합니다.</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">시작하기 전에</block>
+  <block id="17de9612747c3e48aee3a32b1da30959" category="list-text">BitBucket 또는 Git와 같은 소스 제어 시스템을 사용하여 Ansible 인벤토리 및 플레이북 파일이 포함된 디렉토리의 콘텐츠를 저장합니다.</block>
+  <block id="fc62f55b3e3e861f3b20a7ae40279cab" category="list-text">Git가 무시해야 하는 파일을 지정하는 '.gignore' 파일을 만듭니다. 이렇게 하면 Git에 큰 파일을 저장하지 않아도 됩니다.</block>
+  <block id="1633329793556e695f8ae53c7f3c8756" category="list-text">Ansible 제어 노드에서 Ansible 인벤토리 및 플레이북 파일을 저장하는 데 사용할 디렉토리를 식별하십시오.</block>
+  <block id="2af34d0fd4b17ecc42b7fb40d3a2019d" category="paragraph">별도로 언급하지 않는 한, 이 단계에서 만든 모든 파일과 디렉터리와 다음 단계는 이 디렉터리를 기준으로 생성됩니다.</block>
+  <block id="31f13138a9fb78368dd1c5b8b9cb522e" category="list-text">다음 하위 디렉터리를 만듭니다.</block>
+  <block id="f502c582ecc3459969f6ae37e60464d1" category="paragraph">HOST_VAR'입니다</block>
+  <block id="f2151fe487fd8f761c16c5d92971a46f" category="paragraph">group_vars입니다</block>
+  <block id="5fa06f80972ff05cf8eb18aa9af90bbd" category="paragraph">'패키지'</block>
+  <block id="49266d47983011d7ceee48c764eaad20" category="section-title">2단계: 개별 파일 및 블록 노드에 대한 설정을 정의합니다</block>
+  <block id="bcbd88b78dd9388280471b20c50ef836" category="paragraph">개별 파일 노드 및 개별 구성 요소 노드에 적용되는 구성을 정의합니다.</block>
+  <block id="4ace9bc4fa627e77f6406dd2f64e2028" category="list-text">'host_vars/'에서 다음 내용으로 이름이 '&lt;HOSTNAME&gt;.yml'인 각 BeeGFS 파일 노드에 대한 파일을 만듭니다. BeeGFS 클러스터 IP 및 호스트 이름에 대해 채울 콘텐츠에 대한 메모는 홀수와 짝수로 끝나는 것이 좋습니다.</block>
+  <block id="65742ecf20e6c51de487a8a5c4e5d085" category="paragraph">처음에는 파일 노드 인터페이스 이름이 여기에 나열된 것과 일치합니다(예: ib0 또는 ibs1f0). 이러한 사용자 정의 이름은 에 구성되어 있습니다 <block ref="9c327e4b0e0a41a0187df973a6c1c1f1" category="inline-xref-macro-rx"></block>.</block>
+  <block id="c1df6ea154e4f3c22584570de9017604" category="admonition">BeeGFS 클러스터를 이미 구축한 경우, NVMe/IB에 사용되는 클러스터 IP 및 IP를 포함하여 정적으로 구성된 IP 주소를 추가하거나 변경하기 전에 클러스터를 중지해야 합니다. 이러한 변경 사항이 적절히 적용되고 클러스터 작업을 방해하지 않도록 이 작업이 필요합니다.</block>
+  <block id="64f6e7ce4bce20648e5b5817cc7c9d5d" category="list-text">'host_vars/'에서 '&lt;HOSTNAME&gt;.yml'이라는 이름의 각 BeeGFS 블록 노드에 대한 파일을 생성하고 다음 내용으로 채웁니다.</block>
+  <block id="350317d433df31d79bf0ded1b3748715" category="paragraph">홀수와 짝수로 끝나는 스토리지 배열 이름에 대한 내용을 입력할 때 특히 주의해야 합니다.</block>
+  <block id="d9aa2babb29bda2ebcdcb05c255e1dd3" category="paragraph">각 블록 노드에 대해 하나의 파일을 생성하고 두 컨트롤러 중 하나의 "&lt;management_ip&gt;"를 지정합니다(일반적으로 A).</block>
+  <block id="a79b02f70003beee254343e4cae10ad4" category="section-title">3단계: 모든 파일 및 블록 노드에 적용되어야 하는 설정을 정의합니다</block>
+  <block id="7a7623c76e8a35ad9b47b72876017ffc" category="paragraph">그룹에 해당하는 파일 이름으로 group_vars 아래에 있는 호스트 그룹에 공통된 구성을 정의할 수 있습니다. 이렇게 하면 여러 위치에서 공유 구성이 반복되지 않습니다.</block>
+  <block id="b8250a298e8217ebff19d4f7c62cf654" category="inline-link">변수 사용</block>
+  <block id="45c67f165a1990ff04bfa4ffd3ad1908" category="paragraph">호스트는 둘 이상의 그룹에 있을 수 있으며 런타임 시 Ansible은 변수 우선 순위 규칙에 따라 특정 호스트에 적용되는 변수를 선택합니다. (이 규칙에 대한 자세한 내용은 용 Ansible 설명서를 참조하십시오<block ref="e846c866a706aed07204d4b81c43f562" category="inline-link-rx"></block>참조)</block>
+  <block id="30670ef79ffcebf619cb84794bb9f467" category="paragraph">호스트 대 그룹 지정은 이 절차의 마지막을 위해 생성되는 실제 Ansible 인벤토리 파일에 정의됩니다.</block>
+  <block id="13fe78da26730165534ca728d16729df" category="paragraph">Ansible에서는 모든 호스트에 적용할 구성을 '모두'라는 그룹으로 정의할 수 있습니다. 다음 내용으로 group_vars/all.yml 파일을 만듭니다.</block>
+  <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">4단계: 모든 파일 노드에 적용할 구성을 정의합니다</block>
+  <block id="68decee7f537598fe42c449c7effd748" category="paragraph">파일 노드의 공유 구성은 ha_cluster라는 그룹에 정의됩니다. 이 섹션의 단계에서는 group_vars/ha_cluster.yml 파일에 포함되어야 하는 구성을 작성합니다.</block>
+  <block id="01eabbaba4e3200ffffeaf687ced4089" category="list-text">파일 맨 위에서 파일 노드의 'SUDO' 사용자로 사용할 암호를 포함하여 기본값을 정의합니다.</block>
+  <block id="c61c5c1226a5daff294e618d1b90ec26" category="admonition">특히 프로덕션 환경에서는 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>) 또는 '--Ask-when-pass' 옵션을 선택합니다. 'Ansible_ssh_user'가 이미 'root'인 경우 Anabilities_BAREY_PASSWORD를 선택적으로 생략할 수 있습니다.</block>
+  <block id="3eeae040dcd4e8e08ba89cd729351414" category="list-text">필요에 따라 고가용성(HA) 클러스터의 이름을 구성하고 클러스터 내 통신을 위한 사용자를 지정합니다.</block>
+  <block id="22bf408c8339ca14dab3745bbe56780d" category="paragraph">전용 IP 주소 지정 체계를 수정하는 경우 기본 "begfs_ha_mgmtd_floating_ip"도 업데이트해야 합니다. 나중에 BeeGFS 관리 리소스 그룹에 대해 구성한 것과 일치해야 합니다.</block>
+  <block id="ba4d50db9221cc812d5f7981d4600c2d" category="paragraph">"begfs_ha_alert_email_list"를 사용하여 클러스터 이벤트에 대한 경고를 수신할 e-메일을 하나 이상 지정합니다.</block>
+  <block id="e69d5d030b5267144694edd30e58fa4b" category="admonition">중복된 것처럼 보이지만 BeeGFS 파일 시스템을 단일 HA 클러스터 이상으로 확장하는 경우 "begfs_ha_mgmtd_floating_ip"가 중요합니다. 이후 HA 클러스터는 추가 BeeGFS 관리 서비스 없이 구축되고 첫 번째 클러스터에서 제공하는 관리 서비스를 가리키도록 구축됩니다.</block>
+  <block id="7509dcf152f48abcba19fa72adedb808" category="inline-link">Red Hat High Availability 클러스터에서 펜싱을 구성합니다</block>
+  <block id="da185ecc8c2bce6af5f506542a665aab" category="list-text">펜싱 에이전트를 구성합니다. (자세한 내용은 을 참조하십시오<block ref="dc7760afd7fe301addd396cbb1b31319" category="inline-link-rx"></block>참조) 다음 출력에서는 일반적인 펜싱 에이전트를 구성하는 예를 보여 줍니다. 다음 옵션 중 하나를 선택합니다.</block>
+  <block id="b2f365e9dc240069eb174f596f8086dd" category="paragraph">이 단계에서는 다음 사항에 유의하십시오.</block>
+  <block id="83a5cc26327b36012de2442c022e0357" category="list-text">기본적으로 펜싱은 활성화되어 있지만 fencing_agent_를 구성해야 합니다.</block>
+  <block id="502142ce464e9e0c49b233594ce3af26" category="list-text">pcmk_host_map 또는 pcmk_host_list에 지정된 '&lt;HOSTNAME&gt;'은(는) Ansible 인벤토리의 호스트 이름과 일치해야 합니다.</block>
+  <block id="08c76f94c7c5d2fb0509d39d58f7d298" category="list-text">특히 운영 환경에서는 펜싱 없이 BeeGFS 클러스터를 실행할 수 없습니다. 이는 주로 블록 디바이스와 같은 리소스 종속성이 포함된 BeeGFS 서비스가 문제로 인해 페일오버될 때 파일 시스템 손상 또는 기타 바람직하지 않거나 예기치 않은 동작으로 이어질 수 있는 여러 노드에 의한 동시 액세스 위험이 발생하지 않도록 하기 위한 것입니다. 펜싱을 비활성화해야 하는 경우 BeeGFS HA 역할의 시작 가이드의 일반 참고를 참조하여 ha_cluster_crm_config_options ["STONITH -enabled"]"를 false 로 설정합니다.</block>
+  <block id="8134b950ce435c1478c36f8d9e28640a" category="list-text">사용 가능한 노드 레벨 펜싱 장치가 여러 개 있으며 BeeGFS HA 역할은 Red Hat HA 패키지 리포지토리에서 사용 가능한 펜싱 에이전트를 구성할 수 있습니다. 가능한 경우 무정전 전원 공급 장치(UPS) 또는 랙 배전 장치(rPDU)를 통해 작동하는 펜싱 에이전트를 사용합니다. BMC(베이스보드 관리 컨트롤러) 또는 서버에 내장된 기타 표시등 출력 장치와 같은 일부 펜싱 에이전트가 특정 장애 시나리오에서 Fence 요청에 응답하지 않을 수 있기 때문입니다.</block>
+  <block id="6793d5cb3a8bc008d05678615f821ca7" category="list-text">Linux OS에서 권장되는 성능 조정을 활성화합니다.</block>
+  <block id="951cd0f9ef758f90609564a78a7f36a2" category="paragraph">일반적으로 성능 매개 변수에 대한 기본 설정은 대부분의 사용자가 찾지만 선택적으로 특정 작업 부하에 대한 기본 설정을 변경할 수 있습니다. 따라서 이러한 권장 사항은 BeeGFS 역할에 포함되지만 기본적으로 설정되어 있지 않으므로 사용자가 파일 시스템에 적용된 튜닝에 대해 알 수 있습니다.</block>
+  <block id="2e468d52e0778656623f6a98e831b3c0" category="paragraph">성능 조정을 활성화하려면 다음을 지정하십시오.</block>
+  <block id="5886796779dc029ac41ffca429f9f5d1" category="list-text">(선택 사항) 필요에 따라 Linux OS에서 성능 조정 매개 변수를 조정할 수 있습니다.</block>
+  <block id="fe7cbbcd6bbbe894cb7364e04d36c7ae" category="inline-link">E-Series BeeGFS GitHub 사이트</block>
+  <block id="a2a731b1d02a58e1e3cbcdae15a63023" category="paragraph">조정할 수 있는 사용 가능한 튜닝 매개 변수의 전체 목록은 에서 BeeGFS HA 역할의 성능 조정 기본값 섹션을 참조하십시오<block ref="32c82538a26b94ce448b7cce29eb6898" category="inline-link-rx"></block>. 이 파일의 클러스터에 있는 모든 노드 또는 개별 노드에 대한 'host_vars' 파일에 대해 기본값을 재정의할 수 있습니다.</block>
+  <block id="3abafbb6a7adaface99f5d9cd23b12d0" category="list-text">블록과 파일 노드 간에 전체 200GB/HDR 연결을 허용하려면 Mellanox Open Fabrics Enterprise Distribution(MLNX_OFED)의 OpenSM(Open Subnet Manager) 패키지를 사용하십시오. (받은 편지함인 OpenSM 패키지는 필요한 가상화 기능을 지원하지 않습니다.) Ansible을 사용하여 구축할 수도 있지만, 먼저 BeeGFS 역할을 실행하는 데 사용되는 Ansible 제어 노드에 원하는 패키지를 다운로드해야 합니다.</block>
+  <block id="b98ee7eab01ffcc8be1325c0937f01e8" category="list-text">컬링이나 원하는 도구를 사용하여 Mellanox 웹 사이트의 기술 요구 사항 섹션에 나열된 OpenSM 버전의 패키지를 "packages/" 디렉토리로 다운로드합니다. 예를 들면 다음과 같습니다.</block>
+  <block id="372ec1e9d1761b6aa16b9f0b54a4433b" category="list-text">group_vars/ha_cluster.yml에 다음 파라미터를 입력합니다(필요에 따라 패키지 조정).</block>
+  <block id="382cd5df5d20e8ee60bea9f8be1884e3" category="list-text">논리적 InfiniBand 포트 식별자를 기본 PCIe 디바이스에 일관되게 매핑하도록 'udev' 규칙을 구성합니다.</block>
+  <block id="acb63a2b1a344472ec1b72c168bf5a95" category="paragraph">udev 규칙은 BeeGFS 파일 노드로 사용되는 각 서버 플랫폼의 PCIe 토폴로지에 고유해야 합니다.</block>
+  <block id="8cec215dcbcd9866be7ad7f12652d9bd" category="paragraph">검증된 파일 노드에 대해 다음 값을 사용합니다.</block>
+  <block id="b535d5891e9112526732586cf8225d93" category="list-text">(선택 사항) 메타데이터 대상 선택 알고리즘을 업데이트합니다.</block>
+  <block id="e3c1663ae83b766d79e4b2be55767666" category="inline-link">BeeGFS 시스템을 벤치마킹합니다</block>
+  <block id="8dff66e73ac10da6c457b7092c6f9005" category="admonition">검증 테스트에서는 일반적으로 성능 벤치마킹 중에 테스트 파일이 모든 BeeGFS 스토리지 대상에 고르게 분산되도록 하기 위해 "랜덤 로빈"이 사용되었습니다(벤치마킹을 위한 자세한 내용은 BeeGFS 사이트 참조)<block ref="831dbcfeece1d9e52170bb11173ba315" category="inline-link-rx"></block>)를 클릭합니다. 실제 환경에서 사용하면 낮은 번호의 대상이 높은 번호의 목표보다 빠르게 채워질 수 있습니다. 기본 '무작위 배정' 값을 사용하기만 하면 사용 가능한 모든 대상을 활용하는 동시에 우수한 성능을 제공하는 것으로 나타났습니다.</block>
+  <block id="aad0b8e6a3552eebcdcf125f218d1954" category="section-title">5단계: 공통 블록 노드에 대한 구성을 정의합니다</block>
+  <block id="f9ed56c11a1443e285b3d786249fe6aa" category="paragraph">블록 노드의 공유 구성은 eseries_storage_systems라는 그룹에 정의되어 있습니다. 이 섹션의 단계에서는 group_vars/eseries_storage_systems.yml 파일에 포함되어야 하는 구성을 작성합니다.</block>
+  <block id="7d304d17d15c3332b9d8584fa30f070b" category="list-text">Ansible 연결을 로컬로 설정하고 시스템 암호를 제공하며 SSL 인증서를 확인해야 하는지 여부를 지정합니다. (일반적으로 Ansible은 SSH를 사용하여 관리 호스트에 연결하지만, 블록 노드로 사용되는 NetApp E-Series 스토리지 시스템의 경우 모듈은 통신에 REST API를 사용합니다.) 파일 맨 위에 다음을 추가합니다.</block>
+  <block id="41c70fb9d233363d68fe27194430adc1" category="admonition">암호를 일반 텍스트로 나열하는 것은 권장되지 않습니다. Ansible 볼트를 사용하거나 '- Extra-VAR'을 사용하여 Ansible을 실행할 때 'eseries_system_password'를 제공하십시오.</block>
+  <block id="a18d6a60f542af2e3b0784928e17f417" category="list-text">최적의 성능을 보장하기 위해 에 블록 노드에 대해 나열된 버전을 설치합니다 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>.</block>
+  <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link">NetApp Support 사이트</block>
+  <block id="38119f4253b4080e689702afd647df1f" category="paragraph">에서 해당 파일을 다운로드합니다<block ref="3f80e15ba326a9eb1fc39b6d8ba81472" category="inline-link-rx"></block>. 수동으로 업그레이드하거나 Ansible 제어 노드의 'packages/' 디렉토리에 추가한 다음, Ansible을 사용하여 업그레이드하려면 "eseries_storage_systems.yml"에 다음 매개 변수를 입력합니다.</block>
+  <block id="a5a82f3b02ae57420ae1197446e1efc0" category="list-text">에서 Block 노드에 설치된 드라이브에 사용할 수 있는 최신 드라이브 펌웨어를 다운로드하여 설치합니다<block ref="7bf536b69fb1e52c85b84904e073cbdb" category="inline-link-rx"></block>. 수동으로 업그레이드하거나 Ansible 제어 노드의 'packages/' 디렉토리에 추가한 다음, Ansible을 사용하여 업그레이드하려면 "eseries_storage_systems.yml"에 다음 매개 변수를 입력합니다.</block>
+  <block id="72423a5fa99fafb4c2dc7b7e7f7d7962" category="admonition">eseries_drive_firmware_upgrade_drives_online을 "false"로 설정하면 업그레이드 속도가 빨라지지만 BeeGFS가 구축되기 전에는 수행할 수 없습니다. 이 설정은 응용 프로그램 오류를 방지하기 위해 업그레이드 전에 드라이브에 대한 모든 I/O를 중지하도록 하기 때문입니다. 볼륨을 구성하기 전에 온라인 드라이브 펌웨어 업그레이드를 수행하는 것이 여전히 빠르지만 나중에 문제가 발생하지 않도록 항상 이 값을 "참"으로 설정하는 것이 좋습니다.</block>
+  <block id="2b0551e04ffc3a713c07e9a9611b9897" category="list-text">성능을 최적화하려면 글로벌 구성을 다음과 같이 변경합니다.</block>
+  <block id="6b7cf272a4e3aeaf52c2d0ca991829e5" category="list-text">최적의 볼륨 프로비저닝 및 동작을 위해 다음 매개 변수를 지정합니다.</block>
+  <block id="b969df7be52ed192c298428e4fb0e696" category="admonition">'eseries_storage_pool_usable_drives'에 지정된 값은 NetApp EF600 블록 노드에만 해당되며 드라이브가 새 볼륨 그룹에 할당되는 순서를 제어합니다. 이 주문을 통해 각 그룹에 대한 입출력이 백엔드 드라이브 채널에 균등하게 분산됩니다.</block>
+  <block id="7042a03d018b94aee36197baf79897b2" category="summary">성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다.</block>
+  <block id="e95c3b26aabb0242b0a38d72568b125a" category="paragraph">성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다.</block>
+  <block id="291e90fb83bca326d06b5479d0ae7197" category="paragraph">시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 이 항목에서는 검증된 Lenovo ThinkSystem SR665 서버 파일 노드에 대한 시스템 설정을 구성하는 방법에 대해 설명합니다.</block>
+  <block id="cfa9d7ef51eae23751a0ea54765b99fd" category="section-title">UEFI 인터페이스를 사용하여 시스템 설정을 조정합니다</block>
+  <block id="7afe745e5e5ded0e0cf311f6ab05ce41" category="paragraph">Lenovo SR665 서버의 시스템 펌웨어에는 UEFI 인터페이스를 통해 설정할 수 있는 다양한 조정 매개변수가 포함되어 있습니다. 이러한 튜닝 매개 변수는 서버의 작동 방식 및 서버 성능에 미치는 모든 측면에 영향을 줄 수 있습니다.</block>
+  <block id="01d5e77f89697d310442aa744d5c4068" category="paragraph">UEFI 설정 &gt; 시스템 설정 * 에서 다음 시스템 설정을 조정합니다.</block>
+  <block id="6e2e169ab41f56781f3cd65629914fc6" category="section-title">작동 모드 메뉴</block>
+  <block id="f7adfd4c98207b1161c7b693c16fa9ea" category="cell">* 시스템 설정 *</block>
+  <block id="a3fb412bb8de9718b8510aa99340221a" category="cell">* 로 변경합니다</block>
+  <block id="1c2631aa94b6d5e1cc826b0cb76a87ba" category="paragraph">작동 모드</block>
+  <block id="90589c47f06eb971d548591f23c285af" category="paragraph">맞춤형</block>
+  <block id="43e16592d1b7c57c68cdf68bcd7f2fbd" category="paragraph">cTDP</block>
+  <block id="e1ba155a9f2e8c3be94020eef32a0301" category="paragraph">수동</block>
+  <block id="db0877bc3fbb4ce0ffd2f36fa5470581" category="paragraph">cTDP 설명서</block>
+  <block id="9de6d14fff9806d4bcd1ef555be766cd" category="paragraph">350</block>
+  <block id="43287f46609a4dc60f40223b99452814" category="paragraph">패키지 전력 제한</block>
+  <block id="8bec16a6c589939ad9d0a3c20f7dd8dc" category="paragraph">효율성 모드</block>
+  <block id="bcfaccebf745acfd5e75351095a5394a" category="paragraph">사용 안 함</block>
+  <block id="50a4d260500229aae705dffbef792499" category="paragraph">Global-Cstate-Control</block>
+  <block id="bbb8600e28b07b4e7765ccb37c8ba72d" category="paragraph">SOC P 상태</block>
+  <block id="16a2e561c536a77cbfd10490ea398be6" category="paragraph">P0</block>
+  <block id="f7d2d14860cfdee82e8cf9418c1ec624" category="paragraph">DF C 상태</block>
+  <block id="450e20de3fc0482fa7bdadc4622005ed" category="paragraph">P - 상태 1</block>
+  <block id="9c1a39470ba5d6a8856c5e813e20ef6b" category="paragraph">메모리 전원 끄기 활성화</block>
+  <block id="3011761cbf6a8eb38a41f6b38210c119" category="paragraph">소켓당 NUMA 노드</block>
+  <block id="4142a6b2c0ac3aaf643751457e9aad6a" category="paragraph">NPS1</block>
+  <block id="cdceaf6498461c15ce1ae0800bf60c66" category="section-title">Device and I/O ports(장치 및 I/O 포트) 메뉴</block>
+  <block id="fb31ba7c369028665e7e1a20bd645da6" category="paragraph">IOMMU</block>
+  <block id="ada62bbe41ae187c3f0f777ffbd44d28" category="section-title">전원 메뉴</block>
+  <block id="e7dc1149b98b9a234419b52cb65c86eb" category="paragraph">PCIe 전원 브레이크</block>
+  <block id="a4fb96bd64d4ecceb3f0f416f7032bb9" category="section-title">프로세서 메뉴</block>
+  <block id="78ee21f7e9d290c773c1aa6ae0d03303" category="paragraph">글로벌 C 상태 제어</block>
+  <block id="dc8a824c345b5e3bbaa79fce219830c2" category="paragraph">SMT 모드</block>
+  <block id="28fb70bc7fdb441f9e6550205a24c92c" category="paragraph">CPPC</block>
+  <block id="83ed73e76e0c1cfe38ef9627b7ae0fe0" category="section-title">Redfish API를 사용하여 시스템 설정을 조정합니다</block>
+  <block id="2bfb51b6fb78d5540135d28668652ab6" category="paragraph">UEFI 설정 외에도 Redfish API를 사용하여 시스템 설정을 변경할 수 있습니다.</block>
+  <block id="33e221e2cea2342a6bae3c4c24f33827" category="inline-link">DMTF 웹 사이트</block>
+  <block id="d96afe3ab332c2cc42ac69c811923ba7" category="paragraph">Redfish 스키마에 대한 자세한 내용은 를 참조하십시오<block ref="108ef396f9aef1d6bcaea08379b877eb" category="inline-link-rx"></block>.</block>
+  <block id="71f5771dab663d80ba4dad1627e3386a" category="summary">업그레이드 개요</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">법적 고지 사항은 저작권 선언, 상표, 특허 등에 대한 액세스를 제공합니다.</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">법적 고지</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">저작권</block>
+  <block id="09e95b77ffe81fe465a83ba99efad5c8" category="paragraph"><block ref="09e95b77ffe81fe465a83ba99efad5c8" category="inline-link-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">상표</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp, NetApp 로고, NetApp 상표 페이지에 나열된 마크는 NetApp Inc.의 상표입니다. 기타 회사 및 제품 이름은 해당 소유자의 상표일 수 있습니다.</block>
+  <block id="7aa531e9acfe2b98e34d2c92fe9846ff" category="paragraph"><block ref="7aa531e9acfe2b98e34d2c92fe9846ff" category="inline-link-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">특허</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">NetApp 소유 특허 목록은 다음 사이트에서 확인할 수 있습니다.</block>
+  <block id="d7f1fbcf9ce4e42f705add574d262b2c" category="paragraph"><block ref="d7f1fbcf9ce4e42f705add574d262b2c" category="inline-link-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">개인 정보 보호 정책</block>
+  <block id="fc248f74f5e36542f7f5627b8610e9a3" category="paragraph"><block ref="fc248f74f5e36542f7f5627b8610e9a3" category="inline-link-rx"></block></block>
+  <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">오픈 소스</block>
+  <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">통지 파일은 NetApp 소프트웨어에 사용된 타사의 저작권 및 라이센스에 대한 정보를 제공합니다.</block>
+  <block id="cc1ba14f8dc9bd7ba20e2aa654cde10b" category="inline-link">E-Series/EF-Series SANtricity OS에 대한 알림</block>
+  <block id="2dae7f81af3097152530b0bc519d7eb1" category="paragraph"><block ref="2dae7f81af3097152530b0bc519d7eb1" category="inline-link-rx"></block></block>
+  <block id="e3b88cba18358b065044f4788449026b" category="summary">지연 시간이 짧은 고성능 NetApp E-Series 스토리지에서 실행되는 BeeGFS 병렬 클러스터 파일 시스템에 대한 솔루션 지원 NetApp의 지원을 받아 비용 효율적이고 관리가 쉬우며 가용성이 높은 HPC 솔루션을 제공합니다.</block>
+  <block id="28e8b3e83af233fe7085ba954fc6fd36" category="doc">E-Series 스토리지를 지원하는 NetApp 기반 BeeGFS</block>
+  <block id="4929a64464b43e326e35b25ce7e3ceeb" category="sidebar">NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture)로, BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합합니다. 이 솔루션은 가장 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라입니다.</block>
+  <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">시작하십시오</block>
+  <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">블로그 - BeeGFS 및 E-Series에 대해 알아보십시오</block>
+  <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">블로그 - 초보자를 위한 BeeGFS</block>
+  <block id="6316c96cdd51a54d33d0011cf5f10c81" category="sidebar">블로그 - BeeGFS의 HA</block>
+  <block id="d5bc9778dcd2b28ce384782d014e53fc" category="sidebar">비디오 - NetApp 기반의 BeeGFS로 AI 워크로드 가속화</block>
+  <block id="b89fcecfac1f6b8376165aabe5b6c5ee" category="sidebar">추가 문서</block>
+  <block id="bc4fe2352063642d68529f2aa0ca7ca3" category="sidebar">NetApp 제품 설명서</block>
+  <block id="dbd68e15f4c30d2a47d780a9bf4f3da1" category="sidebar">BeeGFS 문서</block>
+  <block id="974ad78dc53c253ebfe5b2b8b376f353" category="sidebar">도구 지원</block>
+  <block id="d564be87f67790fe4b92faa0eea29c48" category="sidebar">Ansible Galaxy의 NetApp E-Series 컬렉션</block>
+  <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="sidebar">NetApp 상호 운용성 매트릭스</block>
+  <block id="668e2078ef1b1722c77cdb5c523a4463" category="sidebar">NetApp 기술 자료</block>
+  <block id="2bae42f280067110dfd52cc69a468364" category="sidebar">Active IQ(로그인 필요)</block>
+  <block id="c35665ae18bf4eff9afa413fcb281b07" category="sidebar">NetApp 문서에서 BeeGFS 사용</block>
+  <block id="f40341c80e215542b4fdfe4e2f2e2a21" category="sidebar">이 사이트에 포함된 내용</block>
+  <block id="539652fdf317cc6e27c7373dc6fe13d3" category="sidebar">솔루션 설계를 검토합니다</block>
+  <block id="6c24b1b24585abc1454b91e5eb163103" category="sidebar">솔루션 구축</block>
+  <block id="c5d1e465274381bca5df236c2a5a7d57" category="sidebar">소프트웨어 배포</block>
+  <block id="97ecf64b4f2550ec2c53f49bb9fde847" category="sidebar">Ansible 제어 노드를 설정합니다</block>
+  <block id="f99ff2e7716d2f6aa55979e838f0a328" category="sidebar">Ansible 인벤토리를 생성합니다</block>
+  <block id="da7f5c02044100badae24523f01941a2" category="sidebar">BeeGFS 구성 요소를 정의합니다</block>
+  <block id="8025f3ce3e3e1dd003430788c4be8b5e" category="sidebar">BeeGFS 클러스터 확장</block>
+  <block id="e304a70d2f42f62cefb9b474f73a1e91" category="sidebar">권장 볼륨 백분율</block>
+  <block id="6c3aa57299c744740f84a63119dc81e6" category="sidebar">2세대 NVA 사용</block>
+  <block id="1afa74da05ca145d3418aad9af510109" category="sidebar">설계</block>
+  <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">개요</block>
+  <block id="a010ec8776a6b938a2d13ff22c787a20" category="sidebar">하드웨어 설계</block>
+  <block id="8335ea7b2998e81f942bcacfecd63a78" category="sidebar">소프트웨어 설계</block>
+  <block id="9fd18f658328ee903c083b8a79b8c6be" category="sidebar">정화</block>
+  <block id="507a3a88cebc46603ce2be8eaa924eee" category="sidebar">구축</block>
+  <block id="90d276687cc6ad8d3b72b9d9e953c581" category="sidebar">Ansible에 대해 알아보십시오</block>
+  <block id="50802d3e5a25b93d471686a10da03dd8" category="sidebar">모범 사례</block>
+  <block id="5d6f0f2ec8814a4c4e63b18ea908577b" category="sidebar">BeeGFS 클라이언트를 구성합니다</block>
+</blocks>

@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: beegfs-terms.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: NetApp 솔루션의 BeeGFS에 적용되는 용어 및 개념 
+---
+= 용어 및 개념
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+다음 용어와 개념은 NetApp 기반 BeeGFS 솔루션에 적용됩니다.
+
+[cols="25h,~"]
+|===
+| 기간 | 설명 
+
+
+ a| 
+AI
+ a| 
+인공 지능.
+
+
+
+ a| 
+Ansible 인벤토리
+ a| 
+원하는 BeeGFS HA 클러스터를 설명하는 데 사용되는 YAML 파일이 포함된 디렉토리 구조.
+
+
+
+ a| 
+BMC
+ a| 
+베이스보드 관리 컨트롤러. 서비스 프로세서라고도 합니다.
+
+
+
+ a| 
+블록 노드
+ a| 
+기술을 자세히 소개합니다.
+
+
+
+ a| 
+클라이언트
+ a| 
+서버 노드:
+
+
+
+ a| 
+DL
+ a| 
+딥 러닝.
+
+
+
+ a| 
+파일 노드
+ a| 
+BeeGFS 파일 서버
+
+
+
+ a| 
+HA
+ a| 
+고가용성.
+
+
+
+ a| 
+HIC
+ a| 
+호스트 인터페이스 카드.
+
+
+
+ a| 
+HPC
+ a| 
+고성능 컴퓨팅.
+
+
+
+ a| 
+HPC 스타일의 워크로드
+ a| 
+HPC 스타일 워크로드는 일반적으로 여러 컴퓨팅 노드 또는 GPU에서 동일한 데이터 세트에 병렬로 액세스하여 분산된 컴퓨팅 또는 교육 작업을 진행하는 것이 특징입니다. 이러한 데이터 세트는 단일 파일에 대한 동시 액세스를 방지하는 기존 하드웨어 병목 현상을 제거하기 위해 여러 물리적 스토리지 노드에 스트라이핑되어야 하는 대용량 파일로 구성되는 경우가 많습니다.
+
+
+
+ a| 
+ML
+ a| 
+머신 러닝.
+
+
+
+ a| 
+NLP
+ a| 
+자연어 처리.
+
+
+
+ a| 
+NLU
+ a| 
+자연어 이해.
+
+
+
+ a| 
+NVA
+ a| 
+NVA(NetApp Verified Architecture) 프로그램은 특정 워크로드 및 사용 사례에 대한 참조 구성 및 사이징 지침을 제공합니다. 이러한 솔루션은 철저한 테스트를 거쳤으며, 구축 위험을 최소화하고 출시 기간을 단축할 수 있도록 설계되었습니다.
+
+|===

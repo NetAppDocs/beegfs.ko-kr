@@ -1,0 +1,213 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-file-node-tuning.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다. 
+---
+= 성능을 위해 파일 노드 시스템 설정을 조정합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다.
+
+시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 이 항목에서는 검증된 Lenovo ThinkSystem SR665 서버 파일 노드에 대한 시스템 설정을 구성하는 방법에 대해 설명합니다.
+
+
+
+== UEFI 인터페이스를 사용하여 시스템 설정을 조정합니다
+
+Lenovo SR665 서버의 시스템 펌웨어에는 UEFI 인터페이스를 통해 설정할 수 있는 다양한 조정 매개변수가 포함되어 있습니다. 이러한 튜닝 매개 변수는 서버의 작동 방식 및 서버 성능에 미치는 모든 측면에 영향을 줄 수 있습니다.
+
+UEFI 설정 > 시스템 설정 * 에서 다음 시스템 설정을 조정합니다.
+
+
+
+=== 작동 모드 메뉴
+
+[cols=","]
+|===
+| * 시스템 설정 * | * 로 변경합니다 
+
+
+ a| 
+작동 모드
+ a| 
+맞춤형
+
+
+
+ a| 
+cTDP
+ a| 
+수동
+
+
+
+ a| 
+cTDP 설명서
+ a| 
+350
+
+
+
+ a| 
+패키지 전력 제한
+ a| 
+수동
+
+
+
+ a| 
+효율성 모드
+ a| 
+사용 안 함
+
+
+
+ a| 
+Global-Cstate-Control
+ a| 
+사용 안 함
+
+
+
+ a| 
+SOC P 상태
+ a| 
+P0
+
+
+
+ a| 
+DF C 상태
+ a| 
+사용 안 함
+
+
+
+ a| 
+P - 상태 1
+ a| 
+사용 안 함
+
+
+
+ a| 
+메모리 전원 끄기 활성화
+ a| 
+사용 안 함
+
+
+
+ a| 
+소켓당 NUMA 노드
+ a| 
+NPS1
+
+|===
+
+
+=== Device and I/O ports(장치 및 I/O 포트) 메뉴
+
+[cols=","]
+|===
+| * 시스템 설정 * | * 로 변경합니다 
+
+
+ a| 
+IOMMU
+ a| 
+사용 안 함
+
+|===
+
+
+=== 전원 메뉴
+
+[cols=","]
+|===
+| * 시스템 설정 * | * 로 변경합니다 
+
+
+ a| 
+PCIe 전원 브레이크
+ a| 
+사용 안 함
+
+|===
+
+
+=== 프로세서 메뉴
+
+[cols=","]
+|===
+| * 시스템 설정 * | * 로 변경합니다 
+
+
+ a| 
+글로벌 C 상태 제어
+ a| 
+사용 안 함
+
+
+
+ a| 
+DF C 상태
+ a| 
+사용 안 함
+
+
+
+ a| 
+SMT 모드
+ a| 
+사용 안 함
+
+
+
+ a| 
+CPPC
+ a| 
+사용 안 함
+
+|===
+
+
+== Redfish API를 사용하여 시스템 설정을 조정합니다
+
+UEFI 설정 외에도 Redfish API를 사용하여 시스템 설정을 변경할 수 있습니다.
+
+....
+curl --request PATCH \
+  --url https://<BMC_IP_ADDRESS>/redfish/v1/Systems/1/Bios/Pending \
+  --user <BMC_USER>:<BMC- PASSWORD> \
+  --header 'Content-Type: application/json' \
+  --data '{
+"Attributes": {
+"OperatingModes_ChooseOperatingMode": "CustomMode",
+"Processors_cTDP": "Manual",
+"Processors_PackagePowerLimit": "Manual",
+"Power_EfficiencyMode": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_SOCP_states": "P0",
+"Processors_DFC_States": "Disable",
+"Processors_P_state1": "Disable",
+"Memory_MemoryPowerDownEnable": "Disable",
+"DevicesandIOPorts_IOMMU": "Disable",
+"Power_PCIePowerBrake": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_DFC_States": "Disable",
+"Processors_SMTMode": "Disable",
+"Processors_CPPC": "Disable",
+"Memory_NUMANodesperSocket":"NPS1"
+}
+}
+'
+....
+Redfish 스키마에 대한 자세한 내용은 를 참조하십시오 https://redfish.dmtf.org/redfish/schema_index["DMTF 웹 사이트"^].

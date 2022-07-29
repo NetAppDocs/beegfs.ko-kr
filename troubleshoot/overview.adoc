@@ -1,0 +1,14 @@
+---
+permalink: troubleshoot/overview.html 
+sidebar: sidebar 
+keywords: troubleshoot, overview 
+summary: 문제 해결 개요 
+---
+= 문제 해결 개요
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lorem ipsum dolor sit amet, detur adipiscing elit, SED do eiusmod tempor incidiudunt ut labore et dolore magna dia.

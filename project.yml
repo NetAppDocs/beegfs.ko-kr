@@ -1,0 +1,76 @@
+---
+settings:
+  name: BeeGFS on NetApp with E-Series Storage
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: ko-kr,us-en,ja-jp,zh-cn,zh-tw
+sidebar:
+  entries:
+  - title: NetApp 문서에서 BeeGFS 사용
+    url: "/index.html"
+  - title: 시작하십시오
+    entries:
+    - title: 이 사이트에 포함된 내용
+      url: "/whats-included.html"
+    - title: 용어 및 개념
+      url: "/beegfs-terms.html"
+    - title: 디자인 세대
+      url: "/beegfs-gens.html"
+    - title: 솔루션 개요
+      url: "/beegfs-solution-overview.html"
+    - title: 아키텍처 개요
+      url: "/beegfs-architecture-overview.html"
+    - title: 기술 요구사항
+      url: "/beegfs-technology-requirements.html"
+  - title: 솔루션 설계를 검토합니다
+    entries:
+    - title: 설계 개요
+      url: "/beegfs-design-overview.html"
+    - title: 하드웨어 구성
+      url: "/beegfs-design-hardware-architecture.html"
+    - title: 소프트웨어 구성
+      url: "/beegfs-design-software-architecture.html"
+    - title: 설계 검증
+      url: "/beegfs-design-solution-verification.html"
+    - title: 사이징 지침
+      url: "/beegfs-design-solution-sizing-guidelines.html"
+    - title: 성능 튜닝
+      url: "/beegfs-design-performance-tuning.html"
+  - title: 솔루션 구축
+    entries:
+    - title: 구축 개요
+      url: "/beegfs-deploy-overview.html"
+    - title: Ansible 인벤토리에 대해 알아보십시오
+      url: "/beegfs-deploy-learn-ansible.html"
+    - title: 모범 사례를 검토합니다
+      url: "/beegfs-deploy-bestpractice.html"
+    - title: 하드웨어 구축
+      url: "/beegfs-deploy-hardware.html"
+    - title: 소프트웨어 배포
+      entries:
+      - title: 파일 및 블록 노드 설정
+        url: "/beegfs-deploy-setup-nodes.html"
+      - title: 성능을 위해 시스템 설정을 조정합니다
+        url: beegfs-deploy-file-node-tuning.html
+      - title: Ansible 제어 노드를 설정합니다
+        url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+      - title: Ansible 인벤토리를 생성합니다
+        url: "/beegfs-deploy-create-inventory.html"
+      - title: BeeGFS 구성 요소를 정의합니다
+        url: "/beegfs-deploy-define-inventory.html"
+      - title: BeeGFS 구축
+        url: "/beegfs-deploy-playbook.html"
+      - title: BeeGFS 클라이언트를 구성합니다
+        url: "/beegfs-deploy-configure-clients.html"
+    - title: BeeGFS 클러스터 확장
+      url: "/beegfs-deploy-scale-building-blocks.html"
+    - title: 권장 볼륨 백분율
+      url: "/beegfs-deploy-recommended-volume-percentages.html"
+  - title: 법적 고지
+    url: "/legal-notices.html"
+product-family:
+  name: E-Series
+  repo: e-series-family

@@ -1,0 +1,111 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-playbook.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 구성 배포 및 관리에는 Ansible이 실행해야 하는 작업이 포함된 하나 이상의 플레이북을 실행해야 전체 시스템을 원하는 상태로 되돌릴 수 있습니다. 
+---
+= BeeGFS 구축
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+구성 배포 및 관리에는 Ansible이 실행해야 하는 작업이 포함된 하나 이상의 플레이북을 실행해야 전체 시스템을 원하는 상태로 되돌릴 수 있습니다.
+
+모든 작업이 단일 Playbook에 포함될 수 있지만 복잡한 시스템의 경우 이를 관리하기가 매우 복잡해집니다. Ansible을 사용하면 재사용 가능한 플레이북 및 관련 콘텐츠(예: 기본 변수, 작업, 처리기)를 패키지하는 방법으로 역할을 만들고 배포할 수 있습니다. 자세한 내용은 용 Ansible 설명서를 참조하십시오 https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html["역할"^].
+
+역할은 종종 관련 역할 및 모듈이 포함된 Ansible 컬렉션의 일부로 배포됩니다. 따라서, 이러한 플레이북은 다양한 NetApp E-Series Ansible 컬렉션에서 주로 다양한 역할을 하지만
+
+
+NOTE: 2노드 클러스터를 사용하여 쿼럼을 설정할 때 문제를 완화하기 위해 별도의 쿼럼 장치를 Tiebreaker로 구성하지 않는 한 현재 BeeGFS를 구축하려면 최소 2개의 구성 요소(4개의 파일 노드)가 필요합니다.
+
+.단계
+. 새로운 '플레이북.yml' 파일을 생성하고 다음을 포함합니다.
++
+....
+# BeeGFS HA (High Availability) cluster playbook.
+- hosts: eseries_storage_systems
+  gather_facts: false
+  collections:
+    - netapp_eseries.santricity
+  tasks:
+    - name: Configure NetApp E-Series block nodes.
+      import_role:
+        name: nar_santricity_management
+- hosts: all
+  any_errors_fatal: true
+  gather_facts: false
+  collections:
+    - netapp_eseries.beegfs
+  pre_tasks:
+    - name: Ensure a supported version of Python is available on all file nodes.
+      block:
+        - name: Check if python is installed.
+          failed_when: false
+          changed_when: false
+          raw: python --version
+          register: python_version
+        - name: Check if python3 is installed.
+          raw: python3 --version
+          failed_when: false
+          changed_when: false
+          register: python3_version
+          when: 'python_version["rc"] != 0 or (python_version["stdout"] | regex_replace("Python ", "")) is not version("3.0", ">=")'
+        - name: Install python3 if needed.
+          raw: |
+            id=$(grep "^ID=" /etc/*release* | cut -d= -f 2 | tr -d '"')
+            case $id in
+              ubuntu) sudo apt install python3 ;;
+              rhel|centos) sudo yum -y install python3 ;;
+              sles) sudo zypper install python3 ;;
+            esac
+          args:
+            executable: /bin/bash
+          register: python3_install
+          when: python_version['rc'] != 0 and python3_version['rc'] != 0
+          become: true
+        - name: Create a symbolic link to python from python3.
+          raw: ln -s /usr/bin/python3 /usr/bin/python
+          become: true
+          when: python_version['rc'] != 0
+      when: inventory_hostname not in groups[beegfs_ha_ansible_storage_group]
+    - name: Verify any provided tags are supported.
+      fail:
+        msg: "{{ item }} tag is not a supported BeeGFS HA tag. Rerun your playbook command with --list-tags to see all valid playbook tags."
+      when: 'item not in ["all", "storage", "beegfs_ha", "beegfs_ha_package", "beegfs_ha_configure", "beegfs_ha_configure_resource", "beegfs_ha_performance_tuning", "beegfs_ha_backup", "beegfs_ha_client"]'
+      loop: "{{ ansible_run_tags }}"
+  tasks:
+    - name: Verify before proceeding.
+      pause:
+        prompt: "Are you ready to proceed with running the BeeGFS HA role? Depending on the size of the deployment and network performance between the Ansible control node and BeeGFS file and block nodes this can take awhile (10+ minutes) to complete."
+    - name: Verify the BeeGFS HA cluster is properly deployed.
+      import_role:
+        name: beegfs_ha_7_2
+....
++
+
+NOTE: 이 플레이북에서는 파일 노드에 Python 3이 설치되어 있는지 확인하는 몇 가지 "pre_tasks"를 실행하고 제공되는 Ansible 태그가 지원되는지 확인합니다.
+
+. BeeGFS를 배포할 준비가 되면 재고 및 플레이북 파일과 함께 'Ansible-Playbook' 명령을 사용하십시오.
++
+구축 과정에서 모든 "pre_tasks"를 실행한 다음 실제 BeeGFS 구축을 진행하기 전에 사용자 확인을 묻는 메시지가 표시됩니다.
+
++
+다음 명령을 실행하여 필요에 따라 포크 수를 조정합니다(아래 참고 참조).
+
++
+....
+ansible-playbook -i inventory.yml playbook.yml --forks 20
+....
++
+
+NOTE: 특히 대규모 배포의 경우 Ansible에서 병렬로 구성하는 호스트의 수를 늘리려면 '포크' 매개 변수를 사용하여 기본 포크 수(5)를 재정의하는 것이 좋습니다. (자세한 내용은 을 참조하십시오  https://www.ansible.com/blog/ansible-performance-tuning["Ansible 성능 조정"^] 및 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["플레이북 실행 제어"^]참조) 최대 값 설정은 Ansible 컨트롤 노드에서 사용할 수 있는 처리 능력에 따라 달라집니다. 위의 20개 예는 CPU 4개(인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz)가 장착된 가상 Ansible 컨트롤 노드에서 실행되었습니다.
+
++
+Ansible 제어 노드와 BeeGFS 파일 및 블록 노드 간의 구축 및 네트워크 성능 크기에 따라 구축 시간이 달라질 수 있습니다.
+
+

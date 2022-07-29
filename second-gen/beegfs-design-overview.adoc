@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-overview.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하는 NetApp 솔루션 기반 BeeGFS를 지원하려면 특정 장비, 케이블링, 구성이 필요합니다. 
+---
+= 설계 개요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하는 NetApp 솔루션 기반 BeeGFS를 지원하려면 특정 장비, 케이블링, 구성이 필요합니다.
+
+자세한 내용:
+
+* link:beegfs-design-hardware-architecture.html["하드웨어 구성"]
+* link:beegfs-design-software-architecture.html["소프트웨어 구성"]
+* link:beegfs-design-solution-verification.html["설계 검증"]
+* link:beegfs-design-solution-sizing-guidelines.html["사이징 지침"]
+* link:beegfs-design-performance-tuning.html["성능 튜닝"]
+
