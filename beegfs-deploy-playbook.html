@@ -53,11 +53,34 @@
   <link rel="stylesheet" href="/ko-kr/beegfs/css/tabbed-blocks.css" type="text/css">
   <!-- Canonical url -->
   <link rel='stylesheet' href='/ko-kr/beegfs/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
-    if (document.location.hostname === "docs.netapp.com") {
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
       var head = document.getElementsByTagName('head')[0];
       var onetrustConsent = document.createElement("script");
       onetrustConsent.type = "text/javascript";
-      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
       head.appendChild(onetrustConsent);
 
       var onetrustScript = document.createElement("script");
@@ -65,30 +88,11 @@
       onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
       onetrustScript.charset = "UTF-8";
       onetrustScript.dataset.documentLanguage = "true";
-      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      onetrustScript.dataset.domainScript = consentId;
       head.appendChild(onetrustScript);
-    }
-
-    function OptanonWrapper() { }
-
-    if (document.location.hostname === "docs.netapp.com") {
-      var adobe = document.createElement("script");
-      adobe.type = "text/plain";
-      adobe.className = "optanon-category-C0002";
-      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
-      head.appendChild(adobe);
-
-      var google = document.createElement("script");
-      google.type = "text/plain";
-      google.className = "optanon-category-C0002";
-      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
-      head.appendChild(google);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-81697994-3');
-    }
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -169,7 +173,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[BeeGFS 구축](https://docs.netapp.com/ko-kr/beegfs/beegfs-deploy-playbook.html)" class="page-nav-contribute-link" role="button"><img src="/ko-kr/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />문서 변경 요청</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-playbook.adoc" class="page-nav-contribute-link" role="button"><img src="/ko-kr/beegfs/images/edit-sm.svg" alt="" class="github-icon" />이 페이지 편집</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/ko-kr/beegfs/images/article-sm.svg" alt="" class="github-icon" />기여하는 방법 자세히 알아보기</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[BeeGFS 구축](https://docs.netapp.com/ko-kr/beegfs/beegfs-deploy-playbook.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/ko-kr/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />문서 변경 요청</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-playbook.adoc" class="page-nav-contribute-link" role="button"><img src="/ko-kr/beegfs/images/edit-sm.svg" alt="" class="github-icon" />이 페이지 편집</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/ko-kr/beegfs/images/article-sm.svg" alt="" class="github-icon" />기여하는 방법 자세히 알아보기</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">이 페이지의 내용</div>
@@ -341,6 +345,7 @@
   <!-- Sidebar Column -->
   
   <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/ko-kr/beegfs/images/collapse.png" alt="탐색 패널 접기"></button>
       <div class="n-pdf-header">
   <a id="toggleButtonPdf" class="n-pdf-button" type="button">
     <img src="/ko-kr/beegfs/images/pdf.png" alt="" width="16" height="16"/>사용 가능한 PDF<span>
@@ -538,71 +543,230 @@
     $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
   });
 </script><div class="sidebar-nav-container" id="mysidebardiv">
-  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/index.html">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp 문서에서 BeeGFS 사용"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/index.html">
         NetApp 문서에서 BeeGFS 사용
-      </a></li><li class="subfolders "><a href="#">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="시작하십시오"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 시작하십시오</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/whats-included.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="이 사이트에 포함된 내용"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/whats-included.html">
         이 사이트에 포함된 내용
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-terms.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="용어 및 개념"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-terms.html">
         용어 및 개념
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-gens.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="디자인 세대"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-gens.html">
         디자인 세대
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-solution-overview.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="솔루션 개요"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-solution-overview.html">
         솔루션 개요
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-architecture-overview.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="아키텍처 개요"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-architecture-overview.html">
         아키텍처 개요
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-technology-requirements.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="기술 요구사항"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-technology-requirements.html">
         기술 요구사항
-      </a></li></ul></li><li class="subfolders "><a href="#">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="솔루션 설계를 검토합니다"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 솔루션 설계를 검토합니다</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-overview.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="설계 개요"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-overview.html">
         설계 개요
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-hardware-architecture.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="하드웨어 구성"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-hardware-architecture.html">
         하드웨어 구성
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-software-architecture.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="소프트웨어 구성"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-software-architecture.html">
         소프트웨어 구성
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-solution-verification.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="설계 검증"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-solution-verification.html">
         설계 검증
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-solution-sizing-guidelines.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="사이징 지침"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-solution-sizing-guidelines.html">
         사이징 지침
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-performance-tuning.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="성능 튜닝"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-design-performance-tuning.html">
         성능 튜닝
-      </a></li></ul></li><li class="subfolders "><a href="#">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="솔루션 구축"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 솔루션 구축</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-overview.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="구축 개요"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-overview.html">
         구축 개요
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-learn-ansible.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansible 인벤토리에 대해 알아보십시오"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-learn-ansible.html">
         Ansible 인벤토리에 대해 알아보십시오
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-bestpractice.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="모범 사례를 검토합니다"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-bestpractice.html">
         모범 사례를 검토합니다
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-hardware.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="하드웨어 구축"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-hardware.html">
         하드웨어 구축
-      </a></li><li class="subfolders "><a href="#">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="소프트웨어 배포"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 소프트웨어 배포</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-setup-nodes.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="파일 및 블록 노드 설정"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-setup-nodes.html">
         파일 및 블록 노드 설정
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-file-node-tuning.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="성능을 위해 시스템 설정을 조정합니다"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-file-node-tuning.html">
         성능을 위해 시스템 설정을 조정합니다
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansible 제어 노드를 설정합니다"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
         Ansible 제어 노드를 설정합니다
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-create-inventory.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansible 인벤토리를 생성합니다"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-create-inventory.html">
         Ansible 인벤토리를 생성합니다
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-define-inventory.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS 구성 요소를 정의합니다"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-define-inventory.html">
         BeeGFS 구성 요소를 정의합니다
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-playbook.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS 구축"
+      data-li-level="3#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-playbook.html">
         BeeGFS 구축
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-configure-clients.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS 클라이언트를 구성합니다"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-configure-clients.html">
         BeeGFS 클라이언트를 구성합니다
-      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-scale-building-blocks.html">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS 클러스터 확장"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-scale-building-blocks.html">
         BeeGFS 클러스터 확장
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-recommended-volume-percentages.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="권장 볼륨 백분율"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/beegfs-deploy-recommended-volume-percentages.html">
         권장 볼륨 백분율
-      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ko-kr/beegfs/legal-notices.html">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="법적 고지"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ko-kr/beegfs/legal-notices.html">
         법적 고지
       </a></li></ul>
 </div>
@@ -621,8 +785,9 @@
   
 
   <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
-    <!-- Begin of page container --><article class="page-content">
+    <!-- Begin of page container --><article class="page-content" id="main">
       <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/ko-kr/beegfs/images/expand.png" alt="탐색 패널 펼치기"></button>
   <div class="ie-menu">
     <div class="n-breadcrumb">
       <ul class="n-breadcrumb__list">
