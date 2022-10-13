@@ -233,9 +233,7 @@
   <block id="51c16b7415d506b9bbcedd7241c7c1c0" category="paragraph">1세대 및 2세대 모두에는 BeeGFS 파일 시스템과 NVMe EF600 스토리지 시스템을 통합한 기본 아키텍처가 포함되어 있습니다. 그러나 2세대 제품에는 다음과 같은 추가적인 이점이 포함되어 있습니다.</block>
   <block id="20667306535e51f69f34371b95abfd0b" category="list-text">2U 랙 공간만 추가하여 성능과 용량을 두 배로 향상</block>
   <block id="edcc56d654a1a9362699f309c738a185" category="list-text">공유 디스크, 2계층 하드웨어 설계를 기반으로 한 고가용성(HA</block>
-  <block id="14b187f2e331b627a7a2be108645bcfa" category="list-text">NVIDIA DGX A100 SuperPOD의 외부 검증</block>
   <block id="189fdda096d5b994e140eac128f464e1" category="section-title">2세대 설계</block>
-  <block id="cf323deb1f1b75ff42840ee50d9ac94f" category="paragraph">NetApp 기반의 2세대 BeeGFS는 HPC(고성능 컴퓨팅) 및 HPC 스타일 머신 러닝(ML), 딥 러닝(DL), 유사한 인공 지능(AI) 기술 등 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. BeeGFS on NetApp 솔루션은 공유 디스크 HA(고가용성) 아키텍처를 통합하여 워크로드 및 사용 사례에 맞게 확장 가능한 스토리지를 찾듯이 다운타임 또는 데이터 손실을 허용할 수 없는 기업 및 기타 조직의 데이터 내구성 및 가용성 요구사항을 충족합니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 NVIDIA DGX SuperPOD의 스토리지 옵션으로 외부 인증도 받았습니다.</block>
   <block id="145c927b5996411105e8a05381bfab75" category="section-title">최초의 세대별 설계</block>
   <block id="41ae1cb2edd9d144116e252e5f5c4e54" category="paragraph">NetApp 기반의 1세대 BeeGFS는 NetApp EF600 NVMe 스토리지 시스템, BeeGFS 병렬 파일 시스템, NVIDIA DGX ™ A100 시스템 및 NVIDIA ® Mellanox ® Quantum ™ QM8700 200Gbps IB 스위치를 사용하는 머신 러닝(ML) 및 인공 지능(AI) 워크로드용으로 설계되었습니다. 또한, 이 설계에서는 스토리지 및 컴퓨팅 클러스터 인터커넥트 패브릭을 위한 200Gbps InfiniBand(IB)를 사용하여 고성능 워크로드를 위한 완벽한 IB 기반 아키텍처를 제공합니다.</block>
   <block id="8c2de6dc6972aa428c25b73867ee0c6c" category="inline-link-macro">NVIDIA DGX A100 Systems 및 BeeGFS를 지원하는 NetApp EF-Series AI</block>
@@ -527,10 +525,7 @@
   <block id="908463015e2671e9d90b06353dabae03" category="list-text">PDU를 사용하여 InfiniBand 스위치 중 하나의 전원을 끕니다. BeeGFS 클라이언트에 설정된 'sysSessionChecksEnabled:false' 매개 변수를 사용하여 스트레스 테스트가 진행되는 동안 모든 테스트가 수행되었습니다. I/O에 대한 오류나 운영 중단이 관찰되지 않았습니다.</block>
   <block id="c49182dc0c7a70b9cd2e10853d9ec6c7" category="inline-link">변경 로그</block>
   <block id="788a9659515e495b379621cac9040872" category="admonition">알려진 문제가 있습니다( 참조)<block ref="9892b1a82a523d642c4ee2c76b765b8b" category="inline-link-rx"></block>) 기본 인터페이스('connInterfacesFile'에 정의된 대로) 손실 또는 BeeGFS 서버 장애로 인해 BeeGFS 클라이언트/서버 RDMA 연결이 예기치 않게 중단되거나 활성 클라이언트 I/O가 최대 10분 동안 중단되어 다시 시작할 수 있습니다. 이 문제는 계획된 유지 관리를 위해 BeeGFS 노드가 정상적으로 대기 상태가 되거나 TCP가 사용 중인 경우 발생하지 않습니다.</block>
-  <block id="ef29a84d0e122a31e14cc52355c22e38" category="section-title">NVIDIA DGX A100 SuperPOD 검증</block>
-  <block id="58fa2cee68a993e221880ffe97da71f2" category="paragraph">NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다.</block>
   <block id="7c6326491c77a63417df94790ba07083" category="inline-link">NetApp을 포함한 NVIDIA DGX SuperPOD</block>
-  <block id="a052609b770f866df8a166dd868a3fd3" category="paragraph">자세한 내용은 을 참조하십시오<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block>.</block>
   <block id="2bf773d42bef6909b232e854a16b3ec1" category="summary">5개의 빌딩 블록 이상으로 확장할 수 있도록 심장박동기 및 Corosync를 구성합니다.</block>
   <block id="22892d2f5bfdfba001a02572258cca62" category="doc">5가지 구성 요소 이상으로 확장</block>
   <block id="cfd24c157d6cd9f200eb8c3cf68ee7ed" category="paragraph">5개의 빌딩 블록(10개의 파일 노드) 이상으로 확장하기 위해 페이스 메이커 및 Corosync를 구성할 수 있습니다. 그러나 더 큰 클러스터에는 결점이 있으며, 결국 심장박동기 및 Corosync로 인해 최대 32개의 노드가 필요합니다.</block>
@@ -1077,4 +1072,10 @@
   <block id="5d6f0f2ec8814a4c4e63b18ea908577b" category="sidebar">BeeGFS 클라이언트를 구성합니다</block>
   <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 - AI용 E-Series 및 BeeGFS를 통한 데이터 이동</block>
   <block id="bc893b2686532fc683cb056beffd08aa" category="cell">드라이브 크기(10 + 2 RAID 6) 스토리지 볼륨 그룹</block>
+  <block id="132789d9474eae064aef2cd5266138d8" category="section-title">NVIDIA DGX A100 SuperPOD 및 BasePOD 검증</block>
+  <block id="d88f3188efb434f39b922170592443b5" category="paragraph">NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다. NVIDIA DGX A100 SuperPOD에서 사용하도록 인증된 모든 스토리지는 NVIDIA BasePOD 아키텍처에도 자동으로 사용하도록 인증되었습니다.</block>
+  <block id="64dc43320ec1a44c390fafb5e2408f4b" category="inline-link">NVIDIA DGX 베이스POD</block>
+  <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">자세한 내용은 을 참조하십시오<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> 및<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>.</block>
+  <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIA DGX A100 SuperPOD 및 NVIDIA BasePOD 아키텍처에 대한 외부 검증</block>
+  <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">NetApp 기반의 2세대 BeeGFS는 HPC(고성능 컴퓨팅) 및 HPC 스타일 머신 러닝(ML), 딥 러닝(DL), 유사한 인공 지능(AI) 기술 등 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. BeeGFS on NetApp 솔루션은 공유 디스크 HA(고가용성) 아키텍처를 통합하여 워크로드 및 사용 사례에 맞게 확장 가능한 스토리지를 찾듯이 다운타임 또는 데이터 손실을 허용할 수 없는 기업 및 기타 조직의 데이터 내구성 및 가용성 요구사항을 충족합니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 NVIDIA DGX SuperPOD 및 DGX BasePOD의 스토리지 옵션으로 외부 인증도 받았습니다.</block>
 </blocks>
