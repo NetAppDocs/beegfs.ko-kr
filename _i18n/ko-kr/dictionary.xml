@@ -1078,4 +1078,15 @@
   <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">자세한 내용은 을 참조하십시오<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> 및<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>.</block>
   <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIA DGX A100 SuperPOD 및 NVIDIA BasePOD 아키텍처에 대한 외부 검증</block>
   <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">NetApp 기반의 2세대 BeeGFS는 HPC(고성능 컴퓨팅) 및 HPC 스타일 머신 러닝(ML), 딥 러닝(DL), 유사한 인공 지능(AI) 기술 등 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. BeeGFS on NetApp 솔루션은 공유 디스크 HA(고가용성) 아키텍처를 통합하여 워크로드 및 사용 사례에 맞게 확장 가능한 스토리지를 찾듯이 다운타임 또는 데이터 손실을 허용할 수 없는 기업 및 기타 조직의 데이터 내구성 및 가용성 요구사항을 충족합니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 NVIDIA DGX SuperPOD 및 DGX BasePOD의 스토리지 옵션으로 외부 인증도 받았습니다.</block>
+  <block id="aa00436c66c8456a1c9ef0a12178a4ab" category="paragraph-title">서브넷 A: 100.127.0.0/16</block>
+  <block id="079e5887eeb92f6f17c9fa25fd464e2a" category="paragraph-title">서브넷 B: 100.128.0.0/16</block>
+  <block id="015dd422187100bd2a53cae756db5bcd" category="paragraph-title">하나의 BeeGFS 기본(관리, 메타데이터 및 스토리지) 구성 요소입니다</block>
+  <block id="2eb32f267ab2864aa50a3171522c1574" category="paragraph-title">BeeGFS 메타데이터 + 스토리지 구성 요소입니다</block>
+  <block id="2cf619569e1d3422599fa7ba3fff04f2" category="paragraph-title">BeeGFS 스토리지 전용 구성 요소입니다</block>
+  <block id="9443a11095bad63a50d95ece24842fb2" category="paragraph-title">BeeGFS 빌딩 블록 3개</block>
+  <block id="3c793d71f0d81892f28ab10f661381c8" category="paragraph-title">하나의 BeeGFS 메타데이터 + 스토리지 구성 요소입니다</block>
+  <block id="94c5de0e8c5b79f8b061a00a2d638234" category="paragraph-title">BeeGFS 메타데이터 + 스토리지 구성 요소 2개</block>
+  <block id="53c31a8ba69af9d096629948d271d34d" category="paragraph-title">대역폭을 활용하기 위한 케이블 연결</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">이 작업에 대해</block>
+  <block id="48c7c41b72e1d678923ce3571aa65b2d" category="paragraph-title">단계</block>
 </blocks>

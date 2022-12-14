@@ -54,18 +54,22 @@ IOR 대역폭 테스트는 OpenMPI를 사용하여 합성 I/O 생성기 툴 IOR(
 ....
 mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes ior -b 1024k --posix.odirect -e -t 1024k -s 54613 -z -C -F -E -k
 ....
+.하나의 BeeGFS 기본(관리, 메타데이터 및 스토리지) 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 기반(관리, 메타데이터 및 스토리지) 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
 image:beegfs-design-image13.png[""]
 
+.BeeGFS 메타데이터 + 스토리지 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 메타데이터 + 스토리지 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
 image:beegfs-design-image14.png[""]
 
+.BeeGFS 스토리지 전용 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 스토리지 전용 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
 image:beegfs-design-image15.png[""]
 
+.BeeGFS 빌딩 블록 3개
 다음 그림에서는 세 개의 BeeGFS 구성 요소가 포함된 IOR 테스트 결과를 보여 줍니다.
 
 image:beegfs-design-image16.png[""]
@@ -104,10 +108,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 ....
 메타데이터 성능은 먼저 메타데이터 + 스토리지 구성 요소 하나를 측정한 후 추가 구성 요소를 추가하여 성능이 얼마나 향상되는지를 보여 줍니다.
 
+.하나의 BeeGFS 메타데이터 + 스토리지 구성 요소입니다
 다음 다이어그램은 하나의 BeeGFS 메타데이터 + 스토리지 구성 요소가 포함된 MDTest 결과를 보여 줍니다.
 
 image:beegfs-design-image18.png[""]
 
+.BeeGFS 메타데이터 + 스토리지 구성 요소 2개
 다음 다이어그램은 BeeGFS 메타데이터 + 스토리지 구성 요소 두 개가 포함된 MDTest 결과를 보여 줍니다.
 
 image:beegfs-design-image19.png[""]
