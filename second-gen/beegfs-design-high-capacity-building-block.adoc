@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-high-capacity-building-block.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
+summary: 고용량 빌딩 블록을 위한 설계 변형. 
+---
+= 고용량 구성 요소입니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+표준 BeeGFS 솔루션 설계는 고성능 워크로드를 염두에 두고 설계되었습니다. 고용량 사용 사례를 찾는 고객은 여기에 설명된 설계 및 성능 특성의 변화를 준수해야 합니다.
+
+
+
+== 하드웨어 및 소프트웨어 구성
+
+고용량 구성 요소에 대한 하드웨어 및 소프트웨어 구성은 EF300 컨트롤러를 각 스토리지 어레이당 60개의 드라이브로 1~7개의 IOM 확장 트레이를 연결하는 옵션과 함께 EF300 컨트롤러로 교체해야 한다는 점을 제외하고 표준입니다. 빌딩 블록당 총 2-14개의 확장 트레이.
+
+대용량 구성 요소 설계를 구축하는 고객은 각 노드에 대해 BeeGFS 관리, 메타데이터 및 스토리지 서비스로 구성된 기본 구성 요소 스타일 구성만 사용할 수 있습니다. 비용 효율성을 위해 대용량 스토리지 노드는 EF300 컨트롤러 엔클로저의 NVMe 드라이브에 메타데이터 볼륨을 프로비저닝하고 확장 트레이의 NL-SAS 드라이브에 스토리지 볼륨을 프로비저닝해야 합니다.
+
+image:high-capacity-rack-diagram.png[""]
+
+
+
+== 사이징 지침
+
+이 사이징 지침은 대용량 구성 요소가 기본 EF300 엔클로저의 메타데이터용 2+2 NVMe SSD 볼륨 그룹 1개와 스토리지용 IOM 확장 트레이당 8개+2 NL-SAS 볼륨 그룹 6개로 구성되어 있다고 가정합니다.
+
+|===
+| 드라이브 크기(용량 HDD) | BB당 용량(1트레이) | BB당 용량(2개의 트레이) | BB당 용량(3개의 트레이) | BB당 용량(4개의 트레이) 
+
+
+| 4TB | 439TB | 878TB | 1,317TB | 1756TB 
+
+
+| 8TB | 878TB | 1756TB | 2,634TB | 3512TB 
+
+
+| 10TB | 1097TB | 2195TB | 3292TB | 4390TB 
+
+
+| 12TB | 1,317TB | 2,634TB | 3,951TB | 5268TB 
+
+
+| 16TB | 1756TB | 3512TB | 5268TB | 7024TB 
+
+
+| 18TB | 1975TB | 3,951TB | 5,927TB | 7902TB 
+|===

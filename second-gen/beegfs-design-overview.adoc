@@ -24,3 +24,8 @@ BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합�
 * link:beegfs-design-solution-sizing-guidelines.html["사이징 지침"]
 * link:beegfs-design-performance-tuning.html["성능 튜닝"]
 
+
+설계 및 성능 면에서 다양한 파생 아키텍처:
+
+* link:beegfs-design-high-capacity-building-block.html["고용량 빌딩 블록"]
+

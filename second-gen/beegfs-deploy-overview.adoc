@@ -71,3 +71,8 @@ NOTE: NetApp 솔루션에 BeeGFS를 구축하는 데 다양한 단계가 포함�
 
 
 NOTE: 배포 절차에는 텍스트를 파일로 복사해야 하는 몇 가지 예제가 포함되어 있습니다. 특정 배포에 대해 수정하거나 수정할 수 있는 모든 사항에 대해 "#" 또는 "//" 문자로 표시된 인라인 코멘트에 세심한 주의를 기울이십시오. 예를 들어, ``begfs_ha_ntp_server_pool:# 이것은 설명의 예입니다! "pool 0.pool.ntp.org iburst maxsources 3" - "pool 1.pool.ntp.org iburst maxsources 3"
+
+배포 권장 사항의 차이가 있는 파생 아키텍처:
+
+* link:beegfs-design-high-capacity-building-block.html["고용량 빌딩 블록"]
+

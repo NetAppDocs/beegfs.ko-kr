@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-high-capacity-building-block.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
+summary: 대용량 구성 요소를 위한 구축 변형 
+---
+= 고용량 구성 요소입니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+표준 BeeGFS 솔루션 구축 가이드에서는 고성능 워크로드 요구 사항에 대한 절차 및 권장 사항을 간략하게 설명합니다. 고용량 요구 사항을 충족하려는 고객은 여기에 설명된 구축 및 권장 사항의 변화를 관찰해야 합니다.
+
+image:high-capacity-rack-diagram.png[""]
+
+
+
+== 컨트롤러
+
+고용량 구성 요소의 경우 EF600 컨트롤러를 EF300 컨트롤러로 교체해야 하며, 각 컨트롤러는 SAS 확장을 위해 Cascade HIC를 설치합니다. 각 블록 노드는 스토리지 엔클로저에 BeeGFS 메타데이터 스토리지를 위한 최소한의 NVMe SSD를 포함하고 BeeGFS 스토리지 볼륨용 NL-SAS HDD로 채워진 확장 셸프에 연결됩니다.
+
+File Node to Block 노드 구성은 동일하게 유지됩니다.
+
+
+
+== 드라이브 배치
+
+BeeGFS 메타데이터 스토리지를 위해 각 블록 노드에 최소 4개의 NVMe SSD가 필요합니다. 이러한 드라이브는 인클로저의 가장 바깥쪽 슬롯에 위치해야 합니다.
+
+image:high-capacity-drive-slots-diagram.png[""]
+
+
+
+== 확장 트레이
+
+스토리지 어레이당 1-7, 60 드라이브 확장 트레이를 사용하여 대용량 구성 요소를 사이징할 수 있습니다.
+
+각 확장 트레이 케이블 연결 지침은 link:https://docs.netapp.com/us-en/e-series/install-hw-cabling/driveshelf-cable-task.html#cabling-ef300^["드라이브 쉘프의 EF300 케이블 연결을 참조하십시오"].
