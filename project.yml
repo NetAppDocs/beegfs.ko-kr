@@ -17,62 +17,142 @@ sidebar:
       url: "/whats-included.html"
     - title: 용어 및 개념
       url: "/beegfs-terms.html"
-    - title: 디자인 세대
-      url: "/beegfs-gens.html"
-    - title: 솔루션 개요
-      url: "/beegfs-solution-overview.html"
-    - title: 아키텍처 개요
-      url: "/beegfs-architecture-overview.html"
-    - title: 기술 요구사항
-      url: "/beegfs-technology-requirements.html"
-  - title: 솔루션 설계를 검토합니다
+  - title: 검증된 아키텍처를 사용합니다
     entries:
-    - title: 설계 개요
-      url: "/beegfs-design-overview.html"
-    - title: 하드웨어 구성
-      url: "/beegfs-design-hardware-architecture.html"
-    - title: 소프트웨어 구성
-      url: "/beegfs-design-software-architecture.html"
-    - title: 설계 검증
-      url: "/beegfs-design-solution-verification.html"
-    - title: 사이징 지침
-      url: "/beegfs-design-solution-sizing-guidelines.html"
-    - title: 성능 튜닝
-      url: "/beegfs-design-performance-tuning.html"
-    - title: 고용량 옵션
-      url: "/beegfs-design-high-capacity-building-block.html"
-  - title: 솔루션 구축
-    entries:
-    - title: 구축 개요
-      url: "/beegfs-deploy-overview.html"
-    - title: Ansible 인벤토리에 대해 알아보십시오
-      url: "/beegfs-deploy-learn-ansible.html"
-    - title: 모범 사례를 검토합니다
-      url: "/beegfs-deploy-bestpractice.html"
-    - title: 하드웨어 구축
-      url: "/beegfs-deploy-hardware.html"
-    - title: 소프트웨어 배포
+    - title: 개요 및 요구 사항
       entries:
+      - title: 솔루션 개요
+        url: "/beegfs-solution-overview.html"
+      - title: 디자인 세대
+        url: "/beegfs-gens.html"
+      - title: 아키텍처 개요
+        url: "/beegfs-architecture-overview.html"
+      - title: 기술 요구사항
+        url: "/beegfs-technology-requirements.html"
+    - title: 솔루션 설계를 검토합니다
+      entries:
+      - title: 설계 개요
+        url: "/beegfs-design-overview.html"
+      - title: 하드웨어 구성
+        url: "/beegfs-design-hardware-architecture.html"
+      - title: 소프트웨어 구성
+        url: "/beegfs-design-software-architecture.html"
+      - title: 설계 검증
+        url: "/beegfs-design-solution-verification.html"
+      - title: 사이징 지침
+        url: "/beegfs-design-solution-sizing-guidelines.html"
+      - title: 성능 튜닝
+        url: "/beegfs-design-performance-tuning.html"
+      - title: 고용량 옵션
+        url: "/beegfs-design-high-capacity-building-block.html"
+    - title: 솔루션 구축
+      entries:
+      - title: 구축 개요
+        url: "/beegfs-deploy-overview.html"
+      - title: Ansible 인벤토리에 대해 알아보십시오
+        url: "/beegfs-deploy-learn-ansible.html"
+      - title: 모범 사례를 검토합니다
+        url: "/beegfs-deploy-bestpractice.html"
+      - title: 하드웨어 구축
+        url: "/beegfs-deploy-hardware.html"
+      - title: 소프트웨어 배포
+        entries:
+        - title: 파일 및 블록 노드 설정
+          url: "/beegfs-deploy-setup-nodes.html"
+        - title: 성능을 위해 시스템 설정을 조정합니다
+          url: beegfs-deploy-file-node-tuning.html
+        - title: Ansible 제어 노드를 설정합니다
+          url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+        - title: Ansible 인벤토리를 생성합니다
+          url: "/beegfs-deploy-create-inventory.html"
+        - title: BeeGFS 구성 요소를 정의합니다
+          url: "/beegfs-deploy-define-inventory.html"
+        - title: BeeGFS 구축
+          url: "/beegfs-deploy-playbook.html"
+        - title: BeeGFS 클라이언트를 구성합니다
+          url: "/beegfs-deploy-configure-clients.html"
+      - title: BeeGFS 클러스터 확장
+        url: "/beegfs-deploy-scale-building-blocks.html"
+      - title: 권장 볼륨 백분율
+        url: "/beegfs-deploy-recommended-volume-percentages.html"
+      - title: 고용량 옵션
+        url: "/beegfs-deploy-high-capacity-building-block.html"
+  - title: 맞춤형 아키텍처를 사용합니다
+    entries:
+    - title: 개요 및 요구 사항
+      url: "/custom-architectures-overview.html"
+    - title: 초기 설정
+      entries:
+      - title: 하드웨어를 설치하고 케이블을 연결합니다
+        url: "/custom-architectures-setup-cable-hw.html"
       - title: 파일 및 블록 노드 설정
-        url: "/beegfs-deploy-setup-nodes.html"
-      - title: 성능을 위해 시스템 설정을 조정합니다
-        url: beegfs-deploy-file-node-tuning.html
+        url: "/custom-architectures-setup-nodes.html"
       - title: Ansible 제어 노드를 설정합니다
-        url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
-      - title: Ansible 인벤토리를 생성합니다
-        url: "/beegfs-deploy-create-inventory.html"
-      - title: BeeGFS 구성 요소를 정의합니다
-        url: "/beegfs-deploy-define-inventory.html"
-      - title: BeeGFS 구축
-        url: "/beegfs-deploy-playbook.html"
-      - title: BeeGFS 클라이언트를 구성합니다
-        url: "/beegfs-deploy-configure-clients.html"
-    - title: BeeGFS 클러스터 확장
-      url: "/beegfs-deploy-scale-building-blocks.html"
-    - title: 권장 볼륨 백분율
-      url: "/beegfs-deploy-recommended-volume-percentages.html"
-    - title: 고용량 옵션
-      url: "/beegfs-deploy-high-capacity-building-block.html"
+        url: "/custom-architectures-setup-ansible-control-node.html"
+    - title: BeeGFS 파일 시스템을 정의합니다
+      entries:
+      - title: Ansible 인벤토리 개요
+        url: "/custom-architectures-inventory-overview.html"
+      - title: 파일 시스템 계획
+        url: "/custom-architectures-plan-file-system.html"
+      - title: 파일 및 블록 노드 정의
+        entries:
+        - title: 개별 파일 노드를 구성합니다
+          url: "/custom-architectures-inventory-configure-file-nodes.html"
+        - title: 개별 블록 노드를 구성합니다
+          url: "/custom-architectures-inventory-configure-block-nodes.html"
+        - title: 공통 파일 노드 구성을 지정합니다
+          url: "/custom-architectures-inventory-common-file-node-configuration.html"
+        - title: 공통 블록 노드 구성을 지정합니다
+          url: "/custom-architectures-inventory-common-block-node-configuration.html"
+      - title: BeeGFS 서비스를 정의합니다
+        entries:
+        - title: BeeGFS 관리 서비스
+          url: "/custom-architectures-inventory-beegfs-management.html"
+        - title: BeeGFS 메타데이터 서비스입니다
+          url: "/custom-architectures-inventory-beegfs-metadata.html"
+        - title: BeeGFS 스토리지 서비스입니다
+          url: "/custom-architectures-inventory-beegfs-storage.html"
+      - title: BeeGFS 서비스를 파일 노드에 매핑합니다
+        url: "/custom-architectures-inventory-map-services-to-file-nodes.html"
+    - title: BeeGFS 파일 시스템을 구축합니다
+      entries:
+      - title: Ansible 플레이북 개요
+        url: "/custom-architectures-deploy-playbook-overview.html"
+      - title: BeeGFS HA 클러스터를 구축합니다
+        url: "/custom-architectures-deploy-ha-cluster.html"
+      - title: BeeGFS 클라이언트를 구축합니다
+        url: "/custom-architectures-deploy-beegfs-clients.html"
+      - title: BeeGFS 구축을 확인합니다
+        url: "/custom-architectures-deploy-verify.html"
+  - title: BeeGFS 클러스터 관리
+    entries:
+    - title: 개요, 주요 개념 및 용어
+      url: "/administer-clusters-overview.html"
+    - title: Ansible과 PC를 사용해야 하는 경우
+      url: "/administer-clusters-ansible-pcs.html"
+    - title: 클러스터의 상태를 검사합니다
+      url: "/administer-clusters-examine-state.html"
+    - title: 재구성 및 업데이트
+      entries:
+      - title: HA 클러스터와 BeeGFS를 재구성합니다
+        url: "/administer-clusters-reconfigure.html"
+      - title: HA 클러스터와 BeeGFS를 업데이트합니다
+        url: "/administer-clusters-update.html"
+    - title: 서비스 및 유지 관리
+      entries:
+      - title: 장애 조치 및 장애 복구 서비스
+        url: "/administer-clusters-failover-failback.html"
+      - title: 클러스터를 유지보수 모드로 전환합니다
+        url: "/administer-clusters-maintenance-mode.html"
+      - title: 클러스터를 중지하고 시작합니다
+        url: "/administer-clusters-stop-start-cluster.html"
+      - title: 파일 노드를 바꿉니다
+        url: "/administer-clusters-replace-file-nodes.html"
+      - title: 클러스터를 확장 또는 축소합니다
+        url: "/administer-clusters-expand-shrink-cluster.html"
+    - title: 문제 해결
+      url: "/administer-clusters-troubleshoot.html"
   - title: 법적 고지
     url: "/legal-notices.html"
 product-family:

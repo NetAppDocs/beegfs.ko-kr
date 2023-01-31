@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-deploy-ha-cluster.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: Playbook을 사용하여 BeeGFS HA 클러스터를 구축하기 위해 실행해야 할 작업을 지정합니다. 
+---
+= BeeGFS HA 클러스터를 구축합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Playbook을 사용하여 BeeGFS HA 클러스터를 구축하기 위해 실행해야 할 작업을 지정합니다.
+
+
+
+== 개요
+
+이 섹션에서는 NetApp에서 BeeGFS를 구축/관리하는 데 사용되는 표준 플레이북을 취합하는 방법에 대해 설명합니다.
+
+
+
+== 단계
+
+
+
+=== Ansible 플레이북을 작성합니다
+
+파일을 만듭니다 `playbook.yml` 다음과 같이 채웁니다.
+
+. 먼저 작업 집합(일반적으로 라고 함)을 정의합니다 link:https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["재생"^]) NetApp E-Series 블록 노드에서만 실행되어야 합니다. 일시 중지 작업을 사용하여 설치를 실행하기 전에 메시지를 표시한 다음(우발적인 플레이북 실행을 피하기 위해) 을(를) 가져옵니다 `nar_santricity_management` 역할. 이 역할은 에 정의된 모든 일반 시스템 구성을 적용하는 작업을 처리합니다 `group_vars/eseries_storage_systems.yml` 있습니다 `host_vars/<BLOCK NODE>.yml` 파일.
++
+[source, yaml]
+----
+- hosts: eseries_storage_systems
+  gather_facts: false
+  collections:
+    - netapp_eseries.santricity
+  tasks:
+    - name: Verify before proceeding.
+      pause:
+        prompt: "Are you ready to proceed with running the BeeGFS HA role? Depending on the size of the deployment and network performance between the Ansible control node and BeeGFS file and block nodes this can take awhile (10+ minutes) to complete."
+    - name: Configure NetApp E-Series block nodes.
+      import_role:
+        name: nar_santricity_management
+----
+. 모든 파일 및 블록 노드에 대해 실행할 플레이를 정의합니다.
++
+[source, yaml]
+----
+- hosts: all
+  any_errors_fatal: true
+  gather_facts: false
+  collections:
+    - netapp_eseries.beegfs
+----
+. 이 플레이에서는 HA 클러스터를 구축하기 전에 실행해야 하는 "사전 작업" 세트를 선택적으로 정의할 수 있습니다. Python과 같은 필수 구성 요소를 확인/설치하는 데 유용할 수 있습니다. 제공된 Ansible 태그가 지원되는지 확인하는 등 비행 전 점검을 삽입할 수도 있습니다.
++
+[source, yaml]
+----
+  pre_tasks:
+    - name: Ensure a supported version of Python is available on all file nodes.
+      block:
+        - name: Check if python is installed.
+          failed_when: false
+          changed_when: false
+          raw: python --version
+          register: python_version
+
+        - name: Check if python3 is installed.
+          raw: python3 --version
+          failed_when: false
+          changed_when: false
+          register: python3_version
+          when: 'python_version["rc"] != 0 or (python_version["stdout"] | regex_replace("Python ", "")) is not version("3.0", ">=")'
+
+        - name: Install python3 if needed.
+          raw: |
+            id=$(grep "^ID=" /etc/*release* | cut -d= -f 2 | tr -d '"')
+            case $id in
+              ubuntu) sudo apt install python3 ;;
+              rhel|centos) sudo yum -y install python3 ;;
+              sles) sudo zypper install python3 ;;
+            esac
+          args:
+            executable: /bin/bash
+          register: python3_install
+          when: python_version['rc'] != 0 and python3_version['rc'] != 0
+          become: true
+
+        - name: Create a symbolic link to python from python3.
+          raw: ln -s /usr/bin/python3 /usr/bin/python
+          become: true
+          when: python_version['rc'] != 0
+      when: inventory_hostname not in groups[beegfs_ha_ansible_storage_group]
+
+    - name: Verify any provided tags are supported.
+      fail:
+        msg: "{{ item }} tag is not a supported BeeGFS HA tag. Rerun your playbook command with --list-tags to see all valid playbook tags."
+      when: 'item not in ["all", "storage", "beegfs_ha", "beegfs_ha_package", "beegfs_ha_configure", "beegfs_ha_configure_resource", "beegfs_ha_performance_tuning", "beegfs_ha_backup", "beegfs_ha_client"]'
+      loop: "{{ ansible_run_tags }}"
+----
+. 마지막으로, 이 플레이는 구축할 BeeGFS 버전에 대한 BeeGFS HA 역할을 가져옵니다.
++
+[source, yaml]
+----
+  tasks:
+    - name: Verify the BeeGFS HA cluster is properly deployed.
+      import_role:
+        name: beegfs_ha_7_3 # Alternatively specify: beegfs_ha_7_2.
+----
++
+
+NOTE: 지원되는 각 주요 버전 BeeGFS에 대해 BeeGFS HA 역할이 유지됩니다. 따라서 사용자는 주/부 버전을 업그레이드할 시기를 선택할 수 있습니다. 현재 BeeGFS 7.3.x입니다 (`beegfs_7_3`) 또는 BeeGFS 7.2.x (`beegfs_7_2`)가 지원됩니다. 기본적으로 두 역할 모두 릴리즈 시점에 최신 BeeGFS 패치 버전을 구축합니다. 하지만 사용자가 원할 경우 이를 무시하고 최신 패치를 배포할 수 있습니다. 최신 을 참조하십시오 link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_common/docs/upgrade.md["업그레이드 가이드"^] 를 참조하십시오.
+
+. 선택 사항: 추가 작업을 정의하려면 작업이 에 지정되어야 하는지 여부를 염두에 두십시오 `all` 호스트(E-Series 스토리지 시스템 포함) 또는 파일 노드만 포함됩니다. 필요한 경우 를 사용하여 파일 노드를 대상으로 하는 새로운 플레이를 정의합니다 `- hosts: ha_cluster`.
+
+
+을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/playbook.yml["여기"^] 전체 플레이북 파일의 예
+
+
+
+=== NetApp Ansible Collections를 설치합니다
+
+Ansible용 BeeGFS 컬렉션 및 모든 종속 항목이 에 유지됩니다 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible 갤럭시"^]. Ansible 제어 노드에서 다음 명령을 실행하여 최신 버전을 설치합니다.
+
+[source, bash]
+----
+ansible-galaxy collection install netapp_eseries.beegfs
+----
+일반적으로 권장하지는 않지만 컬렉션의 특정 버전을 설치할 수도 있습니다.
+
+[source, bash]
+----
+ansible-galaxy collection install netapp_eseries.beegfs:==<MAJOR>.<MINOR>.<PATCH>
+----
+
+
+=== Playbook을 실행합니다
+
+이 포함된 Ansible 제어 노드의 디렉토리에서 `inventory.yml` 및 `playbook.yml` 파일을 실행하고 다음과 같이 플레이북을 실행합니다.
+
+[source, bash]
+----
+ansible-playbook -i inventory.yml playbook.yml
+----
+클러스터의 크기에 따라 초기 구축에는 20분 이상 걸릴 수 있습니다. 어떠한 이유로든 구축에 실패하는 경우, 잘못된 케이블 연결, 노드 시작 등 문제를 해결하고 Ansible 플레이북을 다시 시작하십시오.
+
+지정할 때 link:custom-architectures-inventory-common-file-node-configuration.html["공통 파일 노드 구성"^]기본 옵션을 선택하여 Ansible에서 연결 기반 인증을 자동으로 관리하도록 할 경우, a `connAuthFile` 공유 비밀로 사용되는 은 에서 확인할 수 있습니다 `<playbook_dir>/files/beegfs/<sysMgmtdHost>_connAuthFile` (기본값). 파일 시스템에 액세스해야 하는 모든 클라이언트는 이 공유 암호를 사용해야 합니다. 이 작업은 클라이언트가 를 사용하여 구성된 경우 자동으로 처리됩니다 link:custom-architectures-deploy-beegfs-clients.html["BeeGFS 클라이언트 역할입니다"^].

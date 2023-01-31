@@ -1,0 +1,166 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-configure-file-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: '호스트 변수(host_vars)를 사용하여 개별 파일 노드의 구성을 지정합니다.' 
+---
+= 개별 파일 노드를 구성합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+호스트 변수(host_vars)를 사용하여 개별 파일 노드의 구성을 지정합니다.
+
+
+
+== 개요
+
+이 섹션에서는 를 채우는 방법을 설명합니다 `host_vars/<FILE_NODE_HOSTNAME>.yml` 클러스터에 있는 각 파일 노드에 대한 파일입니다. 이러한 파일에는 특정 파일 노드에 고유한 구성만 포함되어야 합니다. 여기에는 일반적으로 다음이 포함됩니다.
+
+* Ansible에서 노드에 연결하는 데 사용해야 하는 IP 또는 호스트 이름 정의
+* 다른 파일 노드와 통신하기 위해 HA 클러스터 서비스(박동조율기 및 Corosync)에 사용되는 추가 인터페이스 및 클러스터 IP를 구성합니다. 기본적으로 이러한 서비스는 관리 인터페이스와 동일한 네트워크를 사용하지만 이중화를 위해 추가 인터페이스를 사용할 수 있어야 합니다. 일반적으로 추가 클러스터 또는 관리 네트워크가 필요하지 않도록 스토리지 네트워크에 추가 IP를 정의하는 것이 좋습니다.
++
+** 클러스터 통신에 사용되는 모든 네트워크의 성능은 파일 시스템 성능에 중요하지 않습니다. 기본 클러스터 구성에서는 일반적으로 1Gbps 이상의 네트워크가 노드 상태 동기화 및 클러스터 리소스 상태 변경 조정과 같은 클러스터 작업에 충분한 성능을 제공합니다. 느리거나 사용량이 많은 네트워크는 리소스 상태 변경이 평소보다 오래 걸릴 수 있으며, 극단적인 경우 적절한 시간 내에 하트비트를 전송할 수 없는 경우 클러스터에서 노드가 제거될 수 있습니다.
+
+
+* 원하는 프로토콜을 통해 블록 노드에 연결하는 데 사용되는 인터페이스 구성(예: iSCSI/iSER, NVMe/IB, NVMe/RoCE, FCP 등)
+
+
+
+
+== 단계
+
+에 정의된 IP 주소 지정 체계를 참조합니다 link:custom-architectures-plan-file-system.html["파일 시스템 계획"] 섹션에서 클러스터의 각 파일 노드에 대해 파일을 생성합니다 `host_vars/<FILE_NODE_HOSTNAME>/yml` 다음과 같이 채웁니다.
+
+. 맨 위에서 Ansible이 노드에 SSH를 통해 사용하고 관리해야 하는 IP 또는 호스트 이름을 지정합니다.
++
+[source, yaml]
+----
+ansible_host: "<MANAGEMENT_IP>"
+----
+. 클러스터 트래픽에 사용할 수 있는 추가 IP 구성:
++
+.. 네트워크 유형이 인 경우 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/ipoib["InfiniBand(IPoIB 사용)"^]:
++
+[source, yaml]
+----
+eseries_ipoib_interfaces:
+- name: <INTERFACE>  # Example: ib0 or i1b
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+.. 네트워크 유형이 인 경우 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/roce["RoCE(RDMA over Converged Ethernet)"^]:
++
+[source, yaml]
+----
+eseries_roce_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+.. 네트워크 유형이 인 경우 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/ip["이더넷(TCP 전용, RDMA 없음)"^]:
++
+[source, yaml]
+----
+eseries_ip_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+
+
+. 클러스터 트래픽에 사용해야 하는 IP를 표시하고 기본 IP가 더 높게 나열됨:
++
+[source, yaml]
+----
+beegfs_ha_cluster_node_ips:
+- <MANAGEMENT_IP> # Including the management IP is typically but not required.
+- <IP_ADDRESS>    # Ex: 100.127.100.1
+- <IP_ADDRESS>    # Additional IPs as needed.
+----
++
+
+NOTE: 2단계에서 구성된 IPS는 에 포함되지 않는 한 클러스터 IP로 사용되지 않습니다 `beegfs_ha_cluster_node_ips` 목록. 따라서 필요한 경우 다른 목적으로 사용할 수 있는 Ansible을 사용하여 추가 IP/인터페이스를 구성할 수 있습니다.
+
+. 파일 노드가 IP 기반 프로토콜을 통해 블록 노드와 통신해야 하는 경우 IP를 적절한 인터페이스와 해당 프로토콜에 필요한 모든 패키지를 설치/구성해야 합니다.
++
+.. 를 사용하는 경우 link:https://github.com/netappeseries/host/blob/master/roles/iscsi/README.md["iSCSI"^]:
++
+[source, yaml]
+----
+eseries_iscsi_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+----
+.. 를 사용하는 경우 link:https://github.com/netappeseries/host/blob/master/roles/ib_iser/README.md["iSER"^]:
++
+[source, yaml]
+----
+eseries_ib_iser_interfaces:
+- name: <INTERFACE>  # Example: ib0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+  configure: true # If the file node is directly connected to the block node set to true to setup OpenSM.
+----
+.. 를 사용하는 경우 link:https://github.com/netappeseries/host/blob/master/roles/nvme_ib/README.md["NVMe/IB"^]:
++
+[source, yaml]
+----
+eseries_nvme_ib_interfaces:
+- name: <INTERFACE>  # Example: ib0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+  configure: true # If the file node is directly connected to the block node set to true to setup OpenSM.
+----
+.. 를 사용하는 경우 link:https://github.com/netappeseries/host/blob/master/roles/nvme_roce/README.md["NVMe/RoCE"^]:
++
+[source, yaml]
+----
+eseries_nvme_roce_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+----
+.. 기타 프로토콜:
++
+... 를 사용하는 경우 link:https://github.com/netappeseries/host/blob/master/roles/nvme_fc/README.md["NVMe/FC"^], 개별 인터페이스를 구성할 필요가 없습니다. BeeGFS 클러스터 배포는 자동으로 프로토콜을 감지하고 필요에 따라 요구 사항을 설치/구성합니다. 패브릭을 사용하여 파일 및 블록 노드를 연결하는 경우, 스위치가 NetApp과 스위치 공급업체의 모범 사례에 따라 적절히 조닝되었는지 확인하십시오.
+... FCP 또는 SAS를 사용하는 경우 추가 소프트웨어를 설치하거나 구성할 필요가 없습니다. FCP를 사용하는 경우 스위치가 다음에 적절하게 조닝(zoning)되어 있는지 확인합니다 link:https://docs.netapp.com/us-en/e-series/config-linux/fc-configure-switches-task.html["넷엡"^] 스위치 공급업체의 모범 사례를 소개합니다.
+... 현재 IB SRP 사용은 권장되지 않습니다. E-Series 블록 노드에서 지원하는 것에 따라 NVMe/IB 또는 iSER을 사용합니다.
+
+
+
+
+
+
+을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22h01.yml["여기"^] 단일 파일 노드를 나타내는 전체 인벤토리 파일의 예
+
+
+
+=== 고급: 이더넷과 InfiniBand 모드 간에 NVIDIA ConnectX VPI 어댑터를 전환합니다
+
+NVIDIA ConnectX-Virtual Protocol Interconnect & reg;(VPI) 어댑터는 전송 계층으로 InfiniBand와 이더넷을 모두 지원합니다. 모드 간 전환은 자동으로 조정되지 않으며 을 사용하여 구성해야 합니다 `mstconfig` 에 포함된 도구 `mstflint`의 일부인 오픈 소스 패키지입니다 link:https://docs.nvidia.com/networking/display/MFTV4133/MFT+Supported+Configurations+and+Parameters["Mellanox firmare 도구(MFT)"^]. 어댑터 모드 변경은 한 번만 수행하면 됩니다. 이 작업은 수동으로 수행하거나 를 사용하여 구성된 인터페이스의 일부로 Ansible 인벤토리에 포함할 수 있습니다 `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 재고 섹션에서 자동으로 확인/적용되도록 합니다.
+
+예를 들어, InfiniBand 모드에서 인터페이스 전류를 이더넷으로 변경하여 RoCE에 사용할 수 있습니다.
+
+. 구성할 각 인터페이스에 대해 지정합니다 `mstconfig` 를 지정하는 매핑(또는 사전)으로 지정합니다 `LINK_TYPE_P<N>` 위치 `<N>` 인터페이스에 대한 HCA의 포트 번호로 결정됩니다. 를 클릭합니다 `<N>` 값은 를 실행하여 확인할 수 있습니다 `grep PCI_SLOT_NAME /sys/class/net/<INTERFACE_NAME>/device/uevent` PCI 슬롯 이름의 성에 1을 추가하고 10진수로 변환합니다.
++
+.. 예를 들어, 를 입력합니다 `PCI_SLOT_NAME=0000:2f:00.2` (2+1 -> HCA 포트 3) -> `LINK_TYPE_P3: eth`:
++
+[source, yaml]
+----
+eseries_roce_interfaces:
+- name: <INTERFACE>
+  address: <IP/SUBNET>
+  mstconfig:
+    LINK_TYPE_P3: eth
+----
+
+
+
+
+자세한 내용은 를 참조하십시오 link:https://github.com/netappeseries/host["NetApp E-Series 호스트 컬렉션의 문서입니다"^] 사용 중인 인터페이스 유형/프로토콜의 경우.

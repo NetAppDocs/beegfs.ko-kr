@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-setup-ansible-control-node.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 파일 시스템을 배포 및 관리하기 위해 Ansible 제어 노드를 설정합니다. 
+---
+= Ansible Control Node 설정
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+파일 시스템을 배포 및 관리하기 위해 Ansible 제어 노드를 설정합니다.
+
+
+
+== 개요
+
+Ansible 제어 노드는 클러스터를 관리하는 데 사용되는 물리적 또는 가상 Linux 시스템입니다. 다음 요구 사항을 충족해야 합니다.
+
+* 를 참조하십시오 link:beegfs-technology-requirements.html#ansible-control-node-requirements["요구 사항"^] Ansible, Python 및 기타 추가 Python 패키지의 설치 버전을 비롯한 BeeGFS HA 역할의 경우
+* 공무원도 만나세요 link:https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements["Ansible 제어 노드 요구사항"^] 운영 체제 버전을 포함합니다.
+* 모든 파일 및 블록 노드에 대한 SSH 및 HTTPS 액세스 권한 보유
+
+
+자세한 설치 단계를 찾을 수 있습니다 link:beegfs-deploy-setting-up-an-ansible-control-node.html["여기"^].
