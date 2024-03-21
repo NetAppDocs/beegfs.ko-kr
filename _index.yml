@@ -1,8 +1,11 @@
 ---
 indexpage:
-  lead: NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture)로, BeeGFS 병렬 파일 시스템을
-    NetApp EF600 스토리지 시스템과 결합합니다. 이 솔루션은 가장 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인
-    인프라입니다.
+  title: E-Series 스토리지를 지원하는 NetApp 기반 BeeGFS
+  summary: 지연 시간이 짧은 고성능 NetApp E-Series 스토리지에서 실행되는 BeeGFS 병렬 클러스터 파일 시스템에 대한 솔루션
+    지원 NetApp의 지원을 받아 비용 효율적이고 관리가 쉬우며 가용성이 높은 HPC 솔루션을 제공합니다.
+  keywords: beegfs e-series
+  lead: E-Series 스토리지 및 NetApp 기반 BeeGFS는 가장 까다로운 워크로드에서도 보조를 맞추는 단순하고 안정적이고 확장 가능하며
+    비용 효율적인 HPC 인프라를 갖춘 검증된 통합 솔루션입니다.
   tiles:
   - title: 시작하십시오
     links:

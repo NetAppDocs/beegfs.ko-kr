@@ -1016,7 +1016,6 @@
   <block id="2dae7f81af3097152530b0bc519d7eb1" category="paragraph"><block ref="2dae7f81af3097152530b0bc519d7eb1" category="inline-link-rx"></block></block>
   <block id="e3b88cba18358b065044f4788449026b" category="summary">지연 시간이 짧은 고성능 NetApp E-Series 스토리지에서 실행되는 BeeGFS 병렬 클러스터 파일 시스템에 대한 솔루션 지원 NetApp의 지원을 받아 비용 효율적이고 관리가 쉬우며 가용성이 높은 HPC 솔루션을 제공합니다.</block>
   <block id="28e8b3e83af233fe7085ba954fc6fd36" category="doc">E-Series 스토리지를 지원하는 NetApp 기반 BeeGFS</block>
-  <block id="4929a64464b43e326e35b25ce7e3ceeb" category="sidebar">NetApp 솔루션의 BeeGFS는 NVA(NetApp Verified Architecture)로, BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합합니다. 이 솔루션은 가장 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라입니다.</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">시작하십시오</block>
   <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">블로그 - BeeGFS 및 E-Series에 대해 알아보십시오</block>
   <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">블로그 - 초보자를 위한 BeeGFS</block>
@@ -1862,4 +1861,5 @@
   <block id="dd38f906b37d412de7d1c1dcf4cbf31c" category="paragraph"><block ref="dd38f906b37d412de7d1c1dcf4cbf31c" category="inline-link-macro-rx"></block></block>
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
+  <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">E-Series 스토리지 및 NetApp 기반 BeeGFS는 가장 까다로운 워크로드에서도 보조를 맞추는 단순하고 안정적이고 확장 가능하며 비용 효율적인 HPC 인프라를 갖춘 검증된 통합 솔루션입니다.</block>
 </blocks>
