@@ -527,7 +527,6 @@
   <block id="d1da0cd6852302b521f35aeee065f5ea" category="summary">NetApp 솔루션에 BeeGFS를 구축할 때는 모범 사례 지침을 따르십시오.</block>
   <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">모범 사례를 검토합니다</block>
   <block id="d780de93793370946b2449b88a29b5ea" category="section-title">표준 규약</block>
-  <block id="2028bcc5ed7fdc8ba437b0150866ff2c" category="paragraph">Ansible 인벤토리 파일을 물리적으로 조립하고 생성할 때는 다음 표준 규칙을 따르십시오(자세한 내용은 을 참조하십시오 <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>)를 클릭합니다.</block>
   <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">파일 노드 호스트 이름은 랙 상단에 더 적은 숫자가 있고 하단에 더 높은 숫자가 있는 순서대로 번호가 지정됩니다(H01-HN).</block>
   <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">예를 들어, 이름 지정 규칙 '[location][row][rack]hN'은 'ictad22h01'과 같습니다.</block>
   <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">각 블록 노드는 각각 고유한 호스트 이름을 가진 두 개의 스토리지 컨트롤러로 구성됩니다.</block>
@@ -1862,4 +1861,5 @@
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
   <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">E-Series 스토리지 및 NetApp 기반 BeeGFS는 가장 까다로운 워크로드에서도 보조를 맞추는 단순하고 안정적이고 확장 가능하며 비용 효율적인 HPC 인프라를 갖춘 검증된 통합 솔루션입니다.</block>
+  <block id="3a9aabbbb8c331319a41788bf5d1786a" category="paragraph">Ansible 인벤토리 파일을 물리적으로 조립하고 생성할 때는 다음 표준 규칙을 따르십시오(자세한 내용은 을 참조하십시오 <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>)를 클릭합니다.</block>
 </blocks>

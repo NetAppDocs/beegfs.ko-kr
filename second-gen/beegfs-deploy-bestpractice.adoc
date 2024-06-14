@@ -20,7 +20,7 @@ NetApp 솔루션에 BeeGFS를 구축할 때는 모범 사례 지침을 따르십
 
 == 표준 규약
 
-Ansible 인벤토리 파일을 물리적으로 조립하고 생성할 때는 다음 표준 규칙을 따르십시오(자세한 내용은 을 참조하십시오 link:beegfs-deploy-beegfs-general-config.html["Ansible 인벤토리를 작성합니다"])를 클릭합니다.
+Ansible 인벤토리 파일을 물리적으로 조립하고 생성할 때는 다음 표준 규칙을 따르십시오(자세한 내용은 을 참조하십시오 link:beegfs-deploy-create-inventory.html["Ansible 인벤토리를 작성합니다"])를 클릭합니다.
 
 * 파일 노드 호스트 이름은 랙 상단에 더 적은 숫자가 있고 하단에 더 높은 숫자가 있는 순서대로 번호가 지정됩니다(H01-HN).
 +
