@@ -58,8 +58,8 @@ BeeGFS 파일 노드.
 
 * 기타: *
 
-* OS용 RAID 1에 구성된 2개의 1TB 7.2K SATA 드라이브(또는 이에 상응하는 드라이브)
-* 대역 내 OS 관리용 10GbE OCP 3.0 어댑터(또는 동급)
+* OS용 RAID 1에 구성된 1TB 7.2K SATA 드라이브 2개(또는 동급 이상)
+* 대역 내 OS 관리를 위한 1GbE(또는 이상) 포트
 * Out-of-Band Server Management용 Redfish API가 포함된 1GbE BMC
 * 이중 핫 스왑 전원 공급 장치 및 성능 팬
 * 스토리지 InfiniBand 스위치에 연결하는 데 필요한 경우 Mellanox 광 InfiniBand 케이블을 지원해야 합니다.

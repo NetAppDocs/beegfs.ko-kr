@@ -144,13 +144,13 @@ EF600에서 HDR(200GB) InfiniBand를 사용하려면 각 물리적 포트에 대
 ----
 eseries_controller_nvme_ib_port:
   controller_a:
-    - 192.168.1.101 # Port 2a (physical)
-    - 192.168.2.101 # Port 2a (virtual)
-    - 192.168.1.100 # Port 2b (physical)
-    - 192.168.2.100 # Port 2b (virtual)
+    - 192.168.1.101   # Port 2a (virtual)
+    - 192.168.2.101   # Port 2b (virtual)
+    - 192.168.1.100   # Port 2a (physical)
+    - 192.168.2.100   # Port 2b (physical)
   controller_b:
-    - 192.168.3.101 # Port 2a (physical)
-    - 192.168.4.101 # Port 2a (virtual)
-    - 192.168.3.100 # Port 2b (physical)
-    - 192.168.4.100 # Port 2b (virtual)
+    - 192.168.3.101   # Port 2a (virtual)
+    - 192.168.4.101   # Port 2b (virtual)
+    - 192.168.3.100   # Port 2a (physical)
+    - 192.168.4.100   # Port 2b (physical)
 ----
