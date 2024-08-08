@@ -19,8 +19,6 @@ indexpage:
       url: https://www.netapp.com/blog/beegfs-for-beginners/
     - title: 블로그 - BeeGFS의 HA
       url: https://www.netapp.com/blog/high-availability-beegfs/
-    - title: 비디오 - NetApp 기반의 BeeGFS로 AI 워크로드 가속화
-      url: https://www.netapp.tv/details/28905?mcid=04158305605030681010298851103052321172
   - title: 추가 문서
     links:
     - title: NetApp 제품 설명서

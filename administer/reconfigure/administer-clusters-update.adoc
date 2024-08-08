@@ -48,6 +48,12 @@ NOTE: BeeGFS 버전에 대한 자세한 내용은 를 참조하십시오 link:ht
 
 
 | 7.3.1에서 포함 | 7.3.2 | 예 | Beegfs 컬렉션 v3.1.0을 사용하여 업그레이드합니다 
+
+
+| 7.3.2 | 7.4.1 | 예 | Beegfs 컬렉션 v3.2.0을 사용하여 업그레이드합니다 
+
+
+| 7.4.1 | 7.4.2 | 예 | Beegfs 컬렉션 v3.2.0을 사용하여 업그레이드합니다 
 |===
 
 
@@ -83,7 +89,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
 
 === 3단계: Ansible 플레이북 업데이트(주 버전 또는 부 버전만 업데이트할 경우)
 
-주 버전 또는 부 버전 간에 이동하는 경우 에서 를 참조하십시오 `playbook.yml` 클러스터를 구축하고 유지하는 데 사용되는 파일, 의 이름을 업데이트합니다 `beegfs_ha_<VERSION>` 원하는 버전을 반영하는 역할입니다. 예를 들어 BeeGFS 7.3을 구축하려는 경우 이는 입니다 `beegfs_ha_7_3`:
+주 버전 또는 부 버전 간에 이동하는 경우 `playbook.yml` 클러스터를 배포하고 유지 관리하는 데 사용되는 파일에서 원하는 버전을 반영하도록 역할의 이름을 `beegfs_ha_<VERSION>` 업데이트합니다. 예를 들어 BeeGFS 7.4를 배포하려는 경우 다음과 같은 이점이 `beegfs_ha_7_4`있습니다.
 
 [source, yaml]
 ----
@@ -95,7 +101,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
   tasks:
     - name: Ensure BeeGFS HA cluster is setup.
       ansible.builtin.import_role:  # import_role is required for tag availability.
-        name: beegfs_ha_7_3
+        name: beegfs_ha_7_4
 ----
 이 플레이북 파일의 내용에 대한 자세한 내용은 을 참조하십시오 link:custom-architectures-deploy-ha-cluster.html["BeeGFS HA 클러스터를 구축합니다"^] 섹션을 참조하십시오.
 

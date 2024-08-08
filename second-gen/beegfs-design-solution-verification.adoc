@@ -23,7 +23,7 @@ BeeGFS on NetApp 솔루션의 2세대 설계는 3가지 구성 요소 구성 프
 * BeeGFS 스토리지 전용 구성 요소입니다.
 
 
-빌딩 블록은 2개의 Mellanox Quantum InfiniBand(MQM8700) 스위치에 연결되었습니다. 10개의 BeeGFS 클라이언트도 InfiniBand 스위치에 연결되었으며 통합 벤치마크 유틸리티를 실행하는 데 사용되었습니다.
+빌딩 블록은 2개의 NVIDIA Quantum InfiniBand(MQM8700) 스위치에 연결되었습니다. 10개의 BeeGFS 클라이언트도 InfiniBand 스위치에 연결되었으며 통합 벤치마크 유틸리티를 실행하는 데 사용되었습니다.
 
 다음 그림에서는 NetApp 솔루션의 BeeGFS 검증을 위해 사용되는 BeeGFS 구성을 보여 줍니다.
 
@@ -137,8 +137,8 @@ NOTE: 알려진 문제가 있습니다( 참조) https://github.com/netappeseries
 
 
 
-== NVIDIA DGX A100 SuperPOD 및 BasePOD 검증
+== NVIDIA DGX SuperPOD 및 BasePOD 검증
 
-NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다. NVIDIA DGX A100 SuperPOD에서 사용하도록 인증된 모든 스토리지는 NVIDIA BasePOD 아키텍처에도 자동으로 사용하도록 인증되었습니다.
+NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다. NVIDIA의 DGX A100 SuperPOD로 검증된 솔루션을 기반으로 구축된 NetApp 기반 BeeGFS 솔루션은 DGX SuperPOD H100, H200 및 B200 시스템에서 승인되었습니다. 이 확장은 NVIDIA DGX A100에서 검증된 이전 벤치마크 및 시스템 요구사항을 충족하는 것을 기반으로 합니다.
 
 자세한 내용은 을 참조하십시오 https://www.netapp.com/pdf.html?item=/media/72718-nva-1167-DESIGN.pdf["NetApp을 포함한 NVIDIA DGX SuperPOD"^] 및 https://www.nvidia.com/en-us/data-center/dgx-basepod/["NVIDIA DGX 베이스POD"^].

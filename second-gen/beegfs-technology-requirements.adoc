@@ -14,95 +14,122 @@ summary: NetApp 기반의 BeeGFS 솔루션을 구축하려면 해당 환경이 �
 
 
 [role="lead"]
-NetApp 기반의 BeeGFS 솔루션을 구축하려면 해당 환경이 기술 요구사항을 충족하는지 확인하십시오.
+NetApp 기반 BeeGFS 솔루션을 구현하려면 사용 환경이 본 문서에 설명된 기술 요구사항을 충족하는지 확인하십시오.
 
 
 
 == 하드웨어 요구 사항
 
-다음 표에는 NetApp 기반 BeeGFS 솔루션의 단일 2세대 구성 요소 설계를 구현하는 데 필요한 하드웨어 구성요소가 나와 있습니다.
-
-
-NOTE: 이 솔루션을 구체적으로 구축하는 데 사용되는 하드웨어 구성요소는 고객 요구사항에 따라 다를 수 있습니다.
+시작하기 전에 사용 중인 하드웨어가 NetApp 기반 BeeGFS 솔루션의 단일 2세대 구성 요소 설계에 대한 다음 사양을 충족하는지 확인하십시오. 특정 배포에 대한 정확한 구성 요소는 고객 요구 사항에 따라 다를 수 있습니다.
 
 [cols="10%,20%,70%"]
 |===
-| 카운트 | 하드웨어 구성 요소 | 요구 사항 
+| 수량 | 하드웨어 구성 요소 | 요구 사항 
 
 
  a| 
 2
  a| 
-BeeGFS 파일 노드.
+[[beegfs-file-nodes]] BeeGFS 파일 노드
  a| 
-각 파일 노드는 예상 성능을 달성하기 위해 다음 구성을 충족하거나 초과해야 합니다.
+각 파일 노드가 권장 파일 노드의 사양을 충족하거나 초과해야 예상 성능을 얻을 수 있습니다.
 
-프로세서: *
+* 권장 파일 노드 옵션: *
 
-* 2x AMD EPYC 7343 16C 3.2GHz.
-* 2개의 NUMA 존으로 구성됩니다.
-
-
-* 메모리: *
-
-* 256GB
-* 16x 16GB TruDDR4 3200MHz(2Rx8 1.2V) RDIMM-A(더 적은 수의 큰 DIMM에 비해 더 작은 DIMM 선호).
-* 메모리 대역폭을 최대화하도록 채워집니다.
-
-
-* PCIe 확장: PCE Gen4 x16 슬롯 4개: *
-
-* NUMA 존당 2개의 슬롯
-* 각 슬롯은 Mellanox MCX653106A-HDAT 어댑터에 충분한 전력/냉각을 제공해야 합니다.
-
-
-* 기타: *
-
-* OS용 RAID 1에 구성된 1TB 7.2K SATA 드라이브 2개(또는 동급 이상)
-* 대역 내 OS 관리를 위한 1GbE(또는 이상) 포트
-* Out-of-Band Server Management용 Redfish API가 포함된 1GbE BMC
-* 이중 핫 스왑 전원 공급 장치 및 성능 팬
-* 스토리지 InfiniBand 스위치에 연결하는 데 필요한 경우 Mellanox 광 InfiniBand 케이블을 지원해야 합니다.
-
-
-* Lenovo SR665: *
-
-* 사용자 지정 NetApp 모델에는 이중 포트 Mellanox ConnectX-6 어댑터를 지원하는 데 필요한 XClarity 컨트롤러 펌웨어의 필수 버전이 포함되어 있습니다. 주문 정보는 NetApp에 문의하십시오.
+* * Lenovo ThinkSystem SR665 V3 *
++
+** * 프로세서: * 2x AMD EPYC 9124 16C 3.0GHz(두 개의 NUMA 존으로 구성).
+** * 메모리: * 256GB(16x 16GB TruDDR5 4800MHz RDIMM-A)
+** * PCIe 확장: * PCIe Gen5 x16 슬롯 4개(NUMA 존당 2개)
+** * 기타: *
++
+*** OS용 RAID 1에서 드라이브 2개(1TB 7.2K SATA 이상)
+*** 대역 내 OS 관리를 위한 1GbE 포트
+*** 대역외 서버 관리를 위한 1GbE BMC 및 Redfish API
+*** 이중 핫 스왑 전원 공급 장치 및 성능 팬
 
 
 
 
-| 8 | Mellanox ConnectX-6 HCA(파일 노드용)  a| 
-* MCX653106A-HDAT 호스트 채널 어댑터(HDR IB 200GB, 이중 포트 QSFP 56, PCIe4.0 x16)
+* * Lenovo ThinkSystem SR665 *
++
+** * 프로세서: * 2x AMD EPYC 7343 16C 3.2GHz(2개의 NUMA 존으로 구성).
+** * 메모리: * 256GB(16x 16GB TruDDR4 3200MHz RDIMM-A)
+** * PCIe 확장: * PCIe Gen4 x16 슬롯 4개(NUMA 존당 2개)
+** * 기타: *
++
+*** OS용 RAID 1에서 드라이브 2개(1TB 7.2K SATA 이상)
+*** 대역 내 OS 관리를 위한 1GbE 포트
+*** 대역외 서버 관리를 위한 1GbE BMC 및 Redfish API
+*** 이중 핫 스왑 전원 공급 장치 및 성능 팬
 
 
 
 
-| 8 | 1m의 HDR InfiniBand 케이블(파일/블록 노드 직접 연결용)  a| 
-* MCP1650-H001E30(1m Mellanox Passive Copper 케이블, IB HDR, 최대 200Gbps, QSFP 56, 30AWG).
-
-
-필요한 경우 파일 노드와 블록 노드 간의 더 긴 거리를 고려하여 길이를 조정할 수 있습니다.
-
-
-
-| 8 | HDR InfiniBand 케이블(파일 노드/스토리지 스위치 연결용)  a| 
-파일 노드를 스토리지 리프 스위치에 연결하려면 적절한 길이의 InfiniBand HDR 케이블(QSFP 56 트랜시버)이 필요합니다. 가능한 옵션은 다음과 같습니다.
-
-* MCP1650-H002E26(2m Mellanox Passive Copper 케이블, IB HDR, 최대 200GB/s, QSFP 56, 30AWG).
-* MFS1S00-H003E(3m Mellanox 활성 파이버 케이블, IB HDR, 최대 200GB/s, QSFP 56).
 
 
 
 
-| 2 | E-Series 블록 노드  a| 
-EF600 컨트롤러 2개는 다음과 같이 구성됩니다.
-
-* 메모리: 256GB(컨트롤러당 128GB)
-* 어댑터: 2포트 200GB/HDR(NVMe/IB)
-* 드라이브: 원하는 용량과 일치하도록 구성됨
+| 2 | [[eseries-block-nodes]] E-Series 블록 노드(EF600 어레이)  a| 
+* 메모리: * 256GB(컨트롤러당 128GB). * 어댑터: * 2포트 200GB/HDR(NVMe/IB). * 드라이브: * 원하는 용량에 맞게 구성됩니다.
 
 
+
+| 8 | [[InfiniBand-Adapters]] InfiniBand 호스트 카드 어댑터(파일 노드용).  a| 
+호스트 카드 어댑터는 파일 노드에 사용되는 서버 모델에 따라 다릅니다. 검증된 파일 노드에 대한 권장 사항은 다음과 같습니다.
+
+* * Lenovo ThinkSystem SR665 V3 서버: *
++
+** MCX755106AS - 열 ConnectX-7, NDR200, QSFP112, 2포트, PCIe Gen5 x16, InfiniBand 어댑터
+
+
+* * Lenovo ThinkSystem SR665 서버: *
++
+** MCX653106A-HDAT ConnectX-6, HDR, QSFP-56, 2포트, PCIe Gen4 x16, InfiniBand 어댑터
+
+
+
+
+
+
+| 1 | 스토리지 네트워크 스위치  a| 
+스토리지 네트워크 스위치는 200Gb/s InfiniBand 속도를 지원해야 합니다. 권장되는 스위치 모델은 다음과 같습니다.
+
+* * NVIDIA QM9700 Quantum 2 NDR InfiniBand 스위치 *
+* * NVIDIA MQM8700 Quantum HDR InfiniBand 스위치 *
+
+
+|===
+
+
+=== 케이블 요구 사항
+
+[block-file-cables] * 블록 노드에서 파일 노드로 직접 연결 *
+
+[cols="10%,70%,20%"]
+|===
+| 수량 | 부품 번호 | 길이 
+
+
+| 8 | MCP1650-H001E30(NVIDIA 패시브 구리 케이블, QSFP56, 200GB/s) | 1m 
+|===
+[FILE-SWITCH-Cables] * 파일 노드에서 스토리지 네트워크 스위치로의 연결 * InfiniBand 스토리지 스위치에 따라 아래 표에서 해당 케이블 옵션을 선택하십시오. + 권장 케이블 길이는 2m 이지만 고객의 환경에 따라 달라질 수 있습니다.
+
+[cols="20%,10%,15%,55%"]
+|===
+| 모델 전환 | 수량 | 케이블 유형 | 부품 번호 
+
+
+| NVIDIA QM9700 를 참조하십시오 | 4 | 활성 파이버 | MFA7U10-H002(NVIDIA 활성 파이버 케이블, InfiniBand 400GB/s~2x 200GB/s, OSFP~2x QSFP56) 
+
+
+| NVIDIA QM9700 를 참조하십시오 | 4 | 수동형 구리 | MCP7Y60-H002(NVIDIA 패시브 구리 케이블, InfiniBand 400GB/s ~ 2x 200GB/s, OSFP ~ 2x QSFP56) 
+
+
+| NVIDIA MQM8700 를 참조하십시오 | 8 | 활성 파이버 | MFS1S00-H003E(NVIDIA 활성 파이버 케이블, InfiniBand 200GB/s, QSFP56) 
+
+
+| NVIDIA MQM8700 를 참조하십시오 | 8 | 수동형 구리 | MCP1650-H002E26(NVIDIA 패시브 구리 케이블, InfiniBand 200GB/s, QSFP56) 
 |===
 
 
@@ -110,57 +137,6 @@ EF600 컨트롤러 2개는 다음과 같이 구성됩니다.
 
 예측 가능한 성능 및 안정성을 위해 NetApp 기반 BeeGFS 솔루션의 릴리즈는 솔루션 구축에 필요한 소프트웨어 구성 요소의 특정 버전을 사용하여 테스트됩니다.
 
-
-
-=== 소프트웨어 배포 요구 사항
-
-다음 표에는 Ansible 기반 BeeGFS 구축의 일부로 자동 구축되는 소프트웨어 요구사항이 나와 있습니다.
-
-[cols="20%,80%"]
-|===
-| 소프트웨어 | 버전 
-
-
-| BeeGFS | 7.2.6 
-
-
-| Corosync 를 참조하십시오 | 3.1.5-1 
-
-
-| 심장박동기 | 2.1.0-8 
-
-
-| OpenSM을 참조하십시오  a| 
-OpenSM-5.9.0(mlnx_OFED 5.4-1.0.3.0부터)
-
-
-NOTE: 가상화를 활성화하기 위해 직접 연결에만 필요합니다.
-
-|===
-
-
-=== Ansible 제어 노드 요구사항
-
-NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오 https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansible 설명서"^].
-
-다음 표에 나와 있는 소프트웨어 요구사항은 아래 나열된 NetApp BeeGFS Ansible 컬렉션 버전과 관련이 있습니다.
-
-[cols="20%,80%"]
-|===
-| 소프트웨어 | 버전 
-
-
-| Ansible | 2.11 PIP를 통해 설치된 경우: Ansible-4.7.0 및 Ansible-Core<2.12,>=2.11.6 
-
-
-| 파이썬 | 3.9 
-
-
-| 추가 Python 패키지 | 암호화 - 35.0.0, netaddr-0.8.0 
-
-
-| BeeGFS Ansible 컬렉션 | 3.0.0 
-|===
 
 
 === 파일 노드 요구 사항
@@ -173,23 +149,26 @@ NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리�
  a| 
 RedHat Enterprise Linux
  a| 
-RedHat 8.4 서버의 물리적 및 고가용성(2 소켓).
+RedHat 9.3 서버의 물리적 및 고가용성(2 소켓).
 
 
 IMPORTANT: 파일 노드에는 유효한 RedHat Enterprise Linux Server 서브스크립션과 Red Hat Enterprise Linux 고가용성 애드온이 필요합니다.
 
 
 
-| Linux 커널 | 4.18.0-305.25.1.el8_4.x86_64 
+| Linux 커널 | 5.14.0-362.24.1.el9_3.x86_64 
 
 
-| InfiniBand/RDMA 드라이버 | 받은 편지함 
+| InfiniBand/RDMA 드라이버 | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
 
 
-| ConnectX-6 HCA 펌웨어 | FW: 20.31.1014 
+ a| 
+HCA 펌웨어
+ a| 
+* ConnectX-7 HCA 펌웨어 * FW:28.39.1002+PXE:3.7.0201+UEFI:14.32.0012
 
+* ConnectX-6 HCA 펌웨어 * FW:20.31.1014 + PXE:3.6.0403 + UEFI:14.24.0013
 
-| PXE: 3.6.0403 | UEFI: 14.24.0013 
 |===
 
 
@@ -200,77 +179,59 @@ IMPORTANT: 파일 노드에는 유효한 RedHat Enterprise Linux Server 서브�
 | 소프트웨어 | 버전 
 
 
-| SANtricity OS를 참조하십시오 | 11.70.2 
+| SANtricity OS를 참조하십시오 | 11.80.0 
 
 
-| NVSRAM | N6000-872834-D06.DLP 
+| NVSRAM | N6000-880834-D08.DLP 
 
 
 | 드라이브 펌웨어 | 사용 중인 드라이브 모델에 대한 최신 버전입니다. 
 |===
 
 
-== 추가 요구 사항
+=== 소프트웨어 배포 요구 사항
 
-다음 표에 나열된 장비가 검증에 사용되었지만 필요에 따라 적절한 대안을 사용할 수 있습니다. 일반적으로 예기치 않은 문제를 방지하려면 최신 소프트웨어 버전을 실행하는 것이 좋습니다.
+다음 표에는 Ansible 기반 BeeGFS 구축의 일부로 자동 구축되는 소프트웨어 요구사항이 나와 있습니다.
+
+[cols="20%,80%"]
+|===
+| 소프트웨어 | 버전 
+
+
+| BeeGFS | 7.4.4 
+
+
+| Corosync 를 참조하십시오 | 3.1.5-4 
+
+
+| 심장박동기 | 2.1.4-5 
+
+
+| OpenSM을 참조하십시오  a| 
+OpenSM-5.17.2(MLNX_OFED_Linux-23.10-3.2.2.0-LTS에서)
 
 |===
-| 하드웨어 구성 요소 | 설치된 소프트웨어 
 
 
- a| 
-* 2x Mellanox MQM8700 200GB InfiniBand 스위치
+=== Ansible 제어 노드 요구사항
 
- a| 
-* 펌웨어 3.9.2110
+NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오 https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansible 설명서"^].
 
+다음 표에 나와 있는 소프트웨어 요구사항은 아래 나열된 NetApp BeeGFS Ansible 컬렉션 버전과 관련이 있습니다.
 
-
-
- a| 
-* 1x Ansible 제어 노드(가상화): *
-
-* 프로세서: 인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz
-* 메모리: 8GB
-* 로컬 스토리지: 24GB
-
- a| 
-* CentOS Linux 8.4.2105
-* 커널 4.18.0-305.3.1.el8.x86_64
+[cols="30%,70%"]
+|===
+| 소프트웨어 | 버전 
 
 
-설치된 Ansible 및 Python 버전이 위 표의 버전과 일치합니다.
+| Ansible | PIP:Ansible-6.0.0 및 Ansible-CORE>=2.13.0을 통해 설치한 경우 6.x 
 
 
-
- a| 
-* 10x BeeGFS 클라이언트(CPU 노드): *
-
-* 프로세서: 1x AMD EPYC 7302 16코어 CPU, 3.0GHz
-* 메모리: 128GB
-* 네트워크: 2x Mellanox MCX653106A-HDAT(어댑터당 하나의 포트 연결).
-
- a| 
-* Ubuntu 20.04
-* 커널: 5.4.0-100 - 일반
-* InfiniBand 드라이버: Mellanox OFED 5.4-1.0.3.0
+| 파이썬 | 3.9(이상) 
 
 
+| 추가 Python 패키지 | 암호화 - 43.0.0, netaddr-1.3.0, ipaddr-2.2.0 
 
 
- a| 
-* 1x BeeGFS 클라이언트(GPU 노드): *
-
-* 프로세서: 2.25GHz에서 AMD EPYC 7742 64코어 CPU 2개
-* 메모리: 1TB
-* 네트워크: 2x Mellanox MCX653106A-HDAT(어댑터당 하나의 포트 연결).
-
-
-이 시스템은 NVIDIAs HGX A100 플랫폼을 기반으로 하며 4개의 A100 GPU를 포함합니다.
- a| 
-* Ubuntu 20.04
-* 커널: 5.4.0-100 - 일반
-* InfiniBand 드라이버: Mellanox OFED 5.4-1.0.3.0
-
-
+| NetApp E-Series BeeGFS Ansible 컬렉션 | 3.2.0 
 |===

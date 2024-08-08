@@ -22,7 +22,7 @@ Ansible 인벤토리는 파일 및 블록 노드의 구성을 정의하며 구�
 
 == Ansible 모듈 및 역할
 
-Ansible 인벤토리에서 설명한 구성을 적용하려면 NetApp E-Series Ansible 컬렉션에서 제공하는 다양한 Ansible 모듈 및 역할, 특히 BeeGFS HA 7.2 역할(에서 제공)을 사용하십시오 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_2["NetApp E-Series BeeGFS GitHub를 참조하십시오"^])를 구축하는 것이 좋습니다.
+Ansible 인벤토리에 설명된 구성을 적용하려면 NetApp E-Series Ansible 컬렉션에 제공된 다양한 Ansible 모듈과 역할, 특히 엔드 투 엔드 솔루션을 배포하는 BeeGFS HA 7.4 역할(에서 사용 가능 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp E-Series BeeGFS GitHub를 참조하십시오"^])을 사용하십시오.
 
 NetApp E-Series Ansible 컬렉션에서 각 역할은 NetApp 솔루션 기반의 BeeGFS를 완벽하게 구축하는 데 있습니다. 이 역할은 NetApp E-Series SANtricity, 호스트 및 BeeGFS 컬렉션을 사용하여 HA(High Availability)를 통해 BeeGFS 파일 시스템을 구성할 수 있습니다. 그런 다음 스토리지를 프로비저닝하고 매핑하고 클러스터 스토리지를 사용할 준비가 되었는지 확인할 수 있습니다.
 
@@ -53,23 +53,19 @@ all:
     # Ansible group representing all block nodes:
     eseries_storage_systems:
       hosts:
-        ictad22a01:
-        ictad22a02:
-        ictad22a03:
-        ictad22a04:
-        ictad22a05:
-        ictad22a06:
+        netapp01:
+        netapp02:
     # Ansible group representing all file nodes:
     ha_cluster:
       children:
         meta_01:  # Group representing a metadata service with ID 01.
           hosts:
-            file_node_01:  # This service is preferred on the first file node.
-            file_node_02:  # And can failover to the second file node.
+            beegfs_01:  # This service is preferred on the first file node.
+            beegfs_02:  # And can failover to the second file node.
         meta_02:  # Group representing a metadata service with ID 02.
           hosts:
-            file_node_02:  # This service is preferred on the second file node.
-            file_node_01: # And can failover to the first file node.
+            beegfs_02:  # This service is preferred on the second file node.
+            beegfs_01: # And can failover to the first file node.
 ....
 각 서비스에 대해 해당 구성을 설명하는 group_vars 아래에 추가 파일이 생성됩니다.
 
@@ -81,21 +77,21 @@ beegfs_ha_beegfs_meta_conf_resource_group_options:
   tuneBindToNumaZone: 0
 floating_ips:
   - i1b: <IP>/<SUBNET_MASK>
-  - i4b: <IP>/<SUBNET_MASK>
+  - i2b: <IP>/<SUBNET_MASK>
 # Type of BeeGFS service the HA resource group will manage.
 beegfs_service: metadata # Choices: management, metadata, storage.
 # What block node should be used to create a volume for this service:
 beegfs_targets:
-  ictad22a01:
+  netapp01:
     eseries_storage_pool_configuration:
       - name: beegfs_m1_m2_m5_m6
         raid_level: raid1
         criteria_drive_count: 4
-        owning_controller: A
         common_volume_configuration:
           segment_size_kb: 128
         volumes:
           - size: 21.25
+            owning_controller: A
 ....
 이 레이아웃을 통해 각 리소스에 대한 BeeGFS 서비스, 네트워크 및 스토리지 구성을 단일 위치에서 정의할 수 있습니다. BeeGFS 역할은 이러한 인벤토리 구조를 기반으로 각 파일 및 블록 노드에 필요한 구성을 집계합니다. 자세한 내용은 다음 블로그 게시물을 참조하십시오. https://www.netapp.com/blog/accelerate-deployment-of-ha-for-beegfs-with-ansible/["NetApp은 Ansible을 사용하여 BeeGFS에 대한 HA 구축을 가속화합니다"^].
 

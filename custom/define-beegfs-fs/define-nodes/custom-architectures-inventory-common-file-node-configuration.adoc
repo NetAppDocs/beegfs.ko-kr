@@ -131,7 +131,7 @@ beegfs_ha_cluster_crm_config_options:
   stonith-enabled: True
 ----
 +
-... 지원되는 모든 사항을 기록해 둡니다 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["클러스터 속성"^] 필요한 경우 여기에서 지정할 수도 있습니다. BeeGFS HA 역할이 다양한 테스트를 거친 상태로 배송되므로 이러한 기능을 조정할 필요가 없습니다 link:https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54["기본값"^].
+... 참고 필요한 경우 여기에서 지원되는 모든 항목을 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["클러스터 속성"^] 지정할 수도 있습니다. BeeGFS HA의 역할은 잘 테스트된 많은 테스트를 거치므로 이러한 조정이 필요하지 않습니다. link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L54["기본값"^]
 
 
 .. 그런 다음 펜싱 에이전트를 선택하고 구성합니다.
@@ -165,19 +165,19 @@ beegfs_ha_fencing_agents:
       ip: <BMC_IP>
       <<: *redfish
 ----
-... 기타 펜싱 에이전트 구성에 대한 자세한 내용은 를 참조하십시오 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat 문서"^].
+... 다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat 문서"^]참조하십시오.
 
 
 
 
-. BeeGFS HA 역할은 다양한 튜닝 매개 변수를 적용하여 성능을 더욱 최적화할 수 있습니다. 여기에는 커널 메모리 활용도 최적화 및 블록 디바이스 입출력 등이 포함됩니다. 이 역할은 합당한 일련의 역할을 수행합니다 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106["기본값"^] NetApp E-Series 블록 노드에서 테스트를 기반으로 하지만 기본적으로 다음 사항을 지정하지 않으면 적용되지 않습니다.
+. BeeGFS HA 역할은 다양한 튜닝 매개 변수를 적용하여 성능을 더욱 최적화할 수 있습니다. 여기에는 커널 메모리 활용도 최적화 및 블록 디바이스 입출력 등이 포함됩니다. 이 역할은 NetApp E-Series 블록 노드를 사용한 테스트를 기반으로 하는 적절한 집합을 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L180["기본값"^] 제공하지만, 기본적으로 다음을 지정하지 않으면 적용되지 않습니다.
 +
 [source, yaml]
 ----
 beegfs_ha_enable_performance_tuning: True
 ----
 +
-.. 필요한 경우 여기에서 기본 성능 튜닝에 대한 변경 사항도 지정합니다. 전체 내용을 참조하십시오 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md["성능 튜닝 매개 변수"^] 설명서를 참조하십시오.
+.. 필요한 경우 여기에서 기본 성능 튜닝에 대한 변경 사항도 지정합니다. 자세한 내용은 전체 설명서를 link:https://github.com/NetApp/beegfs/blob/master/docs/beegfs_ha/performance_tuning.md["성능 튜닝 매개 변수"^] 참조하십시오.
 
 
 . BeeGFS 서비스에 사용되는 부동 IP 주소(논리 인터페이스라고도 함)가 파일 노드 간에 페일오버할 수 있도록 모든 네트워크 인터페이스의 이름이 일관되게 지정되어야 합니다. 기본적으로 네트워크 인터페이스 이름은 동일한 PCIe 슬롯에 네트워크 어댑터가 설치된 동일한 서버 모델에서도 일관된 이름을 생성한다는 보장이 없는 커널에 의해 생성됩니다. 이 기능은 장비를 구축하고 생성된 인터페이스 이름을 알 수 있도록 하기 전에 인벤토리를 생성할 때도 유용합니다. 서버 또는 의 블록 다이어그램을 기반으로 일관된 장치 이름을 보장합니다 `lshw  -class network -businfo` 출력에서 원하는 PCIe 주소-논리 인터페이스 매핑을 다음과 같이 지정합니다.
@@ -187,14 +187,14 @@ beegfs_ha_enable_performance_tuning: True
 [source, yaml]
 ----
 eseries_ipoib_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: i1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: i1a
 ----
 .. 이더넷 네트워크 인터페이스의 경우:
 +
 [source, yaml]
 ----
 eseries_ip_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: e1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: e1a
 ----
 +
 
@@ -206,7 +206,7 @@ NOTE: 검증된 파일 노드 모델을 사용하는 경우 를 클릭합니다 
 
 
 
-. 선택적으로 클러스터의 모든 BeeGFS 서비스에 적용할 구성을 지정합니다. 기본 설정 값을 찾을 수 있습니다 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159["여기"^], 및 서비스별 구성은 다른 곳에서 지정됩니다.
+. 선택적으로 클러스터의 모든 BeeGFS 서비스에 적용할 구성을 지정합니다. 기본 구성 값을 찾을 수 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["여기"^]있으며 서비스별 구성은 다른 곳에 지정됩니다.
 +
 .. BeeGFS 관리 서비스:
 +
@@ -236,7 +236,7 @@ beegfs_ha_beegfs_storage_conf_ha_group_options:
 .. 기본적으로 배포는 연결 인증을 자동으로 구성하고 을 생성합니다 `connauthfile` 모든 파일 노드에 배포되고 BeeGFS 서비스와 함께 사용됩니다. 이 파일은 또한 의 Ansible 제어 노드에 배치/유지됩니다 `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` 이 파일 시스템을 액세스해야 하는 클라이언트에서 재사용하기 위해 안전하게 유지해야 하는 경우
 +
 ... 새 키 지정을 생성하려면 다음을 지정합니다 `-e "beegfs_ha_conn_auth_force_new=True` Ansible 플레이북을 실행할 때, 참고 의 경우 이 작업은 무시됩니다 `beegfs_ha_conn_auth_secret` 정의됩니다.
-... 고급 옵션은 에 포함된 기본값 전체 목록을 참조하십시오 link:https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32["BeeGFS HA 역할입니다"^].
+... 고급 옵션은 에 포함된 전체 기본값 목록을 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L21["BeeGFS HA 역할입니다"^]참조하십시오.
 
 
 .. 에서 다음을 정의하여 사용자 지정 암호를 사용할 수 있습니다 `ha_cluster.yml`:
@@ -265,15 +265,15 @@ EF600에서 HDR(200GB) InfiniBand를 사용하려면 서브넷 관리자가 가�
 
 블록 및 파일 노드가 InfiniBand를 사용하여 직접 연결된 경우 의 인스턴스입니다 `opensm` 블록 노드에 직접 연결된 각 인터페이스에 대해 각 파일 노드에 구성되어야 합니다. 이 작업은 를 지정하여 수행합니다 `configure: true` 시기 link:custom-architectures-inventory-configure-file-nodes.html["파일 노드 스토리지 인터페이스를 구성하는 중입니다"^].
 
-현재 의 받은 편지함 버전입니다 `opensm` 지원되는 Linux 배포판과 함께 제공되지만 가상화를 지원하지 않습니다. 대신 의 버전을 설치하고 구성해야 합니다 `opensm` Mellanox OpenFabrics Enterprise Distribution(OFED)에서 Ansible을 사용한 구축도 여전히 지원되지만, 몇 가지 추가 단계가 필요합니다.
+현재 지원되는 Linux 배포판과 함께 제공된 의 받은 편지함 버전은 `opensm` 가상화를 지원하지 않습니다. 대신 OFED(NVIDIA OpenFabrics Enterprise Distribution)에서 의 버전을 설치하고 구성해야 `opensm` 합니다. Ansible을 사용한 구축도 여전히 지원되지만, 몇 가지 추가 단계가 필요합니다.
 
-. curl 또는 원하는 도구를 사용하여 에 나열된 OpenSM 버전의 패키지를 다운로드합니다 link:beegfs-technology-requirements.html["기술 요구 사항"^] 섹션을 Mellanox 웹 사이트에서 으로 이동합니다 `<INVENTORY>/packages/` 디렉토리. 예를 들면 다음과 같습니다.
+. curl 또는 원하는 툴을 사용하여 NVIDIA 웹 사이트에서 디렉토리로 섹션에 나열된 OpenSM 버전의 패키지를 다운로드합니다. link:beegfs-technology-requirements.html["기술 요구 사항"^] `<INVENTORY>/packages/` 예를 들면 다음과 같습니다.
 +
 [source, bash]
 ----
-curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
-curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 ----
 . 아래에서 `group_vars/ha_cluster.yml` 다음 구성을 정의합니다.
 +
@@ -287,12 +287,12 @@ eseries_ib_opensm_custom_packages:
   install:
     - files:
         add:
-          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
-          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
     - packages:
         add:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
   uninstall:
     - packages:
         remove:
@@ -300,8 +300,8 @@ eseries_ib_opensm_custom_packages:
           - opensm-libs
       files:
         remove:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
 eseries_ib_opensm_options:
   virt_enabled: "2"

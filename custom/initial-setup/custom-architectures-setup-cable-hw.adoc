@@ -37,7 +37,7 @@ CAUTION: 설치를 계속하기 전에 특정 BeeGFS 구축에 대해 원하는 
 
 단일 구성 요소 예:
 
-image:../media/buildingblock.png["구성 요소 예"]
+image:../media/buildingblock-sr665v3.png["구성 요소 예"]
 
 각 HA 클러스터에 여러 개의 구성 요소가 있고 파일 시스템에 여러 HA 클러스터가 있는 대규모 BeeGFS 설치의 예:
 

@@ -54,9 +54,9 @@ BeeGFS 모니터에 의해 페일오버가 트리거된 경우 오류가 표시�
 ----
 journalctl --since "<YYYY-MM-DD HH:MM:SS>" | grep -i unexpected
 [...]
-Jul 01 15:51:03 ictad22h01 pacemaker-schedulerd[9246]:  warning: Unexpected result (error: BeeGFS service is not active!) was recorded for monitor of meta_08-monitor on ictad22h02 at Jul  1 15:51:03 2022
+Jul 01 15:51:03 beegfs_01 pacemaker-schedulerd[9246]:  warning: Unexpected result (error: BeeGFS service is not active!) was recorded for monitor of meta_08-monitor on beegfs_02 at Jul  1 15:51:03 2022
 ----
-이 경우 BeeGFS 서비스 META_08이 어떤 이유로 중지되었습니다. 문제 해결을 계속하려면 ictad22h02를 부팅하고 의 서비스 로그를 검토해야 합니다 `/var/log/beegfs-meta-meta_08_tgt_0801.log`. 예를 들어, BeeGFS 서비스에서 노드의 내부 문제 또는 문제로 인해 애플리케이션 오류가 발생했을 수 있습니다.
+이 경우 BeeGFS 서비스 META_08이 어떤 이유로 중지되었습니다. 문제 해결을 계속하려면 beegfs_02를 부팅하고 에서 서비스에 대한 로그를 검토해야 합니다 `/var/log/beegfs-meta-meta_08_tgt_0801.log`. 예를 들어, BeeGFS 서비스에서 노드의 내부 문제 또는 문제로 인해 애플리케이션 오류가 발생했을 수 있습니다.
 
 
 TIP: 페이스 메이커의 로그와 달리 BeeGFS 서비스의 로그는 클러스터의 모든 노드에 배포되지 않습니다. 이러한 유형의 장애를 조사하려면 장애가 발생한 원래 노드의 로그가 필요합니다.
@@ -108,8 +108,8 @@ TIP: 페이스 메이커의 로그와 달리 BeeGFS 서비스의 로그는 클�
 ----
 journalctl --since "<YYYY-MM-DD HH:MM:SS>" | grep -i <HOSTNAME>
 [...]
-Jul 01 16:18:01 ictad22h01 pacemaker-attrd[9245]:  notice: Node ictad22h02 state is now lost
-Jul 01 16:18:01 ictad22h01 pacemaker-controld[9247]:  warning: Stonith/shutdown of node ictad22h02 was not expected
+Jul 01 16:18:01 beegfs_01 pacemaker-attrd[9245]:  notice: Node beegfs_02 state is now lost
+Jul 01 16:18:01 beegfs_01 pacemaker-controld[9247]:  warning: Stonith/shutdown of node beegfs_02 was not expected
 ----
 
 
@@ -119,17 +119,17 @@ Jul 01 16:18:01 ictad22h01 pacemaker-controld[9247]:  warning: Stonith/shutdown 
 
 [source, console]
 ----
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Cluster node ictad22h02 will be fenced: peer is no longer part of the cluster
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Node ictad22h02 is unclean
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Scheduling Node ictad22h02 for STONITH
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Cluster node beegfs_02 will be fenced: peer is no longer part of the cluster
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Node beegfs_02 is unclean
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Scheduling Node beegfs_02 for STONITH
 ----
 펜싱 작업이 성공적으로 완료되면 다음과 같은 메시지가 표시됩니다.
 
 [source, console]
 ----
-Jul 01 16:18:14 ictad22h01 pacemaker-fenced[9243]:  notice: Operation 'off' [2214070] (call 27 from pacemaker-controld.9247) for host 'ictad22h02' with device 'fence_redfish_2' returned: 0 (OK)
-Jul 01 16:18:14 ictad22h01 pacemaker-fenced[9243]:  notice: Operation 'off' targeting ictad22h02 on ictad22h01 for pacemaker-controld.9247@ictad22h01.786df3a1: OK
-Jul 01 16:18:14 ictad22h01 pacemaker-controld[9247]:  notice: Peer ictad22h02 was terminated (off) by ictad22h01 on behalf of pacemaker-controld.9247: OK
+Jul 01 16:18:14 beegfs_01 pacemaker-fenced[9243]:  notice: Operation 'off' [2214070] (call 27 from pacemaker-controld.9247) for host 'beegfs_02' with device 'fence_redfish_2' returned: 0 (OK)
+Jul 01 16:18:14 beegfs_01 pacemaker-fenced[9243]:  notice: Operation 'off' targeting beegfs_02 on beegfs_01 for pacemaker-controld.9247@beegfs_01.786df3a1: OK
+Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was terminated (off) by beegfs_01 on behalf of pacemaker-controld.9247: OK
 ----
 어떤 이유로 펜싱 작업이 실패한 경우 데이터 손상을 방지하기 위해 다른 노드에서 BeeGFS 서비스를 다시 시작할 수 없습니다. 예를 들어 펜싱 장치(PDU 또는 BMC)에 액세스할 수 없거나 잘못 구성된 경우 별도로 조사하는 것이 문제입니다.
 
@@ -153,7 +153,7 @@ BeeGFS 서비스를 실행하는 데 필요한 리소스에 장애가 발생하�
 
 [source, console]
 ----
-  * fence_redfish_2_monitor_60000 on ictad22h01 'not running' (7): call=2248, status='complete', exitreason='', last-rc-change='2022-07-26 08:12:59 -05:00', queued=0ms, exec=0ms
+  * fence_redfish_2_monitor_60000 on beegfs_01 'not running' (7): call=2248, status='complete', exitreason='', last-rc-change='2022-07-26 08:12:59 -05:00', queued=0ms, exec=0ms
 ----
 특정 노드에서 장애가 발생한 리소스 작업을 보고하는 펜싱 에이전트가 해당 노드에서 실행되는 BeeGFS 서비스의 페일오버를 트리거하지 않습니다. 동일한 노드 또는 다른 노드에서 자동으로 다시 시작하기만 하면 됩니다.
 

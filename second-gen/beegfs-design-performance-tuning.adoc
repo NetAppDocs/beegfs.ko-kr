@@ -32,20 +32,20 @@ BeeGFS가 즉시 사용 가능한 우수한 성능을 제공하기는 하지만,
 +
 ** BeeGFS 서비스 구성 매개 변수입니다
 +
-필요에 따라 구성 매개 변수의 기본 설정을 재정의할 수 있습니다. 특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 를 참조하십시오 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L155["BeeGFS 서비스 구성 매개 변수입니다"^].
+필요에 따라 구성 매개 변수의 기본 설정을 재정의할 수 있습니다. 특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 에서 확인하십시오. https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["BeeGFS 서비스 구성 매개 변수입니다"^]
 
 ** 볼륨 포맷팅 및 마운팅 매개 변수는 권장 기본값으로 설정되며 고급 사용 사례에만 조정해야 합니다. 기본값은 다음을 수행합니다.
 +
 *** 기본 볼륨의 RAID 구성 및 세그먼트 크기와 함께 타겟 유형(예: 관리, 메타데이터 또는 스토리지)을 기준으로 초기 볼륨 포맷을 최적화합니다.
 *** 심박동조율기가 각 볼륨을 마운트하는 방법을 조정하여 변경 사항이 즉시 E-시리즈 블록 노드로 플러시되도록 합니다. 이렇게 하면 활성 쓰기가 진행 중일 때 파일 노드가 실패할 때 데이터 손실을 방지할 수 있습니다.
 +
-특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 를 참조하십시오 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L258["볼륨 포맷 및 마운팅 구성 매개 변수"^].
+특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 에서 확인하십시오. https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L279["볼륨 포맷 및 마운팅 구성 매개 변수"^]
 
 
 
 
 
-. * 파일 노드에 설치된 Linux OS의 시스템 설정. * 의 4단계에서 Ansible 인벤토리를 작성할 때 기본 Linux OS 시스템 설정을 재정의할 수 있습니다 link:beegfs-deploy-beegfs-general-config.html["Ansible 인벤토리를 작성합니다"].
+. * 파일 노드에 설치된 Linux OS의 시스템 설정. * 의 4단계에서 Ansible 인벤토리를 생성할 때 기본 Linux OS 시스템 설정을 재정의할 수 link:beegfs-deploy-create-inventory.html["Ansible 인벤토리를 작성합니다"]있습니다.
 +
 기본 설정을 사용하여 NetApp 기반 BeeGFS 솔루션을 검증했지만 특정 워크로드 또는 사용 사례에 맞게 수정할 수 있습니다. 변경할 수 있는 Linux OS 시스템 설정의 예는 다음과 같습니다.
 
@@ -71,7 +71,7 @@ BeeGFS 타겟으로 사용되는 E-Series 블록 디바이스에서 I/O 큐를 �
 
 ** 읽기 요청 크기입니다.
 +
-Mellanox HCA의 최대 읽기 요청 크기를 늘릴 수 있습니다.
+NVIDIA HCA에 대한 최대 읽기 요청 크기를 늘릴 수 있습니다.
 
 
 

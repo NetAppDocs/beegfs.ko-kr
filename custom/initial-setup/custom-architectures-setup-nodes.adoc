@@ -52,7 +52,7 @@ RedHat 서브스크립션 관리자를 사용하여 시스템을 등록 및 구�
 고가용성을 위해 필요한 패키지가 포함된 Red Hat 리포지토리를 활성화합니다.
 
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
 
 

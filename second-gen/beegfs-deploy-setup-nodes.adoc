@@ -22,7 +22,7 @@ summary: '각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워
 
 . 각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성합니다.
 +
-검증된 Lenovo SR665 파일 노드의 네트워킹을 구성하는 방법은 를 참조하십시오 https://thinksystem.lenovofiles.com/help/index.jsp?topic=%2F7D2W%2Fset_the_network_connection.html["Lenovo ThinkSystem 설명서"^].
+검증된 Lenovo SR665 V3 파일 노드에 대한 네트워킹을 구성하는 방법은 을 참조하십시오 https://pubs.lenovo.com/sr665-v3/["Lenovo ThinkSystem 설명서"^].
 
 +
 
@@ -35,7 +35,7 @@ UEFI 설정(이전의 BIOS)을 사용하거나 많은 BMC에서 제공하는 Red
 +
 검증된 Lenovo SR665 파일 노드에 대한 시스템 설정을 구성하는 방법은 을 참조하십시오 link:beegfs-deploy-file-node-tuning.html["성능을 위해 시스템 설정을 조정합니다"].
 
-. Red Hat 8.4를 설치하고 Ansible 제어 노드의 SSH 연결을 포함하여 운영 체제를 관리하는 데 사용되는 호스트 이름과 네트워크 포트를 구성합니다.
+. Red Hat 9.3를 설치하고 Ansible 제어 노드의 SSH 연결을 포함하여 운영 체제를 관리하는 데 사용되는 호스트 이름과 네트워크 포트를 구성합니다.
 +
 지금은 InfiniBand 포트에 IP를 구성하지 마십시오.
 
@@ -43,15 +43,15 @@ UEFI 설정(이전의 BIOS)을 사용하거나 많은 BMC에서 제공하는 Red
 
 NOTE: 엄밀히 요구되지는 않지만, 이후의 섹션에서는 호스트 이름이 순차적으로 번호가 매겨진 것으로 간주하고(예: h1-hn) 홀수 호스트와 짝수 번호의 호스트에서 완료해야 하는 작업을 참조합니다.
 
-. RedHat 서브스크립션 관리자를 사용하여 공식 Red Hat 리포지토리에서 필수 패키지 설치를 허용하고 지원되는 Red Hat 버전('Ssubscription-manager release-set=8.4')으로 업데이트를 제한하려면 시스템을 등록하고 가입합니다. 자세한 내용은 을 참조하십시오 https://access.redhat.com/solutions/253273["RHEL 시스템을 등록하고 가입하는 방법"^] 및  https://access.redhat.com/solutions/2761031["업데이트 제한 방법"^].
+. RedHat Subscription Manager를 사용하여 공식 Red Hat 리포지토리에서 필요한 패키지 설치를 허용하고 지원되는 버전의 Red Hat으로 업데이트를 제한하려면 시스템을 등록하고 구독하십시오 `subscription-manager release --set=9.3`. 자세한 내용은 및 을 https://access.redhat.com/solutions/253273["RHEL 시스템을 등록하고 가입하는 방법"^]  https://access.redhat.com/solutions/2761031["업데이트 제한 방법"^]참조하십시오.
 . 고가용성을 위해 필요한 패키지가 포함된 Red Hat 리포지토리를 활성화합니다.
 +
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 모든 ConnectX-6 HCA 펌웨어를 에서 권장하는 버전으로 업데이트합니다 link:beegfs-technology-requirements.html["기술 요구 사항"].
+. 모든 HCA 펌웨어를 에서 권장하는 버전으로 link:beegfs-technology-requirements.html["기술 요구 사항"]업데이트합니다.
 +
-이 업데이트는 권장 펌웨어를 번들로 제공하는 mlxup 도구 버전을 다운로드하여 실행하면 됩니다. 이 도구는 에서 다운로드할 수 있습니다 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup - 업데이트 및 쿼리 유틸리티"^] (link:https://docs.nvidia.com/networking/display/MLXUPFWUTILITY/mlxup+-+Firmware+Utility+User+Guide["사용 설명서"^])를 클릭합니다.
+이 업데이트는 권장 펌웨어를 번들로 제공하는 mlxup 도구 버전을 다운로드하여 실행하면 됩니다. 이 도구는 ( )에서 다운로드할 수 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup - 업데이트 및 쿼리 유틸리티"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["사용 설명서"^]있습니다.
 
 
 

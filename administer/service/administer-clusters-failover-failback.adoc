@@ -97,23 +97,23 @@ pcs resource relocate run
 
 개별 BeeGFS 서비스에 대해 선호하는 파일 노드를 영구적으로 변경하려면 선호하는 노드가 먼저 나열되도록 Ansible 인벤토리를 조정하고 Ansible 플레이북을 다시 실행하십시오.
 
-예를 들어, 이 샘플에서 사용할 수 있습니다 `inventory.yml` 파일, ictad22h01은 BeeGFS 관리 서비스를 실행하는 기본 파일 노드입니다.
+예를 들어, 이 샘플 `inventory.yml` 파일에서 beegfs_01은 BeeGFS 관리 서비스를 실행하는 데 사용되는 파일 노드입니다.
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h01:
-            ictad22h02:
+            beegfs_01:
+            beegfs_02:
 ----
-순서를 반대로 하면 ictad22h02에서 관리 서비스가 선호됩니다.
+순서를 반대로 하면 beegfs_02에서 관리 서비스가 선호됩니다.
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h02:
-            ictad22h01:
+            beegfs_02:
+            beegfs_01:
 ----
 
 
@@ -128,7 +128,7 @@ pcs resource relocate run
 pcs resource move <SERVICE>-monitor <HOSTNAME>
 ----
 
-WARNING: 개별 리소스 또는 리소스 그룹을 지정하지 마십시오. 재배치할 BeeGFS 서비스에 대한 모니터 이름을 항상 지정합니다. 예를 들어 BeeGFS 관리 서비스를 ictad22h02로 이동하려면 다음을 실행합니다. `pcs resource move mgmt-monitor ictad22h02`. 이 프로세스를 반복하여 하나 이상의 서비스를 원하는 노드에서 이동할 수 있습니다. 를 사용하여 확인합니다 `pcs status` 서비스가 새 노드에서 재배치/시작되었습니다.
+WARNING: 개별 리소스 또는 리소스 그룹을 지정하지 마십시오. 재배치할 BeeGFS 서비스에 대한 모니터 이름을 항상 지정합니다. 예를 들어 BeeGFS 관리 서비스를 beegfs_02 실행으로 이동하려면 다음을 실행합니다 `pcs resource move mgmt-monitor beegfs_02`. 이 프로세스를 반복하여 하나 이상의 서비스를 원하는 노드에서 이동할 수 있습니다. 서비스를 사용하여 새 노드에서 재배치/시작되었는지 `pcs status` 확인합니다.
 
 BeeGFS 서비스를 기본 노드로 다시 이동하려면 먼저 임시 리소스 제약 조건을 해제합니다(여러 서비스에 필요한 경우 이 단계를 반복).
 

@@ -86,11 +86,11 @@ BeeGFS 자체는 <major>.<minor>.<patch> 버전 관리 체계에 따라 버전�
 
 === BeeGFS 파일 노드
 
-파일 노드는 RedHat 8.4를 실행하고 필수 패키지(페이스 메이커, Corosync, Fence-agent-all, resource-agent)가 포함된 HA 리포지토리에 액세스할 수 있어야 합니다. 예를 들어 다음 명령을 실행하여 RedHat 8에서 적절한 리포지토리를 활성화할 수 있습니다.
+파일 노드는 RedHat 9.3를 실행하고 필수 패키지(페이스 메이커, Corosync, Fence-agent-all, resource-agent)가 포함된 HA 리포지토리에 액세스할 수 있어야 합니다. 예를 들어 다음 명령을 실행하여 RedHat 9에서 적절한 리포지토리를 활성화할 수 있습니다.
 
 [source, bash]
 ----
-subscription-manager repo-override repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ----
 
 

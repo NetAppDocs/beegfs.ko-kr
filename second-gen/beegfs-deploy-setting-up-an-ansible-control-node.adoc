@@ -16,19 +16,19 @@ summary: Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 
 [role="lead"]
 Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 사용할 수 있는 모든 파일 및 블록 노드의 관리 포트에 대한 네트워크 액세스를 갖춘 가상 머신 또는 물리적 머신을 식별해야 합니다.
 
-다음 단계는 CentOS 8.4에서 테스트되었습니다. 선호하는 Linux 배포판에 대한 단계는 를 참조하십시오 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible 설명서"^].
+다음 단계는 Ubuntu 22.04에서 테스트되었습니다. 선호하는 Linux 배포와 관련된 단계는 를 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible 설명서"^]참조하십시오.
 
-. Python 3.9를 설치하고 올바른 버전의 PIP가 설치되어 있는지 확인합니다.
+. Python 3.10을 설치하고 올바른 버전의 이 `pip` 설치되어 있는지 확인합니다.
 +
 ....
-sudo dnf install python3.9 -y
-sudo dnf install python39-pip
-sudo dnf install sshpass
+sudo apt install python3.10 -y
+sudo apt install python3-pip
+sudo apt install sshpass
 ....
-. 심볼 링크를 생성하여 'python3' 또는 'python'이 호출될 때마다 Python 3.9 바이너리가 사용되도록 합니다.
+. 심볼릭 링크를 생성하여 파이썬 3.10 바이너리가 호출되거나 호출될 때마다 `python3` `python` 사용되도록 합니다.
 +
 ....
-sudo ln -sf /usr/bin/python3.9 /usr/bin/python3
+sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
 sudo ln -sf /usr/bin/python3 /usr/bin/python
 ....
 . NetApp BeeGFS 컬렉션에 필요한 Python 패키지를 설치합니다.
@@ -44,20 +44,20 @@ NOTE: 지원되는 Ansible 버전과 필요한 모든 Python 패키지를 설치
 +
 ....
 ansible --version
-ansible [core 2.11.6]
+ansible [core 2.17.2]
   config file = None
   configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.9/site-packages/ansible
+  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
   ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
   executable location = /usr/local/bin/ansible
-  python version = 3.9.2 (default, Mar 10 2021, 17:29:56) [GCC 8.4.1 20200928 (Red Hat 8.4.1-1)]
-  jinja version = 3.0.2
+  python version = 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] (/usr/bin/python3)
+  jinja version = 3.1.4
   libyaml = True
 ....
 . Git 또는 BitBucket과 같은 소스 제어 시스템에 BeeGFS 구축을 설명하는 데 사용되는 Ansible 인벤토리를 저장한 다음 Git를 설치하여 이러한 시스템과 상호 작용합니다.
 +
 ....
-sudo dnf install git -y
+sudo apt install git -y
 ....
 . 암호 없는 SSH를 설정합니다. 이는 Ansible에서 Ansible 제어 노드의 원격 BeeGFS 파일 노드에 액세스할 수 있는 가장 쉬운 방법입니다.
 +
@@ -74,6 +74,6 @@ sudo dnf install git -y
 
 +
 ....
-ansible-galaxy collection install netapp_eseries.beegfs:==3.0.1
+ansible-galaxy collection install netapp_eseries.beegfs:==3.2.0
 ....
 
