@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-file-node-tuning.html 
+permalink: second-gen/beegfs-deploy-file-node-tuning.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다. 
 ---
@@ -10,7 +10,7 @@ summary: 성능을 최대화하려면 파일 노드로 사용하는 서버 모�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

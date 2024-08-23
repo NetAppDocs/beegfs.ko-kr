@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-hardware-architecture.html 
+permalink: second-gen/beegfs-design-hardware-architecture.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp의 BeeGFS에 대한 하드웨어 구성에는 파일 노드 및 네트워크 케이블 연결이 포함됩니다. 
 ---
@@ -10,7 +10,7 @@ summary: NetApp의 BeeGFS에 대한 하드웨어 구성에는 파일 노드 및 
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -26,7 +26,7 @@ InfiniBand 어댑터는 적절한 PCI 라이저 또는 슬롯에 설치되어야
 
 다음 그림에서는 파일 노드 NUMA 구성을 보여 줍니다.
 
-image:../media/beegfs-design-image5-small.png[""]
+image:beegfs-design-image5-small.png["NUMA 구성"]
 
 BeeGFS 프로세스는 사용된 인터페이스가 동일한 존에 있도록 특정 NUMA 존에 고정됩니다. 이렇게 구성하면 소켓 간 연결을 통한 원격 액세스가 필요하지 않습니다. 소켓 간 연결은 QPI 또는 GMI2 링크라고도 합니다. 최신 프로세서 아키텍처에서도 HDR InfiniBand와 같은 고속 네트워킹을 사용할 때 병목 현상이 발생할 수 있습니다.
 
@@ -44,7 +44,7 @@ BeeGFS 프로세스는 사용된 인터페이스가 동일한 존에 있도록 �
 * NUMA 노드 1의 포트는 두 번째 블록 노드에 연결됩니다.
 
 
-image:../media/beegfs-design-image6.png[""]
+image:beegfs-design-image6.png["네트워크 케이블 연결"]
 
 
 NOTE: Splitter 케이블을 사용하여 스토리지 스위치를 파일 노드에 연결하는 경우 케이블 하나가 분기되어 밝은 녹색으로 표시된 포트에 연결해야 합니다. 다른 케이블이 나와서 어두운 녹색으로 표시된 포트에 연결해야 합니다. 또한 중복 스위치가 있는 스토리지 네트워크의 경우 연한 녹색으로 표시된 포트가 하나의 스위치에 연결되고 진한 녹색의 포트는 다른 스위치에 연결해야 합니다.
@@ -61,6 +61,6 @@ PCIe 양방향 대역폭을 최대한 활용하려면 각 InfiniBand 어댑터�
 
 다음 그림은 전체 PCIe 양방향 대역폭을 활용하는 데 사용되는 케이블링 설계를 보여줍니다.
 
-image:../media/beegfs-design-image7.png[""]
+image:beegfs-design-image7.png["HCA 양방향 대역폭"]
 
 각 BeeGFS 서비스에 대해 동일한 어댑터를 사용하여 클라이언트 트래픽에 사용되는 기본 포트를 해당 서비스 볼륨의 기본 소유자인 블록 노드 컨트롤러의 경로와 연결합니다. 자세한 내용은 을 참조하십시오 link:beegfs-design-software-architecture.html["소프트웨어 구성"].

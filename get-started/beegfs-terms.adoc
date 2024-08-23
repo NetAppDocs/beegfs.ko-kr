@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-terms.html 
+permalink: get-started/beegfs-terms.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp 솔루션의 BeeGFS에 적용되는 용어 및 개념 
 ---
@@ -10,14 +10,14 @@ summary: NetApp 솔루션의 BeeGFS에 적용되는 용어 및 개념
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
 다음 용어와 개념은 NetApp 기반 BeeGFS 솔루션에 적용됩니다.
 
 
-TIP: 를 참조하십시오 link:administer-clusters-overview.html["BeeGFS 클러스터 관리"] BeeGFS HA(고가용성) 클러스터와의 상호 작용과 관련된 용어 및 개념에 대한 자세한 내용은 섹션을 참조하십시오.
+TIP: link:../administer/clusters-overview.html["BeeGFS 클러스터 관리"]BeeGFS 고가용성(HA) 클러스터와 상호 작용하는 것과 관련된 용어 및 개념에 대한 자세한 내용은 섹션을 참조하십시오.
 
 [cols="25h,~"]
 |===

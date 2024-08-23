@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-high-capacity-building-block.html 
+permalink: second-gen/beegfs-deploy-high-capacity-building-block.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
 summary: 대용량 구성 요소를 위한 구축 변형 
 ---
@@ -10,13 +10,13 @@ summary: 대용량 구성 요소를 위한 구축 변형
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
 표준 BeeGFS 솔루션 구축 가이드에서는 고성능 워크로드 요구 사항에 대한 절차 및 권장 사항을 간략하게 설명합니다. 고용량 요구 사항을 충족하려는 고객은 여기에 설명된 구축 및 권장 사항의 변화를 관찰해야 합니다.
 
-image:high-capacity-rack-diagram.png[""]
+image:high-capacity-rack-diagram.png["대용량 랙 다이어그램"]
 
 
 
@@ -32,7 +32,7 @@ File Node to Block 노드 구성은 동일하게 유지됩니다.
 
 BeeGFS 메타데이터 스토리지를 위해 각 블록 노드에 최소 4개의 NVMe SSD가 필요합니다. 이러한 드라이브는 인클로저의 가장 바깥쪽 슬롯에 위치해야 합니다.
 
-image:high-capacity-drive-slots-diagram.png[""]
+image:high-capacity-drive-slots-diagram.png["고용량 드라이브 슬롯 다이어그램"]
 
 
 

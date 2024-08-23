@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-setup-nodes.html 
+permalink: second-gen/beegfs-deploy-setup-nodes.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: '각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성하고 각 컨트롤러의 관리 포트를 구성합니다.' 
 ---
@@ -10,7 +10,7 @@ summary: '각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

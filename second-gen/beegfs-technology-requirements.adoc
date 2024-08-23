@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-technology-requirements.html 
+permalink: second-gen/beegfs-technology-requirements.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp 기반의 BeeGFS 솔루션을 구축하려면 해당 환경이 기술 요구사항을 충족하는지 확인하십시오. 
 ---
@@ -10,7 +10,7 @@ summary: NetApp 기반의 BeeGFS 솔루션을 구축하려면 해당 환경이 �
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -30,7 +30,7 @@ NetApp 기반 BeeGFS 솔루션을 구현하려면 사용 환경이 본 문서에
  a| 
 2
  a| 
-[[beegfs-file-nodes]] BeeGFS 파일 노드
+BeeGFS 파일 노드
  a| 
 각 파일 노드가 권장 파일 노드의 사양을 충족하거나 초과해야 예상 성능을 얻을 수 있습니다.
 
@@ -70,12 +70,12 @@ NetApp 기반 BeeGFS 솔루션을 구현하려면 사용 환경이 본 문서에
 
 
 
-| 2 | [[eseries-block-nodes]] E-Series 블록 노드(EF600 어레이)  a| 
-* 메모리: * 256GB(컨트롤러당 128GB). * 어댑터: * 2포트 200GB/HDR(NVMe/IB). * 드라이브: * 원하는 용량에 맞게 구성됩니다.
+| 2 | E-Series 블록 노드(EF600 어레이)  a| 
+* 메모리: * 256GB(컨트롤러당 128GB). * 어댑터: * 2포트 200GB/HDR(NVMe/IB). * 드라이브: * 원하는 메타데이터 및 스토리지 용량에 맞게 구성됩니다.
 
 
 
-| 8 | [[InfiniBand-Adapters]] InfiniBand 호스트 카드 어댑터(파일 노드용).  a| 
+| 8 | InfiniBand 호스트 카드 어댑터(파일 노드용)  a| 
 호스트 카드 어댑터는 파일 노드에 사용되는 서버 모델에 따라 다릅니다. 검증된 파일 노드에 대한 권장 사항은 다음과 같습니다.
 
 * * Lenovo ThinkSystem SR665 V3 서버: *
@@ -104,7 +104,7 @@ NetApp 기반 BeeGFS 솔루션을 구현하려면 사용 환경이 본 문서에
 
 === 케이블 요구 사항
 
-[block-file-cables] * 블록 노드에서 파일 노드로 직접 연결 *
+* 블록 노드에서 파일 노드로 직접 연결. *
 
 [cols="10%,70%,20%"]
 |===
@@ -113,7 +113,7 @@ NetApp 기반 BeeGFS 솔루션을 구현하려면 사용 환경이 본 문서에
 
 | 8 | MCP1650-H001E30(NVIDIA 패시브 구리 케이블, QSFP56, 200GB/s) | 1m 
 |===
-[FILE-SWITCH-Cables] * 파일 노드에서 스토리지 네트워크 스위치로의 연결 * InfiniBand 스토리지 스위치에 따라 아래 표에서 해당 케이블 옵션을 선택하십시오. + 권장 케이블 길이는 2m 이지만 고객의 환경에 따라 달라질 수 있습니다.
+* 파일 노드에서 스토리지 네트워크 스위치로의 연결. * InfiniBand 스토리지 스위치에 따라 다음 표에서 해당 케이블 옵션을 선택합니다. + 권장 케이블 길이는 2m 이지만 고객의 환경에 따라 달라질 수 있습니다.
 
 [cols="20%,10%,15%,55%"]
 |===

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-hardware.html 
+permalink: second-gen/beegfs-deploy-hardware.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: '각 구성 요소는 HDR(200GB) InfiniBand를 사용하여 2개의 NetApp 블록 노드에 직접 연결된 검증된 x86 파일 노드 2개로 구성됩니다.' 
 ---
@@ -10,7 +10,7 @@ summary: '각 구성 요소는 HDR(200GB) InfiniBand를 사용하여 2개의 Net
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -33,7 +33,7 @@ BeeGFS 메타데이터와 스토리지 서비스를 모두 실행하는 데 사�
 두 개의 BeeGFS 파일 노드가 BeeGFS 블록 노드 위에 있도록 구성 요소를 랙에 설치하십시오. 다음 그림은 Lenovo ThinkSystem SR665 V3 서버를 파일 노드로 사용하는 BeeGFS 구성 요소의 올바른 하드웨어 구성을 보여줍니다(후면).
 
 +
-image:../media/buildingblock-sr665v3.png[""]
+image:buildingblock-sr665v3.png["구성 요소"]
 
 +
 
@@ -44,13 +44,13 @@ NOTE: 운영 활용 사례에 대한 전원 공급 장치 구성은 일반적으
 .. 빌딩 블록을 사용하여 BeeGFS 메타데이터 및 스토리지 서비스를 실행하고 작은 드라이브를 메타데이터 볼륨에 사용하는 경우 아래 그림과 같이 가장 바깥쪽 드라이브 슬롯에 채워졌는지 확인합니다.
 .. 모든 구성 요소 구성에서 드라이브 엔클로저가 완전히 채워지지 않은 경우 최적의 성능을 위해 슬롯 0–11 및 12–23에 동일한 수의 드라이브가 채워졌는지 확인하십시오.
 +
-image:../media/driveslots.png[""]
+image:driveslots.png["EF600 드라이브 슬롯"]
 
 
 
 . 다음 그림에 표시된 토폴로지와 일치하도록 를 사용하여 블록 및 파일 노드를 link:beegfs-technology-requirements.html#block-file-cables["1m InfiniBand HDR 200GB 직접 연결 구리 케이블"]연결합니다.
 +
-image:../media/directattachcable-sr665v3.png[""]
+image:directattachcable-sr665v3.png["SR665V3 직접 연결 케이블"]
 
 +
 
@@ -64,7 +64,7 @@ Splitter 케이블을 사용하여 스토리지 스위치를 파일 노드에 �
 또한 중복 스위치가 있는 스토리지 네트워크의 경우 연한 녹색으로 표시된 포트가 하나의 스위치에 연결되고 진한 녹색의 포트는 다른 스위치에 연결해야 합니다.
 
 +
-image:../media/networkcable.png[""]
+image:networkcable-sr665v3.png["스토리지 네트워크 케이블 연결"]
 
 . 필요한 경우 동일한 케이블 연결 지침에 따라 추가 구성 요소를 조립합니다.
 +

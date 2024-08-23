@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-learn-ansible.html 
+permalink: second-gen/beegfs-deploy-learn-ansible.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 구축을 시작하기 전에, Ansible을 사용하여 2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 솔루션에서 BeeGFS를 구성 및 구축하는 방법을 이해해야 합니다. 
 ---
@@ -10,7 +10,7 @@ summary: 구축을 시작하기 전에, Ansible을 사용하여 2세대 BeeGFS �
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

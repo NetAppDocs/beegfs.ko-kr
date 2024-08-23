@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-playbook.html 
+permalink: second-gen/beegfs-deploy-playbook.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 구성 배포 및 관리에는 Ansible이 실행해야 하는 작업이 포함된 하나 이상의 플레이북을 실행해야 전체 시스템을 원하는 상태로 되돌릴 수 있습니다. 
 ---
@@ -10,7 +10,7 @@ summary: 구성 배포 및 관리에는 Ansible이 실행해야 하는 작업이
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -103,7 +103,7 @@ ansible-playbook -i inventory.yml playbook.yml --forks 20
 ....
 +
 
-NOTE: 특히 대규모 배포의 경우 Ansible에서 병렬로 구성하는 호스트의 수를 늘리려면 '포크' 매개 변수를 사용하여 기본 포크 수(5)를 재정의하는 것이 좋습니다. (자세한 내용은 을 참조하십시오  https://www.ansible.com/blog/ansible-performance-tuning["Ansible 성능 조정"^] 및 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["플레이북 실행 제어"^]참조) 최대 값 설정은 Ansible 컨트롤 노드에서 사용할 수 있는 처리 능력에 따라 달라집니다. 위의 20개 예는 CPU 4개(인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz)가 장착된 가상 Ansible 컨트롤 노드에서 실행되었습니다.
+NOTE: 대규모 배포의 경우 `forks` 매개 변수를 사용하여 기본 포크 수(5)를 재정의하면 Ansible이 병렬로 구성하는 호스트 수를 늘리는 것이 좋습니다. (자세한 내용은 을 참조하십시오 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["플레이북 실행 제어"^].) 최대값 설정은 Ansible 제어 노드에서 사용할 수 있는 처리 능력에 따라 다릅니다. 위의 20개 예는 CPU 4개(인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz)가 장착된 가상 Ansible 컨트롤 노드에서 실행되었습니다.
 
 +
 Ansible 제어 노드와 BeeGFS 파일 및 블록 노드 간의 구축 및 네트워크 성능 크기에 따라 구축 시간이 달라질 수 있습니다.

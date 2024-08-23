@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-setting-up-an-ansible-control-node.html 
+permalink: second-gen/beegfs-deploy-setting-up-an-ansible-control-node.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 사용할 수 있는 모든 파일 및 블록 노드의 관리 포트에 대한 네트워크 액세스를 갖춘 가상 머신 또는 물리적 머신을 식별합니다. 
 ---
@@ -10,7 +10,7 @@ summary: Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

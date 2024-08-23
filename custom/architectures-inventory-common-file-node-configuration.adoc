@@ -1,0 +1,309 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-inventory-common-file-node-configuration.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: '그룹 변수(group_vars)를 사용하여 일반 파일 노드 구성을 지정합니다.' 
+---
+= 일반 파일 노드 구성을 지정합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+그룹 변수(group_vars)를 사용하여 일반 파일 노드 구성을 지정합니다.
+
+
+
+== 개요
+
+모든 파일 노드에 대해 사과해야 하는 구성은 에 정의되어 있습니다 `group_vars/ha_cluster.yml`. 일반적으로 다음과 같은 기능이 있습니다.
+
+* 각 파일 노드에 연결 및 로그인하는 방법에 대한 세부 정보
+* 공통 네트워킹 구성
+* 자동 재부팅이 허용되는지 여부
+* 방화벽 및 SELinux 상태를 구성하는 방법
+* 경고 및 펜싱을 포함한 클러스터 구성
+* 성능 튜닝:
+* 공통 BeeGFS 서비스 구성
+
+
+
+NOTE: 이 파일에 설정된 옵션은 혼합 하드웨어 모델을 사용 중이거나 각 노드에 대해 다른 암호를 사용하는 경우와 같이 개별 파일 노드에서도 정의할 수 있습니다. 개별 파일 노드의 구성은 이 파일의 구성보다 우선합니다.
+
+
+
+== 단계
+
+파일을 만듭니다 `group_vars/ha_cluster.yml` 다음과 같이 채웁니다.
+
+. Ansible Control 노드가 원격 호스트에서 인증해야 하는 방법을 나타냅니다.
++
+[source, yaml]
+----
+ansible_ssh_user: root
+ansible_become_password: <PASSWORD>
+----
++
+
+WARNING: 특히 프로덕션 환경에서는 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["Ansible Vault로 콘텐츠 암호화"^]) 또는 을 누릅니다 `--ask-become-pass` 옵션을 클릭합니다. 를 누릅니다 `ansible_ssh_user` 이(가) 이미 루트이므로 필요에 따라 를 생략할 수 있습니다 `ansible_become_password`.
+
+. 이더넷 또는 InfiniBand 인터페이스(예: 클러스터 IP)에서 정적 IP를 구성하고 여러 인터페이스가 동일한 IP 서브넷에 있는 경우(예: ib0이 192.168.1.10/24를 사용하고 ib1이 192.168.1.11/24를 사용 중인 경우) 멀티홈 지원이 제대로 작동하려면 추가 IP 라우팅 테이블 및 규칙을 설정해야 합니다. 다음과 같이 제공된 네트워크 인터페이스 구성 후크를 활성화하기만 하면 됩니다.
++
+[source, yaml]
+----
+eseries_ip_default_hook_templates:
+  - 99-multihoming.j2
+----
+. 클러스터를 구축할 때 스토리지 프로토콜에 따라 노드를 재부팅하여 원격 블록 장치(E-Series 볼륨)를 쉽게 검색하거나 다른 구성 요소를 적용해야 할 수 있습니다. 기본적으로 노드를 재부팅하기 전에 프롬프트가 표시되지만 다음을 지정하여 노드를 자동으로 다시 시작할 수 있습니다.
++
+[source, yaml]
+----
+eseries_common_allow_host_reboot: true
+----
++
+.. 재부팅 후 기본적으로 블록 장치 및 기타 서비스가 준비되도록 하려면 Ansible이 시스템이 준비될 때까지 기다립니다 `default.target` 에 도달한 후 배포를 계속합니다. NVMe/IB가 사용 중인 일부 시나리오에서는 이 시간이 부족하여 원격 장치를 초기화, 검색 및 연결할 수 없습니다. 이로 인해 자동화된 배포가 조기에 계속 진행되어 실패할 수 있습니다. NVMe/IB를 사용할 때 이를 방지하려면 다음을 정의합니다.
++
+[source, yaml]
+----
+eseries_common_reboot_test_command: "! systemctl status eseries_nvme_ib.service || systemctl --state=exited | grep eseries_nvme_ib.service"
+----
+
+
+. BeeGFS 및 HA 클러스터 서비스가 통신하려면 다양한 방화벽 포트가 필요합니다. 첫 번째 명령을 수동으로 구성하지 않는 한(권장하지 않음) 필요한 방화벽 영역을 만들고 포트를 자동으로 열리도록 다음을 지정합니다.
++
+[source, yaml]
+----
+beegfs_ha_firewall_configure: True
+----
+. 이때 SELinux는 지원되지 않으며, 특히 RDMA를 사용하는 경우 충돌을 피하기 위해 상태를 비활성화로 설정하는 것이 좋습니다. SELinux가 비활성화되었는지 확인하려면 다음을 설정합니다.
++
+[source, yaml]
+----
+eseries_beegfs_ha_disable_selinux: True
+eseries_selinux_state: disabled
+----
+. 파일 노드가 통신할 수 있도록 인증을 구성하고 조직의 정책에 따라 필요에 따라 기본값을 조정합니다.
++
+[source, yaml]
+----
+beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
+beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
+beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
+beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.
+----
+. link:architectures-plan-file-system.html["파일 시스템 계획"^]섹션을 기반으로 이 파일 시스템에 대한 BeeGFS 관리 IP를 지정합니다.
++
+[source, yaml]
+----
+beegfs_ha_mgmtd_floating_ip: <IP ADDRESS>
+----
++
+
+NOTE: 중복된 것처럼 보이지만 BeeGFS 파일 시스템을 단일 HA 클러스터 이상으로 확장하는 경우 "begfs_ha_mgmtd_floating_ip"가 중요합니다. 이후 HA 클러스터는 추가 BeeGFS 관리 서비스 없이 구축되고 첫 번째 클러스터에서 제공하는 관리 서비스를 가리키도록 구축됩니다.
+
+. 원하는 경우 e-메일 알림 활성화:
++
+[source, yaml]
+----
+beegfs_ha_enable_alerts: True
+# E-mail recipient list for notifications when BeeGFS HA resources change or fail.
+beegfs_ha_alert_email_list: ["<EMAIL>"]
+# This dictionary is used to configure postfix service (/etc/postfix/main.cf) which is required to set email alerts.
+beegfs_ha_alert_conf_ha_group_options:
+      # This parameter specifies the local internet domain name. This is optional when the cluster nodes have fully qualified hostnames (i.e. host.example.com)
+      mydomain: <MY_DOMAIN>
+beegfs_ha_alert_verbosity: 3
+#  1) high-level node activity
+#  3) high-level node activity + fencing action information + resources (filter on X-monitor)
+#  5) high-level node activity + fencing action information + resources
+----
+. 펜싱을 사용하는 것이 좋습니다. 그렇지 않으면 기본 노드에 장애가 발생할 때 보조 노드에서 서비스가 시작되지 않도록 차단할 수 있습니다.
++
+.. 다음을 지정하여 펜싱을 전역적으로 활성화합니다.
++
+[source, yaml]
+----
+beegfs_ha_cluster_crm_config_options:
+  stonith-enabled: True
+----
++
+... 참고 필요한 경우 여기에서 지원되는 모든 항목을 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["클러스터 속성"^] 지정할 수도 있습니다. BeeGFS HA의 역할은 잘 테스트된 많은 테스트를 거치므로 이러한 조정이 필요하지 않습니다. link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L54["기본값"^]
+
+
+.. 그런 다음 펜싱 에이전트를 선택하고 구성합니다.
++
+... 옵션 1: APC PDU(Power Distribution Unit)를 사용하여 펜싱 활성화하기:
++
+[source, yaml]
+----
+beegfs_ha_fencing_agents:
+  fence_apc:
+    - ipaddr: <PDU_IP_ADDRESS>
+      login: <PDU_USERNAME>
+      passwd: <PDU_PASSWORD>
+      pcmk_host_map: "<HOSTNAME>:<PDU_PORT>,<PDU_PORT>;<HOSTNAME>:<PDU_PORT>,<PDU_PORT>"
+----
+... 옵션 2: Lenovo XCC(및 기타 BMC)에서 제공하는 Redfish API를 사용하여 펜싱을 활성화하려면
++
+[source, yaml]
+----
+redfish: &redfish
+  username: <BMC_USERNAME>
+  password: <BMC_PASSWORD>
+  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+
+beegfs_ha_fencing_agents:
+  fence_redfish:
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+----
+... 다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat 문서"^]참조하십시오.
+
+
+
+
+. BeeGFS HA 역할은 다양한 튜닝 매개 변수를 적용하여 성능을 더욱 최적화할 수 있습니다. 여기에는 커널 메모리 활용도 최적화 및 블록 디바이스 입출력 등이 포함됩니다. 이 역할은 NetApp E-Series 블록 노드를 사용한 테스트를 기반으로 하는 적절한 집합을 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L180["기본값"^] 제공하지만, 기본적으로 다음을 지정하지 않으면 적용되지 않습니다.
++
+[source, yaml]
+----
+beegfs_ha_enable_performance_tuning: True
+----
++
+.. 필요한 경우 여기에서 기본 성능 튜닝에 대한 변경 사항도 지정합니다. 자세한 내용은 전체 설명서를 link:https://github.com/NetApp/beegfs/blob/master/docs/beegfs_ha/performance_tuning.md["성능 튜닝 매개 변수"^] 참조하십시오.
+
+
+. BeeGFS 서비스에 사용되는 부동 IP 주소(논리 인터페이스라고도 함)가 파일 노드 간에 페일오버할 수 있도록 모든 네트워크 인터페이스의 이름이 일관되게 지정되어야 합니다. 기본적으로 네트워크 인터페이스 이름은 동일한 PCIe 슬롯에 네트워크 어댑터가 설치된 동일한 서버 모델에서도 일관된 이름을 생성한다는 보장이 없는 커널에 의해 생성됩니다. 이 기능은 장비를 구축하고 생성된 인터페이스 이름을 알 수 있도록 하기 전에 인벤토리를 생성할 때도 유용합니다. 서버 또는 의 블록 다이어그램을 기반으로 일관된 장치 이름을 보장합니다 `lshw  -class network -businfo` 출력에서 원하는 PCIe 주소-논리 인터페이스 매핑을 다음과 같이 지정합니다.
++
+.. InfiniBand(IPoIB) 네트워크 인터페이스의 경우:
++
+[source, yaml]
+----
+eseries_ipoib_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: i1a
+----
+.. 이더넷 네트워크 인터페이스의 경우:
++
+[source, yaml]
+----
+eseries_ip_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: e1a
+----
++
+
+IMPORTANT: 인터페이스의 이름을 바꿀 때(이름을 바꿀 수 없음) 충돌을 방지하려면 eth0, ens9f0, ib0 또는 ibs4f0과 같은 잠재적인 기본 이름을 사용하지 않아야 합니다. 일반적인 명명 규칙은 이더넷 또는 InfiniBand의 경우 'e' 또는 'i'를 사용하고 그 뒤에 PCIe 슬롯 번호와 해당 포트를 나타내는 문자를 사용하는 것입니다. 예를 들어 슬롯 3에 설치된 InfiniBand 어댑터의 두 번째 포트는 i3b입니다.
+
++
+
+NOTE: 검증된 파일 노드 모델을 사용하는 경우 를 클릭합니다 link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["여기"^] PCIe 주소와 논리적 포트 매핑의 예
+
+
+
+. 선택적으로 클러스터의 모든 BeeGFS 서비스에 적용할 구성을 지정합니다. 기본 구성 값을 찾을 수 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["여기"^]있으며 서비스별 구성은 다른 곳에 지정됩니다.
++
+.. BeeGFS 관리 서비스:
++
+[source, yaml]
+----
+beegfs_ha_beegfs_mgmtd_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFS 메타데이터 서비스:
++
+[source, yaml]
+----
+beegfs_ha_beegfs_meta_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFS 스토리지 서비스:
++
+[source, yaml]
+----
+beegfs_ha_beegfs_storage_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+
+
+. BeeGFS 7.2.7 및 7.3.1 link:https://doc.beegfs.io/latest/advanced_topics/authentication.html["연결 인증"^] 구성 또는 명시적으로 비활성화해야 합니다. Ansible 기반 배포를 사용하여 다음과 같은 몇 가지 방법으로 이를 구성할 수 있습니다.
++
+.. 기본적으로 배포는 연결 인증을 자동으로 구성하고 을 생성합니다 `connauthfile` 모든 파일 노드에 배포되고 BeeGFS 서비스와 함께 사용됩니다. 이 파일은 또한 의 Ansible 제어 노드에 배치/유지됩니다 `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` 이 파일 시스템을 액세스해야 하는 클라이언트에서 재사용하기 위해 안전하게 유지해야 하는 경우
++
+... 새 키 지정을 생성하려면 다음을 지정합니다 `-e "beegfs_ha_conn_auth_force_new=True` Ansible 플레이북을 실행할 때, 참고 의 경우 이 작업은 무시됩니다 `beegfs_ha_conn_auth_secret` 정의됩니다.
+... 고급 옵션은 에 포함된 전체 기본값 목록을 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L21["BeeGFS HA 역할입니다"^]참조하십시오.
+
+
+.. 에서 다음을 정의하여 사용자 지정 암호를 사용할 수 있습니다 `ha_cluster.yml`:
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_secret: <SECRET>
+----
+.. 연결 인증은 완전히 비활성화할 수 있습니다(권장하지 않음).
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_enabled: false
+----
+
+
+
+
+을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["여기"^] 일반 파일 노드 구성을 나타내는 전체 인벤토리 파일의 예
+
+
+
+=== NetApp EF600 블록 노드에서 HDR(200GB) InfiniBand 사용:
+
+EF600에서 HDR(200GB) InfiniBand를 사용하려면 서브넷 관리자가 가상화를 지원해야 합니다. 스위치를 사용하여 파일 및 블록 노드를 연결하는 경우 전체 패브릭의 서브넷 관리자 관리자에서 이 기능을 활성화해야 합니다.
+
+블록 및 파일 노드가 InfiniBand를 사용하여 `opensm` 직접 연결된 경우 블록 노드에 직접 연결된 각 인터페이스에 대해 각 파일 노드에서 의 인스턴스를 구성해야 합니다. 이 작업은 `configure: true` 시기를 지정하여link:architectures-inventory-configure-file-nodes.html["파일 노드 스토리지 인터페이스를 구성하는 중입니다"^] 수행합니다.
+
+현재 지원되는 Linux 배포판과 함께 제공된 의 받은 편지함 버전은 `opensm` 가상화를 지원하지 않습니다. 대신 OFED(NVIDIA OpenFabrics Enterprise Distribution)에서 의 버전을 설치하고 구성해야 `opensm` 합니다. Ansible을 사용한 구축도 여전히 지원되지만, 몇 가지 추가 단계가 필요합니다.
+
+. curl 또는 원하는 툴을 사용하여 NVIDIA 웹 사이트에서 디렉토리로 섹션에 나열된 OpenSM 버전의 패키지를 다운로드합니다. link:../second-gen/beegfs-technology-requirements.html["기술 요구 사항"^] `<INVENTORY>/packages/` 예를 들면 다음과 같습니다.
++
+[source, bash]
+----
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+----
+. 아래에서 `group_vars/ha_cluster.yml` 다음 구성을 정의합니다.
++
+[source, yaml]
+----
+### OpenSM package and configuration information
+eseries_ib_opensm_allow_upgrades: true
+eseries_ib_opensm_skip_package_validation: true
+eseries_ib_opensm_rhel_packages: []
+eseries_ib_opensm_custom_packages:
+  install:
+    - files:
+        add:
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+    - packages:
+        add:
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+  uninstall:
+    - packages:
+        remove:
+          - opensm
+          - opensm-libs
+      files:
+        remove:
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+
+eseries_ib_opensm_options:
+  virt_enabled: "2"
+----
+

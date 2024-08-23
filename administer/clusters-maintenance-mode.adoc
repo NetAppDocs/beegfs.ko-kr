@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-maintenance-mode.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, maintenance 
+summary: HA 클러스터가 운영 환경의 의도된 변경 사항에 실수로 반응하는 것을 방지합니다. 
+---
+= 클러스터를 유지보수 모드로 전환합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+HA 클러스터가 운영 환경의 의도된 변경 사항에 실수로 반응하는 것을 방지합니다.
+
+
+
+== 개요
+
+클러스터를 유지보수 모드로 전환하면 모든 리소스 모니터링이 비활성화되고 박동기가 클러스터 리소스를 이동하거나 관리하는 것을 방지할 수 있습니다. 액세스를 방해하는 일시적인 장애 조건이 있더라도 모든 리소스는 원래 노드에서 계속 실행됩니다. 권장/유용한 시나리오는 다음과 같습니다.
+
+* 파일 노드와 BeeGFS 서비스 간의 연결이 일시적으로 중단될 수 있는 네트워크 유지 보수
+* 블록 노드 업그레이드
+* 파일 노드 운영 체제, 커널 또는 기타 패키지 업데이트.
+
+
+일반적으로 클러스터를 유지 관리 모드로 수동으로 설정하는 유일한 이유는 해당 클러스터가 환경의 외부 변경에 반응하지 않도록 하기 위해서입니다. 클러스터의 개별 노드에 물리적 복구가 필요한 경우 유지보수 모드를 사용하지 말고 위의 절차에 따라 해당 노드를 대기 모드에 두십시오. Ansible을 다시 실행하면 업그레이드 및 구성 변경을 포함하여 대부분의 소프트웨어 유지보수를 수행할 수 있도록 클러스터가 유지보수 모드로 자동으로 전환됩니다.
+
+
+
+== 단계
+
+클러스터가 유지보수 모드인지 확인하려면 다음을 실행합니다.
+
+[source, console]
+----
+pcs property show maintenance-mode
+----
+클러스터가 정상적으로 작동 중일 경우 이 오류가 false로 반환됩니다. 유지보수 모드를 활성화하려면 다음을 실행하십시오.
+
+[source, console]
+----
+pcs property set maintenance-mode=true
+----
+PC 상태를 실행하고 모든 리소스에 "(관리되지 않음)"이 표시되는지 확인하여 확인할 수 있습니다. 클러스터를 유지보수 모드에서 제외하려면 다음을 실행하십시오.
+
+[source, console]
+----
+pcs property set maintenance-mode=false
+----

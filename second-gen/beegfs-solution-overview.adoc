@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-solution-overview.html 
+permalink: second-gen/beegfs-solution-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하여 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라를 제공합니다. 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp 
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

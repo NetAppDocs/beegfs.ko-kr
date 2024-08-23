@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-recommended-volume-percentages.html 
+permalink: second-gen/beegfs-deploy-recommended-volume-percentages.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개를 따르는 경우 다음 권장 비율을 참조하십시오. 
 ---
@@ -10,7 +10,7 @@ summary: 2세대 구성 요소에 대해 스토리지 풀당 표준 볼륨 4개�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

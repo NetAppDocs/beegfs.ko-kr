@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-solution-sizing-guidelines.html 
+permalink: second-gen/beegfs-design-solution-sizing-guidelines.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS 솔루션에는 검증 테스트를 기반으로 한 성능 및 용량 사이징에 대한 권장 사항이 포함되어 있습니다. 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS 솔루션에는 검증 테스트를 기반으로 한 성능 및 
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

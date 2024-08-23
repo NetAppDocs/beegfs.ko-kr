@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-scale-building-blocks.html 
+permalink: second-gen/beegfs-deploy-scale-building-blocks.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 5개의 빌딩 블록 이상으로 확장할 수 있도록 심장박동기 및 Corosync를 구성합니다. 
 ---
@@ -10,7 +10,7 @@ summary: 5개의 빌딩 블록 이상으로 확장할 수 있도록 심장박동
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

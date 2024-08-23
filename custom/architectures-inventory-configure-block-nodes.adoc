@@ -1,0 +1,156 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-inventory-configure-block-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: '호스트 변수(host_vars)를 사용하여 개별 블록 노드의 구성을 지정합니다.' 
+---
+= 개별 블록 노드를 구성합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+호스트 변수(host_vars)를 사용하여 개별 블록 노드의 구성을 지정합니다.
+
+
+
+== 개요
+
+이 섹션에서는 를 채우는 방법을 설명합니다 `host_vars/<BLOCK_NODE_HOSTNAME>.yml` 클러스터에 있는 각 블록 노드에 대한 파일입니다. 이러한 파일에는 특정 블록 노드에 고유한 설정만 포함되어야 합니다. 여기에는 일반적으로 다음이 포함됩니다.
+
+* 시스템 이름(System Manager에 표시됨)
+* 컨트롤러 중 하나에 대한 HTTPS URL(REST API를 사용하여 시스템을 관리하는 데 사용됨)
+* 이 블록 노드에 연결하기 위해 사용하는 스토리지 프로토콜 파일 노드
+* IP 주소(필요한 경우)와 같은 HIC(호스트 인터페이스 카드) 포트 구성
+
+
+
+
+== 단계
+
+link:architectures-plan-file-system.html["파일 시스템 계획"^]섹션에 정의된 IP 주소 지정 체계를 참조하여 클러스터의 각 블록 노드에 대해 파일을 `host_vars/<BLOCK_NODE_HOSTNAME>/yml` 생성하고 다음과 같이 채웁니다.
+
+. 맨 위에서 컨트롤러 중 하나에 대한 시스템 이름과 HTTPS URL을 지정합니다.
++
+[source, yaml]
+----
+eseries_system_name: <SYSTEM_NAME>
+eseries_system_api_url: https://<MANAGEMENT_HOSTNAME_OR_IP>:8443/devmgr/v2/
+----
+. 를 선택합니다 link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["프로토콜"^] 파일 노드는 를 사용하여 이 블록 노드에 접속합니다.
++
+.. 지원되는 프로토콜: `auto`, `iscsi`, `fc`, `sas`, `ib_srp`, `ib_iser`, `nvme_ib`, `nvme_fc`, `nvme_roce`.
++
+[source, yaml]
+----
+eseries_initiator_protocol: <PROTOCOL>
+----
+
+
+. 사용 중인 프로토콜에 따라 HIC 포트는 추가 구성이 필요할 수 있습니다. 필요한 경우 HIC 포트 구성을 정의하여 각 컨트롤러 구성의 상위 항목이 각 컨트롤러의 물리적 가장 왼쪽 포트 및 하단 포트가 가장 오른쪽 포트와 대응하도록 해야 합니다. 모든 포트는 현재 사용되지 않는 경우에도 유효한 구성이 필요합니다.
++
+
+IMPORTANT: EF600 블록 노드와 함께 HDR(200GB) InfiniBand 또는 200GB RoCE를 사용하는 경우에는 아래 섹션도 참조하십시오.
+
++
+.. iSCSI의 경우:
++
+[source, yaml]
+----
+eseries_controller_iscsi_port:
+  controller_a:         # Ordered list of controller A channel definition.
+    - state:            # Whether the port should be enabled. Choices: enabled, disabled
+      config_method:    # Port configuration method Choices: static, dhcp
+      address:          # Port IPv4 address
+      gateway:          # Port IPv4 gateway
+      subnet_mask:      # Port IPv4 subnet_mask
+      mtu:              # Port IPv4 mtu
+    - (...)             # Additional ports as needed.
+  controller_b:         # Ordered list of controller B channel definition.
+    - (...)             # Same as controller A but for controller B
+
+# Alternatively the following common port configuration can be defined for all ports and omitted above:
+eseries_controller_iscsi_port_state: enabled         # Generally specifies whether a controller port definition should be applied Choices: enabled, disabled
+eseries_controller_iscsi_port_config_method: dhcp    # General port configuration method definition for both controllers. Choices: static, dhcp
+eseries_controller_iscsi_port_gateway:               # General port IPv4 gateway for both controllers.
+eseries_controller_iscsi_port_subnet_mask:           # General port IPv4 subnet mask for both controllers.
+eseries_controller_iscsi_port_mtu: 9000              # General port maximum transfer units (MTU) for both controllers. Any value greater than 1500 (bytes).
+
+----
+.. iSER의 경우:
++
+[source, yaml]
+----
+eseries_controller_ib_iser_port:
+  controller_a:    # Ordered list of controller A channel address definition.
+    -              # Port IPv4 address for channel 1
+    - (...)        # So on and so forth
+  controller_b:    # Ordered list of controller B channel address definition.
+----
+.. NVMe/IB의 경우:
++
+[source, yaml]
+----
+eseries_controller_nvme_ib_port:
+  controller_a:    # Ordered list of controller A channel address definition.
+    -              # Port IPv4 address for channel 1
+    - (...)        # So on and so forth
+  controller_b:    # Ordered list of controller B channel address definition.
+----
+.. NVMe/RoCE의 경우:
++
+[source, yaml]
+----
+eseries_controller_nvme_roce_port:
+  controller_a:         # Ordered list of controller A channel definition.
+    - state:            # Whether the port should be enabled.
+      config_method:    # Port configuration method Choices: static, dhcp
+      address:          # Port IPv4 address
+      subnet_mask:      # Port IPv4 subnet_mask
+      gateway:          # Port IPv4 gateway
+      mtu:              # Port IPv4 mtu
+      speed:            # Port IPv4 speed
+  controller_b:         # Ordered list of controller B channel definition.
+    - (...)             # Same as controller A but for controller B
+
+# Alternatively the following common port configuration can be defined for all ports and omitted above:
+eseries_controller_nvme_roce_port_state: enabled         # Generally specifies whether a controller port definition should be applied Choices: enabled, disabled
+eseries_controller_nvme_roce_port_config_method: dhcp    # General port configuration method definition for both controllers. Choices: static, dhcp
+eseries_controller_nvme_roce_port_gateway:               # General port IPv4 gateway for both controllers.
+eseries_controller_nvme_roce_port_subnet_mask:           # General port IPv4 subnet mask for both controllers.
+eseries_controller_nvme_roce_port_mtu: 4200              # General port maximum transfer units (MTU). Any value greater than 1500 (bytes).
+eseries_controller_nvme_roce_port_speed: auto            # General interface speed. Value must be a supported speed or auto for automatically negotiating the speed with the port.
+----
+.. FC 및 SAS 프로토콜은 추가 구성이 필요하지 않습니다. SRP가 올바르게 권장되지 않습니다.
+
+
+
+
+iSCSI CHAP 구성 기능을 포함하여 HIC 포트 및 호스트 프로토콜을 구성하는 추가 옵션은 을 참조하십시오 link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["문서화"^] SANtricity 컬렉션에 포함되어 있습니다. 참고 BeeGFS를 구축할 때 스토리지 풀, 볼륨 구성 및 스토리지 용량 할당의 기타 측면은 다른 위치에 구성되며 이 파일에 정의하면 안 됩니다.
+
+을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22a01.yml["여기"^] 단일 블록 노드를 나타내는 전체 인벤토리 파일의 예
+
+
+
+=== HDR(200GB) InfiniBand 또는 200GB RoCE와 NetApp EF600 블록 노드 사용:
+
+EF600에서 HDR(200GB) InfiniBand를 사용하려면 각 물리적 포트에 대해 두 번째 "가상" IP를 구성해야 합니다. 다음은 이중 포트 InfiniBand HDR HIC가 장착된 EF600을 구성하는 올바른 방법의 예입니다.
+
+[source, yaml]
+----
+eseries_controller_nvme_ib_port:
+  controller_a:
+    - 192.168.1.101   # Port 2a (virtual)
+    - 192.168.2.101   # Port 2b (virtual)
+    - 192.168.1.100   # Port 2a (physical)
+    - 192.168.2.100   # Port 2b (physical)
+  controller_b:
+    - 192.168.3.101   # Port 2a (virtual)
+    - 192.168.4.101   # Port 2b (virtual)
+    - 192.168.3.100   # Port 2a (physical)
+    - 192.168.4.100   # Port 2b (physical)
+----

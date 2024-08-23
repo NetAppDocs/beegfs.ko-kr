@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-gens.html 
+permalink: second-gen/beegfs-gens.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS on NetApp 솔루션은 현재 세대 간 설계의 2세대입니다. 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS on NetApp 솔루션은 현재 세대 간 설계의 2세대입니
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

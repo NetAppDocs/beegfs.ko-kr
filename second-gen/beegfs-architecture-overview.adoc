@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-architecture-overview.html 
+permalink: second-gen/beegfs-architecture-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS on NetApp 솔루션에는 검증된 워크로드를 지원하는 데 필요한 특정 장비, 케이블링, 구성을 결정하는 데 사용되는 아키텍처 설계 고려사항이 포함되어 있습니다. 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS on NetApp 솔루션에는 검증된 워크로드를 지원하는
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -47,7 +47,7 @@ BeeGFS 파일 시스템에는 다음과 같은 주요 서비스가 포함됩니�
 
 다음 그림에서는 NetApp E-Series 시스템에 사용된 BeeGFS 솔루션 구성 요소 및 관계를 보여 줍니다.
 
-image:../media/beegfs-components.png[""]
+image:beegfs-components.png["BeeGFS 구성 요소"]
 
 BeeGFS는 병렬 파일 시스템으로서 여러 서버 노드에서 파일을 스트라이핑하여 읽기/쓰기 성능과 확장성을 극대화합니다. 서버 노드는 함께 작동하여 일반적으로 _clients_라고 하는 다른 서버 노드에서 동시에 마운트하고 액세스할 수 있는 단일 파일 시스템을 제공합니다. 이러한 클라이언트는 NTFS, XFS 또는 ext4와 같은 로컬 파일 시스템과 유사하게 분산 파일 시스템을 보고 사용할 수 있습니다.
 
@@ -64,7 +64,7 @@ NOTE: BeeGFS 커뮤니티 에디션은 무료로 사용할 수 있지만, 이 �
 
 다음 그림에서는 공유 안 함 및 공유 디스크 HA 아키텍처를 비교하여 보여 줍니다.
 
-image:../media/beegfs-design-image1.png[""]
+image:beegfs-design-image1.png["HA 아키텍처를 비교합니다"]
 
 자세한 내용은 을 참조하십시오 https://www.netapp.com/blog/high-availability-beegfs/["NetApp에서 지원하는 BeeGFS에 대한 고가용성 발표"^].
 
@@ -93,7 +93,7 @@ NetApp 기반 BeeGFS 솔루션은 아래에 나열된 노드를 확인했습니�
 
 솔루션의 구성 요소(다음 그림에 표시)는 BeeGFS 파일 계층에 대해 검증된 파일 노드 서버를 사용하고 EF600 스토리지 시스템 2개를 블록 계층으로 사용합니다.
 
-image:../media/beegfs-design-image2-small.png[""]
+image:beegfs-design-image2-small.png["구성 요소"]
 
 BeeGFS on NetApp 솔루션은 구축 환경의 모든 구성 요소에서 실행됩니다. 구축된 첫 번째 구성 요소는 BeeGFS 관리, 메타데이터 및 스토리지 서비스(기본 구성 요소라고 함)를 실행해야 합니다. 이후의 모든 구성 요소는 소프트웨어를 통해 메타데이터 및 스토리지 서비스를 확장하거나 스토리지 서비스만 제공하도록 구성할 수 있습니다. 이러한 모듈식 방식을 사용하면 동일한 기본 하드웨어 플랫폼 및 구성 요소 설계를 사용하면서 워크로드의 요구사항에 따라 파일 시스템을 확장할 수 있습니다.
 
@@ -102,7 +102,7 @@ BeeGFS on NetApp 솔루션은 구축 환경의 모든 구성 요소에서 실행
 
 NOTE: 장애 조치 클러스터에서 쿼럼을 설정하려면 최소 2개의 구성 요소가 필요합니다. 2노드 클러스터에는 성공적인 페일오버를 수행할 수 없는 제한 사항이 있습니다. 세 번째 장치를 Tiebreaker로 통합하여 2노드 클러스터를 구성할 수 있지만, 이 문서에서는 그러한 설계에 대해 설명하지 않습니다.
 
-image:../media/beegfs-design-image3.png[""]
+image:beegfs-design-image3.png["BeeGFS HA 클러스터 확장"]
 
 
 

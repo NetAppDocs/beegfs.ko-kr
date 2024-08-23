@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-solution-verification.html 
+permalink: second-gen/beegfs-design-solution-verification.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS on NetApp 솔루션의 2세대 설계는 3가지 구성 요소 구성 프로필을 사용하여 검증되었습니다. 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS on NetApp 솔루션의 2세대 설계는 3가지 구성 요소 �
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -27,7 +27,7 @@ BeeGFS on NetApp 솔루션의 2세대 설계는 3가지 구성 요소 구성 프
 
 다음 그림에서는 NetApp 솔루션의 BeeGFS 검증을 위해 사용되는 BeeGFS 구성을 보여 줍니다.
 
-image:beegfs-design-image12.png[""]
+image:beegfs-design-image12.png["BeeGFS 검증 구성"]
 
 
 
@@ -57,22 +57,22 @@ mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes 
 .하나의 BeeGFS 기본(관리, 메타데이터 및 스토리지) 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 기반(관리, 메타데이터 및 스토리지) 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
-image:beegfs-design-image13.png[""]
+image:beegfs-design-image13.png["단일 BeeGFS 기본 구성 요소 IOR 결과"]
 
 .BeeGFS 메타데이터 + 스토리지 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 메타데이터 + 스토리지 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
-image:beegfs-design-image14.png[""]
+image:beegfs-design-image14.png["단일 BeeGFS 메타데이터 및 스토리지 구성 요소 IOR 결과"]
 
 .BeeGFS 스토리지 전용 구성 요소입니다
 다음 그림에서는 단일 BeeGFS 스토리지 전용 구성 요소를 사용한 IOR 테스트 결과를 보여 줍니다.
 
-image:beegfs-design-image15.png[""]
+image:beegfs-design-image15.png["단일 BeeGFS 스토리지 IOR 결과"]
 
 .BeeGFS 빌딩 블록 3개
 다음 그림에서는 세 개의 BeeGFS 구성 요소가 포함된 IOR 테스트 결과를 보여 줍니다.
 
-image:beegfs-design-image16.png[""]
+image:beegfs-design-image16.png["3개의 BeeGFS 구성 요소 IOR 결과"]
 
 예상한 대로 기본 구성 요소과 후속 메타데이터 + 스토리지 구성 요소 간의 성능 차이는 무시할 수 있습니다. 메타데이터 + 스토리지 구성 요소 및 스토리지 전용 구성 요소를 비교하면 스토리지 대상으로 사용되는 추가 드라이브로 인해 읽기 성능이 약간 향상됩니다. 그러나 쓰기 성능에는 큰 차이가 없습니다. 더 높은 성능을 얻기 위해 여러 구성 요소를 함께 추가하여 성능을 선형 방식으로 확장할 수 있습니다.
 
@@ -88,7 +88,7 @@ IOR 대역폭 테스트는 OpenMPI를 사용하여 단일 고성능 GPU 서버�
 
 다음 다이어그램은 BeeGFS 빌딩 블록 3개와 단일 클라이언트를 사용한 IOR 테스트 결과를 보여 줍니다.
 
-image:beegfs-design-image17.png[""]
+image:beegfs-design-image17.png["단일 클라이언트 IOR 결과가 포함된 3개의 BeeGFS 구성 요소"]
 
 
 NOTE: 이러한 테스트를 위한 BeeGFS 스트라이핑은 파일당 타겟 8개가 포함된 1MB 청크 크기로 설정되었습니다.
@@ -111,12 +111,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 .하나의 BeeGFS 메타데이터 + 스토리지 구성 요소입니다
 다음 다이어그램은 하나의 BeeGFS 메타데이터 + 스토리지 구성 요소가 포함된 MDTest 결과를 보여 줍니다.
 
-image:beegfs-design-image18.png[""]
+image:beegfs-design-image18.png["단일 BeeGFS 메타데이터 및 스토리지 구성 요소 MDTest 결과"]
 
 .BeeGFS 메타데이터 + 스토리지 구성 요소 2개
 다음 다이어그램은 BeeGFS 메타데이터 + 스토리지 구성 요소 두 개가 포함된 MDTest 결과를 보여 줍니다.
 
-image:beegfs-design-image19.png[""]
+image:beegfs-design-image19.png["두 개의 BeeGFS 메타데이터 및 스토리지 구성 요소 MDTest 결과"]
 
 
 

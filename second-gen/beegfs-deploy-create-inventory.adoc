@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-create-inventory.html 
+permalink: second-gen/beegfs-deploy-create-inventory.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 파일 및 블록 노드의 구성을 정의하려면 구축할 BeeGFS 파일 시스템을 나타내는 Ansible 인벤토리를 생성합니다. 
 ---
@@ -10,7 +10,7 @@ summary: 파일 및 블록 노드의 구성을 정의하려면 구축할 BeeGFS 
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
