@@ -54,7 +54,7 @@ pcs cluster start <HOSTNAME>
 
 [source, console]
 ----
-pcs cluster node unstandby <HOSTNAME>
+pcs node unstandby <HOSTNAME>
 ----
 마지막으로 다음을 통해 모든 BeeGFS 서비스를 기본 노드에 다시 재배치하십시오.
 

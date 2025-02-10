@@ -41,6 +41,39 @@ group_vars입니다
 +
 '패키지'
 
+. 클러스터 암호에 대한 하위 디렉토리를 생성하고 Ansible Vault로 암호화하여 파일을 보호합니다(참조 https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible Vault로 콘텐츠 암호화"^]).
++
+.. 하위 디렉터리를 `group_vars/all`만듭니다.
+..  `group_vars/all`디렉토리에서 레이블이 지정된 암호 파일을 `passwords.yml` 만듭니다.
+.. 구성에 따라 모든 사용자 이름 및 암호 매개 변수를 대체하여 를 다음과 같이 입력합니다 `passwords.yml file`.
++
+....
+# Credentials for storage system's admin password
+eseries_password: <PASSWORD>
+
+# Credentials for BeeGFS file nodes
+ssh_ha_user: <USERNAME>
+ssh_ha_become_pass: <PASSWORD>
+
+# Credentials for HA cluster
+ha_cluster_username: <USERNAME>
+ha_cluster_password: <PASSWORD>
+ha_cluster_password_sha512_salt: randomSalt
+
+# Credentials for fencing agents
+# OPTION 1: If using APC Power Distribution Units (PDUs) for fencing:
+# Credentials for APC PDUs.
+apc_username: <USERNAME>
+apc_password: <PASSWORD>
+
+# OPTION 2: If using the Redfish APIs provided by the Lenovo XCC (and other BMCs) for fencing:
+# Credentials for XCC/BMC of BeeGFS file nodes
+bmc_username: <USERNAME>
+bmc_password: <PASSWORD>
+....
+.. 실행 `ansible-vault encrypt passwords.yml` 후 메시지가 표시되면 볼트 암호를 설정합니다.
+
+
 
 
 
@@ -172,8 +205,8 @@ beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
 ### ha_cluster Ansible group inventory file.
 # Place all default/common variables for BeeGFS HA cluster resources below.
 ### Cluster node defaults
-ansible_ssh_user: root
-ansible_become_password: <PASSWORD>
+ansible_ssh_user: {{ ssh_ha_user }}
+ansible_become_password: {{ ssh_ha_become_pass }}
 eseries_ipoib_default_hook_templates:
   - 99-multihoming.j2   # This is required for single subnet deployments, where static IPs containing multiple IB ports are in the same IPoIB subnet. i.e: cluster IPs, multirail, single subnet, etc.
 # If the following options are specified, then Ansible will automatically reboot nodes when necessary for changes to take effect:
@@ -185,7 +218,7 @@ eseries_ib_opensm_options:
 ....
 +
 
-NOTE: 특히 프로덕션 환경에서는 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible Vault로 콘텐츠 암호화"^]) 또는 '--Ask-when-pass' 옵션을 선택합니다. 'Ansible_ssh_user'가 이미 'root'인 경우 Anabilities_BAREY_PASSWORD를 선택적으로 생략할 수 있습니다.
+NOTE: 가 이미 있는 `root` 경우 `ansible_ssh_user` 필요에 따라 를 생략하고 플레이북을 실행할 때 옵션을 지정할 `--ask-become-pass` 수 있습니다 `ansible_become_password`.
 
 . 필요에 따라 고가용성(HA) 클러스터의 이름을 구성하고 클러스터 내 통신을 위한 사용자를 지정합니다.
 +
@@ -202,9 +235,9 @@ eseries_beegfs_ha_disable_selinux: True
 eseries_selinux_state: disabled
 # The following variables should be adjusted depending on the desired configuration:
 beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
-beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
-beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
-beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.
+beegfs_ha_cluster_username: "{{ ha_cluster_username }}" # Parameter for BeeGFS HA cluster username in the passwords file.
+beegfs_ha_cluster_password: "{{ ha_cluster_password }}" # Parameter for BeeGFS HA cluster username's password in the passwords file.
+beegfs_ha_cluster_password_sha512_salt: "{{ ha_cluster_password_sha512_salt }}" # Parameter for BeeGFS HA cluster username's password salt in the passwords file.
 beegfs_ha_mgmtd_floating_ip: 100.127.101.0         # BeeGFS management service IP address.
 # Email Alerts Configuration
 beegfs_ha_enable_alerts: True
@@ -239,14 +272,14 @@ NOTE: 중복된 것처럼 보이지만 BeeGFS 파일 시스템을 단일 HA 클�
 beegfs_ha_fencing_agents:
  fence_apc:
    - ipaddr: <PDU_IP_ADDRESS>
-     login: <PDU_USERNAME>
-     passwd: <PDU_PASSWORD>
+     login: "{{ apc_username }}" # Parameter for APC PDU username in the passwords file.
+     passwd: "{{ apc_password }}" # Parameter for APC PDU password in the passwords file.
      pcmk_host_map: "<HOSTNAME>:<PDU_PORT>,<PDU_PORT>;<HOSTNAME>:<PDU_PORT>,<PDU_PORT>"
 # OPTION 2: To enable fencing using the Redfish APIs provided by the Lenovo XCC (and other BMCs):
 redfish: &redfish
-  username: <BMC_USERNAME>
-  password: <BMC_PASSWORD>
-  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+  username: "{{ bmc_username }}" # Parameter for XCC/BMC username in the passwords file.
+  password: "{{ bmc_password }}" # Parameter for XCC/BMC password in the passwords file.
+    ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
 beegfs_ha_fencing_agents:
   fence_redfish:
     - pcmk_host_list: <HOSTNAME>
@@ -344,13 +377,9 @@ NOTE: 검증 테스트에서는 일반적으로 성능 벤치마킹 중에 테�
 ### eseries_storage_systems Ansible group inventory file.
 # Place all default/common variables for NetApp E-Series Storage Systems here:
 ansible_connection: local
-eseries_system_password: <PASSWORD>
+eseries_system_password: {{ eseries_password }} # Parameter for E-Series storage array password in the passwords file.
 eseries_validate_certs: false
 ....
-+
-
-NOTE: 암호를 일반 텍스트로 나열하는 것은 권장되지 않습니다. Ansible 볼트를 사용하거나 '- Extra-VAR'을 사용하여 Ansible을 실행할 때 'eseries_system_password'를 제공하십시오.
-
 . 최적의 성능을 보장하기 위해 에 블록 노드에 대해 나열된 버전을 설치합니다 link:beegfs-technology-requirements.html["기술 요구사항"].
 +
 에서 해당 파일을 다운로드합니다 https://mysupport.netapp.com/site/products/all/details/eseries-santricityos/downloads-tab["NetApp Support 사이트"^]. 수동으로 업그레이드하거나 Ansible 제어 노드의 'packages/' 디렉토리에 추가한 다음, Ansible을 사용하여 업그레이드하려면 "eseries_storage_systems.yml"에 다음 매개 변수를 입력합니다.
