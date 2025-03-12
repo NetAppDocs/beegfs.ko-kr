@@ -21,7 +21,6 @@
   <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6</block>
   <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">Corosync 를 참조하십시오</block>
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">심장박동기</block>
-  <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSM을 참조하십시오</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible 제어 노드 요구사항</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible 설명서</block>
   <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>.</block>
@@ -920,7 +919,6 @@
   <block id="9e94ba8f70ed52b0ae6c2a8725f97a9f" category="paragraph">모든 노드에서 클러스터 서비스 및 리소스를 시작하려면 다음을 실행합니다.</block>
   <block id="80bd5673b361d19dc46e6b882f98b061" category="paragraph">또는 다음 특정 노드에서 서비스를 시작합니다.</block>
   <block id="56ad9ec5396c5f035697d1e62c4b0926" category="paragraph">이 시점에서 를 실행합니다<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 모든 노드에서 클러스터와 BeeGFS 서비스가 시작되는지, 그리고 원하는 노드에서 서비스가 실행되고 있는지 확인합니다.</block>
-  <block id="f2cc0b0e79d5eccda5009e593729ce23" category="admonition">클러스터의 크기에 따라 전체 클러스터가 중지되거나 에서 시작될 때까지 몇 초~몇 분 정도 걸릴 수 있습니다<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>. If(경우<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block> "Ctrl+C"를 실행하여 명령을 취소하기 전에 5분 이상 작동이 멈추고 클러스터의 각 노드에 로그인하여 를 사용합니다<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 해당 노드에서 클러스터 서비스(Corosync/Pacemaker)가 여전히 실행되고 있는지 확인합니다. 클러스터가 여전히 활성 상태인 모든 노드에서 클러스터를 차단하는 리소스를 확인할 수 있습니다. 문제를 수동으로 해결하고 명령을 완료하거나 다시 실행하여 나머지 서비스를 중지할 수 있습니다.</block>
   <block id="9cdd9805effd30bec624c806fd980309" category="summary">클러스터 노드 간에 BeeGFS 서비스 이동</block>
   <block id="f6054493b235622c6d85c56597db1eb1" category="doc">장애 조치 및 장애 복구 서비스</block>
   <block id="2c053c4f4aa73d509803b712a335712b" category="paragraph">BeeGFS 서비스는 클러스터에서 노드 간에 페일오버를 수행하여 노드에 장애가 발생하거나 계획된 유지 관리를 수행해야 하는 경우 클라이언트가 파일 시스템에 계속 액세스할 수 있도록 합니다. 이 섹션에서는 장애를 복구한 후 관리자가 클러스터를 복구하거나 노드 간에 서비스를 수동으로 이동할 수 있는 다양한 방법에 대해 설명합니다.</block>
@@ -971,7 +969,6 @@
   <block id="92a6e3227dfe7be15777e64043fb613f" category="list-text">파일 노드 운영 체제, 커널 또는 기타 패키지 업데이트.</block>
   <block id="6c1cf36b91fdf2375e857652291bab2e" category="paragraph">일반적으로 클러스터를 유지 관리 모드로 수동으로 설정하는 유일한 이유는 해당 클러스터가 환경의 외부 변경에 반응하지 않도록 하기 위해서입니다. 클러스터의 개별 노드에 물리적 복구가 필요한 경우 유지보수 모드를 사용하지 말고 위의 절차에 따라 해당 노드를 대기 모드에 두십시오. Ansible을 다시 실행하면 업그레이드 및 구성 변경을 포함하여 대부분의 소프트웨어 유지보수를 수행할 수 있도록 클러스터가 유지보수 모드로 자동으로 전환됩니다.</block>
   <block id="bbf6745fae83e12806200feeb795f0ef" category="paragraph">클러스터가 유지보수 모드인지 확인하려면 다음을 실행합니다.</block>
-  <block id="4a6b1ae7d59c5bf02b1b5759e9f9b8e7" category="paragraph">클러스터가 정상적으로 작동 중일 경우 이 오류가 false로 반환됩니다. 유지보수 모드를 활성화하려면 다음을 실행하십시오.</block>
   <block id="4ecbc8384cde54344112e6ab08db42be" category="paragraph">PC 상태를 실행하고 모든 리소스에 "(관리되지 않음)"이 표시되는지 확인하여 확인할 수 있습니다. 클러스터를 유지보수 모드에서 제외하려면 다음을 실행하십시오.</block>
   <block id="9afe1c93907babebeb4d7a466e216a3e" category="summary">클러스터에서 구성 요소를 추가하거나 제거합니다.</block>
   <block id="da82c1c93eafcb34930ae3da89361e1e" category="doc">클러스터를 확장 또는 축소합니다</block>
@@ -1728,15 +1725,9 @@
   <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">대역 내 OS 관리를 위한 1GbE 포트</block>
   <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">대역외 서버 관리를 위한 1GbE BMC 및 Redfish API</block>
   <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">이중 핫 스왑 전원 공급 장치 및 성능 팬</block>
-  <block id="1fb2f6fd0ecd0371486e7642b03c5dee" category="list-text">* Lenovo ThinkSystem SR665 *</block>
-  <block id="78cbac434e403c43ef215a8541f8e62a" category="list-text">* 프로세서: * 2x AMD EPYC 7343 16C 3.2GHz(2개의 NUMA 존으로 구성).</block>
-  <block id="634d6174b88e5856171cb65f69c870d6" category="list-text">* 메모리: * 256GB(16x 16GB TruDDR4 3200MHz RDIMM-A)</block>
-  <block id="7d381836b9e0d0145f8901a9e826a329" category="list-text">* PCIe 확장: * PCIe Gen4 x16 슬롯 4개(NUMA 존당 2개)</block>
   <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">호스트 카드 어댑터는 파일 노드에 사용되는 서버 모델에 따라 다릅니다. 검증된 파일 노드에 대한 권장 사항은 다음과 같습니다.</block>
   <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 서버: *</block>
   <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS - 열 ConnectX-7, NDR200, QSFP112, 2포트, PCIe Gen5 x16, InfiniBand 어댑터</block>
-  <block id="2f02d951d56eb9f3451bbc826c3e8750" category="list-text">* Lenovo ThinkSystem SR665 서버: *</block>
-  <block id="a6db2cf27367b5061d9dcb3d029e4836" category="list-text">MCX653106A-HDAT ConnectX-6, HDR, QSFP-56, 2포트, PCIe Gen4 x16, InfiniBand 어댑터</block>
   <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">스토리지 네트워크 스위치</block>
   <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">스토리지 네트워크 스위치는 200Gb/s InfiniBand 속도를 지원해야 합니다. 권장되는 스위치 모델은 다음과 같습니다.</block>
   <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBand 스위치 *</block>
@@ -1751,9 +1742,7 @@
   <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700 를 참조하십시오</block>
   <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
   <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">활성 파이버</block>
-  <block id="270f13016300dfe6e2fe7c681978bef9" category="cell">MFA7U10-H002(NVIDIA 활성 파이버 케이블, InfiniBand 400GB/s~2x 200GB/s, OSFP~2x QSFP56)</block>
   <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">수동형 구리</block>
-  <block id="bebb3995ccd5809442d1bb1bc0a25e3a" category="cell">MCP7Y60-H002(NVIDIA 패시브 구리 케이블, InfiniBand 400GB/s ~ 2x 200GB/s, OSFP ~ 2x QSFP56)</block>
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700 를 참조하십시오</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E(NVIDIA 활성 파이버 케이블, InfiniBand 200GB/s, QSFP56)</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26(NVIDIA 패시브 구리 케이블, InfiniBand 200GB/s, QSFP56)</block>
@@ -1761,14 +1750,7 @@
   <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
   <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_Linux-23.10-3.2.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 펌웨어</block>
-  <block id="cf135b5c065c2f500279337fc59c78ac" category="paragraph">* ConnectX-7 HCA 펌웨어 * FW:28.39.1002+PXE:3.7.0201+UEFI:14.32.0012</block>
-  <block id="932d22339e7f2f10a02d7bf453b85501" category="paragraph">* ConnectX-6 HCA 펌웨어 * FW:20.31.1014 + PXE:3.6.0403 + UEFI:14.24.0013</block>
-  <block id="41d49156a74390ee5d03e3516c1dca6b" category="cell">11.80.0</block>
-  <block id="36744b059ba2d833befd7109b0ba5167" category="cell">N6000-880834-D08.DLP</block>
   <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4</block>
-  <block id="92f9c52d96ebf7ac8dc2f41e6e11647a" category="cell">3.1.5-4</block>
-  <block id="c60a2cf4eb7f8efdd97013c9acb1f45b" category="cell">2.1.4-5</block>
-  <block id="a1a2ed259d1be22e6373097baea242eb" category="paragraph">OpenSM-5.17.2(MLNX_OFED_Linux-23.10-3.2.2.0-LTS에서)</block>
   <block id="5487c77147bdac492714cd2896a16557" category="cell">PIP:Ansible-6.0.0 및 Ansible-CORE&gt;=2.13.0을 통해 설치한 경우 6.x</block>
   <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9(이상)</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">암호화 - 43.0.0, netaddr-1.3.0, ipaddr-2.2.0</block>
@@ -1799,8 +1781,6 @@
   <block id="cd35a558180e5a60f1da5ebd80b06ed2" category="paragraph">추가 세부 정보 및 대체 구성 옵션에 대한 자세한 내용은 섹션의 연결 인증 구성 단계를 참조하십시오<block ref="dc7fd2b3ea1b2b4a060b953a1b281371" category="inline-link-macro-rx"></block>.</block>
   <block id="8d4ce44e7e1f685f22f0480066f6dadc" category="summary">HA 클러스터의 E-Series 스토리지 어레이를 업그레이드하는 단계입니다.</block>
   <block id="fecb4be6b37a9fda6b207eaf97363fed" category="doc">E-Series 스토리지 시스템을 업그레이드합니다</block>
-  <block id="26f796a7ab5fa8e4b49e64f8f8bf2a80" category="paragraph">HA 클러스터의 E-Series 스토리지 시스템(블록 노드)을 업그레이드하려면 다음 단계를 수행하십시오.</block>
-  <block id="e134ac69d8641d9208d2cf890fad5275" category="paragraph">최신 펌웨어로 HA 클러스터의 NetApp E-Series 스토리지 어레이를 최신 상태로 유지하면 최적의 성능과 향상된 보안을 보장할 수 있습니다. 스토리지 어레이용 펌웨어 업데이트는 SANtricity OS, NVSRAM 및 드라이브 펌웨어 파일을 사용하여 적용됩니다.</block>
   <block id="40039e282631364c07ceaedf99c2cf6c" category="admonition">스토리지 어레이는 HA 클러스터를 온라인으로 업그레이드할 수 있지만 모든 업그레이드를 위해 클러스터를 유지보수 모드로 전환하는 것이 좋습니다.</block>
   <block id="e23311179b5a9fe1039e35e28290b482" category="section-title">블록 노드 업그레이드 단계</block>
   <block id="4a77379e9fcc01e35b7933a91b02a2bb" category="inline-link-macro">업그레이드 고려 사항</block>
@@ -1816,7 +1796,6 @@
   <block id="bad7f30f1449c1f5ab5e97ce89aee762" category="list-text">* 드라이브 펌웨어: * 로 <block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>이동하여 각 스토리지 배열의 드라이브 모델에 대한 최신 펌웨어를 다운로드합니다.</block>
   <block id="c26b41b932786e55f3bf481a6938083e" category="list-text">SANtricity OS, NVSRAM 및 드라이브 펌웨어 파일을 Ansible 제어 노드의<block ref="971398284b1e828e40efc6b6630f0369" prefix=" " category="inline-code"></block> 디렉토리에 저장합니다.</block>
   <block id="09a777fce4515aa1a8dcd86346441924" category="list-text">필요한 경우 업데이트가 필요한 모든 스토리지 어레이(블록 노드)를 포함하도록 클러스터의 Ansible 인벤토리 파일을 업데이트합니다. 지침은 <block ref="f7bda10e421919e9d8ced89dacaba34f" category="inline-link-macro-rx"></block>섹션을 참조하십시오.</block>
-  <block id="44ab0407eb93bf62fd987a8132e5a912" category="list-text">각 BeeGFS 서비스가 1차 노드에 있을 때 클러스터가 최적의 상태로 유지되도록 합니다. 자세한 내용은 을 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 참조하십시오.</block>
   <block id="f525483091b48c05e08ecf537a6c9e5a" category="list-text">의 지침에 따라 클러스터를 유지보수 모드로 <block ref="4b8504199df3a0ade85c92603634e18f" category="inline-link-macro-rx"></block>전환합니다.</block>
   <block id="390c5fa21f5dea398732a7b3b4024304" category="list-text">이라는 새 Ansible 플레이북을<block ref="bdc450c9ffd9674cb7c88bcb24bfedb8" prefix=" " category="inline-code"></block>생성합니다. SANtricity OS, NVSRAM 및 드라이브 펌웨어 버전을 원하는 업그레이드 경로로 대체하여 플레이북에 다음 콘텐츠를 채웁니다.</block>
   <block id="13ec6a1291f9e3d303bbc7f6bece60a3" category="list-text">업데이트를 시작하려면 Ansible 컨트롤 노드에서 다음 명령을 실행합니다.</block>
@@ -1923,4 +1902,95 @@
   <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">NetApp 기반 2세대 BeeGFS는 고성능 컴퓨팅(HPC), 머신 러닝(ML), 딥 러닝(DL), 기타 인공 지능(AI) 기술을 비롯한 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. 공유 디스크 HA(고가용성) 아키텍처를 통합한 이 설계는 데이터 내구성과 가용성을 보장하므로 다운타임이나 데이터 손실을 감수할 수 없는 기업 및 기타 조직에 적합합니다. 2세대 설계에는 PCIe Gen5 서버와 같은 구성 요소가 포함되며 NVIDIA ® Quantum ™ QM9700 400GB/s InfiniBand 스위치 지원이 포함됩니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 DGX SuperPOD H100, H200 및 B200 시스템에 대한 확장 인증을 받아 NVIDIA DGX ™ A100 SuperPOD용 스토리지 옵션으로 외부 자격을 획득했습니다.</block>
   <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">DGX와 A100, H100, H200 및 B200 GPU를 사용하는 NVIDIA DGX SuperPOD 시스템</block>
   <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVIDIA DGX SuperPOD 시스템이 포함된 NetApp EF-Series 기반 NVA-1174-BeeGFS</block>
+  <block id="049125cf8ec62098912c4f2c8db9f61b" category="paragraph"><block ref="e6211db0073064ade016ad4558767968" prefix=" " category="inline-code"></block>클러스터가 정상적으로 작동하는 경우에는 속성이 나타나지 않습니다. 클러스터가 현재 유지 관리 모드에 있는 경우 속성은 로 보고됩니다.<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 유지보수 모드를 활성화하려면 다음을 실행하십시오.</block>
+  <block id="ae7cd547e02c1f67adce822f49e1815f" category="admonition">클러스터 크기에 따라 전체 클러스터가 중지되거나 에서 시작된 것으로 표시되는 데 몇 초 또는 몇 분이 걸릴 수<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 있습니다. 가 5분 이상 중단된 경우<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block> "Ctrl+C"를 실행하여 명령을 취소하기 전에 클러스터의 각 노드에 로그인하여<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 클러스터 서비스(Corosync/Pacemaker)가 해당 노드에서 계속 실행되고 있는지 확인하십시오. 클러스터가 여전히 활성 상태인 모든 노드에서 클러스터를 차단하는 리소스를 확인할 수 있습니다. 문제를 수동으로 해결하고 명령을 완료하거나 다시 실행하여 나머지 서비스를 중지할 수 있습니다.</block>
+  <block id="5dfbb07786784ecd0c0829f3624766bf" category="summary">HA 클러스터에서 심장박동기 및 Corosync 패키지를 업그레이드하는 단계입니다.</block>
+  <block id="256ad8b6e95e34f8784f6b80bcf07e62" category="doc">HA 클러스터의 페이스 메이커 및 Corosync 패키지를 업그레이드합니다</block>
+  <block id="f9b43d72a27351762f4809a45ab3809e" category="paragraph">HA 클러스터의 심장박동기 및 Corosync 패키지를 업그레이드하려면 다음 단계를 수행하십시오.</block>
+  <block id="93bcc5a6e49472d3ee328b74217072a4" category="paragraph">페이스 메이커와 Corosync를 업그레이드하면 새로운 기능, 보안 패치 및 성능 향상의 이점을 누릴 수 있습니다.</block>
+  <block id="d5870f2e8bb30d5fd8dba0f3bcba2ff2" category="section-title">업그레이드 접근 방식</block>
+  <block id="3910bde80db45114f03b57a1cea719d7" category="inline-link-macro">심장박동기 클러스터 업그레이드</block>
+  <block id="fbe527032decd848e5233378716880ef" category="paragraph">클러스터를 업그레이드하는 데에는 롤링 업그레이드 또는 전체 클러스터 종료라는 두 가지 권장 방법이 있습니다. 각 접근 방식에는 고유한 장점과 단점이 있습니다. 업그레이드 절차는 심장박동기 릴리스 버전에 따라 다를 수 있습니다. ClusterLabs의 <block ref="f46eb388ba6d1748ea24c2340bf59c47" category="inline-link-macro-rx"></block>설명서를 참조하여 사용할 방법을 결정합니다. 업그레이드 방법을 따르기 전에 다음 사항을 확인하십시오.</block>
+  <block id="3875a0129b5e7200d99ab95798b4ca49" category="list-text">NetApp BeeGFS 솔루션 내에서 새로운 페이스 메이커 및 Corosync 패키지가 지원됩니다.</block>
+  <block id="14bc480662de00a882a587d6c753c533" category="list-text">BeeGFS 파일 시스템 및 Pacemaker 클러스터 구성에 유효한 백업이 있습니다.</block>
+  <block id="efd7093d185f1f3506d2f99fa2406088" category="list-text">클러스터가 정상 상태입니다.</block>
+  <block id="22e44c8383bdd51e7823eed40de12db4" category="section-title">롤링 업그레이드</block>
+  <block id="49939651104a8f4bf473311d280796b9" category="paragraph">이 방법은 클러스터에서 각 노드를 제거하고 업그레이드한 다음 모든 노드에서 새 버전이 실행될 때까지 클러스터에 다시 도입하는 것입니다. 이렇게 하면 클러스터가 운영 상태로 유지되므로 대규모 HA 클러스터에 이상적이지만, 프로세스 중에 혼합 버전을 실행할 위험이 있습니다. 2노드 클러스터에서 이 접근 방식은 사용하지 않아야 합니다.</block>
+  <block id="4fe0553e4bb27a05a3680575a66540a7" category="list-text">각 BeeGFS 서비스가 1차 노드에서 실행되고 있는 상태에서 클러스터가 최적의 상태인지 확인합니다. 자세한 내용은 을 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 참조하십시오.</block>
+  <block id="afcf7685b4b8a18d898e6c84f2b84166" category="list-text">업그레이드할 노드를 대기 모드로 전환하여 모든 BeeGFS 서비스를 방전하거나 이동합니다.</block>
+  <block id="36b48c4e047e7d7107eaa995708914b1" category="list-text">다음을 실행하여 노드의 서비스가 소진되었는지 확인합니다.</block>
+  <block id="9c1adfab509ac587de61a03c43cda767" category="paragraph">대기 상태인 노드에 대해 보고된 서비스가<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block> 없는지 확인합니다.</block>
+  <block id="2b26b4d53851d442c712564adfb4b445" category="admonition">클러스터 크기에 따라 서비스가 자매 노드로 이동하는 데 몇 초 또는 몇 분이 걸릴 수 있습니다. BeeGFS 서비스가 자매 노드에서 시작되지 않는 경우 를 참조하십시오<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>.</block>
+  <block id="e2939fee46b1883f2b4fb3fec03f83fb" category="list-text">노드에서 클러스터를 종료합니다.</block>
+  <block id="7a3db5a8197b212244d160de60f682da" category="list-text">노드에서 심장박동기, Corosync 및 PCS 패키지를 업그레이드합니다.</block>
+  <block id="054ce71db50c3d6b29d6ddfda5264cc9" category="admonition">패키지 관리자 명령은 운영 체제에 따라 다릅니다. 다음은 RHEL 8 이상을 실행하는 시스템에 대한 명령입니다.</block>
+  <block id="0a761ff507fc5bb4859d6d425b2b120a" category="list-text">노드에서 심장박동기 클러스터 서비스를 시작합니다.</block>
+  <block id="7a98d33ee2035dc15b33a6ccaea4753b" category="list-text">패키지가 업데이트된 경우<block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block> 클러스터를 사용하여 노드를 다시 인증합니다.</block>
+  <block id="039f324455c000e0dad7b93f641cd7bf" category="list-text">박동조율기 구성이 여전히 도구에 유효한지<block ref="419527551374e0fe5024d6bb1f3f2814" prefix=" " category="inline-code"></block> 확인합니다.</block>
+  <block id="51c1fa488cc911104720c97dad8ec5eb" category="admonition">클러스터 업그레이드 중에 한 번만 확인하면 됩니다.</block>
+  <block id="265a35348bf91dcba3e55e3454e3c155" category="list-text">노드를 대기 모드에서 해제합니다.</block>
+  <block id="ea285586c4e419f14cfb8b432dd0d4b6" category="list-text">모든 BeeGFS 서비스를 기본 노드로 다시 재배치:</block>
+  <block id="1fa806fcbe49745af0c2b70e8779b73d" category="list-text">모든 노드가 원하는 페이스 메이커, Corosync 및 PCS 버전을 실행할 때까지 클러스터의 각 노드에 대해 이전 단계를 반복합니다.</block>
+  <block id="d90c1dfacfcfe6034c62dbbf554aa336" category="list-text">마지막으로,<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 클러스터를 실행하고 클러스터 상태가 양호한지 확인하고 가<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block> 원하는 페이스 메이커 버전을 보고합니다.</block>
+  <block id="894166f580af39476db30ddf0b39e93c" category="admonition"><block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>'혼합 버전'이 보고되면 클러스터의 노드가 이전 페이스 메이커 버전과 함께 실행되고 있으므로 업그레이드해야 합니다. 업그레이드된 노드가 클러스터에 다시 연결할 수 없거나 리소스가 시작되지 않는 경우, 클러스터 로그를 확인하고 알려진 업그레이드 문제에 대해서는 Pacemaker 릴리즈 노트 또는 사용자 가이드를 참조하십시오.</block>
+  <block id="2360c7132bb0f703a6af1f784e30721f" category="section-title">클러스터 종료를 완료합니다</block>
+  <block id="c56b96ad19ba7ad1a0a28a5dd92fccd7" category="paragraph">이 접근 방식에서는 모든 클러스터 노드 및 리소스가 종료되고 노드가 업그레이드된 다음 클러스터가 다시 시작됩니다. 이 방법은 페이스 메이커 및 Corosync 버전이 혼합 버전 구성을 지원하지 않는 경우에 필요합니다.</block>
+  <block id="ada4df9ccfff1547c1f09456386caf07" category="list-text">모든 노드에서 클러스터 소프트웨어(심장박동기 및 Corosync)를 종료합니다.</block>
+  <block id="ec37f5378eeba13984a263685014a655" category="admonition">클러스터 크기에 따라 전체 클러스터를 중지하는 데 몇 초 또는 몇 분이 걸릴 수 있습니다.</block>
+  <block id="26dce8ee8153faa4816d7468ec720330" category="list-text">모든 노드에서 클러스터 서비스가 종료되면 요구 사항에 따라 각 노드의 심장박동기, Corosync 및 PCS 패키지를 업그레이드합니다.</block>
+  <block id="142f756ea3d035f02b974a98db74916c" category="list-text">모든 노드를 업그레이드한 후 모든 노드에서 클러스터 소프트웨어를 시작합니다.</block>
+  <block id="492e09d8d491f90ea20fad54f615816a" category="list-text">패키지가 업데이트된 경우<block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block> 클러스터의 각 노드를 다시 인증합니다.</block>
+  <block id="fe0b373cea492c0574adf218141f90b9" category="list-text">마지막으로,<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 클러스터를 실행하고 클러스터의 상태가 양호한지 확인하고 가<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block> 올바른 심장박동기 버전을 보고합니다.</block>
+  <block id="c07d2f5207c17b96abd3e5c6aa314715" category="admonition"><block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>'혼합 버전'이 보고되면 클러스터의 노드가 이전 페이스 메이커 버전과 함께 실행되고 있으므로 업그레이드해야 합니다.</block>
+  <block id="6b923a0944f4926d7adb6a03c07c9a69" category="summary">파일 노드의 ConnectX-7 어댑터 펌웨어를 업데이트하는 단계입니다.</block>
+  <block id="8fce27499bf82a3c6907d5382138d466" category="doc">파일 노드 어댑터 펌웨어를 업데이트합니다</block>
+  <block id="c344aab4fba3911c1af618a881763c15" category="paragraph">다음 단계에 따라 파일 노드의 ConnectX-7 어댑터를 최신 펌웨어로 업데이트합니다.</block>
+  <block id="89cdf8293572c88c65745474062df951" category="paragraph">새로운 MLNX_OFED 드라이버를 지원하거나 새로운 기능을 활성화하거나 버그를 수정하려면 ConnectX-7 어댑터 펌웨어를 업데이트해야 할 수 있습니다. 이 설명서에서는 NVIDIA의 유틸리티를 사용하여 어댑터를 업데이트할 수 있습니다. 이<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block> 유틸리티는 사용 편의성과 효율성이 우수합니다.</block>
+  <block id="d41774d5dcaa69f5393d8da7101754ec" category="paragraph">이 가이드에서는 ConnectX-7 어댑터 펌웨어를 업데이트하는 두 가지 방법, 즉 롤링 업데이트와 2노드 클러스터 업데이트에 대해 설명합니다. 클러스터 크기에 따라 적절한 업데이트 방법을 선택합니다. 펌웨어 업데이트를 수행하기 전에 다음 사항을 확인하십시오.</block>
+  <block id="1d79fc0255b694c56bd5dea749c741cd" category="list-text">지원되는 MLNX_OFED 드라이버가 설치되어 있으면 을 참조하십시오.<block ref="178d97073525b373723b8dda031e8548" category="inline-link-macro-rx"></block></block>
+  <block id="e9b1ac80ddb831f90b95b913fae55a9f" category="section-title">펌웨어 업데이트 준비</block>
+  <block id="6b9b7c71638c919ff18548623403c799" category="inline-link-macro">NVIDIA의 지원 사이트</block>
+  <block id="28adaa75c816b77283bde4522b8cc249" category="paragraph">NVIDIA의 MLNX_OFED 드라이버와 함께 번들로 제공되는 노드의 어댑터 펌웨어를 업데이트하려면 NVIDIA의 유틸리티를 사용하는 것이 좋습니다<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>. 업데이트를 시작하기 전에 에서 어댑터의 펌웨어 이미지를 <block ref="1a2b49373c8b50530166a64f6ed91a90" category="inline-link-macro-rx"></block>다운로드하여 각 파일 노드에 저장합니다.</block>
+  <block id="415a4f653138a852500ffee84bf5c1b4" category="inline-link-macro">OEM 펌웨어</block>
+  <block id="4f4c0bb368cf9ad01cdc3ff868ebf17c" category="admonition">Lenovo ConnectX-7 어댑터의 경우<block ref="afeb1af9ee3dad5422ab912ec5ed916d" prefix=" " category="inline-code"></block> NVIDIA 페이지에서 사용할 수 있는 도구를 <block ref="01d7d47a93ae1e4d58f3e91b6cd1d0c0" category="inline-link-macro-rx"></block>사용합니다.</block>
+  <block id="da3485dbd4b4e5883fb3b1f4e9556949" category="section-title">롤링 업데이트 접근 방식</block>
+  <block id="1f97f3d9707d91def548aa8a2e62b91d" category="paragraph">이 접근 방식은 3개 이상의 노드가 있는 HA 클러스터에 권장됩니다. 이 접근 방식에는 한 번에 하나의 파일 노드에서 어댑터 펌웨어를 업데이트하여 HA 클러스터가 서비스 요청을 처리할 수 있습니다. 하지만 이 시간 동안 I/O를 처리하지 않는 것이 좋습니다.</block>
+  <block id="a6e5bc149cec5a68a62c041d3c6a0b33" category="list-text">업데이트할 파일 노드를 선택하고 대기 모드로 전환하면 해당 노드에서 모든 BeeGFS 서비스를 드레이닝(또는 이동)합니다.</block>
+  <block id="a6f5d5c821201989f4f5f4b1434bbab2" category="list-text">다음을 실행하여 노드의 서비스가 방전되었는지 확인합니다.</block>
+  <block id="879176c1b609d9d4155509330b98a7dc" category="paragraph">대기 상태인 노드에 대해 보고하는 서비스가 없는지 확인합니다<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>.</block>
+  <block id="9d2557a9c1e296e086e87e0ea139e32b" category="admonition">클러스터 크기에 따라 BeeGFS 서비스가 자매 노드로 이동하는 데 몇 초 또는 몇 분이 걸릴 수 있습니다. BeeGFS 서비스가 자매 노드에서 시작되지 않는 경우 를 참조하십시오<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>.</block>
+  <block id="d15de38a9cc8343b26b76e04866effdf" category="list-text">을 사용하여 어댑터 펌웨어를<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block> 업데이트합니다.</block>
+  <block id="4d87c4ea16f4cf2adbeefb288c4840e6" category="paragraph">펌웨어 업데이트를 수신하는 각 어댑터에 대해 를<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block> 확인합니다.</block>
+  <block id="69b31d926cd00aa9de80cf7b14eab218" category="list-text">유틸리티를 사용하여 각 어댑터를 재설정하여<block ref="45e6a20266bfc1fa2c25471ddf52308b" prefix=" " category="inline-code"></block> 새 펌웨어를 적용합니다.</block>
+  <block id="25eb42c85a64acec04cf19a3ad2b7395" category="inline-link-macro">NVIDIA의 mlxfwreset 제한 사항</block>
+  <block id="435a7ccec9f9ff6251954e95de4d0077" category="admonition">일부 펌웨어 업데이트에서는 업데이트를 적용하기 위해 재부팅해야 할 수 있습니다. 지침은 을 <block ref="ebfc57e157ebe1ff1768e220a8dc329c" category="inline-link-macro-rx"></block>참조하십시오. 재부팅이 필요한 경우 어댑터를 재설정하는 대신 재부팅을 수행하십시오.</block>
+  <block id="d974fd8f7ae3828a4b95f6e90d4c579a" category="list-text">OpenSM 서비스를 중지합니다.</block>
+  <block id="6a878a1cd043169c82c66374f6fec2a5" category="list-text">앞서 언급한 각 명령에 대해 다음 명령을<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block> 실행합니다.</block>
+  <block id="bd1516e27db5d9760920cc6ac65637f7" category="list-text">OpenSM 서비스를 시작합니다.</block>
+  <block id="e8dd47a8d6e5d7d4ce23864009576781" category="list-text"><block ref="64284c8d228536994c2b22912d2dfd88" prefix=" " category="inline-code"></block>다음을 실행하여 모든 어댑터가 원하는 펌웨어 버전에서 실행되고 있는지 확인합니다.</block>
+  <block id="afdebfdd553f315294b6e2613a68bac2" category="paragraph">모든 어댑터가 업데이트될 때까지 클러스터의 각 파일 노드에 대해 이 단계를 반복합니다.</block>
+  <block id="2e24e5f97c6ecd461030eb1eb884379b" category="section-title">2노드 클러스터 업데이트 접근 방식</block>
+  <block id="305a0f364da0ff85c6c92c4680866c24" category="paragraph">이 접근 방식은 2개의 노드만 있는 HA 클러스터에 권장됩니다. 이 방법은 롤링 업데이트와 유사하지만 한 노드의 클러스터 서비스가 중지될 때 서비스 다운타임을 방지하기 위한 추가 단계가 포함되어 있습니다.</block>
+  <block id="8daaa6355694edbaba2cb5a9b13ce781" category="list-text">업데이트할 파일 노드를 선택하고 노드를 대기 모드로 전환하면 해당 노드에서 모든 BeeGFS 서비스를 압축(또는 이동)합니다.</block>
+  <block id="370d6736b9730ee3ed471c975dca3040" category="list-text">다음을 실행하여 노드의 리소스가 소모되었는지 확인합니다.</block>
+  <block id="04adfc113361937ceba2fcd8d61b3c92" category="admonition">클러스터 크기에 따라 BeeGFS 서비스가 자매 노드로 보고되려면 몇 초 또는 몇 분이 걸릴 수<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block> 있습니다. BeeGFS 서비스를 시작하지 못하는 경우 를 참조하십시오<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>.</block>
+  <block id="322895ffeb919484b312ccccded9b8ac" category="list-text">클러스터를 유지보수 모드로 전환합니다.</block>
+  <block id="936f1016c7b40dcadce05d9585e03c4c" category="list-text">클러스터를 유지보수 모드에서 해제합니다.</block>
+  <block id="7190ac3ac7ea745d4c9a31ade586f240" category="paragraph">HA 클러스터의 E-Series 스토리지 어레이 구성 요소를 업그레이드하려면 다음 단계를 따르십시오.</block>
+  <block id="91ba484bdb8dfae4fcf9b5f1cb4c9407" category="paragraph">최신 펌웨어로 HA 클러스터의 NetApp E-Series 스토리지 어레이를 최신 상태로 유지하면 최적의 성능과 향상된 보안을 보장할 수 있습니다. 스토리지 어레이용 펌웨어 업데이트는 SANtricity OS, NVSRAM 및 드라이브 펌웨어 파일을 통해 적용됩니다.</block>
+  <block id="f04c5fdc9e10396af2f82ce9565f65a5" category="list-text">1차 노드에서 각 BeeGFS 서비스를 통해 클러스터가 최적의 상태로 유지되도록 합니다. 자세한 내용은 을 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 참조하십시오.</block>
+  <block id="d5c73bafdf627c28554a39d3e655f1bf" category="cell">활성 파이버(트랜시버 포함)</block>
+  <block id="c44b2ed9fc36044ebe1e8b9057c4a281" category="cell">MMA4Z00-NS(다중 모드, IB/ETH, 800GB/s 2x400Gb/s 2중 포트 OSFP)</block>
+  <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx(다중 모드, 4채널 대 2채널 스플리터 파이버 케이블)</block>
+  <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400(다중 모드, IB/ETH, 400GB/s 단일 포트 QSFP-112)</block>
+  <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002(NVIDIA 패시브 구리 스플리터 케이블, InfiniBand 800GB/s ~ 4x 200GB/s, OSFP ~ 4x QSFP112)</block>
+  <block id="fbe7b2959f641c0a45951417fc744ba8" category="paragraph">* ConnectX-7 HCA 펌웨어 * FW:28.42.1000+PXE:3.7.0500+UEFI:14.35.0015</block>
+  <block id="63c2d436fc11f0bcdd598c38560aca3f" category="paragraph">* ConnectX-6 HCA 펌웨어 * FW:20.43.1014 + PXE:3.7.0500 + UEFI:14.36.0016</block>
+  <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1를 참조하십시오</block>
+  <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.DLP</block>
+  <block id="2c31ce9dbdba754d30ac4980d7d504df" category="cell">3.1.7-1</block>
+  <block id="fec83cb9bb84cd6342be622a93d94a1b" category="cell">2.1.6-10</block>
+  <block id="088914339db9effda3ac57ec2e9439b6" category="cell">펜스 에이전트(적목/APC)</block>
+  <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
+  <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">페이스 메이커 및 Corosync 패키지를 업그레이드합니다</block>
 </blocks>

@@ -51,21 +51,6 @@ BeeGFS 파일 노드
 
 
 
-* * Lenovo ThinkSystem SR665 *
-+
-** * 프로세서: * 2x AMD EPYC 7343 16C 3.2GHz(2개의 NUMA 존으로 구성).
-** * 메모리: * 256GB(16x 16GB TruDDR4 3200MHz RDIMM-A)
-** * PCIe 확장: * PCIe Gen4 x16 슬롯 4개(NUMA 존당 2개)
-** * 기타: *
-+
-*** OS용 RAID 1에서 드라이브 2개(1TB 7.2K SATA 이상)
-*** 대역 내 OS 관리를 위한 1GbE 포트
-*** 대역외 서버 관리를 위한 1GbE BMC 및 Redfish API
-*** 이중 핫 스왑 전원 공급 장치 및 성능 팬
-
-
-
-
 
 
 
@@ -81,11 +66,6 @@ BeeGFS 파일 노드
 * * Lenovo ThinkSystem SR665 V3 서버: *
 +
 ** MCX755106AS - 열 ConnectX-7, NDR200, QSFP112, 2포트, PCIe Gen5 x16, InfiniBand 어댑터
-
-
-* * Lenovo ThinkSystem SR665 서버: *
-+
-** MCX653106A-HDAT ConnectX-6, HDR, QSFP-56, 2포트, PCIe Gen4 x16, InfiniBand 어댑터
 
 
 
@@ -115,21 +95,27 @@ BeeGFS 파일 노드
 |===
 * 파일 노드에서 스토리지 네트워크 스위치로의 연결. * InfiniBand 스토리지 스위치에 따라 다음 표에서 해당 케이블 옵션을 선택합니다. + 권장 케이블 길이는 2m 이지만 고객의 환경에 따라 달라질 수 있습니다.
 
-[cols="20%,10%,15%,55%"]
+[cols="20%,15%,10%,55%"]
 |===
-| 모델 전환 | 수량 | 케이블 유형 | 부품 번호 
+| 모델 전환 | 케이블 유형 | 수량 | 부품 번호 
 
 
-| NVIDIA QM9700 를 참조하십시오 | 4 | 활성 파이버 | MFA7U10-H002(NVIDIA 활성 파이버 케이블, InfiniBand 400GB/s~2x 200GB/s, OSFP~2x QSFP56) 
+.4+| NVIDIA QM9700 를 참조하십시오 .3+| 활성 파이버(트랜시버 포함) | 2 | MMA4Z00-NS(다중 모드, IB/ETH, 800GB/s 2x400Gb/s 2중 포트 OSFP) 
 
 
-| NVIDIA QM9700 를 참조하십시오 | 4 | 수동형 구리 | MCP7Y60-H002(NVIDIA 패시브 구리 케이블, InfiniBand 400GB/s ~ 2x 200GB/s, OSFP ~ 2x QSFP56) 
+| 4 | MFP7E20-Nxxx(다중 모드, 4채널 대 2채널 스플리터 파이버 케이블) 
 
 
-| NVIDIA MQM8700 를 참조하십시오 | 8 | 활성 파이버 | MFS1S00-H003E(NVIDIA 활성 파이버 케이블, InfiniBand 200GB/s, QSFP56) 
+| 8 | MMA1Z00-NS400(다중 모드, IB/ETH, 400GB/s 단일 포트 QSFP-112) 
 
 
-| NVIDIA MQM8700 를 참조하십시오 | 8 | 수동형 구리 | MCP1650-H002E26(NVIDIA 패시브 구리 케이블, InfiniBand 200GB/s, QSFP56) 
+| 수동형 구리 | 2 | MCP7Y40-N002(NVIDIA 패시브 구리 스플리터 케이블, InfiniBand 800GB/s ~ 4x 200GB/s, OSFP ~ 4x QSFP112) 
+
+
+.2+| NVIDIA MQM8700 를 참조하십시오 | 활성 파이버 | 8 | MFS1S00-H003E(NVIDIA 활성 파이버 케이블, InfiniBand 200GB/s, QSFP56) 
+
+
+| 수동형 구리 | 8 | MCP1650-H002E26(NVIDIA 패시브 구리 케이블, InfiniBand 200GB/s, QSFP56) 
 |===
 
 
@@ -159,15 +145,12 @@ IMPORTANT: 파일 노드에는 유효한 RedHat Enterprise Linux Server 서브�
 | Linux 커널 | 5.14.0-362.24.1.el9_3.x86_64 
 
 
-| InfiniBand/RDMA 드라이버 | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
-
-
  a| 
 HCA 펌웨어
  a| 
-* ConnectX-7 HCA 펌웨어 * FW:28.39.1002+PXE:3.7.0201+UEFI:14.32.0012
+* ConnectX-7 HCA 펌웨어 * FW:28.42.1000+PXE:3.7.0500+UEFI:14.35.0015
 
-* ConnectX-6 HCA 펌웨어 * FW:20.31.1014 + PXE:3.6.0403 + UEFI:14.24.0013
+* ConnectX-6 HCA 펌웨어 * FW:20.43.1014 + PXE:3.7.0500 + UEFI:14.36.0016
 
 |===
 
@@ -179,10 +162,10 @@ HCA 펌웨어
 | 소프트웨어 | 버전 
 
 
-| SANtricity OS를 참조하십시오 | 11.80.0 
+| SANtricity OS를 참조하십시오 | 11.90R1를 참조하십시오 
 
 
-| NVSRAM | N6000-880834-D08.DLP 
+| NVSRAM | N6000-890834-D02.DLP 
 
 
 | 드라이브 펌웨어 | 사용 중인 드라이브 모델에 대한 최신 버전입니다. 
@@ -201,15 +184,16 @@ HCA 펌웨어
 | BeeGFS | 7.4.4 
 
 
-| Corosync 를 참조하십시오 | 3.1.5-4 
+| Corosync 를 참조하십시오 | 3.1.7-1 
 
 
-| 심장박동기 | 2.1.4-5 
+| 심장박동기 | 2.1.6-10 
 
 
-| OpenSM을 참조하십시오  a| 
-OpenSM-5.17.2(MLNX_OFED_Linux-23.10-3.2.2.0-LTS에서)
+| 펜스 에이전트(적목/APC) | 4.10.0-55 
 
+
+| InfiniBand/RDMA 드라이버 | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
 |===
 
 

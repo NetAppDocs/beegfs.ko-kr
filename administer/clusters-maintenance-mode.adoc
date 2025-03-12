@@ -37,9 +37,9 @@ HA 클러스터가 운영 환경의 의도된 변경 사항에 실수로 반응�
 
 [source, console]
 ----
-pcs property show maintenance-mode
+pcs property config
 ----
-클러스터가 정상적으로 작동 중일 경우 이 오류가 false로 반환됩니다. 유지보수 모드를 활성화하려면 다음을 실행하십시오.
+ `maintenance-mode`클러스터가 정상적으로 작동하는 경우에는 속성이 나타나지 않습니다. 클러스터가 현재 유지 관리 모드에 있는 경우 속성은 로 보고됩니다. `true` 유지보수 모드를 활성화하려면 다음을 실행하십시오.
 
 [source, console]
 ----

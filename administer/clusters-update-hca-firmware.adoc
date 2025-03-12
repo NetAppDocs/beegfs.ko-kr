@@ -1,0 +1,233 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-hca-firmware.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, Update, Upgrade, HCA, ConnectX, Firmware, Card, Adapter 
+summary: 파일 노드의 ConnectX-7 어댑터 펌웨어를 업데이트하는 단계입니다. 
+---
+= 파일 노드 어댑터 펌웨어를 업데이트합니다
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+다음 단계에 따라 파일 노드의 ConnectX-7 어댑터를 최신 펌웨어로 업데이트합니다.
+
+
+
+== 개요
+
+새로운 MLNX_OFED 드라이버를 지원하거나 새로운 기능을 활성화하거나 버그를 수정하려면 ConnectX-7 어댑터 펌웨어를 업데이트해야 할 수 있습니다. 이 설명서에서는 NVIDIA의 유틸리티를 사용하여 어댑터를 업데이트할 수 있습니다. 이 `mlxfwmanager` 유틸리티는 사용 편의성과 효율성이 우수합니다.
+
+
+
+== 업그레이드 고려 사항
+
+이 가이드에서는 ConnectX-7 어댑터 펌웨어를 업데이트하는 두 가지 방법, 즉 롤링 업데이트와 2노드 클러스터 업데이트에 대해 설명합니다. 클러스터 크기에 따라 적절한 업데이트 방법을 선택합니다. 펌웨어 업데이트를 수행하기 전에 다음 사항을 확인하십시오.
+
+* 지원되는 MLNX_OFED 드라이버가 설치되어 있으면 을 참조하십시오.link:../second-gen/beegfs-technology-requirements.html["기술 요구 사항"^]
+* BeeGFS 파일 시스템 및 Pacemaker 클러스터 구성에 유효한 백업이 있습니다.
+* 클러스터가 정상 상태입니다.
+
+
+
+
+== 펌웨어 업데이트 준비
+
+NVIDIA의 MLNX_OFED 드라이버와 함께 번들로 제공되는 노드의 어댑터 펌웨어를 업데이트하려면 NVIDIA의 유틸리티를 사용하는 것이 좋습니다 `mlxfwmanager`. 업데이트를 시작하기 전에 에서 어댑터의 펌웨어 이미지를 link:https://network.nvidia.com/support/firmware/firmware-downloads/["NVIDIA의 지원 사이트"^]다운로드하여 각 파일 노드에 저장합니다.
+
+
+NOTE: Lenovo ConnectX-7 어댑터의 경우 `mlxfwmanager_LES` NVIDIA 페이지에서 사용할 수 있는 도구를 link:https://network.nvidia.com/support/firmware/lenovo-intelligent-cluster/["OEM 펌웨어"^]사용합니다.
+
+
+
+== 롤링 업데이트 접근 방식
+
+이 접근 방식은 3개 이상의 노드가 있는 HA 클러스터에 권장됩니다. 이 접근 방식에는 한 번에 하나의 파일 노드에서 어댑터 펌웨어를 업데이트하여 HA 클러스터가 서비스 요청을 처리할 수 있습니다. 하지만 이 시간 동안 I/O를 처리하지 않는 것이 좋습니다.
+
+. 각 BeeGFS 서비스가 1차 노드에서 실행되고 있는 상태에서 클러스터가 최적의 상태인지 확인합니다. 자세한 내용은 을 link:clusters-examine-state.html["클러스터의 상태를 검사합니다"^] 참조하십시오.
+. 업데이트할 파일 노드를 선택하고 대기 모드로 전환하면 해당 노드에서 모든 BeeGFS 서비스를 드레이닝(또는 이동)합니다.
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 다음을 실행하여 노드의 서비스가 방전되었는지 확인합니다.
++
+[source, console]
+----
+pcs status
+----
++
+대기 상태인 노드에 대해 보고하는 서비스가 없는지 확인합니다 `Started`.
+
++
+
+NOTE: 클러스터 크기에 따라 BeeGFS 서비스가 자매 노드로 이동하는 데 몇 초 또는 몇 분이 걸릴 수 있습니다. BeeGFS 서비스가 자매 노드에서 시작되지 않는 경우 를 참조하십시오link:clusters-troubleshoot.html["문제 해결 설명서"^].
+
+. 을 사용하여 어댑터 펌웨어를 `mlxfwmanager` 업데이트합니다.
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+펌웨어 업데이트를 수신하는 각 어댑터에 대해 를 `PCI Device Name` 확인합니다.
+
+. 유틸리티를 사용하여 각 어댑터를 재설정하여 `mlxfwreset` 새 펌웨어를 적용합니다.
++
+
+NOTE: 일부 펌웨어 업데이트에서는 업데이트를 적용하기 위해 재부팅해야 할 수 있습니다. 지침은 을 link:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIA의 mlxfwreset 제한 사항"^]참조하십시오. 재부팅이 필요한 경우 어댑터를 재설정하는 대신 재부팅을 수행하십시오.
+
++
+.. OpenSM 서비스를 중지합니다.
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 앞서 언급한 각 명령에 대해 다음 명령을 `PCI Device Name` 실행합니다.
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. OpenSM 서비스를 시작합니다.
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+.  `ibstat`다음을 실행하여 모든 어댑터가 원하는 펌웨어 버전에서 실행되고 있는지 확인합니다.
++
+[source, console]
+----
+ibstat
+----
+. 노드에서 심장박동기 클러스터 서비스를 시작합니다.
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. 노드를 대기 모드에서 해제합니다.
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. 모든 BeeGFS 서비스를 기본 노드로 다시 재배치:
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+모든 어댑터가 업데이트될 때까지 클러스터의 각 파일 노드에 대해 이 단계를 반복합니다.
+
+
+
+== 2노드 클러스터 업데이트 접근 방식
+
+이 접근 방식은 2개의 노드만 있는 HA 클러스터에 권장됩니다. 이 방법은 롤링 업데이트와 유사하지만 한 노드의 클러스터 서비스가 중지될 때 서비스 다운타임을 방지하기 위한 추가 단계가 포함되어 있습니다.
+
+. 각 BeeGFS 서비스가 1차 노드에서 실행되고 있는 상태에서 클러스터가 최적의 상태인지 확인합니다. 자세한 내용은 을 link:clusters-examine-state.html["클러스터의 상태를 검사합니다"^] 참조하십시오.
+. 업데이트할 파일 노드를 선택하고 노드를 대기 모드로 전환하면 해당 노드에서 모든 BeeGFS 서비스를 압축(또는 이동)합니다.
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 다음을 실행하여 노드의 리소스가 소모되었는지 확인합니다.
++
+[source, console]
+----
+pcs status
+----
++
+대기 상태인 노드에 대해 보고하는 서비스가 없는지 확인합니다 `Started`.
+
++
+
+TIP: 클러스터 크기에 따라 BeeGFS 서비스가 자매 노드로 보고되려면 몇 초 또는 몇 분이 걸릴 수 `Started` 있습니다. BeeGFS 서비스를 시작하지 못하는 경우 를 참조하십시오link:clusters-troubleshoot.html["문제 해결 설명서"^].
+
+. 클러스터를 유지보수 모드로 전환합니다.
++
+[source, console]
+----
+pcs property set maintenance-mode=true
+----
+. 을 사용하여 어댑터 펌웨어를 `mlxfwmanager` 업데이트합니다.
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+펌웨어 업데이트를 수신하는 각 어댑터에 대해 를 `PCI Device Name` 확인합니다.
+
+. 유틸리티를 사용하여 각 어댑터를 재설정하여 `mlxfwreset` 새 펌웨어를 적용합니다.
++
+
+NOTE: 일부 펌웨어 업데이트에서는 업데이트를 적용하기 위해 재부팅해야 할 수 있습니다. 지침은 을 link:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIA의 mlxfwreset 제한 사항"^]참조하십시오. 재부팅이 필요한 경우 어댑터를 재설정하는 대신 재부팅을 수행하십시오.
+
++
+.. OpenSM 서비스를 중지합니다.
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 앞서 언급한 각 명령에 대해 다음 명령을 `PCI Device Name` 실행합니다.
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. OpenSM 서비스를 시작합니다.
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+.  `ibstat`다음을 실행하여 모든 어댑터가 원하는 펌웨어 버전에서 실행되고 있는지 확인합니다.
++
+[source, console]
+----
+ibstat
+----
+. 노드에서 심장박동기 클러스터 서비스를 시작합니다.
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. 노드를 대기 모드에서 해제합니다.
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. 클러스터를 유지보수 모드에서 해제합니다.
++
+[source, console]
+----
+pcs property set maintenance-mode=false
+----
+. 모든 BeeGFS 서비스를 기본 노드로 다시 재배치:
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+모든 어댑터가 업데이트될 때까지 클러스터의 각 파일 노드에 대해 이 단계를 반복합니다.
