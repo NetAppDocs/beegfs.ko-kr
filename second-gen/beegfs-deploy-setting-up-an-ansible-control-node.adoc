@@ -14,66 +14,64 @@ summary: Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 
 
 
 [role="lead"]
-Ansible 제어 노드를 설정하려면 솔루션을 구성하는 데 사용할 수 있는 모든 파일 및 블록 노드의 관리 포트에 대한 네트워크 액세스를 갖춘 가상 머신 또는 물리적 머신을 식별해야 합니다.
+Ansible 제어 노드를 설정하려면 NetApp 솔루션 기반 BeeGFS 솔루션용으로 구축된 모든 파일 및 블록 노드에 대한 네트워크 액세스가 가능한 가상 머신 또는 물리적 머신을 지정해야 합니다.
 
-다음 단계는 Ubuntu 22.04에서 테스트되었습니다. 선호하는 Linux 배포와 관련된 단계는 를 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible 설명서"^]참조하십시오.
+권장되는 패키지 버전 목록은 를 link:beegfs-technology-requirements.html#ansible-control-node-requirements["기술 요구사항"]참조하십시오. 다음 단계는 Ubuntu 22.04에서 테스트되었습니다. 선호하는 Linux 배포와 관련된 단계는 를 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible 설명서"^]참조하십시오.
 
-. Python 3.10을 설치하고 올바른 버전의 이 `pip` 설치되어 있는지 확인합니다.
+. Ansible 제어 노드에서 다음 Python 및 Python 가상 환경 패키지를 설치합니다.
 +
-....
-sudo apt install python3.10 -y
-sudo apt install python3-pip
-sudo apt install sshpass
-....
-. 심볼릭 링크를 생성하여 파이썬 3.10 바이너리가 호출되거나 호출될 때마다 `python3` `python` 사용되도록 합니다.
+[source, console]
+----
+sudo apt-get install python3 python3-pip python3-setuptools python3.10-venv
+----
+. Python 가상 환경을 생성합니다
 +
-....
-sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
-sudo ln -sf /usr/bin/python3 /usr/bin/python
-....
-. NetApp BeeGFS 컬렉션에 필요한 Python 패키지를 설치합니다.
+[source, console]
+----
+python3 -m venv ~/pyenv
+----
+. 가상 환경을 활성화합니다.
 +
-....
-python3 -m pip install ansible cryptography netaddr
-....
+[source, console]
+----
+source ~/pyenv/bin/activate
+----
+. 활성화된 가상 환경 내에 필요한 Python 패키지를 설치합니다.
 +
-
-NOTE: 지원되는 Ansible 버전과 필요한 모든 Python 패키지를 설치하려면 BeeGFS 컬렉션의 Readme 파일을 참조하십시오. 지원되는 버전은 에도 나와 있습니다 link:beegfs-technology-requirements.html["기술 요구사항"].
-
-. 올바른 버전의 Ansible 및 Python이 설치되어 있는지 확인하십시오.
+[source, console]
+----
+pip install ansible netaddr cryptography passlib
+----
+. Ansible Galaxy를 사용하여 BeeGFS 컬렉션을 설치합니다.
 +
-....
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries.beegfs
+----
+. 설치된 Ansible, Python 및 BeeGFS 컬렉션 버전이 과 일치하는지 확인합니다link:beegfs-technology-requirements.html#ansible-control-node-requirements["기술 요구사항"].
++
+[source, console]
+----
 ansible --version
-ansible [core 2.17.2]
-  config file = None
-  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
-  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/local/bin/ansible
-  python version = 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] (/usr/bin/python3)
-  jinja version = 3.1.4
-  libyaml = True
-....
-. Git 또는 BitBucket과 같은 소스 제어 시스템에 BeeGFS 구축을 설명하는 데 사용되는 Ansible 인벤토리를 저장한 다음 Git를 설치하여 이러한 시스템과 상호 작용합니다.
+ansible-galaxy collection list netapp_eseries.beegfs
+----
+. Ansible이 Ansible 제어 노드에서 원격 BeeGFS 파일 노드에 액세스할 수 있도록 암호 없는 SSH를 설정합니다.
 +
-....
-sudo apt install git -y
-....
-. 암호 없는 SSH를 설정합니다. 이는 Ansible에서 Ansible 제어 노드의 원격 BeeGFS 파일 노드에 액세스할 수 있는 가장 쉬운 방법입니다.
+.. 필요한 경우 Ansible 제어 노드에서 공용 키 쌍을 생성합니다.
 +
-.. 필요한 경우 Ansible 컨트롤 노드에서 ssh-keygen을 사용하여 공개 키 쌍을 생성합니다
-.. ssh-copy-id <ip_or_hostname>'을 사용하여 각 파일 노드에 대해 암호 없는 SSH를 설정합니다
+[source, console]
+----
+ssh-keygen
+----
+.. 각 파일 노드에 암호 없는 SSH를 설정합니다.
 +
-블록 노드에 암호 없는 SSH를 * 설정하지 마십시오. 이 작업은 지원되거나 필요하지 않습니다.
+[source, console]
+----
+ssh-copy-id <ip_or_hostname>
+----
 
 
 
-. Ansible Galaxy를 사용하여 에 나열된 BeeGFS 컬렉션 버전을 설치합니다 link:beegfs-technology-requirements.html["기술 요구사항"].
-+
-이 설치에는 NetApp SANtricity 소프트웨어 및 호스트 컬렉션과 같은 추가 Ansible 종속성이 포함됩니다.
 
-+
-....
-ansible-galaxy collection install netapp_eseries.beegfs:==3.2.0
-....
 
+IMPORTANT: 블록 노드에 암호 없는 SSH를 * 설정하지 마십시오. 이 작업은 지원되거나 필요하지 않습니다.

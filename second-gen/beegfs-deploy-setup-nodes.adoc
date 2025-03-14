@@ -49,10 +49,7 @@ NOTE: 엄밀히 요구되지는 않지만, 이후의 섹션에서는 호스트 �
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 모든 HCA 펌웨어를 에서 권장하는 버전으로 link:beegfs-technology-requirements.html["기술 요구 사항"]업데이트합니다.
-+
-이 업데이트는 권장 펌웨어를 번들로 제공하는 mlxup 도구 버전을 다운로드하여 실행하면 됩니다. 이 도구는 ( )에서 다운로드할 수 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup - 업데이트 및 쿼리 유틸리티"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["사용 설명서"^]있습니다.
-
+. 모든 HCA 펌웨어를  link:..administer/clusters-update-hca-firmware.html["파일 노드 어댑터 펌웨어를 업데이트합니다"^]가이드 사용에 권장되는 버전으로 link:beegfs-technology-requirements.html["기술 요구 사항"]업데이트합니다.
 
 
 
@@ -63,11 +60,11 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 . 각 EF600 컨트롤러의 관리 포트를 구성합니다.
 +
-포트 구성에 대한 지침은 로 이동하십시오 https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["E-Series 문서 센터 를 참조하십시오"^].
+포트 구성에 대한 자세한 내용은 를 https://docs.netapp.com/us-en/e-series/install-hw-ef600/complete-setup-task.html#step-2-connect-and-configure-the-management-connection["E-Series 문서 센터 를 참조하십시오"^] 참조하십시오.
 
 . 필요에 따라 각 시스템의 스토리지 어레이 이름을 설정합니다.
 +
-이름을 설정하면 이후 섹션에서 각 시스템을 쉽게 참조할 수 있습니다. 어레이 이름 설정에 대한 지침은 로 이동하십시오 https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["E-Series 문서 센터 를 참조하십시오"^].
+이름을 설정하면 이후 섹션에서 각 시스템을 쉽게 참조할 수 있습니다. 배열 이름 설정에 대한 자세한 내용은 을 https://docs.netapp.com/us-en/e-series-santricity/sm-interface/setup-wizard-overview.html#first-time-setup["E-Series 문서 센터 를 참조하십시오"^] 참조하십시오.
 
 
 
