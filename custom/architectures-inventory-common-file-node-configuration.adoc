@@ -165,7 +165,7 @@ beegfs_ha_fencing_agents:
       ip: <BMC_IP>
       <<: *redfish
 ----
-... 다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat 문서"^]참조하십시오.
+... 다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["Red Hat 문서"^]참조하십시오.
 
 
 
@@ -198,7 +198,7 @@ eseries_ip_udev_rules:
 ----
 +
 
-IMPORTANT: 인터페이스의 이름을 바꿀 때(이름을 바꿀 수 없음) 충돌을 방지하려면 eth0, ens9f0, ib0 또는 ibs4f0과 같은 잠재적인 기본 이름을 사용하지 않아야 합니다. 일반적인 명명 규칙은 이더넷 또는 InfiniBand의 경우 'e' 또는 'i'를 사용하고 그 뒤에 PCIe 슬롯 번호와 해당 포트를 나타내는 문자를 사용하는 것입니다. 예를 들어 슬롯 3에 설치된 InfiniBand 어댑터의 두 번째 포트는 i3b입니다.
+CAUTION: 인터페이스의 이름을 바꿀 때(이름을 바꿀 수 없음) 충돌을 방지하려면 eth0, ens9f0, ib0 또는 ibs4f0과 같은 잠재적인 기본 이름을 사용하지 않아야 합니다. 일반적인 명명 규칙은 이더넷 또는 InfiniBand의 경우 'e' 또는 'i'를 사용하고 그 뒤에 PCIe 슬롯 번호와 해당 포트를 나타내는 문자를 사용하는 것입니다. 예를 들어 슬롯 3에 설치된 InfiniBand 어댑터의 두 번째 포트는 i3b입니다.
 
 +
 
@@ -271,9 +271,8 @@ EF600에서 HDR(200GB) InfiniBand를 사용하려면 서브넷 관리자가 가�
 +
 [source, bash]
 ----
-curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
-
-curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.4/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.4/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 ----
 . 아래에서 `group_vars/ha_cluster.yml` 다음 구성을 정의합니다.
 +
@@ -287,8 +286,8 @@ eseries_ib_opensm_custom_packages:
   install:
     - files:
         add:
-          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
           "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
     - packages:
         add:
           - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm

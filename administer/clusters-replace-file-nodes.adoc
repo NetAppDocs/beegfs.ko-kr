@@ -50,7 +50,7 @@ all:
 . 클러스터의 다른 노드 중 하나에서 이전 노드를 제거합니다. `pcs cluster node remove <HOSTNAME>`.
 +
 
-IMPORTANT: 이 단계를 실행하기 전에 진행하지 마십시오.
+CAUTION: 이 단계를 실행하기 전에 진행하지 마십시오.
 
 . Ansible 제어 노드에서:
 +

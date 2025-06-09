@@ -89,7 +89,7 @@ all:
 ----
 +
 
-IMPORTANT: 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible 설명서"^] Ansible Vault로 콘텐츠 암호화)를 사용하거나 을 사용합니다 `--ask-become-pass` 옵션을 클릭합니다.
+NOTE: 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible 설명서"^] Ansible Vault로 콘텐츠 암호화)를 사용하거나 을 사용합니다 `--ask-become-pass` 옵션을 클릭합니다.
 
 . 에 있습니다 `client_inventory.yml` File(파일): 에 BeeGFS 클라이언트로 구성해야 하는 모든 호스트를 나열합니다 `beegfs_clients` 그룹화한 다음 인라인 주석을 참조하여 시스템에서 BeeGFS 클라이언트 커널 모듈을 구축하는 데 필요한 추가 구성을 제거합니다.
 +

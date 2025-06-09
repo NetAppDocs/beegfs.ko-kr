@@ -27,14 +27,12 @@
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">파이썬</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">추가 Python 패키지</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">파일 노드 요구 사항</block>
-  <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">RedHat Enterprise Linux</block>
   <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux 커널</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand/RDMA 드라이버</block>
   <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600 블록 노드 요구사항</block>
   <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">SANtricity OS를 참조하십시오</block>
   <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
   <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">드라이브 펌웨어</block>
-  <block id="df4607ba320342072b2dc12271b08d2f" category="cell">사용 중인 드라이브 모델에 대한 최신 버전입니다.</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">BeeGFS on NetApp 솔루션은 BeeGFS 병렬 파일 시스템을 NetApp EF600 스토리지 시스템과 결합하여 까다로운 워크로드에 대응할 수 있는 안정적이고 확장 가능하며 비용 효율적인 인프라를 제공합니다.</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">솔루션 개요</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVA 프로그램</block>
@@ -170,7 +168,6 @@
   <block id="a8169193bd5718bbe78111b3a1f874d7" category="list-text"><block ref="dffbd1bc941e2f4395de7cba04c6653b" category="inline-link-macro-rx"></block>.</block>
   <block id="096a6674c1f4ef681d88a6eb229299b7" category="inline-link-macro">BeeGFS 클라이언트를 구성합니다</block>
   <block id="f159952d71e33cd0a1ffbb2bcc4ce2ad" category="list-text"><block ref="75197807ccb18c9f99e8f2a2a3443aea" category="inline-link-macro-rx"></block>.</block>
-  <block id="d6dd015562e1d088d87d28007ecfa541" category="admonition">배포 절차에는 텍스트를 파일로 복사해야 하는 몇 가지 예제가 포함되어 있습니다. 특정 배포에 대해 수정하거나 수정할 수 있는 모든 사항에 대해 "#" 또는 "//" 문자로 표시된 인라인 코멘트에 세심한 주의를 기울이십시오. 예를 들어, ``begfs_ha_ntp_server_pool:# 이것은 설명의 예입니다! "pool 0.pool.ntp.org iburst maxsources 3" - "pool 1.pool.ntp.org iburst maxsources 3"</block>
   <block id="d8ca15234a274a841f06a1d429141054" category="summary">각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성하고 각 컨트롤러의 관리 포트를 구성합니다.</block>
   <block id="1cfd8029b1372ddacb436890446b43fd" category="doc">파일 노드 및 블록 노드 설정</block>
   <block id="d900235d99f416c3bfda0461cbb71f26" category="paragraph">대부분의 소프트웨어 구성 작업은 NetApp에서 제공하는 Ansible 컬렉션을 사용하여 자동화되지만, 각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성하고 각 컨트롤러의 관리 포트를 구성해야 합니다.</block>
@@ -180,7 +177,6 @@
   <block id="0c112c89dd8c3ce2b92d5e4844ea4641" category="admonition">서비스 프로세서라고도 하는 베이스보드 관리 컨트롤러(BMC)는 다양한 서버 플랫폼에 내장되어 운영 체제가 설치되어 있지 않거나 액세스할 수 없는 경우에도 원격 액세스를 제공할 수 있는 대역외 관리 기능의 일반 이름입니다. 공급업체는 일반적으로 고유한 브랜딩으로 이 기능을 마케팅합니다. 예를 들어, Lenovo SR665에서 BMC는 _Lenovo XClarity Controller(XCC)_라고 합니다.</block>
   <block id="290a84841d7341364c4abf862a74583f" category="list-text">최대 성능을 위해 시스템 설정을 구성합니다.</block>
   <block id="04c7f6322804081c61ca0d88cef85904" category="paragraph">UEFI 설정(이전의 BIOS)을 사용하거나 많은 BMC에서 제공하는 Redfish API를 사용하여 시스템 설정을 구성합니다. 시스템 설정은 파일 노드로 사용되는 서버 모델에 따라 달라집니다.</block>
-  <block id="354f37da23eacae1fc163775964a0a2e" category="paragraph">검증된 Lenovo SR665 파일 노드에 대한 시스템 설정을 구성하는 방법은 을 참조하십시오 <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>.</block>
   <block id="63b34e32fcac1724c46edd575672332b" category="paragraph">지금은 InfiniBand 포트에 IP를 구성하지 마십시오.</block>
   <block id="e9074e57167186919a163cd099187dd0" category="admonition">엄밀히 요구되지는 않지만, 이후의 섹션에서는 호스트 이름이 순차적으로 번호가 매겨진 것으로 간주하고(예: h1-hn) 홀수 호스트와 짝수 번호의 호스트에서 완료해야 하는 작업을 참조합니다.</block>
   <block id="0123fb5bcbcd68deb7c43ec913e70705" category="inline-link">RHEL 시스템을 등록하고 가입하는 방법</block>
@@ -198,7 +194,6 @@
   <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansible 모듈 및 역할</block>
   <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp E-Series Ansible 컬렉션에서 각 역할은 NetApp 솔루션 기반의 BeeGFS를 완벽하게 구축하는 데 있습니다. 이 역할은 NetApp E-Series SANtricity, 호스트 및 BeeGFS 컬렉션을 사용하여 HA(High Availability)를 통해 BeeGFS 파일 시스템을 구성할 수 있습니다. 그런 다음 스토리지를 프로비저닝하고 매핑하고 클러스터 스토리지를 사용할 준비가 되었는지 확인할 수 있습니다.</block>
   <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">역할에 맞는 심층적인 문서가 제공되지만, 구축 절차에서는 제2세대 BeeGFS 구성 요소 설계를 사용하여 NetApp 검증 아키텍처를 구축하는 데 역할을 사용하는 방법에 대해 설명합니다.</block>
-  <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">Ansible에 대한 사전 경험이 사전 필수 요소가 될 수 있도록 구축 단계에서 자세한 정보를 제공하려고 하지만, Ansible 및 관련 용어에 친숙해야 합니다.</block>
   <block id="e9b6dfb59ebbe3c2a8e47b9bec2ada24" category="section-title">BeeGFS HA 클러스터의 인벤토리 레이아웃</block>
   <block id="927527f499c87b83ee052f9a293c0293" category="admonition">본 하위 섹션의 내용을 포함하는 파일을 만들지 마십시오. 이 내용은 예제로만 제공됩니다.</block>
   <block id="a7a48a32496dcd14ea6f94f7d89ab599" category="paragraph">이 구성은 구성 프로필을 기반으로 사전 결정됩니다. 하지만 다음과 같이 Ansible 인벤토리로 모든 내용을 레이아웃하는 방법을 전반적으로 이해해야 합니다.</block>
@@ -479,7 +474,6 @@
   <block id="7ed4e287a78a4cc348d1e60d143ceda8" category="paragraph">구성할 수 있는 조정 매개변수는 다음과 같습니다.</block>
   <block id="d8eb1bf5eeddb34869fa0aee2c5c3be0" category="list-text">* 파일 노드의 UEFI/BIOS에서 시스템 설정. * 성능을 극대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다. 시스템 설정(UEFI/BIOS) 또는 베이스보드 관리 컨트롤러(BMC)에서 제공하는 Redfish API를 사용하여 파일 노드를 설정할 때 시스템 설정을 구성합니다.</block>
   <block id="bb2fcb1abe8d0829558e398d9acb4589" category="inline-link-macro">성능을 위해 파일 노드 시스템 설정을 조정합니다</block>
-  <block id="adecdfd501fe0c9f7674b95abecb661b" category="paragraph">시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 사용 중인 서버 모델에 따라 설정을 수동으로 구성해야 합니다. 검증된 Lenovo SR665 파일 노드에 대한 시스템 설정을 구성하는 방법은 을 참조하십시오 <block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block>.</block>
   <block id="6721128d9ea380f9965cc220f28619e1" category="list-text">* 필수 구성 매개 변수에 대한 기본 설정 * 필수 구성 매개 변수는 BeeGFS 서비스의 구성 방법과 E-Series 볼륨(블록 장치)의 포맷 및 마운트에 영향을 미칩니다. 이러한 필수 구성 매개 변수는 다음과 같습니다.</block>
   <block id="93de4dab2e303d649f94f0880095e6ef" category="list-text">BeeGFS 서비스 구성 매개 변수입니다</block>
   <block id="c5b3473e89672cc155d0436c6e60bd52" category="inline-link">BeeGFS 서비스 구성 매개 변수입니다</block>
@@ -560,7 +554,6 @@
   <block id="5011bf6d8a37692913fce3a15a51f070" category="cell">8085</block>
   <block id="89f0938aa83de82ca99f8b06297ed69c" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_08'을 통해 리소스 그룹 tor_01에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
   <block id="9b62ac6b206ab6cafe8dafa0990559c7" category="inline-link-macro">권장되는 스토리지 풀 오버 프로비저닝 비율</block>
-  <block id="ab2ec57b0e9afdc73bcc69a962ee35c4" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>.</block>
   <block id="b627976db3394ccf24342632cef6f4f1" category="cell">STOR_01.대칭</block>
   <block id="40f4da34bbe180214c23b9e55da4f772" category="cell">8013</block>
   <block id="5ef33d06ff783e8453c10b95db8c1253" category="cell">Beegfs_s1_s2</block>
@@ -597,7 +590,6 @@
   <block id="d4d36ef3d915a0d2eaac8c62f1d8eff6" category="cell">META_15.월</block>
   <block id="b465a4b4c591a6f2e44fedac80e726d0" category="cell">meta_16.yml</block>
   <block id="91e38d134a7ca4a23006b0cf023d9011" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_16'을 통해 리소스 그룹 tor_09에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
-  <block id="ca61951791cd6f4d50294a908b9eee76" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>...</block>
   <block id="71c1385fcc844d118e8b2688b0cfd2d6" category="cell">STOR_09.대칭</block>
   <block id="9282f3f43896f146dcbcc2d03d530b59" category="cell">Beegfs_S9_S10</block>
   <block id="8f72ae1bf7ca7b8218a4bf9e719f5e7d" category="cell">STOR_10.월</block>
@@ -613,7 +605,6 @@
   <block id="dea1f079dcd8c8280e07dcd96ea8c075" category="section-title">4단계: 스토리지 전용 구성 요소에 대한 인벤토리를 구성합니다</block>
   <block id="711be1acedea341e1f5455f007cdb22b" category="paragraph">다음 단계에서는 BeeGFS 스토리지 전용 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다. 메타데이터 + 스토리지에 대한 구성을 설정하는 것과 스토리지 전용 구성 블록에 대한 구성을 설정하는 것의 주된 차이점은 모든 메타데이터 리소스 그룹이 생략되고 각 스토리지 풀에 대해 "criteria_drive_count"를 10에서 12로 변경하는 것입니다.</block>
   <block id="5b6fe069463b7f5581a1864de036e765" category="list-text">group_vars/ 아래에서 다음 템플릿을 사용하여 'tor_24'를 통해 리소스 그룹 tor_17에 대한 파일을 만든 다음 예제를 참조하여 각 서비스의 자리 표시자 값을 입력합니다.</block>
-  <block id="80f4c22d8a78e5d96cdf5bef28444426" category="admonition">올바른 크기는 을 참조하십시오 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>.</block>
   <block id="f9838993bed3d0e550ae346ed2e4355e" category="cell">STOR_17.월</block>
   <block id="8cf4aacf94a115dfc0190ee6782190d3" category="cell">Beegfs_S17_s18</block>
   <block id="7876b49b042d07da9a565db780a9b186" category="cell">STOR_18.월</block>
@@ -727,7 +718,6 @@
   <block id="e95c3b26aabb0242b0a38d72568b125a" category="paragraph">성능을 최대화하려면 파일 노드로 사용하는 서버 모델에서 시스템 설정을 구성하는 것이 좋습니다.</block>
   <block id="291e90fb83bca326d06b5479d0ae7197" category="paragraph">시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 이 항목에서는 검증된 Lenovo ThinkSystem SR665 서버 파일 노드에 대한 시스템 설정을 구성하는 방법에 대해 설명합니다.</block>
   <block id="cfa9d7ef51eae23751a0ea54765b99fd" category="section-title">UEFI 인터페이스를 사용하여 시스템 설정을 조정합니다</block>
-  <block id="7afe745e5e5ded0e0cf311f6ab05ce41" category="paragraph">Lenovo SR665 서버의 시스템 펌웨어에는 UEFI 인터페이스를 통해 설정할 수 있는 다양한 조정 매개변수가 포함되어 있습니다. 이러한 튜닝 매개 변수는 서버의 작동 방식 및 서버 성능에 미치는 모든 측면에 영향을 줄 수 있습니다.</block>
   <block id="01d5e77f89697d310442aa744d5c4068" category="paragraph">UEFI 설정 &gt; 시스템 설정 * 에서 다음 시스템 설정을 조정합니다.</block>
   <block id="6e2e169ab41f56781f3cd65629914fc6" category="section-title">작동 모드 메뉴</block>
   <block id="f7adfd4c98207b1161c7b693c16fa9ea" category="cell">* 시스템 설정 *</block>
@@ -1090,7 +1080,6 @@
   <block id="99f83169540f1c3e08a1e696707dcbee" category="list-text">펜싱(STONITH)이 전역적으로 활성화 또는 비활성화되었는지 확인하려면 다음을 실행하십시오.<block ref="f9bc36eebaadfbe3971849dbb1a7a291" prefix=" " category="inline-code"></block></block>
   <block id="88653da28715cbac123466935349c7b2" category="list-text">펜싱 실행을 비활성화하려면:<block ref="d3749d5705f2a9af97f05b0c5c91b235" prefix=" " category="inline-code"></block></block>
   <block id="79c811c32be072ba96828f7eaf67e191" category="list-text">펜싱 실행을 활성화하려면:<block ref="65795833f6c4653caabc1cbacafe84d8" prefix=" " category="inline-code"></block></block>
-  <block id="54dfcc160f4c7fc21df07ee9c7df6f86" category="paragraph">참고: 이 설정은 다음 번에 Ansible 플레이북을 실행할 때 재정의됩니다.</block>
   <block id="d60c67e58f8b774cb2aa20f043f8db60" category="summary">Ansible을 사용하여 BeeGFS 및 HA 클러스터를 업데이트합니다.</block>
   <block id="51e0180a7b3c2158984fbbe6e8f869a0" category="paragraph">Ansible을 사용하여 BeeGFS의 주요 버전, 부 버전, 패치 버전 간 이동을 비롯한 모든 BeeGFS 업그레이드를 수행할 수 있습니다. BeeGFS를 업데이트하려면 먼저 BeeGFS Ansible 컬렉션을 업데이트해야 합니다. 그러면 구축/관리 자동화 및 기본 HA 클러스터에 대한 최신 수정 사항 및 개선 사항도 포함됩니다. 최신 버전의 컬렉션으로 업데이트한 후에도 BeeGFS는 까지 업그레이드되지 않습니다<block ref="6afa1ad605a4192ba2e50e8be9966e68" prefix=" " category="inline-code"></block> 가 와 함께 실행되었습니다<block ref="1c5a0082b7b70fba66dc89c5dcadda70" prefix=" " category="inline-code"></block> 설정.</block>
   <block id="c647c561b083b3d7395174f66f8631ea" category="inline-link-macro">BeeGFS 업그레이드 설명서</block>
@@ -1151,7 +1140,6 @@
   <block id="8744d71fb56c3e75f875de0a416ea912" category="list-text">파일 노드에 소프트웨어 설치/구성</block>
   <block id="dcc4901f1f1938989ed2264f42fd1104" category="list-text">HA 클러스터 설정 및 BeeGFS 리소스 및 파일 시스템 서비스 구성</block>
   <block id="077a8397a5f4ba0711faf87b91f8906c" category="paragraph">Ansible에서 BeeGFS에 대한 지원은 에서 제공됩니다 <block ref="e5bec9f043c86b9afcbef28a688a4cdd" category="inline-link-macro-rx"></block> BeeGFS HA 클러스터의 포괄적인 구축 및 관리를 자동화하는 역할 및 모듈 모음입니다.</block>
-  <block id="5207de659c47ed66a8f04540f2cf7d28" category="paragraph">BeeGFS 자체는 &lt;major&gt;.&lt;minor&gt;.&lt;patch&gt; 버전 관리 체계에 따라 버전이 지정되며, 이 컬렉션은 지원되는 각 &lt;major&gt;.&lt;minor&gt; 버전의 BeeGFS에 대한 역할을 유지합니다. 예를 들어 BeeGFS 7.2 또는 BeeGFS 7.3과 같은 BeeGFS 버전이 있습니다. 컬렉션에 대한 업데이트가 릴리스되면 각 역할의 패치 버전이 해당 릴리즈 지점에 대해 사용 가능한 최신 BeeGFS 버전을 가리키도록 업데이트됩니다(예: 7.2.8). 각 컬렉션 버전은 특정 Linux 배포 및 버전, 현재 파일 노드용 Red Hat, 클라이언트용 RedHat 및 Ubuntu에서도 테스트 및 지원됩니다. 다른 배포판 실행이 지원되지 않으며 다른 버전(특히 다른 주요 버전)을 실행하는 것은 권장되지 않습니다.</block>
   <block id="ff58765d6c48f433685b2f9354c057ed" category="section-title">Ansible 컨트롤 노드</block>
   <block id="267dc210028d3a563bde0eb07ca563a0" category="paragraph">이 노드에는 BeeGFS 관리에 사용되는 인벤토리 및 Playbook이 포함됩니다. 다음과 같은 요구 사항이 있습니다.</block>
   <block id="fa364b2fe46e5e06529d637ca126add1" category="list-text">Ansible 6.x(Ansible-코어 2.13)</block>
@@ -1160,7 +1148,6 @@
   <block id="8486bce50d4152772da3c4531a015ab8" category="paragraph">또한 제어 노드에서 모든 BeeGFS 파일 노드 및 클라이언트로 암호 없는 SSH를 설정하는 것이 좋습니다.</block>
   <block id="5bca534f5a45c18ffc0306e63b306c62" category="section-title">BeeGFS 파일 노드</block>
   <block id="676b08aacbe937f16d558f23d90b29da" category="section-title">BeeGFS 클라이언트 노드</block>
-  <block id="dc203cff346fc33ab19584264833d533" category="paragraph">BeeGFS 클라이언트 Ansible 역할을 사용하여 BeeGFS 클라이언트 패키지를 설치하고 BeeGFS 마운트를 관리할 수 있습니다. 이 역할은 RedHat 8.4 및 Ubuntu 22.04에서 테스트되었습니다.</block>
   <block id="2e0da5c1c3cbd1cda1312f57209c96e4" category="inline-link-macro">BeeGFS는 Linux 배포 및 커널을 지원했습니다</block>
   <block id="b44b294130612c32e5f179fb81f347ec" category="paragraph">Anabilities를 사용하여 BeeGFS 클라이언트를 설정하고 BeeGFS를 마운트하지 않는 경우 <block ref="ed8f85054917a214583881f0e58e2825" category="inline-link-macro-rx"></block> 사용할 수 있습니다.</block>
   <block id="03a96e493f11c9bdee76520257a1462d" category="summary">호스트 변수(host_vars)를 사용하여 개별 파일 노드의 구성을 지정합니다.</block>
@@ -1230,7 +1217,6 @@
   <block id="8cb3e998c7b1e4cbe36289f2177363b5" category="list-text">그런 다음 펜싱 에이전트를 선택하고 구성합니다.</block>
   <block id="bc6b3ed04c45895c341d99b6765c1caa" category="list-text">옵션 1: APC PDU(Power Distribution Unit)를 사용하여 펜싱 활성화하기:</block>
   <block id="94ebb967d1a890978b9758e3f2aac3bb" category="list-text">옵션 2: Lenovo XCC(및 기타 BMC)에서 제공하는 Redfish API를 사용하여 펜싱을 활성화하려면</block>
-  <block id="7f2e85da597afbbb84c30c58c72fc4a2" category="inline-link-macro">RedHat 문서</block>
   <block id="1242eea64a7ebfd7464359e597a4ec62" category="inline-link-macro">성능 튜닝 매개 변수</block>
   <block id="e535abe8b416a666cd34177ff6bbe395" category="list-text">BeeGFS 서비스에 사용되는 부동 IP 주소(논리 인터페이스라고도 함)가 파일 노드 간에 페일오버할 수 있도록 모든 네트워크 인터페이스의 이름이 일관되게 지정되어야 합니다. 기본적으로 네트워크 인터페이스 이름은 동일한 PCIe 슬롯에 네트워크 어댑터가 설치된 동일한 서버 모델에서도 일관된 이름을 생성한다는 보장이 없는 커널에 의해 생성됩니다. 이 기능은 장비를 구축하고 생성된 인터페이스 이름을 알 수 있도록 하기 전에 인벤토리를 생성할 때도 유용합니다. 서버 또는 의 블록 다이어그램을 기반으로 일관된 장치 이름을 보장합니다<block ref="6efa276570b668a53eaf7bf29c69d544" prefix=" " category="inline-code"></block> 출력에서 원하는 PCIe 주소-논리 인터페이스 매핑을 다음과 같이 지정합니다.</block>
   <block id="b577b9bc7da15f148c6521018b1c26f7" category="list-text">InfiniBand(IPoIB) 네트워크 인터페이스의 경우:</block>
@@ -1409,8 +1395,6 @@
   <block id="f9fa015b01242f44a7319213f0a01ff2" category="section-title">시스템 설정을 조정합니다</block>
   <block id="93f3e5d94e30643aac7f8755a6dcfeb4" category="inline-link-macro">파일 노드 모델을 확인했습니다</block>
   <block id="b9a7b8c50025e62b9e91f9baf3ba2304" category="section-title">운영 체제를 설치합니다</block>
-  <block id="a82007c47b25723539a00ff94e8b3d27" category="section-title">RedHat</block>
-  <block id="5ab261ccc77c613b4430d72688133ef7" category="paragraph">RedHat 서브스크립션 관리자를 사용하여 시스템을 등록 및 구독하여 공식 Red Hat 리포지토리에서 필요한 패키지를 설치하고 지원되는 Red Hat 버전으로 업데이트를 제한할 수 있습니다.<block ref="77a4421cc9f01b777ceaeda595865c3c" prefix=" " category="inline-code"></block>. 자세한 내용은 을 참조하십시오<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 및 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>.</block>
   <block id="9a7877d2d6f43233661b52c31362cb32" category="paragraph">고가용성을 위해 필요한 패키지가 포함된 Red Hat 리포지토리를 활성화합니다.</block>
   <block id="5ea84babe2cd259121a70aff2652769b" category="section-title">관리 네트워크를 구성합니다</block>
   <block id="45f7cb03ff15b64d9405b68be6bdcc97" category="paragraph">운영 체제의 대역 내 관리를 허용하는 데 필요한 네트워크 인터페이스를 구성합니다. 정확한 단계는 사용 중인 특정 Linux 배포 및 버전에 따라 다릅니다.</block>
@@ -1547,9 +1531,7 @@
   <block id="e8c7ab07a88c53743d909983583625f9" category="paragraph">예를 들어, 이 샘플<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 파일에서 beegfs_01은 BeeGFS 관리 서비스를 실행하는 데 사용되는 파일 노드입니다.</block>
   <block id="cb7c9e260fba17d2ffcc93361a0eab2e" category="paragraph">순서를 반대로 하면 beegfs_02에서 관리 서비스가 선호됩니다.</block>
   <block id="958b8a27f957bef8700299f8cafb9b9a" category="admonition">개별 리소스 또는 리소스 그룹을 지정하지 마십시오. 재배치할 BeeGFS 서비스에 대한 모니터 이름을 항상 지정합니다. 예를 들어 BeeGFS 관리 서비스를 beegfs_02 실행으로 이동하려면 다음을 실행합니다<block ref="ad6bdcc4dd95b7dbe9e00b9894a08e42" prefix=" " category="inline-code"></block>. 이 프로세스를 반복하여 하나 이상의 서비스를 원하는 노드에서 이동할 수 있습니다. 서비스를 사용하여 새 노드에서 재배치/시작되었는지<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 확인합니다.</block>
-  <block id="de752721186f0ef334b71ac4b3fe9cb5" category="paragraph">파일 노드는 RedHat 9.3를 실행하고 필수 패키지(페이스 메이커, Corosync, Fence-agent-all, resource-agent)가 포함된 HA 리포지토리에 액세스할 수 있어야 합니다. 예를 들어 다음 명령을 실행하여 RedHat 9에서 적절한 리포지토리를 활성화할 수 있습니다.</block>
   <block id="aaf17f2a8cba647c8702de94c1bef112" category="list-text">참고 필요한 경우 여기에서 지원되는 모든 항목을 <block ref="f4efc844d4401fa0cd59f82e6a720d5a" category="inline-link-macro-rx"></block> 지정할 수도 있습니다. BeeGFS HA의 역할은 잘 테스트된 많은 테스트를 거치므로 이러한 조정이 필요하지 않습니다. <block ref="62cb44c0555eaba8953c22f475d751a4" category="inline-link-macro-rx"></block></block>
-  <block id="064f7cc76dc5afb2fb3aa165873ba871" category="list-text">다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 <block ref="1e76955e0560eaf6ce328d55fb062eeb" category="inline-link-macro-rx"></block>참조하십시오.</block>
   <block id="b611c6838bc0b80a5b542ae4d720301f" category="list-text">BeeGFS HA 역할은 다양한 튜닝 매개 변수를 적용하여 성능을 더욱 최적화할 수 있습니다. 여기에는 커널 메모리 활용도 최적화 및 블록 디바이스 입출력 등이 포함됩니다. 이 역할은 NetApp E-Series 블록 노드를 사용한 테스트를 기반으로 하는 적절한 집합을 <block ref="e3e5af180e2cd561ad9b935d8101ce4e" category="inline-link-macro-rx"></block> 제공하지만, 기본적으로 다음을 지정하지 않으면 적용되지 않습니다.</block>
   <block id="7353e78ee2c3bb2136aa1b29915ccf4b" category="list-text">필요한 경우 여기에서 기본 성능 튜닝에 대한 변경 사항도 지정합니다. 자세한 내용은 전체 설명서를 <block ref="df0e33f301a426939663a0f2db36079c" category="inline-link-macro-rx"></block> 참조하십시오.</block>
   <block id="37fa384fbce35691f87f5108b23924df" category="list-text">선택적으로 클러스터의 모든 BeeGFS 서비스에 적용할 구성을 지정합니다. 기본 구성 값을 찾을 수 <block ref="cb8aac20b4c821ca121d5c55cc4298ed" category="inline-link-macro-rx"></block>있으며 서비스별 구성은 다른 곳에 지정됩니다.</block>
@@ -1656,8 +1638,6 @@
   <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">Splitter 케이블을 사용하여 스토리지 스위치를 파일 노드에 연결하는 경우 케이블 하나가 스위치에서 분기되어 밝은 녹색으로 표시된 포트에 연결되어야 합니다. 다른 스플리터 케이블이 스위치에서 나와서 어두운 녹색으로 표시된 포트에 연결해야 합니다.</block>
   <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">또한 중복 스위치가 있는 스토리지 네트워크의 경우 연한 녹색으로 표시된 포트가 하나의 스위치에 연결되고 진한 녹색의 포트는 다른 스위치에 연결해야 합니다.</block>
   <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">검증된 Lenovo SR665 V3 파일 노드에 대한 네트워킹을 구성하는 방법은 을 참조하십시오<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>.</block>
-  <block id="b8d06d76e2eaa67bfafbce3081ab48f5" category="list-text">Red Hat 9.3를 설치하고 Ansible 제어 노드의 SSH 연결을 포함하여 운영 체제를 관리하는 데 사용되는 호스트 이름과 네트워크 포트를 구성합니다.</block>
-  <block id="7568449700f7c3e03b4500285c69b82f" category="list-text">RedHat Subscription Manager를 사용하여 공식 Red Hat 리포지토리에서 필요한 패키지 설치를 허용하고 지원되는 버전의 Red Hat으로 업데이트를 제한하려면 시스템을 등록하고 구독하십시오<block ref="085c7e75df5d271759849f369fa065a7" prefix=" " category="inline-code"></block>. 자세한 내용은 및 을<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>참조하십시오.</block>
   <block id="b52d8b061d9ea3d197fbe8093a3eec3f" category="admonition">Splitter 케이블을 사용하여 스토리지 스위치를 파일 노드에 연결하는 경우 케이블 하나가 분기되어 밝은 녹색으로 표시된 포트에 연결해야 합니다. 다른 케이블이 나와서 어두운 녹색으로 표시된 포트에 연결해야 합니다. 또한 중복 스위치가 있는 스토리지 네트워크의 경우 연한 녹색으로 표시된 포트가 하나의 스위치에 연결되고 진한 녹색의 포트는 다른 스위치에 연결해야 합니다.</block>
   <block id="dcc608d1c76fed74a96f75915bc6561f" category="paragraph">PCIe 양방향 대역폭을 최대한 활용하려면 각 InfiniBand 어댑터의 포트 하나를 스토리지 패브릭에 연결하고 다른 포트는 블록 노드에 연결해야 합니다.</block>
   <block id="0a31efbdaa47f7da5564c0e43b03e7ea" category="paragraph">필요에 따라 구성 매개 변수의 기본 설정을 재정의할 수 있습니다. 특정 워크로드 또는 사용 사례에 맞게 조정할 수 있는 매개 변수는 에서 확인하십시오.<block ref="986eca0f3f99dd3e8d8640fddbc137d2" category="inline-link-rx"></block></block>
@@ -1690,7 +1670,6 @@
   <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">대역 내 OS 관리를 위한 1GbE 포트</block>
   <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">대역외 서버 관리를 위한 1GbE BMC 및 Redfish API</block>
   <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">이중 핫 스왑 전원 공급 장치 및 성능 팬</block>
-  <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">호스트 카드 어댑터는 파일 노드에 사용되는 서버 모델에 따라 다릅니다. 검증된 파일 노드에 대한 권장 사항은 다음과 같습니다.</block>
   <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 서버: *</block>
   <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS - 열 ConnectX-7, NDR200, QSFP112, 2포트, PCIe Gen5 x16, InfiniBand 어댑터</block>
   <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">스토리지 네트워크 스위치</block>
@@ -1711,10 +1690,7 @@
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700 를 참조하십시오</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E(NVIDIA 활성 파이버 케이블, InfiniBand 200GB/s, QSFP56)</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26(NVIDIA 패시브 구리 케이블, InfiniBand 200GB/s, QSFP56)</block>
-  <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
-  <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_Linux-23.10-3.2.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 펌웨어</block>
-  <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">암호화 - 43.0.0, netaddr-1.3.0, ipaddr-2.2.0</block>
   <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansible 컬렉션</block>
   <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
@@ -1946,14 +1922,9 @@
   <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx(다중 모드, 4채널 대 2채널 스플리터 파이버 케이블)</block>
   <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400(다중 모드, IB/ETH, 400GB/s 단일 포트 QSFP-112)</block>
   <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002(NVIDIA 패시브 구리 스플리터 케이블, InfiniBand 800GB/s ~ 4x 200GB/s, OSFP ~ 4x QSFP112)</block>
-  <block id="fbe7b2959f641c0a45951417fc744ba8" category="paragraph">* ConnectX-7 HCA 펌웨어 * FW:28.42.1000+PXE:3.7.0500+UEFI:14.35.0015</block>
-  <block id="63c2d436fc11f0bcdd598c38560aca3f" category="paragraph">* ConnectX-6 HCA 펌웨어 * FW:20.43.1014 + PXE:3.7.0500 + UEFI:14.36.0016</block>
   <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1를 참조하십시오</block>
   <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.DLP</block>
-  <block id="2c31ce9dbdba754d30ac4980d7d504df" category="cell">3.1.7-1</block>
-  <block id="fec83cb9bb84cd6342be622a93d94a1b" category="cell">2.1.6-10</block>
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">펜스 에이전트(적목/APC)</block>
-  <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">페이스 메이커 및 Corosync 패키지를 업그레이드합니다</block>
   <block id="5a2c09ccb6952069726dcfb2e92a5573" category="paragraph">Ansible CLI 실행에 사용되는 물리적 또는 가상 머신</block>
   <block id="91587c91e5cdb42cedda71e8eeb8c25b" category="paragraph">블록 노드</block>
@@ -1973,7 +1944,6 @@
   <block id="6d8fa04177add6fae81330f784f2ec28" category="paragraph">Ansible 제어 노드를 설정하려면 NetApp 솔루션 기반 BeeGFS 솔루션용으로 구축된 모든 파일 및 블록 노드에 대한 네트워크 액세스가 가능한 가상 머신 또는 물리적 머신을 지정해야 합니다.</block>
   <block id="95b6926dc09df085df3f516ff202c9b3" category="paragraph">권장되는 패키지 버전 목록은 를 <block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block>참조하십시오. 다음 단계는 Ubuntu 22.04에서 테스트되었습니다. 선호하는 Linux 배포와 관련된 단계는 를<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>참조하십시오.</block>
   <block id="ac80ffa19a9be958e8c0594639394b8a" category="list-text">Ansible 제어 노드에서 다음 Python 및 Python 가상 환경 패키지를 설치합니다.</block>
-  <block id="f2d8e2d7eabbfe72bc89df39fa8ede41" category="list-text">Python 가상 환경을 생성합니다</block>
   <block id="44bf2f842c54b0fad1167e3efd65cf55" category="list-text">가상 환경을 활성화합니다.</block>
   <block id="3f6f2236da97e94c248453e2c9ca404a" category="list-text">활성화된 가상 환경 내에 필요한 Python 패키지를 설치합니다.</block>
   <block id="f866bd2f581df9353b6db613e08d0aaf" category="list-text">Ansible Galaxy를 사용하여 BeeGFS 컬렉션을 설치합니다.</block>
@@ -1986,9 +1956,42 @@
   <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">이름을 설정하면 이후 섹션에서 각 시스템을 쉽게 참조할 수 있습니다. 배열 이름 설정에 대한 자세한 내용은 을<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block> 참조하십시오.</block>
   <block id="3c5c0f41bab0c547cd353ca56b505d33" category="section-title">소프트웨어 및 펌웨어 요구 사항</block>
   <block id="d72c6977d4f8f0d9276e0483c1e643ab" category="paragraph">예측 가능한 성능 및 안정성을 보장하기 위해 NetApp 기반 BeeGFS 솔루션의 릴리스는 특정 버전의 소프트웨어 및 펌웨어 구성 요소를 사용하여 테스트했습니다. 이러한 버전은 솔루션을 구현하는 데 필요합니다.</block>
-  <block id="c3b7a5332543327934ec8e70a424791c" category="cell">RedHat 9.3 서버의 물리적 및 고가용성(2 소켓). 중요: 파일 노드에는 유효한 RedHat Enterprise Linux Server 서브스크립션과 Red Hat Enterprise Linux 고가용성 애드온이 필요합니다.</block>
   <block id="6b5b0d6dfb6af2b4c98938bb01cbeea1" category="cell">10.x를 참조하십시오</block>
   <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansible-코어</block>
   <block id="f850f5faa66f6a7ca2ac7f33f7eba944" category="cell">&gt;= 2.13.0</block>
   <block id="bd03200a597eed96961a6907dc36cfbd" category="cell">3.10</block>
+  <block id="48858ce4570016a1f8e1d1a8b871d328" category="admonition">다음에 Ansible 플레이북을 실행하면 이 설정이 재정의됩니다.</block>
+  <block id="49b54ab3b1445f79ca94c7085cad41ef" category="list-text">다시 시작하세요 <block ref="00e28a828e75d362a33f4cdabec833b1" prefix=" " category="inline-code"></block> .</block>
+  <block id="08386a651a8ef93e4bc0df7cf35d9b70" category="list-text">E-시리즈 스토리지 어레이의 볼륨이 있는지 확인하세요.</block>
+  <block id="5f6ac3389caa4915b5df5ea4e23cdf3b" category="inline-link-macro">Red Hat 문서</block>
+  <block id="e23b89b2436ee8628b20e83d26aee328" category="list-text">다른 펜싱 에이전트 구성에 대한 자세한 내용은 을 <block ref="b5a65513b4cf0cb857e9a978ad85d6c7" category="inline-link-macro-rx"></block>참조하십시오.</block>
+  <block id="12480c55a74bca08cc08d5569c8ad1f6" category="paragraph">BeeGFS 자체는 &lt;major&gt;.&lt;minor&gt;.&lt;patch&gt; 버전 관리 체계에 따라 버전이 지정되며, 이 컬렉션은 지원되는 각 &lt;major&gt;.&lt;minor&gt; 버전의 BeeGFS에 대한 역할을 유지합니다. 예를 들어 BeeGFS 7.2 또는 BeeGFS 7.3과 같은 BeeGFS 버전이 있습니다. 컬렉션에 대한 업데이트가 릴리스되면 각 역할의 패치 버전이 해당 릴리즈 지점에 대해 사용 가능한 최신 BeeGFS 버전을 가리키도록 업데이트됩니다(예: 7.2.8). 각 버전의 컬렉션은 특정 Linux 배포판과 버전에서도 테스트되어 지원됩니다. 현재 파일 노드의 경우 Red Hat이고, 클라이언트의 경우 Red Hat과 Ubuntu입니다. 다른 배포판 실행이 지원되지 않으며 다른 버전(특히 다른 주요 버전)을 실행하는 것은 권장되지 않습니다.</block>
+  <block id="e94491cd11fe554e65f37c3f4814481e" category="paragraph">파일 노드는 Red Hat Enterprise Linux(RHEL) 9.4를 실행해야 하며, 필수 패키지(pacemaker, corosync, fence-agents-all, resource-agents)가 포함된 HA 저장소에 액세스할 수 있어야 합니다. 예를 들어, 다음 명령을 실행하여 RHEL 9에서 해당 저장소를 활성화할 수 있습니다.</block>
+  <block id="5bf759a5edebb5bbc68e8d351c1c554b" category="paragraph">BeeGFS 클라이언트 Ansible 역할을 사용하여 BeeGFS 클라이언트 패키지를 설치하고 BeeGFS 마운트를 관리할 수 있습니다. 이 역할은 RHEL 9.4 및 Ubuntu 22.04에서 테스트되었습니다.</block>
+  <block id="1d9fc183665bd1e195391190be506894" category="section-title">Red Hat</block>
+  <block id="855d885c7444df898005dfe2db0e40e1" category="paragraph">Red Hat Subscription Manager를 사용하여 시스템을 등록하고 구독하면 공식 Red Hat 저장소에서 필요한 패키지를 설치할 수 있고 지원되는 Red Hat 버전으로 업데이트를 제한할 수 있습니다. <block ref="77a4421cc9f01b777ceaeda595865c3c" prefix=" " category="inline-code"></block> . 지침은 다음을 참조하세요. <block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 그리고 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block> .</block>
+  <block id="1ae0775acb1129f4f759e0e1e7b114a1" category="admonition">사용할 올바른 크기를 보려면 다음을 참조하세요. <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block> ..</block>
+  <block id="cd4dceecb80c781af21386aee259b338" category="admonition">사용할 올바른 크기를 보려면 다음을 참조하세요. <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block> .</block>
+  <block id="6020c636b1383570fbebcb5aab51f557" category="paragraph">Lenovo SR665 V3 서버의 시스템 펌웨어에는 UEFI 인터페이스를 통해 설정할 수 있는 다양한 튜닝 매개변수가 포함되어 있습니다. 이러한 튜닝 매개 변수는 서버의 작동 방식 및 서버 성능에 미치는 모든 측면에 영향을 줄 수 있습니다.</block>
+  <block id="5b8e3679ad73d51db58f86f62a85eb54" category="admonition">Ansible에 대한 사전 경험이 사전 필수 요소가 될 수 있도록 구축 단계에서 자세한 정보를 제공하려고 하지만, Ansible 및 관련 용어에 친숙해야 합니다.</block>
+  <block id="7ca16c43fa8e0a0d0effb1d7cbf40f48" category="paragraph">배포 절차에는 텍스트를 파일로 복사해야 하는 몇 가지 예제가 포함되어 있습니다. 특정 배포에 맞게 수정해야 하거나 수정할 수 있는 모든 내용에 대해 "#" 또는 "//" 문자로 표시된 인라인 주석에 주의 깊게 접근하세요. 예를 들면 다음과 같습니다.</block>
+  <block id="1151df05b81541e1eed601453364e0b7" category="list-text">Python 가상 환경을 만듭니다.</block>
+  <block id="dc234f020e97683d09b699c70e009f30" category="paragraph">검증된 Lenovo SR665 V3 파일 노드에 대한 시스템 설정을 구성하는 방법을 알아보려면 다음을 참조하세요. <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block> .</block>
+  <block id="fc891ddcf642031b14500d5761030e91" category="list-text">Red Hat Enterprise Linux(RHEL) 9.4를 설치하고 Ansible 제어 노드에서 SSH 연결을 포함하여 운영 체제를 관리하는 데 사용되는 호스트 이름과 네트워크 포트를 구성합니다.</block>
+  <block id="a0db142b527f78501de6b4acdba9d576" category="list-text">Red Hat Subscription Manager를 사용하여 시스템을 등록하고 구독하면 공식 Red Hat 저장소에서 필요한 패키지를 설치할 수 있고 지원되는 Red Hat 버전으로 업데이트를 제한할 수 있습니다. <block ref="cb1f5d026a59f18bc71d16899248bf06" prefix=" " category="inline-code"></block> . 자세한 내용은 및 을<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>참조하십시오.</block>
+  <block id="7efcb442cda3c6a9d2e39278301df6f2" category="paragraph">시스템 설정은 파일 노드로 사용하는 서버 모델에 따라 달라집니다. 사용 중인 서버 모델에 따라 설정을 수동으로 구성해야 합니다. 검증된 Lenovo SR665 V3 파일 노드에 대한 시스템 설정을 구성하는 방법을 알아보려면 다음을 참조하세요. <block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block> .</block>
+  <block id="8e22d5f83cc5d97bd5e5cfcebeca5f15" category="paragraph">호스트 카드 어댑터는 파일 노드의 서버 모델에 따라 달라질 수 있습니다. 검증된 파일 노드에 대한 권장 사항은 다음과 같습니다.</block>
+  <block id="eb13ea1edb52f2f7cdf4b15544892c06" category="cell">Red Hat Enterprise Linux(RHEL)</block>
+  <block id="33b7125f0da71f5f4c0d1adb2490c32d" category="cell">고가용성(2소켓)을 갖춘 RHEL 9.4 물리적 서버. *참고:* 파일 노드에는 유효한 Red Hat Enterprise Linux 서버 구독과 Red Hat Enterprise Linux 고가용성 애드온이 필요합니다.</block>
+  <block id="6e2ccf2574232a4db553354b8bf2b912" category="cell">5.14.0-427.42.1.el9_4.x86_64</block>
+  <block id="1e921a460cdb78aac6c0658f56a63429" category="paragraph">* ConnectX-7 HCA 펌웨어 * FW:28.43.1014 + PXE:3.7.0500 + UEFI:14.36.0016</block>
+  <block id="564eb0bfa4895a5fed3372708aea6e59" category="paragraph">* ConnectX-6 HCA 펌웨어 * FW:20.43.2566 + PXE:3.7.0500 + UEFI:14.37.0013</block>
+  <block id="7670b29ec4dc7aed23b236d72df9dc4e" category="cell">사용 중인 드라이브 모델에 대한 최신 버전입니다. 를 <block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>참조하십시오.</block>
+  <block id="90a84b80b2ae4bb2a14bb18a1c790012" category="cell">7.4.6</block>
+  <block id="06ee37e4e06f2a68feca0b0922e9af9e" category="cell">3.1.8-1</block>
+  <block id="3bbfa6ddcf5f2fb724a35ef7dc4b370a" category="cell">2.1.7-5.2</block>
+  <block id="ffa9c6553bd093c43628899a2b5008b0" category="cell">PC(피씨)</block>
+  <block id="23df4986c6f31aaed7db4752a96b620b" category="cell">0.11.7-2</block>
+  <block id="ddf60efdd8bc8468bc0a5502f1b51c47" category="cell">4.10.0-62</block>
+  <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_Linux-23.10-3.2.2.1-LTS</block>
 </blocks>

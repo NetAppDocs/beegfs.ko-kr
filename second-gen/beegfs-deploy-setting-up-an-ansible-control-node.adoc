@@ -24,7 +24,7 @@ Ansible 제어 노드를 설정하려면 NetApp 솔루션 기반 BeeGFS 솔루�
 ----
 sudo apt-get install python3 python3-pip python3-setuptools python3.10-venv
 ----
-. Python 가상 환경을 생성합니다
+. Python 가상 환경을 만듭니다.
 +
 [source, console]
 ----
@@ -74,4 +74,4 @@ ssh-copy-id <ip_or_hostname>
 
 
 
-IMPORTANT: 블록 노드에 암호 없는 SSH를 * 설정하지 마십시오. 이 작업은 지원되거나 필요하지 않습니다.
+CAUTION: 블록 노드에 암호 없는 SSH를 * 설정하지 마십시오. 이 작업은 지원되거나 필요하지 않습니다.
