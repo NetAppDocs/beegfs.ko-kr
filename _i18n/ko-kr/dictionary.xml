@@ -121,15 +121,6 @@
   <block id="f0f701867a5e02fa406b05e22df7ae03" category="paragraph">자연어 이해.</block>
   <block id="af33781ae5dd2f5ffb194a90989038a8" category="paragraph">NVA</block>
   <block id="4119dd754c8118aa6a1bb36f194a2f52" category="paragraph">NVA(NetApp Verified Architecture) 프로그램은 특정 워크로드 및 사용 사례에 대한 참조 구성 및 사이징 지침을 제공합니다. 이러한 솔루션은 철저한 테스트를 거쳤으며, 구축 위험을 최소화하고 출시 기간을 단축할 수 있도록 설계되었습니다.</block>
-  <block id="51bfd24e79e0939d84e9230980db5f18" category="summary">BeeGFS on NetApp 솔루션은 현재 세대 간 설계의 2세대입니다.</block>
-  <block id="fa0de4179a84e742d2d88028d16bf137" category="doc">디자인 세대</block>
-  <block id="51c16b7415d506b9bbcedd7241c7c1c0" category="paragraph">1세대 및 2세대 모두에는 BeeGFS 파일 시스템과 NVMe EF600 스토리지 시스템을 통합한 기본 아키텍처가 포함되어 있습니다. 그러나 2세대 제품에는 다음과 같은 추가적인 이점이 포함되어 있습니다.</block>
-  <block id="20667306535e51f69f34371b95abfd0b" category="list-text">2U 랙 공간만 추가하여 성능과 용량을 두 배로 향상</block>
-  <block id="edcc56d654a1a9362699f309c738a185" category="list-text">공유 디스크, 2계층 하드웨어 설계를 기반으로 한 고가용성(HA</block>
-  <block id="189fdda096d5b994e140eac128f464e1" category="section-title">2세대 설계</block>
-  <block id="145c927b5996411105e8a05381bfab75" category="section-title">최초의 세대별 설계</block>
-  <block id="8c2de6dc6972aa428c25b73867ee0c6c" category="inline-link-macro">NVIDIA DGX A100 Systems 및 BeeGFS를 지원하는 NetApp EF-Series AI</block>
-  <block id="cb0e1ee82028e21bcb25d1cedee42a90" category="paragraph">1세대 제품에 대한 자세한 내용은 를 참조하십시오 <block ref="7c75f12548abfaad3f9a226ecdfc54d3" category="inline-link-macro-rx"></block>.</block>
   <block id="745f22cbd412f2eab6c6bf95417e8b09" category="doc">이 사이트에 포함된 내용</block>
   <block id="fb7e8abee0ed4186f8c4b871d0ea6ac3" category="inline-link-macro">설계 개요</block>
   <block id="42f8643eb52a942747937327c72c8361" category="inline-link-macro">구축 개요</block>
@@ -766,9 +757,6 @@
   <block id="e3b88cba18358b065044f4788449026b" category="summary">지연 시간이 짧은 고성능 NetApp E-Series 스토리지에서 실행되는 BeeGFS 병렬 클러스터 파일 시스템에 대한 솔루션 지원 NetApp의 지원을 받아 비용 효율적이고 관리가 쉬우며 가용성이 높은 HPC 솔루션을 제공합니다.</block>
   <block id="28e8b3e83af233fe7085ba954fc6fd36" category="doc">E-Series 스토리지를 지원하는 NetApp 기반 BeeGFS</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">시작하십시오</block>
-  <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">블로그 - BeeGFS 및 E-Series에 대해 알아보십시오</block>
-  <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">블로그 - 초보자를 위한 BeeGFS</block>
-  <block id="6316c96cdd51a54d33d0011cf5f10c81" category="sidebar">블로그 - BeeGFS의 HA</block>
   <block id="b89fcecfac1f6b8376165aabe5b6c5ee" category="sidebar">추가 문서</block>
   <block id="bc4fe2352063642d68529f2aa0ca7ca3" category="sidebar">NetApp 제품 설명서</block>
   <block id="dbd68e15f4c30d2a47d780a9bf4f3da1" category="sidebar">BeeGFS 문서</block>
@@ -776,7 +764,6 @@
   <block id="d564be87f67790fe4b92faa0eea29c48" category="sidebar">Ansible Galaxy의 NetApp E-Series 컬렉션</block>
   <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="sidebar">NetApp 상호 운용성 매트릭스</block>
   <block id="668e2078ef1b1722c77cdb5c523a4463" category="sidebar">NetApp 기술 자료</block>
-  <block id="2bae42f280067110dfd52cc69a468364" category="sidebar">Active IQ(로그인 필요)</block>
   <block id="c35665ae18bf4eff9afa413fcb281b07" category="sidebar">NetApp 문서에서 BeeGFS 사용</block>
   <block id="f40341c80e215542b4fdfe4e2f2e2a21" category="sidebar">이 사이트에 포함된 내용</block>
   <block id="539652fdf317cc6e27c7373dc6fe13d3" category="sidebar">솔루션 설계를 검토합니다</block>
@@ -1651,9 +1638,6 @@
   <block id="9d550842e04b4f253a1d3e7bb3297890" category="paragraph">빌딩 블록은 2개의 NVIDIA Quantum InfiniBand(MQM8700) 스위치에 연결되었습니다. 10개의 BeeGFS 클라이언트도 InfiniBand 스위치에 연결되었으며 통합 벤치마크 유틸리티를 실행하는 데 사용되었습니다.</block>
   <block id="16e30c156c86a2bc6240a20ed7b6fdc4" category="section-title">NVIDIA DGX SuperPOD 및 BasePOD 검증</block>
   <block id="40fa362dda8b4d271b61c38987bd5131" category="paragraph">NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다. NVIDIA의 DGX A100 SuperPOD로 검증된 솔루션을 기반으로 구축된 NetApp 기반 BeeGFS 솔루션은 DGX SuperPOD H100, H200 및 B200 시스템에서 승인되었습니다. 이 확장은 NVIDIA DGX A100에서 검증된 이전 벤치마크 및 시스템 요구사항을 충족하는 것을 기반으로 합니다.</block>
-  <block id="21b6d1b90774505daa15a9be831436a9" category="inline-link-macro">설계 가이드</block>
-  <block id="1cba1266f00c729aee1318803f870d22" category="list-text">이전에 NVIDIA의 전용 승인 클러스터에서 검증된 NVIDIA DGX SuperPOD A100, H100, H200 및 B200 시스템을 위해 설계된 아키텍처 NetApp 및 NVIDIA DGX SuperPOD에 대한 자세한 내용은 에서 <block ref="e98320202738eb339bebe66cbb05ad8f" category="inline-link-macro-rx"></block>확인하십시오.</block>
-  <block id="10ca191b839b35e5100464ff59b95b97" category="paragraph">NetApp 기반 1세대 BeeGFS는 NetApp EF600 NVMe 스토리지 시스템, BeeGFS 병렬 파일 시스템, NVIDIA DGX ™ A100 시스템, NVIDIA ® Mellanox ® Quantum ™ QM8700 200GB/s IB 스위치를 사용하여 머신 러닝(ML) 및 인공 지능(AI) 워크로드를 위해 설계되었습니다. 또한 이 설계에는 스토리지 및 컴퓨팅 클러스터 인터커넥트 패브릭을 위한 200GB/s InfiniBand(IB)가 포함되어 있어 고성능 워크로드를 위한 완전한 IB 기반 아키텍처를 제공합니다.</block>
   <block id="aef5a6ba281c6919d0a3e3ff7d8feaf3" category="section-title">설계 개요</block>
   <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">아키텍처 개요</block>
   <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">NetApp 기반 BeeGFS 솔루션은 확장 가능한 구성 요소 아키텍처로 설계되었으며 다양한 까다로운 워크로드에 맞게 구성할 수 있습니다. 여러 개의 작은 파일을 처리하든, 대규모 파일 작업을 관리하든, 하이브리드 작업 부하를 처리하든 이러한 요구 사항을 충족하도록 파일 시스템을 사용자 지정할 수 있습니다. 고가용성은 다중 하드웨어 계층에서 독립적인 페일오버를 허용하고 부분적인 시스템 성능 저하 중에도 일관된 성능을 보장하는 2계층 하드웨어 구조를 사용하여 설계됩니다. BeeGFS 파일 시스템은 다양한 Linux 배포에서 확장형 고성능 환경을 지원하고 고객에게 쉽게 액세스할 수 있는 단일 스토리지 네임스페이스를 제공합니다. 자세한 내용은 을 <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>참조하십시오.</block>
@@ -1837,7 +1821,6 @@
   <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">구성에 따라 모든 사용자 이름 및 암호 매개 변수를 대체하여 를 다음과 같이 입력합니다<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>.</block>
   <block id="7e60d329db54d74d692f53620b366281" category="list-text">실행<block ref="150063209c60b18e2173569bd82ec639" prefix=" " category="inline-code"></block> 후 메시지가 표시되면 볼트 암호를 설정합니다.</block>
   <block id="1d2459ca9cef1e38badde9d192eff628" category="admonition">가 이미 있는<block ref="63a9f0ea7bb98050796b649e85481845" prefix=" " category="inline-code"></block> 경우<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 필요에 따라 를 생략하고 플레이북을 실행할 때 옵션을 지정할<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 수 있습니다<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>.</block>
-  <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">NetApp 기반 2세대 BeeGFS는 고성능 컴퓨팅(HPC), 머신 러닝(ML), 딥 러닝(DL), 기타 인공 지능(AI) 기술을 비롯한 까다로운 워크로드의 성능 요구사항을 충족하도록 최적화되어 있습니다. 공유 디스크 HA(고가용성) 아키텍처를 통합한 이 설계는 데이터 내구성과 가용성을 보장하므로 다운타임이나 데이터 손실을 감수할 수 없는 기업 및 기타 조직에 적합합니다. 2세대 설계에는 PCIe Gen5 서버와 같은 구성 요소가 포함되며 NVIDIA ® Quantum ™ QM9700 400GB/s InfiniBand 스위치 지원이 포함됩니다. 이 솔루션은 NetApp에서 검증되었을 뿐만 아니라 DGX SuperPOD H100, H200 및 B200 시스템에 대한 확장 인증을 받아 NVIDIA DGX ™ A100 SuperPOD용 스토리지 옵션으로 외부 자격을 획득했습니다.</block>
   <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">DGX와 A100, H100, H200 및 B200 GPU를 사용하는 NVIDIA DGX SuperPOD 시스템</block>
   <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVIDIA DGX SuperPOD 시스템이 포함된 NetApp EF-Series 기반 NVA-1174-BeeGFS</block>
   <block id="049125cf8ec62098912c4f2c8db9f61b" category="paragraph"><block ref="e6211db0073064ade016ad4558767968" prefix=" " category="inline-code"></block>클러스터가 정상적으로 작동하는 경우에는 속성이 나타나지 않습니다. 클러스터가 현재 유지 관리 모드에 있는 경우 속성은 로 보고됩니다.<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 유지보수 모드를 활성화하려면 다음을 실행하십시오.</block>
@@ -1922,7 +1905,6 @@
   <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx(다중 모드, 4채널 대 2채널 스플리터 파이버 케이블)</block>
   <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400(다중 모드, IB/ETH, 400GB/s 단일 포트 QSFP-112)</block>
   <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002(NVIDIA 패시브 구리 스플리터 케이블, InfiniBand 800GB/s ~ 4x 200GB/s, OSFP ~ 4x QSFP112)</block>
-  <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1를 참조하십시오</block>
   <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.DLP</block>
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">펜스 에이전트(적목/APC)</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">페이스 메이커 및 Corosync 패키지를 업그레이드합니다</block>
@@ -1984,7 +1966,6 @@
   <block id="eb13ea1edb52f2f7cdf4b15544892c06" category="cell">Red Hat Enterprise Linux(RHEL)</block>
   <block id="33b7125f0da71f5f4c0d1adb2490c32d" category="cell">고가용성(2소켓)을 갖춘 RHEL 9.4 물리적 서버. *참고:* 파일 노드에는 유효한 Red Hat Enterprise Linux 서버 구독과 Red Hat Enterprise Linux 고가용성 애드온이 필요합니다.</block>
   <block id="6e2ccf2574232a4db553354b8bf2b912" category="cell">5.14.0-427.42.1.el9_4.x86_64</block>
-  <block id="1e921a460cdb78aac6c0658f56a63429" category="paragraph">* ConnectX-7 HCA 펌웨어 * FW:28.43.1014 + PXE:3.7.0500 + UEFI:14.36.0016</block>
   <block id="564eb0bfa4895a5fed3372708aea6e59" category="paragraph">* ConnectX-6 HCA 펌웨어 * FW:20.43.2566 + PXE:3.7.0500 + UEFI:14.37.0013</block>
   <block id="7670b29ec4dc7aed23b236d72df9dc4e" category="cell">사용 중인 드라이브 모델에 대한 최신 버전입니다. 를 <block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>참조하십시오.</block>
   <block id="90a84b80b2ae4bb2a14bb18a1c790012" category="cell">7.4.6</block>
@@ -1994,4 +1975,6 @@
   <block id="23df4986c6f31aaed7db4752a96b620b" category="cell">0.11.7-2</block>
   <block id="ddf60efdd8bc8468bc0a5502f1b51c47" category="cell">4.10.0-62</block>
   <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_Linux-23.10-3.2.2.1-LTS</block>
+  <block id="7cd5ec19f90bf866b287afecf9a8cce0" category="paragraph">*ConnectX-7 HCA 펌웨어* FW: 28.45.1200 + PXE: 3.7.0500 + UEFI: 14.38.0016</block>
+  <block id="f86fe0da10c1b039adc0c656c6fe10a1" category="cell">11.90R3</block>
 </blocks>

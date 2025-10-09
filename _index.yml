@@ -13,12 +13,6 @@ indexpage:
       url: "/second-gen/beegfs-solution-overview.html"
     - title: 아키텍처 개요
       url: "/second-gen/beegfs-architecture-overview.html"
-    - title: 블로그 - BeeGFS 및 E-Series에 대해 알아보십시오
-      url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
-    - title: 블로그 - 초보자를 위한 BeeGFS
-      url: https://www.netapp.com/blog/beegfs-for-beginners/
-    - title: 블로그 - BeeGFS의 HA
-      url: https://www.netapp.com/blog/high-availability-beegfs/
   - title: 추가 문서
     links:
     - title: NetApp 제품 설명서
@@ -37,5 +31,3 @@ indexpage:
       url: http://mysupport.netapp.com/matrix/
     - title: NetApp 기술 자료
       url: https://kb.netapp.com/
-    - title: Active IQ(로그인 필요)
-      url: https://activeiq.netapp.com/?source=aiqnsspage
