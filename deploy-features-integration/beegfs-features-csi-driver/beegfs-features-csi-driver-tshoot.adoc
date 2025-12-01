@@ -1,0 +1,294 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html 
+keywords: BeeGFS Features, CSI, Driver, Troubleshoot, Troubleshooting 
+summary: BeeGFS CSI 드라이버 배포 문제 해결. 
+---
+= BeeGFS CSI 드라이버 배포 문제 해결
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI 드라이버 배포와 관련된 문제를 해결할 때 다음 사항을 확인하세요.
+
+* BeeGFS 클라이언트의 설정 및 구성을 포함한 모든 전제 조건이 충족되었습니다.
+* BeeGFS CSI 드라이버는 올바른 오버레이를 사용하여 배포되었습니다.
+* 배포가 검증되었으며, 노드 오염이나 스왑 활성화 등의 오류가 모두 해결되었습니다.
+* 기능을 확인하기 위해 예제 애플리케이션이 배포되고 검증되었습니다.
+
+
+심층적인 문제 해결을 위해서는 다음을 참조하세요.link:https://github.com/ThinkParQ/beegfs-csi-driver["BeeGFS CSI 드라이버 GitHub"] .
+
+
+
+== Kubernetes 설정 - 일반적인 오류 시나리오
+
+노드에서 현재 실행 중인 모든 Pod를 검색하려고 할 때 발생하는 오류 예:
+
+[source, console]
+----
+kubectl get pods
+----
+**오류 출력 예:**
+
+[listing]
+----
+root@node@1:~# kubectl get pods
+E0829 14:30:28.644318 5617 memcache.go:265)] "Unhandled Error" err="couldn't get current server API group list: Get \"https://XX.YYY.ZZ.CC:644
+3: connect: connection refused"
+...
+ The connection to the server XX.YYY.ZZ.CC:6443 was refused - did you specify the right host or port?
+----
+이런 문제를 다룰 때는 조사해야 할 핵심 영역이 몇 가지 있습니다.  아래에 나열된 각 영역을 먼저 살펴보는 것이 좋습니다.
+
+
+
+== containerd에서 오류가 발생했습니다.
+
+containerd 데몬의 상태를 확인하세요.
+
+[source, console]
+----
+systemctl status containerd
+----
+**예상 출력:**
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# systemctl status containerd
+o containerd.service - containerd container runtime
+     Loaded: loaded (/lib/systemd/system/containerd.service; enabled; vendor preset: enabled)
+     Active: inactive (dead)
+     Docs: https://containerd.io
+----
+데몬이 실행 중이 아닌 경우(`Active: inactive (dead)` ), 다시 시작하세요.  재시작 후에도 비활성 상태로 남아 있으면 시스템 로그에서 오류를 확인하세요.
+
+[source, console]
+----
+systemctl restart containerd
+journalctl -u containerd
+----
+
+
+== kubelet에서 오류가 발생했습니다
+
+kubelet 서비스의 상태를 확인하세요.
+
+[source, console]
+----
+systemctl status kubelet
+----
+**예상 출력:**
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# systemctl status kubelet
+o kubelet.service - kubelet: The Kubernetes Node Agent
+    Loaded: loaded (/lib/systemd/system/kubelet.service; enabled; vendor preset: enabled)
+    Drop-In: /usr/lib/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+    Active: activating (auto-restart) (Result: exit-code) since Fri 2025-08-29 14:34:25 CDT; 6s ago
+      Docs: https://kubernetes.io/docs/
+     Process: 6636 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG ARGS $KUBELET CONFIG ARGS $KUBELET KUBEADM ARGS
+     $KUBELET_EXTRA ARGS (code=exited, status=1/FAILURE)
+     Main PID: 6636 (code=exited, status=1/FAILURE)
+----
+서비스가 실행 중이 아니면 다시 시작하세요.
+
+[source, console]
+----
+systemctl restart kubelet
+----
+문제가 지속되면 syslog에서 오류를 확인하세요.
+
+[source, console]
+----
+tail -f /var/log/syslog | grep kubelet
+----
+
+
+== 스왑 이슈
+
+"swap"과 관련된 오류가 발생하면 swap을 비활성화하고 kubelet을 다시 시작하세요.
+
+[source, console]
+----
+swapoff -a
+----
+[source, console]
+----
+systemctl restart kubelet
+----
+**예상 출력:**
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# systemctl status kubelet
+● kubelet.service - kubelet: The Kubernetes Node Agent
+    Loaded: loaded (/lib/systemd/system/kubelet.service; enabled; vendor preset: enabled)
+    Drop-In: /usr/lib/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+     Active: active (running) since Tue 2025-10-07 18:11:05 CDT; 5 days ago
+       Docs: https://kubernetes.io/docs/
+   Main PID: 1302401 (kubelet)
+      Tasks: 58 (limit: 231379)
+     Memory: 63.0M
+     CGroup: /system.slice/kubelet.service
+             └─1302401 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml conta>
+----
+
+NOTE: 스왑은 일반적으로 운영 체제 설치 중에 기본적으로 활성화되며 다음에 나열됩니다. `/etc/fstab` Kubernetes는 스왑을 활성화하여 실행하는 것을 지원하지 않습니다.  재부팅 후 스왑이 다시 활성화되지 않도록 하려면 모든 스왑 항목을 주석 처리하십시오. `/etc/fstab` .
+
+
+
+== BeeGFS 클라이언트 및 Helperd 구성 문제 해결
+
+. 구성을 검토하세요 `/etc/beegfs/beegfs-client.conf` .
++
+기본적으로 BeeGFS 연결 인증은 보안 환경을 위해 **활성화**되어야 합니다.  확인하십시오 `connDisableAuthentication` 플래그가 설정되었습니다 `false` 그리고 올바른 경로 `connAuthFile` 지정됨:
+
++
+[source, console]
+----
+connDisableAuthentication = false
+connAuthFile=/etc/beegfs/XXX.X.XX.X_connAuthFile
+----
++
+
+NOTE: 의도적으로 BeeGFS 파일 시스템이 **인증 없이** 연결되도록 허용하려면 다음을 설정하세요. `connDisableAuthentication = true` 그리고 제거하거나 주석 처리합니다. `connAuthFile` 매개변수.
+
+. 관리 서비스에 대한 IP 주소를 확인하세요. `sysMgmtdHost` 매개변수가 올바르게 설정되었습니다.
+. 경로를 업데이트하세요 `connRDMAInterfacesFile` 그리고 `connInterfacesFile` .  이러한 파일은 저장이나 노드 간 통신에 사용되는 네트워크 인터페이스를 지정합니다. 예를 들어:
++
+[source, shell]
+----
+ibs1f0
+ibs1f1
+----
+. 경로를 업데이트하세요 `connAuthFile` **인증이 활성화된 경우** 매개변수.
++
+**구성 예시:**
+
++
+[listing]
+----
+connDisableAuthentication = false
+connAuthFile=/etc/beegfs/XXX.X.XX.X_connAuthFile
+connClientPortUDP=8004
+connMaxInternodeNum=128
+connMaxConcurrentAttempts=4
+connRDMABufNum=36
+connRDMABufSize=65536
+tuneFileCacheType=native
+tuneFileCacheBufSize=2097152
+connFallbackExpirationSecs=90
+connCommRetrySecs=600
+sysSessionChecksEnabled=False
+connRDMAInterfacesFile=/etc/beegfs/XXX.X.XX.X_8004_connInterfaces.conf
+sysMountSanityCheckMS=11000
+connRDMAKeyType=dma
+sysMgmtdHost=XXX.X.XX.X
+connInterfacesFile=/etc/beegfs/XXX.X.XX.X_8004_connInterfaces.conf
+----
+. 구성을 검토하세요 `/etc/beegfs/beegfs-helperd.conf` .
++
+클라이언트 구성과 마찬가지로 연결 인증은 기본적으로 **활성화**되어야 합니다.  확인하십시오 `connDisableAuthentication` 플래그가 설정되었습니다 `false` 그리고 올바른 경로 `connAuthFile` 지정됨:
+
++
+[source, console]
+----
+connDisableAuthentication = false
+connAuthFile=/etc/beegfs/XXX.X.XX.X_connAuthFile
+----
++
+
+NOTE: 의도적으로 BeeGFS 파일 시스템이 **인증 없이** 연결되도록 허용하려면 다음을 설정하세요. `connDisableAuthentication = true` 그리고 제거하거나 주석 처리합니다. `connAuthFile` 매개변수.
+
++
+**헬퍼드 구성 예시:**
+
++
+[listing]
+----
+# --- Section 1: [Settings] ---
+#
+connDisableAuthentication     = false
+connAuthFile                  = /etc/beegfs/XXX.X.XX.X_connAuthFile
+connHelperdPortTCP            = 8006
+connPortShift                 = 0
+logNoDate                     = false
+logNumLines                   = 50000
+logNumRotatedFiles            = 5
+logStdFile                    = /var/log/beegfs-client.log
+runDaemonized                 = true
+tuneNumWorkers                = 2
+----
+
+
+
+
+== BeeGFS 컨트롤러 문제 해결
+
+오버레이를 배포한 후 kubectl get all의 출력에서 일부 리소스가 PENDING 상태인 것을 볼 수 있습니다.
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# kubectl get all -n beegfs-csi
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/csi-beegfs-controller-0   0/3     Pending   0          59s
+----
+포드에 `Pending` 상태는 노드 오염, 리소스 제약, 이미지 누락 또는 충족되지 않은 스케줄링 요구 사항으로 인해 발생할 수 있습니다.  자세한 내용은 Pod 이벤트와 로그를 확인하세요.  위와 같은 상태가 나타나면 describe 명령을 사용하여 생성된 Pod를 검사합니다.
+
+[source, shell]
+----
+kubectl describe pod csi-beegfs-controller-0 -n beegfs-csi
+----
+이미지 풀 오류나 포드가 멈춘 경우 `ImagePullBackOff` , 모든 필수 이미지가 containerd에 있는지(오프라인) 또는 레지스트리에서 액세스할 수 있는지(온라인) 확인합니다.  다음을 확인하세요:
+
+[source, console]
+----
+kubectl describe pod <pod-name> -n beegfs-csi | grep -i image
+----
+
+
+=== Pod 로그 확인
+
+포드가 시작되지 않거나 다음 상태에 있는 경우 `CrashLoopBackOff` 자세한 내용은 상태 로그를 확인하세요.
+
+[source, console]
+----
+kubectl logs <pod-name> -n beegfs-csi
+----
+아래와 같이 "untolerated taint"(kubectl describe의 출력에서 확인 가능)와 관련된 오류가 발생하는 경우:
+
+[listing]
+----
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  84s   default-scheduler  0/1 nodes are available: 1 node(s) had untolerated taint {node.kubernetes.io/disk-pressure: }. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+----
+다음 명령을 사용하여 노드에서 오염을 제거합니다.
+
+[source, shell]
+----
+kubectl taint nodes node01 node-role.kubernetes.io/control-plane:NoSchedule-
+----
+**예상 출력:**
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# kubectl taint nodes node01 node-role.kubernetes.io/control-plane:NoSchedule-
+error: taint "node-role.kubernetes.io/control-plane:NoSchedule" not found
+----
+오염을 제거한 후 오버레이를 다시 적용합니다.  이렇게 하면 문제가 해결될 것입니다.
+
+[source, shell]
+----
+kubectl apply -k deploy/k8s/overlays/default
+----

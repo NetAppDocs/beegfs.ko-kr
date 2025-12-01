@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI 드라이버 배포 검증. 
+---
+= BeeGFS CSI 드라이버 배포 확인
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI 드라이버가 성공적으로 배포되었는지 확인하려면 CSI 드라이버 포드의 상태를 확인하고 예상대로 실행되는지 확인하세요.
+
+BeeGFS-CSI 네임스페이스의 모든 리소스 상태를 확인하려면 다음을 실행하세요.
+
+[source, console]
+----
+kubectl get all -n beegfs-csi
+----
+**예상 출력:**
+
+[listing]
+----
+NAME                          READY    STATUS      RESTARTS    AGE
+pod/csi-beegfs-controller-0   3/3      Running     0           5d11h
+pod/csi-beegfs-node-8f917     3/3      Running     0           5d11h
+----
+
+
+== 컨트롤러 포드 검사
+
+BeeGFS CSI 컨트롤러 포드에 대한 문제를 진단하거나 자세한 내용을 수집하려면 다음 명령을 사용하여 포드를 설명하고 이벤트, 상태 및 최근 활동을 검토하세요.
+
+[source, console]
+----
+kubectl describe pod csi-beegfs-controller-0 -n beegfs-csi
+----
+**예상 출력:**
+
+[listing]
+----
+Events:
+
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  117s                 default-scheduler  Successfully assigned beegfs-csi/csi-beegfs-controller-0 to node01
+  Normal   Pulled     117s                 kubelet            Container image "registry.k8s.io/sig-storage/csi-provisioner:v3.5.0" already present on machine
+  Normal   Created    117s                 kubelet            Created container: csi-provisioner
+  Normal   Started    117s                 kubelet            Started container csi-provisioner
+  Normal   Started    101s (x3 over 117s)  kubelet            Started container beegfs
+  Normal   Pulled     86s (x2 over 117s)   kubelet            Container image "registry.k8s.io/sig-storage/csi-resizer:v1.11.1" already present on machine
+  Normal   Created    86s (x2 over 117s)   kubelet            Created container: csi-resizer
+  Normal   Started    86s (x2 over 117s)   kubelet            Started container csi-resizer
+  Warning  BackOff    85s (x5 over 115s)   kubelet            Back-off restarting failed container beegfs in pod csi-beegfs-controller-0_beegfs-csi(47016fd3-3a2a-41ed-bc4c-5a716c377b1e)
+  Normal   Pulled     73s (x4 over 117s)   kubelet            Container image "ghcr.io/thinkparq/beegfs-csi-driver:v1.7.0" already present on machine
+  Normal   Created    73s (x4 over 117s)   kubelet            Created container: beegfs
+----
+
+
+== StorageClass 확인
+
+. StorageClass가 성공적으로 생성되었는지 확인하세요.
++
+[source, console]
+----
+kubectl get sc
+----
++
+**예상 출력:**
+
++
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# kubectl get sc
+NAME                PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+csi-beegfs-dyn-sc   beegfs.csi.org.com   Delete          Immediate           true                   17s
+----
+. BeeGFS 볼륨이 예상대로 마운트되었는지 확인하세요.
++
+지정된 디렉토리를 확인하세요 `volDirBasePath` ~에 `examples/k8s/dyn/dyn-sc.yaml` 아래에 나타납니다 `/mnt/beegfs` .
+
++
+예를 들어, `volDirBasePath` 로 설정됩니다 `user_id_k8s` , 다음 디렉토리가 나열되어 있어야 합니다.
+
++
+[source, console]
+----
+root@node01:/# ls -ltr /mnt/beegfs/
+total 1
+drwxrwxrwx 4 root root 2 Oct 15 10:16 user_id_k8s
+----
+

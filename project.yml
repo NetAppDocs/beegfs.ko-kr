@@ -123,6 +123,20 @@ sidebar:
         url: "/custom/architectures-deploy-beegfs-clients.html"
       - title: BeeGFS 구축을 확인합니다
         url: "/custom/architectures-deploy-verify.html"
+  - title: 기능 및 통합 배포
+    entries:
+    - title: BeeGFS CSI 드라이버
+      entries:
+      - title: 개요
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html"
+      - title: 필수 조건
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-prereqs.html"
+      - title: 전개
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html"
+      - title: 확인
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
+      - title: 문제 해결
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
   - title: BeeGFS 클러스터 관리
     entries:
     - title: 개요, 주요 개념 및 용어

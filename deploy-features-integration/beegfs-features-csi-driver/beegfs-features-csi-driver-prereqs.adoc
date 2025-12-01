@@ -1,0 +1,90 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-prereqs.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI 드라이버 배포를 위한 전제 조건 
+---
+= BeeGFS CSI 드라이버 배포를 위한 전제 조건
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI 드라이버를 배포하고 구성하기 전에 실행 중인 Kubernetes 클러스터가 있는지, BeeGFS 클러스터에 대한 액세스 권한이 있는지, 클러스터 전체 리소스를 설치할 수 있는 적절한 권한이 있는지 확인하세요.
+
+
+
+== Kubernetes 설정 확인
+
+Kubernetes 클러스터의 Pod 상태를 확인하려면 다음 명령을 실행하세요.
+
+[source, console]
+----
+kubectl get pods
+----
+**예상 출력:**
+
+[listing]
+----
+root@node01:/etc/cni/net.d# kubectl get pods
+No resources found in default namespace.
+----
+실행 중인 포드가 없으면 목록은 비어 있게 됩니다.  그렇지 않으면 포드는 오류 없이 나열되어야 합니다.
+
+
+
+== BeeGFS 클라이언트 및 서비스 검증
+
+다음 명령을 실행하여 BeeGFS 클러스터가 정상이고 모든 서비스에 접속할 수 있는지 확인하세요.
+
+**비지에프에스 7.4**
+
+[source, console]
+----
+beegfs-check-servers
+----
+**비지에프에스 8**
+
+[source, console]
+----
+beegfs health check
+----
+
+NOTE: CSI 드라이버는 다음 두 가지와 함께 작동합니다. `beegfs-dkms-client` 그리고 `beegfs-client` 각 Kubernetes 노드에 설치해야 합니다.  설치 단계는 BeeGFS 클라이언트 DKMS 설명서를 참조하세요. https://doc.beegfs.io/latest/advanced_topics/client_dkms.html[]
+
+**BeeGFS 7.4 예상 출력:**
+
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# beegfs-check-servers
+Management
+==========
+mgmt [ID: 1]: reachable at XXX.X.AB.1:8008 (protocol: TCP)
+
+Metadata
+==========
+meta_25_tgt_2501 [ID: 2501]: reachable at XXX.X.AA.MN:8255 (protocol: RDMA)
+meta_26_tgt_2601 [ID: 2601]: reachable at XXX.X.BB.NO:8265 (protocol: RDMA)
+meta_27_tgt_2701 [ID: 2701]: reachable at XXX.X.AA.OP:8275 (protocol: RDMA)
+meta_28_tgt_2801 [ID: 2801]: reachable at XXX.X.BB.PQ:8285 (protocol: RDMA)
+meta_29_tgt_2901 [ID: 2901]: reachable at XXX.X.AA.QR:8295 (protocol: RDMA)
+meta_30_tgt_3001 [ID: 3001]: reachable at XXX.X.BB.RS:8305 (protocol: RDMA)
+meta_31_tgt_3101 [ID: 3101]: reachable at XXX.X.AA.ST:8315 (protocol: RDMA)
+meta_32_tgt_3201 [ID: 3201]: reachable at XXX.X.BB.TU:8325 (protocol: RDMA)
+
+Storage
+==========
+stor_25_tgt_2501 [ID: 2501]: reachable at XXX.X.CC.MN:8253 (protocol: RDMA)
+stor_26_tgt_2601 [ID: 2601]: reachable at XXX.X.DD.NO:8263 (protocol: RDMA)
+stor_27_tgt_2701 [ID: 2701]: reachable at XXX.X.CC.OP:8273 (protocol: RDMA)
+stor_28_tgt_2801 [ID: 2801]: reachable at XXX.X.DD.PQ:8283 (protocol: RDMA)
+stor_29_tgt_2901 [ID: 2901]: reachable at XXX.X.CC.QR:8293 (protocol: RDMA)
+stor_30_tgt_3001 [ID: 3001]: reachable at XXX.X.DD.RS:8303 (protocol: RDMA)
+stor_31_tgt_3101 [ID: 3101]: reachable at XXX.X.CC.ST:8313 (protocol: RDMA)
+stor_32_tgt_3201 [ID: 3201]: reachable at XXX.X.DD.32:8323 (protocol: RDMA)
+----
+서비스에 접근할 수 없는 경우 BeeGFS 클라이언트가 올바르게 구성되었는지, BeeGFS 서버에 대한 네트워크 연결이 작동하는지 확인하세요.
