@@ -137,6 +137,8 @@ sidebar:
         url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
       - title: 문제 해결
         url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
+    - title: BeeGFS 8용 TLS 암호화 구성
+      url: "/deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html"
   - title: BeeGFS 클러스터 관리
     entries:
     - title: 개요, 주요 개념 및 용어
@@ -149,8 +151,10 @@ sidebar:
       url: "/administer/clusters-reconfigure.html"
     - title: HA 클러스터 구성 요소를 업데이트합니다
       entries:
-      - title: BeeGFS 버전을 업데이트합니다
-        url: "/administer/clusters-update-beegfs.html"
+      - title: BeeGFS 서비스 업그레이드
+        url: "/administer/clusters-upgrade-beegfs.html"
+      - title: BeeGFS v8로 업그레이드
+        url: "/administer/clusters-upgrade-beegfs-v8.html"
       - title: 페이스 메이커 및 Corosync 패키지를 업그레이드합니다
         url: "/administer/clusters-update-ha-services.html"
       - title: 파일 노드 어댑터 펌웨어를 업데이트합니다
