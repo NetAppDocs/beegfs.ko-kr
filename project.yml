@@ -153,7 +153,7 @@ sidebar:
       entries:
       - title: BeeGFS 서비스 업그레이드
         url: "/administer/clusters-upgrade-beegfs.html"
-      - title: BeeGFS v8로 업그레이드
+      - title: BeeGFS 8로 업그레이드
         url: "/administer/clusters-upgrade-beegfs-v8.html"
       - title: 페이스 메이커 및 Corosync 패키지를 업그레이드합니다
         url: "/administer/clusters-update-ha-services.html"
