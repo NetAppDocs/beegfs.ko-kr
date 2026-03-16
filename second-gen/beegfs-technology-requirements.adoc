@@ -79,23 +79,6 @@ IMPORTANT: 파일 노드에는 유효한 Red Hat Enterprise Linux Server 구독 
 | 수량 | 모델 | 사양 
 
 
-| 2 | EF80  a| 
-*하드웨어:*
-
-* *메모리:* 128GB(컨트롤러당 64GB)
-* *어댑터:* 2x 2포트 200Gb/NDR(NVMe/IB)
-* *드라이브:* 원하는 메타데이터 및 스토리지 용량에 맞게 구성
-
-
-*펌웨어:*
-
-* *SANtricity OS:* 12.00
-* *NVSRAM:* NEF80-200834-D00
-* *드라이브 펌웨어:* 드라이브 모델에 사용 가능한 최신 버전(link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Series 디스크 펌웨어 사이트입니다"^] 참조)
-
-
-
-
 | 2 | EF600  a| 
 *하드웨어:*
 
@@ -107,7 +90,7 @@ IMPORTANT: 파일 노드에는 유효한 Red Hat Enterprise Linux Server 구독 
 *펌웨어:*
 
 * *SANtricity OS:* 11.90R5
-* *NVSRAM:* N6000-890834-D02
+* *NVSRAM:* N6000-890834-D03
 * *드라이브 펌웨어:* 드라이브 모델에 사용 가능한 최신 버전(link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Series 디스크 펌웨어 사이트입니다"^] 참조)
 
 
