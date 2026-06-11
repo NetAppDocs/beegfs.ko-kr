@@ -202,7 +202,7 @@ CAUTION: 인터페이스의 이름을 바꿀 때(이름을 바꿀 수 없음) �
 
 +
 
-NOTE: 검증된 파일 노드 모델을 사용하는 경우 를 클릭합니다 link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["여기"^] PCIe 주소와 논리적 포트 매핑의 예
+NOTE: 검증된 파일 노드 모델을 사용하는 경우 link:https://docs.netapp.com/us-en/beegfs/second-gen/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["여기"^] 를 클릭하여 PCIe 주소-논리 포트 매핑 예시를 확인하십시오.
 
 
 
@@ -255,7 +255,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["여기"^] 일반 파일 노드 구성을 나타내는 전체 인벤토리 파일의 예
+일반적인 파일 노드 구성을 나타내는 전체 인벤토리 파일의 예는 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/ha_cluster.yml["여기"^]를 클릭하십시오.
 
 
 

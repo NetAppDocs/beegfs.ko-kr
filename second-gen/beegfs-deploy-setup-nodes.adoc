@@ -49,7 +49,7 @@ NOTE: 엄밀히 요구되지는 않지만, 이후의 섹션에서는 호스트 �
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 모든 HCA 펌웨어를  link:..administer/clusters-update-hca-firmware.html["파일 노드 어댑터 펌웨어를 업데이트합니다"^]가이드 사용에 권장되는 버전으로 link:beegfs-technology-requirements.html["기술 요구 사항"]업데이트합니다.
+. link:beegfs-technology-requirements.html["기술 요구 사항"]에 권장된 버전으로 모든 HCA 펌웨어를 link:../administer/clusters-update-hca-firmware.html["파일 노드 어댑터 펌웨어를 업데이트합니다"^] 가이드를 사용하여 업데이트하십시오.
 
 
 

@@ -105,4 +105,4 @@ eseries_storage_pool_usable_drives: "99:0,99:23,99:1,99:22,99:2,99:21,99:3,99:20
 
 
 
-을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/eseries_storage_systems.yml["여기"^] 일반 블록 노드 구성을 나타내는 전체 인벤토리 파일의 예
+일반적인 블록 노드 구성을 나타내는 전체 인벤토리 파일의 예는 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/eseries_storage_systems.yml["여기"^]를 클릭하십시오.

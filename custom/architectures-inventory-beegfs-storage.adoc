@@ -91,4 +91,4 @@ beegfs_targets:
 
 
 
-을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/stor_01.yml["여기"^] BeeGFS 스토리지 서비스를 나타내는 전체 인벤토리 파일의 예
+link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/stor_01.yml["여기"^]를 클릭하여 BeeGFS 스토리지 서비스를 나타내는 전체 인벤토리 파일의 예를 확인하십시오.

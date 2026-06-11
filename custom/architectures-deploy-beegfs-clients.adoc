@@ -165,7 +165,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-지원되는 매개 변수의 전체 목록과 추가 세부 정보는 를 참조하십시오 link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["전체 BeeGFS 클라이언트 문서"^]. 클라이언트 인벤토리의 전체 예제를 보려면 을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_inventory.yml["여기"^].
+지원되는 매개변수의 전체 목록 및 추가 세부 정보는 link:https://github.com/NetApp/beegfs/tree/master/roles/beegfs_client["전체 BeeGFS 클라이언트 문서"^]을 참조하십시오. 클라이언트 인벤토리의 전체 예는 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_inventory.yml["여기"^]를 클릭하십시오.
 
 
 
@@ -223,7 +223,7 @@ beegfs_ha_conn_auth_enabled: false
 ----
 
 
-클라이언트 플레이북의 전체 예제를 보려면 을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_playbook.yml["여기"^].
+클라이언트 플레이북의 전체 예시를 보려면 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_playbook.yml["여기"^]를 클릭하십시오.
 
 
 

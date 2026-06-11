@@ -67,4 +67,4 @@ all:
 ----
 
 
-을 클릭합니다 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/inventory.yml["여기"^] 전체 재고 파일의 예
+전체 인벤토리 파일의 예는 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/beegfs_ha_inventory.yml["여기"^]를 클릭하십시오.
