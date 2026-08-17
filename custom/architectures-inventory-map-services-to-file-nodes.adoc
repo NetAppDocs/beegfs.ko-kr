@@ -18,12 +18,14 @@ summary: inventory.yml 파일을 사용하여 각 BeeGFS 서비스를 실행할 
 
 
 
+[[overview]]
 == 개요
 
 이 섹션에서는 을 생성하는 방법을 안내합니다 `inventory.yml` 파일. 여기에는 모든 블록 노드를 나열하고 각 BeeGFS 서비스를 실행할 수 있는 파일 노드를 지정하는 작업이 포함됩니다.
 
 
 
+[[steps]]
 == 단계
 
 파일을 만듭니다 `inventory.yml` 다음과 같이 채웁니다.

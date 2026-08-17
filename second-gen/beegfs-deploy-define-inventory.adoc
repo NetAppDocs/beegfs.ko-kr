@@ -25,6 +25,7 @@ NOTE: 이 섹션과 후속 섹션에서 필요에 따라 조정하여 구축할 
 
 
 
+[[step-1-create-the-ansible-inventory-file]]
 == 1단계: Ansible 인벤토리 파일을 만듭니다
 
 .단계
@@ -54,6 +55,7 @@ all:
 
 
 
+[[step-2-configure-the-inventory-for-a-management-metadata-and-storage-building-block]]
 == 2단계: 관리, 메타데이터 및 스토리지 구성 요소에 대한 인벤토리를 구성합니다
 
 클러스터 또는 기본 구성 요소에서 첫 번째 구성 요소는 메타데이터 및 스토리지 서비스와 함께 BeeGFS 관리 서비스를 포함해야 합니다.
@@ -181,7 +183,7 @@ beegfs_targets:
 ....
 +
 
-NOTE: 볼륨 크기는 전체 스토리지 풀(볼륨 그룹이라고도 함)의 백분율로 지정됩니다. SSD 오버 프로비저닝을 위해 각 풀에 여유 용량을 남겨 두는 것이 좋습니다(자세한 내용은 참조) https://www.netapp.com/pdf.html?item=/media/17009-tr4800pdf.pdf["NetApp EF600 어레이 소개"^])를 클릭합니다. 스토리지 풀 'begfs_m1_m2_m5_m6'도 관리 서비스를 위해 풀 용량의 1%를 할당합니다. 따라서 스토리지 풀의 메타데이터 볼륨에 대해 1.92TB 또는 3.84TB 드라이브를 사용할 때 Beegfs_M1_m2_M5_M6의 경우 이 값을 21.25로 설정하고, 7.65TB 드라이브의 경우 이 값을 22.25로 설정하고, 15.3TB 드라이브의 경우 이 값을 23.75로 설정합니다.
+NOTE: 볼륨 크기는 전체 스토리지 풀(볼륨 그룹이라고도 함)의 백분율로 지정됩니다. NetApp은 SSD 오버프로비저닝을 위해 각 풀에 여유 용량을 확보해 두는 것을 강력히 권장합니다(자세한 내용은 https://www.netapp.com/pdf.html?item=/media/17009-tr4800.pdf["NetApp EF600 어레이 소개"^] 참조). 스토리지 풀 `beegfs_m1_m2_m5_m6`은 관리 서비스에 풀 용량의 1%를 할당합니다. 따라서 스토리지 풀 `beegfs_m1_m2_m5_m6`의 메타데이터 볼륨에서 1.92TB 또는 3.84TB 드라이브를 사용하는 경우 이 값을 `21.25`으로 설정하고, 7.65TB 드라이브의 경우 이 값을 `22.25`으로 설정하고, 15.3TB 드라이브의 경우 이 값을 `23.75`으로 설정하십시오.
 
 +
 |===
@@ -269,6 +271,7 @@ NOTE: 올바른 크기는 을 참조하십시오 link:beegfs-deploy-recommended-
 
 
 
+[[step-3-configure-the-inventory-for-a-metadata-storage-building-block]]
 == 3단계: 메타데이터 + 스토리지 구성 요소에 대한 인벤토리를 구성합니다
 
 다음 단계에서는 BeeGFS 메타데이터 + 스토리지 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다.
@@ -458,6 +461,7 @@ NOTE: 사용할 올바른 크기를 보려면 다음을 참조하세요. link:be
 
 
 
+[[step-4-configure-the-inventory-for-a-storage-only-building-block]]
 == 4단계: 스토리지 전용 구성 요소에 대한 인벤토리를 구성합니다
 
 다음 단계에서는 BeeGFS 스토리지 전용 구성 요소에 대한 Ansible 인벤토리를 설정하는 방법을 설명합니다. 메타데이터 + 스토리지에 대한 구성을 설정하는 것과 스토리지 전용 구성 블록에 대한 구성을 설정하는 것의 주된 차이점은 모든 메타데이터 리소스 그룹이 생략되고 각 스토리지 풀에 대해 "criteria_drive_count"를 10에서 12로 변경하는 것입니다.

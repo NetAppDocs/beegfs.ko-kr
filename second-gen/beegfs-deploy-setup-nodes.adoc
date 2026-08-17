@@ -18,6 +18,7 @@ summary: '각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워
 
 
 
+[[set-up-file-nodes]]
 == 파일 노드 설정
 
 . 각 서버의 BMC(베이스보드 관리 컨트롤러)에서 네트워킹을 구성합니다.
@@ -54,6 +55,7 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 
 
+[[set-up-block-nodes]]
 == 블록 노드 설정
 
 각 컨트롤러의 관리 포트를 구성하여 EF600 블록 노드를 설정합니다.

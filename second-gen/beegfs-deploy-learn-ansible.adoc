@@ -20,6 +20,7 @@ Ansible 인벤토리는 BeeGFS 시스템에 배포될 수 있는 파일 및 블�
 
 
 
+[[ansible-modules-and-roles]]
 == Ansible 모듈 및 역할
 
 Ansible 인벤토리에 설명된 구성을 적용하려면 엔드 투 엔드 솔루션을 구축하는 NetApp E-Series Ansible 컬렉션(에서 사용 가능)에 제공되는 다양한 Ansible 모듈 및 역할을 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp E-Series BeeGFS GitHub를 참조하십시오"^] 사용하십시오.
@@ -33,6 +34,7 @@ NOTE: Ansible에 대한 사전 경험이 사전 필수 요소가 될 수 있도�
 
 
 
+[[inventory-layout-for-a-beegfs-ha-cluster]]
 == BeeGFS HA 클러스터의 인벤토리 레이아웃
 
 Ansible 인벤토리 구조를 사용하여 BeeGFS HA 클러스터를 정의합니다.

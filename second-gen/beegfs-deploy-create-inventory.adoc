@@ -18,6 +18,7 @@ summary: 파일 및 블록 노드의 구성을 정의하려면 구축할 BeeGFS 
 
 
 
+[[step-1-define-configuration-for-all-building-blocks]]
 == 1단계: 모든 빌딩 블록에 대한 설정을 정의합니다
 
 개별적으로 적용할 수 있는 구성 프로파일에 관계없이 모든 구성 요소에 적용되는 구성을 정의합니다.
@@ -78,6 +79,7 @@ bmc_password: <PASSWORD>
 
 
 
+[[step-2-define-configuration-for-individual-file-and-block-nodes]]
 == 2단계: 개별 파일 및 블록 노드에 대한 설정을 정의합니다
 
 개별 파일 노드 및 개별 구성 요소 노드에 적용되는 구성을 정의합니다.
@@ -174,6 +176,7 @@ eseries_controller_nvme_ib_port:
 
 
 
+[[step-3-define-configuration-that-should-apply-to-all-file-and-block-nodes]]
 == 3단계: 모든 파일 및 블록 노드에 적용되어야 하는 설정을 정의합니다
 
 그룹에 해당하는 파일 이름으로 group_vars 아래에 있는 호스트 그룹에 공통된 구성을 정의할 수 있습니다. 이렇게 하면 여러 위치에서 공유 구성이 반복되지 않습니다.
@@ -194,6 +197,7 @@ beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
 ....
 
 
+[[step-4-define-configuration-that-should-apply-to-all-file-nodes]]
 == 4단계: 모든 파일 노드에 적용할 구성을 정의합니다
 
 파일 노드의 공유 구성은 ha_cluster라는 그룹에 정의됩니다. 이 섹션의 단계에서는 group_vars/ha_cluster.yml 파일에 포함되어야 하는 구성을 작성합니다.
@@ -366,6 +370,7 @@ NOTE: 검증 테스트에서는 일반적으로 성능 벤치마킹 중에 테�
 
 
 
+[[step-5-define-the-configuration-for-the-common-block-node]]
 == 5단계: 공통 블록 노드에 대한 구성을 정의합니다
 
 블록 노드의 공유 구성은 eseries_storage_systems라는 그룹에 정의되어 있습니다. 이 섹션의 단계에서는 group_vars/eseries_storage_systems.yml 파일에 포함되어야 하는 구성을 작성합니다.

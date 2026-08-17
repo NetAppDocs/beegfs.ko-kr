@@ -48,7 +48,7 @@ image:driveslots.png["EF600 드라이브 슬롯"]
 
 
 
-. 다음 그림에 표시된 토폴로지와 일치하도록 를 사용하여 블록 및 파일 노드를 link:beegfs-technology-requirements.html#block-file-cables["1m InfiniBand HDR 200GB 직접 연결 구리 케이블"]연결합니다.
+. 블록 노드와 파일 노드를 link:beegfs-technology-requirements.html#file-node-requirements["1m InfiniBand HDR 200GB 직접 연결 구리 케이블"]을 사용하여 연결하여 다음 그림에 표시된 토폴로지와 일치하도록 합니다.
 +
 image:directattachcable-sr665v3.png["SR665V3 직접 연결 케이블"]
 
@@ -56,7 +56,7 @@ image:directattachcable-sr665v3.png["SR665V3 직접 연결 케이블"]
 
 NOTE: 여러 빌딩 블록의 노드는 직접 연결되지 않습니다. 각 구성 요소는 독립형 장치로 취급해야 하며 구성 요소 간의 모든 통신은 네트워크 스위치를 통해 이루어집니다.
 
-. InfiniBand 스토리지 스위치에 해당하는 를 사용하여 파일 노드의 나머지 InfiniBand 포트를 스토리지 네트워크의 InfiniBand 스위치에 link:beegfs-technology-requirements.html#file-switch-cables["2M InfiniBand 케이블"] 연결합니다.
+. 파일 노드의 나머지 InfiniBand 포트를 InfiniBand 스토리지 스위치에 맞는 link:beegfs-technology-requirements.html#storage-network-switch-requirements["2M InfiniBand 케이블"]을 사용하여 스토리지 네트워크의 InfiniBand 스위치에 연결하십시오.
 +
 Splitter 케이블을 사용하여 스토리지 스위치를 파일 노드에 연결하는 경우 케이블 하나가 스위치에서 분기되어 밝은 녹색으로 표시된 포트에 연결되어야 합니다. 다른 스플리터 케이블이 스위치에서 나와서 어두운 녹색으로 표시된 포트에 연결해야 합니다.
 

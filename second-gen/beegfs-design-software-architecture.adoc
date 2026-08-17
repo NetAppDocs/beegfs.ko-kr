@@ -18,6 +18,7 @@ NetApp 기반 BeeGFS에 대한 소프트웨어 구성에는 BeeGFS 네트워크 
 
 
 
+[[beegfs-network-configuration]]
 == BeeGFS 네트워크 구성
 
 BeeGFS 네트워크 구성은 다음과 같은 구성 요소로 이루어집니다.
@@ -68,6 +69,7 @@ Stripe pattern details:
 ....
 
 
+[[ef600-block-node-configuration]]
 == EF600 블록 노드 구성
 
 블록 노드는 동일한 드라이브 세트에 대한 공유 액세스를 가진 2개의 액티브/액티브 RAID 컨트롤러로 구성됩니다. 일반적으로 각 컨트롤러는 시스템에 구성된 볼륨의 절반을 소유하지만 필요에 따라 다른 컨트롤러를 인수할 수 있습니다.
@@ -86,6 +88,7 @@ image:beegfs-design-image10.png["BeeGFS 서비스 볼륨 소유권"]
 
 
 
+[[beegfs-file-node-configuration]]
 == BeeGFS 파일 노드 구성
 
 BeeGFS 파일 노드는 HA(High-Availability) 클러스터로 구성되어 여러 파일 노드 간에 BeeGFS 서비스의 페일오버를 지원합니다.
@@ -96,6 +99,7 @@ NetApp은 클러스터가 지능적으로 BeeGFS 리소스를 시작하고 모�
 
 
 
+[[beegfs-ha-clusters]]
 == BeeGFS HA 클러스터
 
 일반적으로, HA를 사용하거나 사용하지 않고 BeeGFS 서비스를 시작할 때 다음과 같은 몇 가지 리소스를 사용해야 합니다.

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-deploy.html 
 keywords: BeeGFS Features, CSI, Driver 
 summary: BeeGFS CSI 드라이버 배포 지침. 
 ---
@@ -18,12 +18,14 @@ Kubernetes 환경에서 BeeGFS CSI 드라이버를 배포하기 위한 지침입
 
 
 
+[[air-gapped-deployment]]
 == 에어갭 배치
 
 Air-Gapped(오프라인) 배포를 수행하려면 Kubernetes YAML 구성 파일과 필요한 컨테이너 이미지를 모두 인터넷 접속이 가능한 시스템에 미리 다운로드해야 합니다.  그런 다음 이러한 파일을 CSI 드라이버가 설치될 대상 노드로 전송해야 합니다.
 
 
 
+[[retrieve-the-driver-and-images]]
 === 드라이버 및 이미지 검색
 
 공기 간격이 있는 환경에서 BeeGFS CSI 드라이버를 배포하려면 다음 단계를 수행하세요.
@@ -83,6 +85,7 @@ ctr -n k8s.io images export csi-node-driver-registrar_<latest-tag>.tar registry.
 
 
 
+[[import-the-required-images]]
 === 필요한 이미지 가져오기
 
 . 로 이동합니다 `/home/<User>/beegfs-csi-images` 이미지가 저장된 디렉토리를 만들고 containerd를 사용하여 각 이미지를 가져옵니다. 예를 들어:
@@ -105,6 +108,7 @@ crictl images
 
 
 
+[[configure-and-deploy-the-csi-driver-overlays]]
 === CSI 드라이버 오버레이 구성 및 배포
 
 . 로 이동합니다 `/home/<User>/beegfs-csi-driver` 예배 규칙서.
@@ -189,6 +193,7 @@ NOTE: 그만큼 `patchesStrategicMerge` 섹션을 사용하면 사용자 정의 
 
 
 
+[[install-the-beegfs-csi-driver]]
 === BeeGFS CSI 드라이버 설치
 
 . 사용자 정의 오버레이를 사용하여 BeeGFS CSI 드라이버를 설치하세요.  이 단계에서는 로컬로 가져온 이미지 사용 및 업데이트된 이미지 풀 정책을 포함한 모든 구성 변경 사항이 적용됩니다.
@@ -205,12 +210,14 @@ kubectl apply -k deploy/k8s/overlays/beegfs-overlay
 
 
 
+[[online-deployment]]
 == 온라인 배포
 
 Kubernetes 노드가 인터넷에 접속할 수 있는 경우 컨테이너 이미지를 수동으로 다운로드하거나 전송하지 않고도 BeeGFS CSI 드라이버를 직접 배포할 수 있습니다.  포드가 배포되면 자동으로 Image-Hub에서 이미지를 다운로드하고 필요한 서비스를 시작합니다.
 
 
 
+[[retrieve-the-driver-repository]]
 === 드라이버 저장소 검색
 
 . BeeGFS CSI 드라이버 GitHub 저장소를 로컬 시스템에 복제합니다.
@@ -223,6 +230,7 @@ git clone https://github.com/ThinkParQ/beegfs-csi-driver.git
 
 
 
+[[configure-the-driver]]
 === 드라이버 구성
 
 . 복제된 저장소 디렉토리로 이동하고 필요한 경우 기본 오버레이 디렉토리의 구성 파일을 업데이트합니다.
@@ -258,6 +266,7 @@ NOTE: CSI 드라이버에는 구성 파일이 다음 위치에 있어야 합니�
 
 
 
+[[install-the-beegfs-csi-driver]]
 === BeeGFS CSI 드라이버 설치
 
 . 다음을 사용하여 기본 오버레이를 설치하세요. `kubectl` .  이렇게 하면 해당 레지스트리에서 필요한 이미지를 자동으로 가져와서 모든 필수 Kubernetes 리소스가 생성됩니다.
@@ -298,12 +307,14 @@ NOTE: 사용 `kubectl apply -k` 오버레이(디렉토리 포함)의 경우 `kus
 
 
 
+[[deploy-example-application]]
 == 예제 애플리케이션 배포
 
 BeeGFS CSI 드라이버(에어갭 또는 온라인)를 설치한 후 예제 애플리케이션을 배포하여 설정을 검증할 수 있습니다.  이 예제에는 StorageClass, PersistentVolumeClaim(PVC) 및 BeeGFS CSI 드라이버를 사용하는 Pod가 포함됩니다.
 
 
 
+[[before-deploying]]
 === 배포 전:
 
 . BeeGFS 관리 노드의 IP 주소를 가져옵니다.
@@ -355,6 +366,7 @@ allowVolumeExpansion: true
 
 
 
+[[deploy]]
 === 배포
 
 . 예제 애플리케이션 파일을 배포합니다.

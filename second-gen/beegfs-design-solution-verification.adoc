@@ -31,6 +31,7 @@ image:beegfs-design-image12.png["BeeGFS 검증 구성"]
 
 
 
+[[beegfs-file-striping]]
 == BeeGFS 파일 스트라이핑
 
 병렬 파일 시스템의 이점은 여러 스토리지 대상 간에 개별 파일을 스트라이핑하는 기능입니다. 이 기능은 동일하거나 다른 기본 스토리지 시스템의 볼륨을 나타낼 수 있습니다.
@@ -41,6 +42,7 @@ BeeGFS에서는 디렉토리 및 파일별로 스트라이핑을 구성하여 �
 
 
 
+[[ior-bandwidth-tests-multiple-clients]]
 == IOR 대역폭 테스트: 여러 클라이언트
 
 IOR 대역폭 테스트는 OpenMPI를 사용하여 합성 I/O 생성기 툴 IOR(에서 제공)의 병렬 작업을 실행했습니다 https://github.com/hpc/ior["HPC GitHub를 참조하십시오"^]) 10개 클라이언트 노드 전체에서 하나 이상의 BeeGFS 구성 요소로 이동합니다. 달리 명시되지 않은 한:
@@ -78,6 +80,7 @@ image:beegfs-design-image16.png["3개의 BeeGFS 구성 요소 IOR 결과"]
 
 
 
+[[ior-bandwidth-tests-single-client]]
 == IOR 대역폭 테스트: 단일 클라이언트
 
 IOR 대역폭 테스트는 OpenMPI를 사용하여 단일 고성능 GPU 서버를 사용하여 여러 IOR 프로세스를 실행하여 단일 클라이언트에서 얻을 수 있는 성능을 탐색했습니다.
@@ -97,6 +100,7 @@ NOTE: 이러한 테스트를 위한 BeeGFS 스트라이핑은 파일당 타겟 8
 
 
 
+[[metadata-performance-test]]
 == 메타데이터 성능 테스트
 
 Metadata 성능 테스트는 IOR의 일부로 포함된 MDTest 도구를 사용하여 BeeGFS의 메타데이터 성능을 측정했습니다. 이 테스트에서는 OpenMPI를 사용하여 10개의 클라이언트 노드 모두에서 병렬 작업을 실행했습니다.
@@ -120,6 +124,7 @@ image:beegfs-design-image19.png["두 개의 BeeGFS 메타데이터 및 스토리
 
 
 
+[[functional-validation]]
 == 기능 검증
 
 이 아키텍처의 검증 과정에서 NetApp은 다음을 비롯한 여러 기능 테스트를 수행했습니다.
@@ -137,6 +142,7 @@ NOTE: 알려진 문제가 있습니다( 참조) https://github.com/netappeseries
 
 
 
+[[nvidia-dgx-superpod-and-basepod-validation]]
 == NVIDIA DGX SuperPOD 및 BasePOD 검증
 
 NetApp은 메타데이터와 스토리지 구성 프로필이 적용된 3개의 구성 블록으로 구성된 유사한 BeeGFS 파일 시스템을 사용하여 NVIDIAs DGX A100 SuperPOD에 대한 스토리지 솔루션을 검증했습니다. 검증 노력에는 다양한 스토리지, 머신 러닝 및 딥 러닝 벤치마크를 실행하는 20개의 DGX A100 GPU 서버를 통해 이 NVA에 의해 설명된 솔루션을 테스트하는 작업이 포함되었습니다. NVIDIA의 DGX A100 SuperPOD로 검증된 솔루션을 기반으로 구축된 NetApp 기반 BeeGFS 솔루션은 DGX SuperPOD H100, H200 및 B200 시스템에서 승인되었습니다. 이 확장은 NVIDIA DGX A100에서 검증된 이전 벤치마크 및 시스템 요구사항을 충족하는 것을 기반으로 합니다.

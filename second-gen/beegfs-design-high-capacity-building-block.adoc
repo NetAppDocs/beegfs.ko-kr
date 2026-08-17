@@ -10,7 +10,7 @@ summary: 고용량 빌딩 블록을 위한 설계 변형.
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -18,6 +18,7 @@ summary: 고용량 빌딩 블록을 위한 설계 변형.
 
 
 
+[[hardware-and-software-configuration]]
 == 하드웨어 및 소프트웨어 구성
 
 고용량 구성 요소에 대한 하드웨어 및 소프트웨어 구성은 EF300 컨트롤러를 각 스토리지 어레이당 60개의 드라이브로 1~7개의 IOM 확장 트레이를 연결하는 옵션과 함께 EF300 컨트롤러로 교체해야 한다는 점을 제외하고 표준입니다. 빌딩 블록당 총 2-14개의 확장 트레이.
@@ -28,6 +29,7 @@ image:high-capacity-rack-diagram.png[""]
 
 
 
+[[sizing-guidelines]]
 == 사이징 지침
 
 이 사이징 지침은 대용량 구성 요소가 기본 EF300 엔클로저의 메타데이터용 2+2 NVMe SSD 볼륨 그룹 1개와 스토리지용 IOM 확장 트레이당 8개+2 NL-SAS 볼륨 그룹 6개로 구성되어 있다고 가정합니다.

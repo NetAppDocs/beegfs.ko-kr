@@ -18,6 +18,7 @@ BeeGFS HA 클러스터를 BeeGFS 7.4에서 BeeGFS 8로 업그레이드하려면 
 
 
 
+[[overview]]
 == 개요
 
 BeeGFS 8은 BeeGFS 7에서 업그레이드하기 전에 추가 설정이 필요한 몇 가지 중요한 변경 사항을 도입했습니다. 이 문서에서는 BeeGFS 8의 새로운 요구 사항에 맞춰 클러스터를 준비하고 BeeGFS 8로 업그레이드하는 과정을 안내합니다.
@@ -27,6 +28,7 @@ IMPORTANT: BeeGFS 8로 업그레이드하기 전에 시스템에 BeeGFS 7.4 이�
 
 
 
+[[key-changes-in-beegfs-8]]
 == BeeGFS 8의 주요 변경 사항
 
 BeeGFS 8에서는 다음과 같은 주요 변경 사항이 도입되었습니다.
@@ -45,6 +47,7 @@ BeeGFS 8로 업그레이드하려면 클러스터 다운타임이 필요하며 B
 ====
 
 
+[[prepare-your-beegfs-cluster-for-the-upgrade]]
 == 업그레이드를 위해 BeeGFS 클러스터를 준비하세요
 
 업그레이드를 시작하기 전에 원활한 전환과 다운타임 최소화를 위해 환경을 신중하게 준비하십시오.
@@ -100,6 +103,7 @@ pcs cluster stop --all
 
 
 
+[[upgrade-the-beegfs-management-package]]
 == BeeGFS 관리 패키지 업그레이드
 
 클러스터의 모든 파일 노드에 Linux 배포판용 BeeGFS 8 패키지 리포지토리를 추가합니다. Linux 배포판용 공식 BeeGFS 리포지토리 추가 지침은 link:https://www.beegfs.io/c/download/["BeeGFS 다운로드 페이지"^]에서 확인할 수 있습니다. 그렇지 않으면 로컬 BeeGFS 미러 리포지토리를 적절하게 구성하십시오.
@@ -118,6 +122,8 @@ dnf update beegfs-mgmtd
 
 
 
+[[upgrade-the-management-database]]
+[[upgrade-management-database]]
 == 관리 데이터베이스 업그레이드
 
 BeeGFS 관리 서비스가 실행 중인 파일 노드 중 하나에서 다음 단계를 따라 관리 데이터베이스를 BeeGFS 7에서 BeeGFS 8로 마이그레이션하십시오.
@@ -185,6 +191,7 @@ mv /etc/beegfs/beegfs-mgmtd.toml /mnt/mgmt_tgt_mgmt01/mgmt_config/
 
 
 
+[[upgrade-remaining-beegfs-packages]]
 == 나머지 BeeGFS 패키지 업그레이드
 
 관리 데이터베이스 마이그레이션을 완료한 후 클러스터의 모든 파일 노드에서 나머지 BeeGFS 패키지를 업그레이드하십시오. RHEL의 경우 BeeGFS 저장소를 구성한 후 다음 명령을 실행하십시오.
@@ -196,6 +203,7 @@ dnf update beegfs-storage beegfs-meta libbeegfs-ib
 ----
 
 
+[[configure-licensing]]
 == 라이선싱 구성
 
 . BeeGFS 관리 서비스를 실행하는 모든 노드에 BeeGFS 라이센스 패키지를 설치하십시오. 일반적으로 클러스터의 처음 두 파일 노드입니다.
@@ -214,6 +222,7 @@ dnf install libbeegfs-license
 
 
 
+[[configure-tls-encryption]]
 == TLS 암호화 구성
 
 BeeGFS 8은 관리 서비스와 BeeGFS CLI 도구 간의 안전한 통신을 위해 TLS 암호화가 필요합니다(`beegfs`. 세 가지 구성 방법 중 하나를 선택하십시오: 신뢰할 수 있는 인증 기관에서 서명한 인증서 사용, BeeGFS 클러스터용 인증서에 서명할 자체 로컬 CA 생성 또는 문제 해결을 위해 TLS를 완전히 비활성화(프로덕션 환경에서는 권장되지 않음).
@@ -227,6 +236,7 @@ link:../deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html["BeeGFS 8�
 ====
 
 
+[[update-management-service-configuration]]
 == 업데이트 관리 서비스 구성
 
 BeeGFS 7 구성 파일에서 설정을 수동으로 `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml` 파일로 전송하여 BeeGFS 8 관리 서비스 구성 파일을 준비합니다.
@@ -288,6 +298,7 @@ sudo firewall-cmd --reload
 
 
 
+[[update-the-beegfs-monitor-script]]
 == BeeGFS 모니터 스크립트 업데이트
 
 Pacemaker `beegfs-monitor` Open Cluster Framework(OCF) 스크립트는 새로운 TOML 구성 형식과 systemd 서비스 관리를 지원하기 위해 업데이트가 필요합니다. 클러스터의 한 노드에서 스크립트를 업데이트한 다음 업데이트된 스크립트를 다른 모든 노드로 복사하십시오.
@@ -398,6 +409,7 @@ scp /usr/lib/ocf/resource.d/eseries/beegfs-monitor user@node:/usr/lib/ocf/resour
 
 
 
+[[bring-the-cluster-back-online]]
 == 클러스터를 다시 온라인 상태로 전환
 
 . 이전의 모든 업그레이드 단계를 완료한 후 모든 노드에서 BeeGFS 서비스를 시작하여 클러스터를 다시 온라인 상태로 전환하십시오.
@@ -444,6 +456,7 @@ pcs property set stonith-enabled=true
 
 
 
+[[upgrade-beegfs-clients]]
 == BeeGFS 클라이언트 업그레이드
 
 클러스터를 BeeGFS 8로 업그레이드한 후에는 모든 BeeGFS 클라이언트도 업그레이드해야 합니다.
@@ -499,6 +512,7 @@ apt-get install beegfs-tools
 
 
 
+[[verify-the-upgrade]]
 == 업그레이드 확인
 
 BeeGFS 8로 업그레이드를 완료한 후 다음 명령을 실행하여 업그레이드가 성공했는지 확인하십시오.

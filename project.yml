@@ -128,15 +128,15 @@ sidebar:
     - title: BeeGFS CSI 드라이버
       entries:
       - title: 개요
-        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html"
+        url: "/deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-overview.html"
       - title: 필수 조건
-        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-prereqs.html"
+        url: "/deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-prereqs.html"
       - title: 전개
-        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html"
+        url: "/deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-deploy.html"
       - title: 확인
-        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
+        url: "/deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-verify.html"
       - title: 문제 해결
-        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
+        url: "/deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-tshoot.html"
     - title: BeeGFS 8용 TLS 암호화 구성
       url: "/deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html"
   - title: BeeGFS 클러스터 관리

@@ -21,6 +21,7 @@ TIP: 이 섹션에서 사용되는 용어에 대한 정의는 link:../get-starte
 
 
 
+[[introduction]]
 == 소개
 
 link:../second-gen/beegfs-solution-overview.html["NetApp 검증 아키텍처"]사전 정의된 참조 구성 및 사이징 지침을 제공하는 한편, 일부 고객 및 파트너는 특정 요구 사항이나 하드웨어 선호도에 보다 적합한 맞춤형 아키텍처를 설계하기를 원할 수 있습니다. NetApp에서 BeeGFS를 선택할 때의 주요 이점 중 하나는 Ansible을 사용하여 BeeGFS 공유 디스크 HA 클러스터를 구축하여 NetApp에서 작성한 HA 구성요소를 통해 클러스터 관리를 단순화하고 안정성을 높일 수 있다는 것입니다. NetApp에 맞춤형 BeeGFS 아키텍처를 구축할 때는 Ansible을 사용하여 유연한 하드웨어 제품군에서 어플라이언스 같은 접근 방식을 유지 관리합니다.
@@ -29,6 +30,7 @@ link:../second-gen/beegfs-solution-overview.html["NetApp 검증 아키텍처"]�
 
 
 
+[[deployment-overview]]
 == 구축 개요
 
 일반적으로 BeeGFS 파일 시스템을 구축하려면 다음 단계를 수행해야 합니다.
@@ -63,6 +65,7 @@ Ansible은 다음을 비롯한 모든 소프트웨어 프로비저닝 및 구성
 ====
 
 
+[[requirements]]
 == 요구 사항
 
 Ansible에서 BeeGFS에 대한 지원은 에서 제공됩니다 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible 갤럭시"] BeeGFS HA 클러스터의 포괄적인 구축 및 관리를 자동화하는 역할 및 모듈 모음입니다.
@@ -71,6 +74,7 @@ BeeGFS 자체는 <major>.<minor>.<patch> 버전 관리 체계에 따라 버전�
 
 
 
+[[ansible-control-node]]
 === Ansible 컨트롤 노드
 
 이 노드에는 BeeGFS 관리에 사용되는 인벤토리 및 Playbook이 포함됩니다. 다음과 같은 요구 사항이 있습니다.
@@ -84,6 +88,7 @@ BeeGFS 자체는 <major>.<minor>.<patch> 버전 관리 체계에 따라 버전�
 
 
 
+[[beegfs-file-nodes]]
 === BeeGFS 파일 노드
 
 파일 노드는 Red Hat Enterprise Linux(RHEL) 9.4를 실행해야 하며, 필수 패키지(pacemaker, corosync, fence-agents-all, resource-agents)가 포함된 HA 저장소에 액세스할 수 있어야 합니다. 예를 들어, 다음 명령을 실행하여 RHEL 9에서 해당 저장소를 활성화할 수 있습니다.
@@ -94,6 +99,7 @@ subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms 
 ----
 
 
+[[beegfs-client-nodes]]
 === BeeGFS 클라이언트 노드
 
 BeeGFS 클라이언트 Ansible 역할을 사용하여 BeeGFS 클라이언트 패키지를 설치하고 BeeGFS 마운트를 관리할 수 있습니다. 이 역할은 RHEL 9.4 및 Ubuntu 22.04에서 테스트되었습니다.

@@ -18,6 +18,7 @@ BeeGFS 8 관리 서비스와 클라이언트 간의 통신을 보호하려면 TL
 
 
 
+[[overview]]
 == 개요
 
 BeeGFS 8은 관리 도구(예: `beegfs` 명령줄 유틸리티)와 Management 또는 Remote와 같은 BeeGFS 서버 서비스 간의 네트워크 통신을 암호화하기 위한 TLS 지원을 도입했습니다. 다음 세 가지 방법 중 하나를 사용하여 BeeGFS 클러스터에서 TLS 암호화를 구성하십시오:
@@ -36,12 +37,15 @@ BeeGFS 8은 관리 도구(예: `beegfs` 명령줄 유틸리티)와 Management �
 ====
 
 
+[[using-a-trusted-certificate-authority]]
+[[using-trusted-ca]]
 == 신뢰할 수 있는 인증 기관 사용
 
 내부 엔터프라이즈 CA 또는 타사 공급업체에서 발급한 신뢰할 수 있는 인증 기관(CA)의 인증서에 액세스할 수 있는 경우 BeeGFS 8에서 자체 서명 인증서를 생성하는 대신 이러한 CA 서명 인증서를 사용하도록 구성할 수 있습니다.
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 새 BeeGFS 8 클러스터 배포
 
 새로운 BeeGFS 8 클러스터 배포를 위해 Ansible 인벤토리의 `user_defined_params.yml` 파일에서 CA 서명 인증서를 참조하도록 구성하십시오.
@@ -63,6 +67,7 @@ beegfs_ha_tls_key_src_path: files/beegfs/cert/mgmtd_tls_key.pem
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 기존 BeeGFS 8 클러스터 구성
 
 기존 BeeGFS 8 클러스터의 경우 BeeGFS 관리 서비스의 구성 파일에서 파일 노드의 CA 서명 인증서 경로를 설정하십시오.
@@ -74,6 +79,7 @@ tls-key-file = /path/to/key.pem
 ----
 
 
+[[configuring-beegfs-8-clients-with-ca-signed-certificates]]
 === CA 서명 인증서를 사용하여 BeeGFS 8 클라이언트 구성
 
 [IMPORTANT]
@@ -85,12 +91,15 @@ tls-key-file = /path/to/key.pem
 
 
 
+[[creating-a-local-certificate-authority]]
+[[creating-local-ca]]
 == 로컬 인증 기관 생성
 
 조직에서 BeeGFS 클러스터용 자체 인증서 인프라를 구축하려면 로컬 인증 기관(CA)을 생성하여 BeeGFS 클러스터용 인증서를 발급하고 서명할 수 있습니다. 이 방법은 BeeGFS 관리 서비스용 인증서에 서명하는 CA를 생성한 다음, 해당 인증서를 클라이언트에 배포하여 신뢰 체인을 구축하는 방식입니다.
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 새 BeeGFS 8 클러스터 배포
 
 새로운 BeeGFS 8 배포의 경우 `beegfs_8` Ansible 역할(BeeGFS HA 컬렉션에 포함)은 제어 노드에 로컬 CA를 생성하고 관리 서비스에 필요한 인증서를 생성합니다. Ansible 인벤토리의 `user_defined_params.yml` 파일에서 다음 매개변수를 설정하여 이 기능을 활성화하십시오.
@@ -115,6 +124,7 @@ beegfs_ha_tls_config_options:
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 기존 BeeGFS 8 클러스터 구성
 
 기존 BeeGFS 클러스터의 경우 로컬 인증 기관을 생성하고 관리 서비스에 필요한 인증서를 생성하여 TLS를 통합할 수 있습니다. BeeGFS 관리 서비스의 구성 파일에서 경로를 업데이트하여 새로 생성된 인증서를 가리키도록 하십시오.
@@ -190,6 +200,7 @@ NOTE: 이 예시에서는 간단하게 하기 위해 1년 유효 기간을 사�
 
 
 
+[[create-management-service-certificates]]
 ==== 관리 서비스 인증서 생성
 
 BeeGFS 관리 서비스용 인증서를 생성하고 생성한 CA로 서명하십시오. 이러한 인증서는 BeeGFS 관리 서비스가 실행되는 파일 노드에 설치됩니다.
@@ -316,6 +327,7 @@ Successfully loaded license certificate: TMP-XXXXXXXXXX
 
 
 
+[[configure-tls-for-beegfs-8-clients]]
 === BeeGFS 8 클라이언트에 대한 TLS 구성
 
 [IMPORTANT]
@@ -348,12 +360,14 @@ beegfs health check
 
 
 
+[[disabling-tls]]
 == TLS 비활성화
 
 문제 해결을 위해 또는 환경에 암호화가 필요하지 않은 경우 TLS를 비활성화합니다. 파일 시스템 구조 및 구성에 대한 잠재적으로 민감한 정보가 평문으로 노출되므로 프로덕션 환경에서는 이 옵션을 사용하지 마십시오.
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 새 BeeGFS 8 클러스터 배포
 
 새로운 BeeGFS 클러스터 배포 시, Ansible 인벤토리의 `user_defined_params.yml` 파일에서 다음 매개변수를 설정하여 TLS를 비활성화하십시오.
@@ -364,6 +378,7 @@ beegfs_ha_tls_enabled: false
 ----
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 기존 BeeGFS 8 클러스터 구성
 
 기존 BeeGFS 8 클러스터의 경우 관리 서비스 구성 파일을 편집합니다. 예를 들어 `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml`에 있는 파일을 편집하고 다음과 같이 설정합니다.

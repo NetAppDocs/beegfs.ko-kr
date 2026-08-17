@@ -18,16 +18,19 @@ summary: 클러스터 노드 간에 BeeGFS 서비스 이동
 
 
 
+[[overview]]
 == 개요
 
 BeeGFS 서비스는 클러스터에서 노드 간에 페일오버를 수행하여 노드에 장애가 발생하거나 계획된 유지 관리를 수행해야 하는 경우 클라이언트가 파일 시스템에 계속 액세스할 수 있도록 합니다. 이 섹션에서는 장애를 복구한 후 관리자가 클러스터를 복구하거나 노드 간에 서비스를 수동으로 이동할 수 있는 다양한 방법에 대해 설명합니다.
 
 
 
+[[steps]]
 == 단계
 
 
 
+[[failover-and-failback]]
 === 페일오버 및 페일백
 
 
@@ -89,6 +92,7 @@ pcs resource relocate run
 ----
 
 
+[[moving-individual-beegfs-services-to-alternate-file-nodes]]
 === 개별 BeeGFS 서비스를 대체 파일 노드로 이동
 
 

@@ -18,16 +18,19 @@ summary: 선택적으로 Ansible을 사용하여 BeeGFS 클라이언트를 구�
 
 
 
+[[overview]]
 == 개요
 
 BeeGFS 파일 시스템을 액세스하려면 파일 시스템을 마운트해야 하는 각 노드에서 BeeGFS 클라이언트를 설치 및 구성해야 합니다. 이 섹션에서는 사용 가능한 를 사용하여 이러한 작업을 수행하는 방법을 설명합니다 link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["Ansible 역할"^].
 
 
 
+[[steps]]
 == 단계
 
 
 
+[[create-the-client-inventory-file]]
 === 클라이언트 인벤토리 파일을 생성합니다
 
 . 필요한 경우, Ansible 제어 노드에서 BeeGFS 클라이언트로 구성하려는 각 호스트에 대해 암호 없는 SSH를 설정합니다.
@@ -169,6 +172,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[create-the-beegfs-client-playbook-file]]
 === BeeGFS Client Playbook File을 생성합니다
 
 . 새 파일을 만듭니다 `client_playbook.yml`
@@ -227,6 +231,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[run-the-beegfs-client-playbook]]
 === BeeGFS Client Playbook을 실행합니다
 
 클라이언트를 설치/구축하고 BeeGFS를 마운트하려면 다음 명령을 실행합니다.

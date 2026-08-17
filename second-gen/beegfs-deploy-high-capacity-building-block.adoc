@@ -20,6 +20,7 @@ image:high-capacity-rack-diagram.png["대용량 랙 다이어그램"]
 
 
 
+[[controllers]]
 == 컨트롤러
 
 고용량 구성 요소의 경우 EF600 컨트롤러를 EF300 컨트롤러로 교체해야 하며, 각 컨트롤러는 SAS 확장을 위해 Cascade HIC를 설치합니다. 각 블록 노드는 스토리지 엔클로저에 BeeGFS 메타데이터 스토리지를 위한 최소한의 NVMe SSD를 포함하고 BeeGFS 스토리지 볼륨용 NL-SAS HDD로 채워진 확장 셸프에 연결됩니다.
@@ -28,6 +29,7 @@ File Node to Block 노드 구성은 동일하게 유지됩니다.
 
 
 
+[[drive-placement]]
 == 드라이브 배치
 
 BeeGFS 메타데이터 스토리지를 위해 각 블록 노드에 최소 4개의 NVMe SSD가 필요합니다. 이러한 드라이브는 인클로저의 가장 바깥쪽 슬롯에 위치해야 합니다.
@@ -36,6 +38,7 @@ image:high-capacity-drive-slots-diagram.png["고용량 드라이브 슬롯 다�
 
 
 
+[[expansion-trays]]
 == 확장 트레이
 
 스토리지 어레이당 1-7, 60 드라이브 확장 트레이를 사용하여 대용량 구성 요소를 사이징할 수 있습니다.

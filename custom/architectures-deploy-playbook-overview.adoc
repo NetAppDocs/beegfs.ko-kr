@@ -18,12 +18,14 @@ Ansible을 사용하여 BeeGFS HA 클러스터 구축 및 관리
 
 
 
+[[overview]]
 == 개요
 
 이전 섹션에서는 BeeGFS HA 클러스터를 나타내는 Ansible 재고를 구축하는 데 필요한 단계를 안내했습니다. 이 섹션에서는 클러스터를 구축 및 관리하기 위해 NetApp에서 개발한 Ansible 자동화를 소개합니다.
 
 
 
+[[ansible-key-concepts]]
 == Ansible: 주요 개념
 
 진행하기 전에 Ansible의 몇 가지 주요 개념을 숙지하는 것이 좋습니다.
@@ -53,6 +55,7 @@ Ansible을 사용하여 BeeGFS HA 클러스터 구축 및 관리
 
 
 
+[[beegfs-ha-role-for-ansible-key-concepts]]
 == Ansible용 BeeGFS HA 역할: 주요 개념
 
 NetApp에서 각 버전의 BeeGFS를 구축 및 관리하는 데 필요한 모든 자동화 기능이 Ansible 역할로 패키지되어 의 일부로 배포됩니다 link:https://galaxy.ansible.com/netapp_eseries/beegfs["BeeGFS용 NetApp E-Series Ansible 컬렉션"^]:

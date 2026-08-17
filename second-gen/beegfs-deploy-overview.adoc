@@ -18,6 +18,7 @@ NetApp 기반 BeeGFS는 NetApp의 BeeGFS 구성 요소 설계와 함께 Ansible�
 
 
 
+[[ansible-collections-and-roles]]
 == Ansible 컬렉션 및 역할
 
 NetApp 기반 BeeGFS 솔루션은 애플리케이션 배포를 자동화하는 주요 IT 자동화 엔진인 Ansible을 사용하여 배포됩니다. Ansible에서는 배포하려는 BeeGFS 파일 시스템을 모델링하는 인벤토리라고 하는 일련의 파일을 사용합니다.
@@ -31,6 +32,7 @@ NOTE: NetApp 솔루션에 BeeGFS를 구축하는 데 다양한 단계가 포함�
 
 
 
+[[configuration-profiles-for-beegfs-building-blocks]]
 == BeeGFS 구성 요소에 대한 구성 프로필입니다
 
 배포 절차는 다음과 같은 구성 프로파일을 다룹니다.
@@ -44,6 +46,7 @@ NOTE: NetApp 솔루션에 BeeGFS를 구축하는 데 다양한 단계가 포함�
 
 
 
+[[overview-of-deployment-steps]]
 == 배포 단계 개요
 
 배포에는 다음과 같은 고급 작업이 포함됩니다.

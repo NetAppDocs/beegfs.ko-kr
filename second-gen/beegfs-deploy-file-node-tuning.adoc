@@ -20,6 +20,7 @@ summary: 성능을 최대화하려면 파일 노드로 사용하는 서버 모�
 
 
 
+[[use-the-uefi-interface-to-tune-system-settings]]
 == UEFI 인터페이스를 사용하여 시스템 설정을 조정합니다
 
 Lenovo SR665 V3 서버의 시스템 펌웨어에는 UEFI 인터페이스를 통해 설정할 수 있는 다양한 튜닝 매개변수가 포함되어 있습니다. 이러한 튜닝 매개 변수는 서버의 작동 방식 및 서버 성능에 미치는 모든 측면에 영향을 줄 수 있습니다.
@@ -28,6 +29,7 @@ UEFI 설정 > 시스템 설정 * 에서 다음 시스템 설정을 조정합니�
 
 
 
+[[operating-mode-menu]]
 === 작동 모드 메뉴
 
 [cols=","]
@@ -113,6 +115,7 @@ NPS1
 |===
 
 
+[[devices-and-io-ports-menu]]
 === Device and I/O ports(장치 및 I/O 포트) 메뉴
 
 [cols=","]
@@ -128,6 +131,7 @@ IOMMU
 |===
 
 
+[[power-menu]]
 === 전원 메뉴
 
 [cols=","]
@@ -143,6 +147,7 @@ PCIe 전원 브레이크
 |===
 
 
+[[processors-menu]]
 === 프로세서 메뉴
 
 [cols=","]
@@ -179,6 +184,7 @@ CPPC
 |===
 
 
+[[use-redfish-api-to-tune-system-settings]]
 == Redfish API를 사용하여 시스템 설정을 조정합니다
 
 UEFI 설정 외에도 Redfish API를 사용하여 시스템 설정을 변경할 수 있습니다.
