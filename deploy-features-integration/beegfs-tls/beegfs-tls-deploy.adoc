@@ -10,7 +10,7 @@ summary: BeeGFS 서비스와 클라이언트 간의 안전한 통신을 위해 T
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ../../media/
+:imagesdir: ../media/
 
 
 [role="lead"]
