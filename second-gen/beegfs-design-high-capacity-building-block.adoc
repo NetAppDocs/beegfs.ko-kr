@@ -25,7 +25,7 @@ summary: 고용량 빌딩 블록을 위한 설계 변형.
 
 대용량 구성 요소 설계를 구축하는 고객은 각 노드에 대해 BeeGFS 관리, 메타데이터 및 스토리지 서비스로 구성된 기본 구성 요소 스타일 구성만 사용할 수 있습니다. 비용 효율성을 위해 대용량 스토리지 노드는 EF300 컨트롤러 엔클로저의 NVMe 드라이브에 메타데이터 볼륨을 프로비저닝하고 확장 트레이의 NL-SAS 드라이브에 스토리지 볼륨을 프로비저닝해야 합니다.
 
-image:high-capacity-rack-diagram.png[""]
+image:high-capacity-rack-diagram.png["EF300 NVMe 및 NL-SAS IOM 확장 트레이가 장착된 BeeGFS 고용량 랙을 보여주는 다이어그램"]
 
 
 

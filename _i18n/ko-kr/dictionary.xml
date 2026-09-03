@@ -798,7 +798,6 @@
   <block id="800f7da804cf784ad962d085fbc70486" category="section-title">하드웨어 및 소프트웨어 구성</block>
   <block id="90f177623f1131fc7f45e82db6189a1b" category="paragraph">고용량 구성 요소에 대한 하드웨어 및 소프트웨어 구성은 EF300 컨트롤러를 각 스토리지 어레이당 60개의 드라이브로 1~7개의 IOM 확장 트레이를 연결하는 옵션과 함께 EF300 컨트롤러로 교체해야 한다는 점을 제외하고 표준입니다. 빌딩 블록당 총 2-14개의 확장 트레이.</block>
   <block id="467fccc62f2ea7630303f15d47a54aa7" category="paragraph">대용량 구성 요소 설계를 구축하는 고객은 각 노드에 대해 BeeGFS 관리, 메타데이터 및 스토리지 서비스로 구성된 기본 구성 요소 스타일 구성만 사용할 수 있습니다. 비용 효율성을 위해 대용량 스토리지 노드는 EF300 컨트롤러 엔클로저의 NVMe 드라이브에 메타데이터 볼륨을 프로비저닝하고 확장 트레이의 NL-SAS 드라이브에 스토리지 볼륨을 프로비저닝해야 합니다.</block>
-  <block id="774f4231e5651061791e65cf90314897" category="paragraph"><block ref="774f4231e5651061791e65cf90314897" category="inline-image-macro-rx" type="image"></block></block>
   <block id="267aa4fef181a2097a06345c854cc106" category="paragraph">이 사이징 지침은 대용량 구성 요소가 기본 EF300 엔클로저의 메타데이터용 2+2 NVMe SSD 볼륨 그룹 1개와 스토리지용 IOM 확장 트레이당 8개+2 NL-SAS 볼륨 그룹 6개로 구성되어 있다고 가정합니다.</block>
   <block id="963320465e8fcfa25188a669a43858c4" category="cell">드라이브 크기(용량 HDD)</block>
   <block id="55fd8e839de07671a6869fad80279ab9" category="cell">BB당 용량(1트레이)</block>
@@ -2304,4 +2303,6 @@
   <block id="39e82490f86540625468057a5c9e178f" category="admonition">볼륨 크기는 전체 스토리지 풀(볼륨 그룹이라고도 함)의 백분율로 지정됩니다. NetApp은 SSD 오버프로비저닝을 위해 각 풀에 여유 용량을 확보해 두는 것을 강력히 권장합니다(자세한 내용은<block ref="b9c1bd6e1c1f792f57ed93348fcb8733" category="inline-link-rx"></block> 참조). 스토리지 풀<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>은 관리 서비스에 풀 용량의 1%를 할당합니다. 따라서 스토리지 풀<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>의 메타데이터 볼륨에서 1.92TB 또는 3.84TB 드라이브를 사용하는 경우 이 값을<block ref="6950471ad34ba84d94045961d34ad16b" prefix=" " category="inline-code"></block>으로 설정하고, 7.65TB 드라이브의 경우 이 값을<block ref="6d61e9b2e679326dd5a7a5a155cce414" prefix=" " category="inline-code"></block>으로 설정하고, 15.3TB 드라이브의 경우 이 값을<block ref="c350ffebb2160c4726034bf20ba7520f" prefix=" " category="inline-code"></block>으로 설정하십시오.</block>
   <block id="898b73a1917e274962eb06b63e1f1a15" category="list-text">블록 노드와 파일 노드를 <block ref="472d38a98c7fba32714d0269e6ad819a" category="inline-link-macro-rx"></block>을 사용하여 연결하여 다음 그림에 표시된 토폴로지와 일치하도록 합니다.</block>
   <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">파일 노드의 나머지 InfiniBand 포트를 InfiniBand 스토리지 스위치에 맞는 <block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>을 사용하여 스토리지 네트워크의 InfiniBand 스위치에 연결하십시오.</block>
+  <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMe 및 NL-SAS IOM 확장 트레이가 장착된 BeeGFS 고용량 랙을 보여주는 다이어그램</block>
+  <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
 </blocks>
