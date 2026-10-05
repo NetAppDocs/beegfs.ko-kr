@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: administer/clusters-ansible-pcs.html 
 keywords: BeeGFS on NetApp, HA, Cluster, Administration, pcs, Ansible 
-summary: HA 클러스터를 관리하기 위해 Ansible과 PCS 명령줄 도구를 사용해야 하는 경우는 언제입니까? 
+summary: BeeGFS HA 클러스터 관리에 Ansible 또는 pcs 명령줄 툴을 언제 사용할지 결정하십시오. 배포 및 구성 변경에는 Ansible을 사용하고, 임시 클러스터 상태 변경에는 pcs를 사용하십시오. 
 ---
 = Ansible과 PCS 도구를 사용해야 하는 경우
 :hardbreaks:

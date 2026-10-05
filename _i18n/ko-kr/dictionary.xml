@@ -2305,4 +2305,5 @@
   <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">파일 노드의 나머지 InfiniBand 포트를 InfiniBand 스토리지 스위치에 맞는 <block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>을 사용하여 스토리지 네트워크의 InfiniBand 스위치에 연결하십시오.</block>
   <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMe 및 NL-SAS IOM 확장 트레이가 장착된 BeeGFS 고용량 랙을 보여주는 다이어그램</block>
   <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HA 클러스터 관리에 Ansible 또는 pcs 명령줄 툴을 언제 사용할지 결정하십시오. 배포 및 구성 변경에는 Ansible을 사용하고, 임시 클러스터 상태 변경에는 pcs를 사용하십시오.</block>
 </blocks>
