@@ -1172,7 +1172,6 @@
   <block id="787446c6f7e5e0f4a50705b5035eba79" category="admonition">이 파일에 설정된 옵션은 혼합 하드웨어 모델을 사용 중이거나 각 노드에 대해 다른 암호를 사용하는 경우와 같이 개별 파일 노드에서도 정의할 수 있습니다. 개별 파일 노드의 구성은 이 파일의 구성보다 우선합니다.</block>
   <block id="0971602076ba9dff100f7cfc2d9e6059" category="paragraph">파일을 만듭니다<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 다음과 같이 채웁니다.</block>
   <block id="84531cf8a820148a6599e174baf94979" category="list-text">Ansible Control 노드가 원격 호스트에서 인증해야 하는 방법을 나타냅니다.</block>
-  <block id="2d33afd54604fb6475c44a1bc47fe2b1" category="admonition">특히 프로덕션 환경에서는 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 <block ref="37147a1e5d41497ae56472e8a2868a2a" category="inline-link-macro-rx"></block>) 또는 을 누릅니다<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 클릭합니다. 를 누릅니다<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 이(가) 이미 루트이므로 필요에 따라 를 생략할 수 있습니다<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>.</block>
   <block id="0a94da3169c04bc12f2c561654269433" category="list-text">이더넷 또는 InfiniBand 인터페이스(예: 클러스터 IP)에서 정적 IP를 구성하고 여러 인터페이스가 동일한 IP 서브넷에 있는 경우(예: ib0이 192.168.1.10/24를 사용하고 ib1이 192.168.1.11/24를 사용 중인 경우) 멀티홈 지원이 제대로 작동하려면 추가 IP 라우팅 테이블 및 규칙을 설정해야 합니다. 다음과 같이 제공된 네트워크 인터페이스 구성 후크를 활성화하기만 하면 됩니다.</block>
   <block id="502d35f94d5c17779c9050bbed75f65f" category="list-text">클러스터를 구축할 때 스토리지 프로토콜에 따라 노드를 재부팅하여 원격 블록 장치(E-Series 볼륨)를 쉽게 검색하거나 다른 구성 요소를 적용해야 할 수 있습니다. 기본적으로 노드를 재부팅하기 전에 프롬프트가 표시되지만 다음을 지정하여 노드를 자동으로 다시 시작할 수 있습니다.</block>
   <block id="ff31dc05d095d346c18f3e8f2d758fe0" category="list-text">재부팅 후 기본적으로 블록 장치 및 기타 서비스가 준비되도록 하려면 Ansible이 시스템이 준비될 때까지 기다립니다<block ref="dbd7cb25a43d1cd2bbc3bac871dad694" prefix=" " category="inline-code"></block> 에 도달한 후 배포를 계속합니다. NVMe/IB가 사용 중인 일부 시나리오에서는 이 시간이 부족하여 원격 장치를 초기화, 검색 및 연결할 수 없습니다. 이로 인해 자동화된 배포가 조기에 계속 진행되어 실패할 수 있습니다. NVMe/IB를 사용할 때 이를 방지하려면 다음을 정의합니다.</block>
@@ -1287,7 +1286,6 @@
   <block id="e520383c76f5e72226ebb572b987380c" category="doc">Ansible 인벤토리 개요</block>
   <block id="7a1eabc3deb7fd02ceb1e16eafc41073" category="inline-link-macro">인벤토리</block>
   <block id="283c77f47e33325beac16dfcff1fbdc4" category="inline-link-macro">하위 디렉토리/파일</block>
-  <block id="3a6e55a49a2cdf7c86076b810d565fc2" category="paragraph">을 구성하기 위한 표준 Ansible 관행을 따르는 것이 좋습니다 <block ref="6c37acba8ff27fe32f3259d928e2df83" category="inline-link-macro-rx"></block>을 참조하십시오 <block ref="0b746a370389b97701184b02d91b44b0" category="inline-link-macro-rx"></block> 전체 재고를 한 파일에 저장하는 대신</block>
   <block id="21c8e198e85188d23c3e8ec1332bc84c" category="paragraph">단일 BeeGFS HA 클러스터의 Ansible 인벤토리는 다음과 같이 구성됩니다.</block>
   <block id="8c57469570cfaa1ea4910df225230163" category="admonition">단일 BeeGFS 파일 시스템이 여러 HA 클러스터에 걸쳐 있을 수 있으므로 대규모 설치의 경우 여러 Ansible 재고가 있을 수 있습니다. 일반적으로 문제를 피하기 위해 여러 HA 클러스터를 단일 Ansible 인벤토리로 정의하지 않는 것이 좋습니다.</block>
   <block id="1b1ad4049313d49cd09961eea7b62a6f" category="list-text">Ansible 제어 노드에서 구축할 BeeGFS 클러스터의 Ansible 인벤토리가 포함된 빈 디렉토리를 생성합니다.</block>
@@ -2306,4 +2304,6 @@
   <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMe 및 NL-SAS IOM 확장 트레이가 장착된 BeeGFS 고용량 랙을 보여주는 다이어그램</block>
   <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HA 클러스터 관리에 Ansible 또는 pcs 명령줄 툴을 언제 사용할지 결정하십시오. 배포 및 구성 변경에는 Ansible을 사용하고, 임시 클러스터 상태 변경에는 pcs를 사용하십시오.</block>
+  <block id="513599b281713978d80226e0f56f9c0a" category="admonition">특히 운영 환경에서는 암호를 평문으로 저장하지 마십시오. 대신 플레이북을 실행할 때 Ansible Vault(<block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block> 참조)를 사용하거나 <block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 사용하십시오. <block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>이(가) 이미 root인 경우 선택적으로 <block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>을(를) 생략할 수 있습니다.</block>
+  <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph"><block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block>을(를) 구성할 때는 전체 인벤토리를 하나의 파일에 저장하는 대신 <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block>을(를) 사용하는 것을 포함하여 표준 Ansible 모범 사례를 따르는 것이 좋습니다.</block>
 </blocks>

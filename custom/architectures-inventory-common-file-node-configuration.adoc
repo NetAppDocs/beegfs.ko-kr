@@ -51,7 +51,7 @@ ansible_become_password: <PASSWORD>
 ----
 +
 
-WARNING: 특히 프로덕션 환경에서는 암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["Ansible Vault로 콘텐츠 암호화"^]) 또는 을 누릅니다 `--ask-become-pass` 옵션을 클릭합니다. 를 누릅니다 `ansible_ssh_user` 이(가) 이미 루트이므로 필요에 따라 를 생략할 수 있습니다 `ansible_become_password`.
+WARNING: 특히 운영 환경에서는 암호를 평문으로 저장하지 마십시오. 대신 플레이북을 실행할 때 Ansible Vault(link:https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["Ansible Vault로 콘텐츠 암호화"^] 참조)를 사용하거나  `--ask-become-pass` 옵션을 사용하십시오.  `ansible_ssh_user`이(가) 이미 root인 경우 선택적으로  `ansible_become_password`을(를) 생략할 수 있습니다.
 
 . 이더넷 또는 InfiniBand 인터페이스(예: 클러스터 IP)에서 정적 IP를 구성하고 여러 인터페이스가 동일한 IP 서브넷에 있는 경우(예: ib0이 192.168.1.10/24를 사용하고 ib1이 192.168.1.11/24를 사용 중인 경우) 멀티홈 지원이 제대로 작동하려면 추가 IP 라우팅 테이블 및 규칙을 설정해야 합니다. 다음과 같이 제공된 네트워크 인터페이스 구성 후크를 활성화하기만 하면 됩니다.
 +
