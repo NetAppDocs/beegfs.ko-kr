@@ -93,7 +93,7 @@ ansible-galaxy collection install netapp_eseries.beegfs --upgrade
 ----
 ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgrade
 ----
-을 참조하십시오 link:https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html["컬렉션 설치 중"^] 를 참조하십시오.
+자세한 내용은 link:https://docs.ansible.com/projects/ansible/latest/collections_guide/collections_installing.html["컬렉션 설치 중"^]을(를) 참조하십시오.
 
 
 

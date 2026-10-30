@@ -19,7 +19,6 @@
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">심장박동기</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible 제어 노드 요구사항</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible 설명서</block>
-  <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>.</block>
   <block id="158a122309f0454b31e4853755a5962a" category="paragraph">다음 표에 나와 있는 소프트웨어 요구사항은 아래 나열된 NetApp BeeGFS Ansible 컬렉션 버전과 관련이 있습니다.</block>
   <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">파이썬</block>
@@ -226,7 +225,6 @@
   <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">'host_vars/'에서 다음 내용으로 이름이 '&lt;HOSTNAME&gt;.yml'인 각 BeeGFS 클라이언트에 대한 파일을 만들어 사용자 환경에 맞는 올바른 정보로 자리 표시자 텍스트를 채웁니다.</block>
   <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">새 파일 'client_inventory.yml'를 만든 다음 맨 위에 다음 매개 변수를 입력합니다.</block>
   <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">Ansible Vault로 콘텐츠 암호화</block>
-  <block id="d424a4948912165baf5c9641ad4de044" category="admonition">암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(의 Ansible 설명서 참조)<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>) 또는 플레이북이 실행될 때 '--Ask-when-pass' 옵션을 사용합니다.</block>
   <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">'client_inventory.yml' 파일에서 Beegfs_clients' 그룹 아래에 BeeGFS 클라이언트로 구성해야 하는 모든 호스트를 나열한 다음 BeeGFS 클라이언트 커널 모듈을 구축하는 데 필요한 추가 구성을 지정합니다.</block>
   <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMA 지원</block>
   <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">client_inventory.yml 파일에 미리 정의된 VAR의 하단에 마운트할 BeeGFS 파일 시스템을 나열합니다.</block>
@@ -659,7 +657,6 @@
   <block id="a79b02f70003beee254343e4cae10ad4" category="section-title">3단계: 모든 파일 및 블록 노드에 적용되어야 하는 설정을 정의합니다</block>
   <block id="7a7623c76e8a35ad9b47b72876017ffc" category="paragraph">그룹에 해당하는 파일 이름으로 group_vars 아래에 있는 호스트 그룹에 공통된 구성을 정의할 수 있습니다. 이렇게 하면 여러 위치에서 공유 구성이 반복되지 않습니다.</block>
   <block id="b8250a298e8217ebff19d4f7c62cf654" category="inline-link">변수 사용</block>
-  <block id="45c67f165a1990ff04bfa4ffd3ad1908" category="paragraph">호스트는 둘 이상의 그룹에 있을 수 있으며 런타임 시 Ansible은 변수 우선 순위 규칙에 따라 특정 호스트에 적용되는 변수를 선택합니다. (이 규칙에 대한 자세한 내용은 용 Ansible 설명서를 참조하십시오<block ref="e846c866a706aed07204d4b81c43f562" category="inline-link-rx"></block>참조)</block>
   <block id="30670ef79ffcebf619cb84794bb9f467" category="paragraph">호스트 대 그룹 지정은 이 절차의 마지막을 위해 생성되는 실제 Ansible 인벤토리 파일에 정의됩니다.</block>
   <block id="13fe78da26730165534ca728d16729df" category="paragraph">Ansible에서는 모든 호스트에 적용할 구성을 '모두'라는 그룹으로 정의할 수 있습니다. 다음 내용으로 group_vars/all.yml 파일을 만듭니다.</block>
   <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">4단계: 모든 파일 노드에 적용할 구성을 정의합니다</block>
@@ -1076,7 +1073,6 @@
   <block id="2f4c1ac28e39c823ee4c1a07b7cd93aa" category="paragraph">에 액세스하여 컬렉션 업그레이드용 <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block>에서 다음 명령을 실행합니다.</block>
   <block id="c199206a11a9882502e88de065338656" category="paragraph">오프라인 컬렉션 업그레이드의 경우 에서 컬렉션을 다운로드하십시오 <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block> 원하는 을 클릭합니다<block ref="5ab34c986ae1945ee0c548bc8d6ac4a8" prefix=" " category="inline-code"></block> 그리고 나서<block ref="80af28150f2ffd9a902b18cd4e9b6656" prefix=" " category="inline-code"></block>. 타볼을 Ansible 제어 노드로 전송하고 다음 명령을 실행합니다.</block>
   <block id="dd26fb41f43f69172e0099b87c9d0732" category="inline-link-macro">컬렉션 설치 중</block>
-  <block id="6aa260cc14fabe54e7e9f6efd513b871" category="paragraph">을 참조하십시오 <block ref="78e19afa50f5104f13264e857fffab2b" category="inline-link-macro-rx"></block> 를 참조하십시오.</block>
   <block id="800371603b58ee549a4a9674cd231cfd" category="inline-link-macro">BeeGFS HA 클러스터를 구축합니다</block>
   <block id="5c349c42761230bd8e50fff98f6e7508" category="paragraph">BeeGFS 업데이트 적용하기:</block>
   <block id="a2dd7653f3025e7feb8e282bcc0bde84" category="paragraph">BeeGFS HA 역할에서 다루는 비하인드 스토리:</block>
@@ -1344,7 +1340,6 @@
   <block id="9cdd817721bc924d0da9d43995b6cf7d" category="doc">Ansible Control Node 설정</block>
   <block id="31996051b4f5b99834fd90885ae099c1" category="paragraph">Ansible 제어 노드는 클러스터를 관리하는 데 사용되는 물리적 또는 가상 Linux 시스템입니다. 다음 요구 사항을 충족해야 합니다.</block>
   <block id="b4851e92b19af0c5c82447fc0937709d" category="inline-link-macro">요구 사항</block>
-  <block id="5f4740da5b8ab13112ebf332f879cc6e" category="list-text">공무원도 만나세요 <block ref="37e11d19f014e84f10fff4770a09b235" category="inline-link-macro-rx"></block> 운영 체제 버전을 포함합니다.</block>
   <block id="2bce5080fcc3d6b8a54a49745dd28d52" category="list-text">모든 파일 및 블록 노드에 대한 SSH 및 HTTPS 액세스 권한 보유</block>
   <block id="9635e0061cd355a35e70799e909727af" category="summary">Ansible을 실행하기 전에 파일 및 블록 노드를 설정하는 데 필요한 수동 단계</block>
   <block id="f5878e619c266b2ac6254dd1e4d95bfb" category="doc">파일 및 블록 노드 설정</block>
@@ -1372,7 +1367,6 @@
   <block id="7dc2ac40c1549980b4ac09d940856f47" category="list-text">아래에서<block ref="4d729f58293c8a48f1f8d918cdd1d28f" prefix=" " category="inline-code"></block>에서 각 BeeGFS 클라이언트에 대한 파일을 생성합니다<block ref="a0253f5b8f5dd7be8b02cda13da40729" prefix=" " category="inline-code"></block> 다음 콘텐츠를 사용하여 환경에 맞는 올바른 정보로 자리 표시자 텍스트를 입력합니다.</block>
   <block id="689b0940ce8c21b1ecd3dafd9cc19d56" category="list-text">선택적으로 NetApp E-Series 호스트 컬렉션의 역할을 사용하여 클라이언트가 BeeGFS 파일 노드에 연결할 수 있도록 InfiniBand 또는 이더넷 인터페이스를 구성하려면 다음 중 하나를 포함합니다.</block>
   <block id="825f3be2c17c36c0e4901143db982773" category="list-text">새 파일을 만듭니다<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 그리고 Ansible이 각 클라이언트에 연결하는 데 사용해야 하는 사용자 지정과 Ansible이 권한 에스컬레이션을 위해 사용해야 하는 암호(이 경우 필요)를 지정합니다<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 루트 또는 sudo 권한 보유):</block>
-  <block id="c5a4ae1aa23001e8780b413f175b50b3" category="admonition">암호를 일반 텍스트로 저장하지 마십시오. 대신 Ansible Vault를 사용하십시오(참조 <block ref="f2e33a881c3eb75b68333af99119c0b8" category="inline-link-macro-rx"></block> Ansible Vault로 콘텐츠 암호화)를 사용하거나 을 사용합니다<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 클릭합니다.</block>
   <block id="848f64fc57104cb2b416f6102d34e699" category="list-text">에 있습니다<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> File(파일): 에 BeeGFS 클라이언트로 구성해야 하는 모든 호스트를 나열합니다<block ref="fc2e11772a55c48ed2b4ec7bc5d94664" prefix=" " category="inline-code"></block> 그룹화한 다음 인라인 주석을 참조하여 시스템에서 BeeGFS 클라이언트 커널 모듈을 구축하는 데 필요한 추가 구성을 제거합니다.</block>
   <block id="c378775497a55638adcb42719d8daddb" category="list-text">에 있습니다<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 파일, 이전에 정의한 모든 파일 아래에 마운트할 BeeGFS 파일 시스템을 나열합니다<block ref="b63119da730344b345cdc8f62a4711e9" prefix=" " category="inline-code"></block>:</block>
   <block id="508ccac845ca75d6cdda20dfa455a2bd" category="inline-link-macro">공통 파일 노드 구성</block>
@@ -1396,7 +1390,6 @@
   <block id="b3254ab5c14c4bb06dbb987f8ee20900" category="section-title">Ansible 플레이북을 작성합니다</block>
   <block id="dc1e1a7b77e4fce07756f071e5ec7d8b" category="paragraph">파일을 만듭니다<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> 다음과 같이 채웁니다.</block>
   <block id="a3b34c0871dc2fd51eec5559b68f709d" category="inline-link-macro">재생</block>
-  <block id="3b4e65c5ca327e9a010b0e69fb90e476" category="list-text">먼저 작업 집합(일반적으로 라고 함)을 정의합니다 <block ref="6d76655a02e5cb4ca885a92d78a5ab31" category="inline-link-macro-rx"></block>) NetApp E-Series 블록 노드에서만 실행되어야 합니다. 일시 중지 작업을 사용하여 설치를 실행하기 전에 메시지를 표시한 다음(우발적인 플레이북 실행을 피하기 위해) 을(를) 가져옵니다<block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block> 역할. 이 역할은 에 정의된 모든 일반 시스템 구성을 적용하는 작업을 처리합니다<block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block> 있습니다<block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block> 파일.</block>
   <block id="19c06a0dc65b61c783f73d77e193957e" category="list-text">모든 파일 및 블록 노드에 대해 실행할 플레이를 정의합니다.</block>
   <block id="25296aae8975fe74b18a42af79a293d3" category="list-text">이 플레이에서는 HA 클러스터를 구축하기 전에 실행해야 하는 "사전 작업" 세트를 선택적으로 정의할 수 있습니다. Python과 같은 필수 구성 요소를 확인/설치하는 데 유용할 수 있습니다. 제공된 Ansible 태그가 지원되는지 확인하는 등 비행 전 점검을 삽입할 수도 있습니다.</block>
   <block id="adcd434b091e5725531891ba91d50193" category="list-text">마지막으로, 이 플레이는 구축할 BeeGFS 버전에 대한 BeeGFS HA 역할을 가져옵니다.</block>
@@ -1717,7 +1710,6 @@
   <block id="5c4a48e1bba2d7e97a5afb3329da8750" category="paragraph"><block ref="5c4a48e1bba2d7e97a5afb3329da8750" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ab0440e4421843b823481ec8c40114fa" category="inline-image-macro">고용량 드라이브 슬롯 다이어그램</block>
   <block id="d471943365921fcc3ec56d2cb62b204d" category="paragraph"><block ref="d471943365921fcc3ec56d2cb62b204d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ce0bc242efa1f7752857cac8fae4d239" category="admonition">대규모 배포의 경우<block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block> 매개 변수를 사용하여 기본 포크 수(5)를 재정의하면 Ansible이 병렬로 구성하는 호스트 수를 늘리는 것이 좋습니다. (자세한 내용은 을 참조하십시오<block ref="2f92d47aead0a3ef15304d32faf6a032" category="inline-link-rx"></block>.) 최대값 설정은 Ansible 제어 노드에서 사용할 수 있는 처리 능력에 따라 다릅니다. 위의 20개 예는 CPU 4개(인텔(R) 제온(R) 골드 6146 CPU @ 3.20GHz)가 장착된 가상 Ansible 컨트롤 노드에서 실행되었습니다.</block>
   <block id="e5e317ea18fb59bd91370981078a2eb6" category="inline-image-macro">NUMA 구성</block>
   <block id="b69049bad10aec8bac8579c94488a401" category="paragraph"><block ref="b69049bad10aec8bac8579c94488a401" category="inline-image-macro-rx" type="image"></block></block>
   <block id="12316ea7d4573c51756ec0fb8fe2d354" category="inline-image-macro">네트워크 케이블 연결</block>
@@ -1750,7 +1742,6 @@
   <block id="362973e7a4fa534a7db69e8dfa0877a8" category="inline-image-macro">두 개의 BeeGFS 메타데이터 및 스토리지 구성 요소 MDTest 결과</block>
   <block id="070cfbe37786e49518755132f73ded2c" category="paragraph"><block ref="070cfbe37786e49518755132f73ded2c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">HA 클러스터 구성 요소를 업데이트합니다</block>
-  <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">클러스터 암호에 대한 하위 디렉토리를 생성하고 Ansible Vault로 암호화하여 파일을 보호합니다(참조<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>).</block>
   <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">하위 디렉터리를<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>만듭니다.</block>
   <block id="166355001b2692bdc29d698719b5f702" category="list-text"><block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>디렉토리에서 레이블이 지정된 암호 파일을<block ref="97a67fc90fe6d13cef22fa951de48f8d" prefix=" " category="inline-code"></block> 만듭니다.</block>
   <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">구성에 따라 모든 사용자 이름 및 암호 매개 변수를 대체하여 를 다음과 같이 입력합니다<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>.</block>
@@ -2306,4 +2297,13 @@
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HA 클러스터 관리에 Ansible 또는 pcs 명령줄 툴을 언제 사용할지 결정하십시오. 배포 및 구성 변경에는 Ansible을 사용하고, 임시 클러스터 상태 변경에는 pcs를 사용하십시오.</block>
   <block id="513599b281713978d80226e0f56f9c0a" category="admonition">특히 운영 환경에서는 암호를 평문으로 저장하지 마십시오. 대신 플레이북을 실행할 때 Ansible Vault(<block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block> 참조)를 사용하거나 <block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 사용하십시오. <block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>이(가) 이미 root인 경우 선택적으로 <block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>을(를) 생략할 수 있습니다.</block>
   <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph"><block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block>을(를) 구성할 때는 전체 인벤토리를 하나의 파일에 저장하는 대신 <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block>을(를) 사용하는 것을 포함하여 표준 Ansible 모범 사례를 따르는 것이 좋습니다.</block>
+  <block id="1b00c0fbcc4d60bbd7277cb567c38211" category="paragraph">자세한 내용은 <block ref="924b11a36475c19725c786c8477e299b" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="d5049f679adf9836616b60ab4f80bae4" category="admonition">암호를 평문으로 저장하지 마십시오. 대신 Ansible Vault를 사용하거나(Ansible Vault를 사용한 콘텐츠 암호화에 대해서는 <block ref="1b8edc2af96e25dedd2250ab0fa0090f" category="inline-link-macro-rx"></block> 참조) 플레이북을 실행할 때 <block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 사용하십시오.</block>
+  <block id="8f575bb30a5d00fe8cc4ee3594b86ba3" category="list-text">먼저 NetApp E-Series 블록 노드에서만 실행되어야 하는 일련의 작업(일반적으로 <block ref="397c231d3a1481778f25f9061221a83c" category="inline-link-macro-rx"></block>(이)라고 함)을 정의합니다. 설치를 실행하기 전에 일시 중지 작업을 사용하여 프롬프트를 표시한 다음(실수로 플레이북이 실행되는 것을 방지하기 위해) <block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block> 역할을 가져옵니다. 이 역할은 <block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block> 또는 개별 <block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block> 파일에 정의된 일반 시스템 구성을 적용하는 작업을 처리합니다.</block>
+  <block id="387375536e1e4239d68130ba9d73f7f6" category="list-text">운영 체제 버전을 포함한 공식 <block ref="9b2905d42e7e02207acde545f003b480" category="inline-link-macro-rx"></block>을(를) 충족하십시오.</block>
+  <block id="9e93562436f5a02313017413b2d11ce1" category="admonition">암호를 평문으로 저장하지 마십시오. 대신 Ansible Vault(<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block>에 대한 Ansible 설명서 참조)를 사용하거나 플레이북 실행 시 <block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 옵션을 사용하십시오.</block>
+  <block id="ccb63594495dd5c0b63845b21d9de08e" category="list-text">클러스터 암호를 위한 하위 디렉터리를 생성하고 Ansible Vault로 파일을 암호화하여 보호하십시오(<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block> 참조):</block>
+  <block id="2d2984c644cf99907ef9c12557e5c3d8" category="paragraph">호스트는 둘 이상의 그룹에 속할 수 있으며, 런타임 시 Ansible은 변수 우선순위 규칙에 따라 특정 호스트에 적용할 변수를 선택합니다. (이러한 규칙에 대한 자세한 내용은 <block ref="2689963a2e7b1a28872abc6ea1f21787" category="inline-link-rx"></block>에 대한 Ansible 설명서를 참조하십시오.)</block>
+  <block id="bdb603eaf4ab7723ea729f70e1c9a54b" category="admonition">특히 대규모 배포의 경우 Ansible이 병렬로 구성하는 호스트 수를 늘리기 위해 <block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block> 매개변수를 사용하여 기본 포크 수(5)를 재정의하는 것이 좋습니다. (자세한 내용은 <block ref="41c12765893df9e89a007e9df409a6e4" category="inline-link-rx"></block>을(를) 참조하십시오.) 최대값 설정은 Ansible 제어 노드에서 사용 가능한 처리 능력에 따라 달라집니다. 위의 20에 대한 예는 4개의 CPU(Intel(R) Xeon(R) Gold 6146 CPU @ 3.20GHz)가 있는 가상 Ansible 제어 노드에서 실행되었습니다.</block>
+  <block id="03bb7ed204775d08d0779d6d41a8790a" category="paragraph">NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 배포 및 관리됩니다. 자세한 내용은 <block ref="e078c558327cf2fc56228fd779b44a15" category="inline-link-rx"></block> 참조하십시오.</block>
 </blocks>

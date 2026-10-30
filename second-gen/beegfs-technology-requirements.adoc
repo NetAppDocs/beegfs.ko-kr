@@ -191,7 +191,7 @@ NVIDIA QM9700 Quantum 2 스위치에는 다음과 같은 케이블 유형을 권
 [[ansible-control-node-requirements]]
 === Ansible 제어 노드 요구사항
 
-NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 구축 및 관리됩니다. 자세한 내용은 를 참조하십시오 https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansible 설명서"^].
+NetApp 기반 BeeGFS 솔루션은 Ansible 제어 노드에서 배포 및 관리됩니다. 자세한 내용은  https://docs.ansible.com/projects/ansible/latest/network/getting_started/basic_concepts.html["Ansible 설명서"^] 참조하십시오.
 
 다음 표에 나와 있는 소프트웨어 요구사항은 아래 나열된 NetApp BeeGFS Ansible 컬렉션 버전과 관련이 있습니다.
 
